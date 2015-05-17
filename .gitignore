@@ -1,6 +1,5 @@
-# This file is used to ignore files which are generated
-# ----------------------------------------------------------------------------
-
+main.cpp
+pr-c.pro
 *~
 *.autosave
 *.a
@@ -64,10 +63,9 @@ Thumbs.db
 
 # Python byte code
 *.pyc
+*.pro
 
 # Binaries
 # --------
 *.dll
 *.exe
-
-

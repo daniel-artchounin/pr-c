@@ -32,6 +32,7 @@ public:
     const Horaire& getHoraireDebut() const {
         return horaireDebut;
     }
+    virtual ~ObjetAvecDebut();
 };
 
 #endif // OBJETAVECDEBUT_H
