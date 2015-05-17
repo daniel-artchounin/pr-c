@@ -1,5 +1,3 @@
-main.cpp
-pr-c.pro
 *~
 *.autosave
 *.a
@@ -35,6 +33,8 @@ Thumbs.db
 
 # qtcreator generated files
 *.pro.user*
+main.cpp
+pr-c.pro
 
 # xemacs temporary files
 *.flc
