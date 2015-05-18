@@ -66,6 +66,10 @@ public:
      * \return duree au format hhHmm
      */
     QString toQString() const;
+
+    bool estPlusPetitQue(const Duree&b)const{
+        return this->nb_minutes < b.nb_minutes;
+    }
 };
 
 /*!
@@ -86,5 +90,35 @@ std::ostream& operator<<(std::ostream& f, const Duree & d);
  */
 std::istream& operator>>(std::istream& flot, Duree& duree); //lecture format
 
+/*!
+ * \brief operator <
+ * \param a duree
+ * \param b duree
+ * \return booleen
+ */
+bool operator<(const Duree& a, const Duree&b);
+
+/*!
+ * \brief operator >
+ * \param a duree
+ * \param b duree
+ * \return booleen
+ */
+bool operator>(const Duree& a, const Duree&b);
+
+/*!
+ * \brief operator <=
+ * \param a duree
+ * \param b duree
+ * \return booleen
+ */
+bool operator<=(const Duree& a, const Duree&b);
+/*!
+ * \brief operator >=
+ * \param a duree
+ * \param b duree
+ * \return booléen
+ */
+bool operator>=(const Duree& a, const Duree&b);
 
 #endif // DUREE_H

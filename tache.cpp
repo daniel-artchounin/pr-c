@@ -1,4 +1,5 @@
 #include "tache.h"
+# include "tacheexception.h"
 
 Tache::Tache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
       const Horaire& heureEcheance,const std::string & titre):
@@ -14,6 +15,9 @@ int Tache::getNbTachesPrecedentes() const{
     return nbTachesPrecedentes;
 }
 
+int Tache::getNbTachesPrecedentesMax() const{
+    return nbTachesPrecedentesMax;
+}
 
 bool Tache::finTachesPrecedentes() const{
     for(unsigned int i = 0; i < nbTachesPrecedentes; i++ ){
@@ -25,15 +29,28 @@ bool Tache::finTachesPrecedentes() const{
 }
 
 bool Tache::isTachePrecedente(const Tache& tachePotentPrecedente) const{
-    for(unsigned int i = 0; i < nbTachesPrecedentes; i++ ){
-        if(tachesPrecedentes[i]== &tachePotentPrecedente){
-            return true;
+    Tache* tachePrecedente = trouverTachePrecedente(tachePotentPrecedente);
+    if (tachePrecedente == 0){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+Tache* Tache::trouverTachePrecedente(const Tache& tachePotentPrecedente)const{
+    for (unsigned int i = 0 ; i< nbTachesPrecedentes; i++){
+        if(tachesPrecedentes[i]==&tachePotentPrecedente){
+            return tachesPrecedentes[i];
         }
     }
-    return false;
+    return 0;
 }
 
 void Tache::ajouterTachePrecedente(Tache & tachePrecedente){
+    if(tachePrecedente.trouverTachePrecedente(*this)){
+        throw TacheException("Erreur : la tâche envoyée en paramètre a pour tâche precedente la tâche courante");
+    }
     if (nbTachesPrecedentes==nbTachesPrecedentesMax){
         Tache** newtab=new Tache*[nbTachesPrecedentesMax+10];
         for(unsigned int i=0; i<nbTachesPrecedentes; i++)

@@ -32,3 +32,20 @@ std::istream& operator>>(std::istream& flot, Duree& duree) {
     else flot.clear(std::ios::failbit);
     return flot;
 }
+
+bool operator<(const Duree& a, const Duree&b){
+    return a.estPlusPetitQue(b);
+}
+
+bool operator>(const Duree& a, const Duree&b){
+    return b.estPlusPetitQue(a);
+}
+
+bool operator<=(const Duree& a, const Duree&b){
+    return !b.estPlusPetitQue(a);
+}
+
+bool operator>=(const Duree& a, const Duree&b){
+    return !a.estPlusPetitQue(b);
+}
+

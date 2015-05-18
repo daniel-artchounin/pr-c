@@ -86,6 +86,16 @@ void TacheComposite::supprimerSsTache(const std::string& titre){
     delete t;
     nbSsTaches--;
 }
+
+bool TacheComposite::isTermine()const{
+    for (unsigned int i = 0 ; i< nbSsTaches; i++){
+        if(!ssTaches[i]->isTermine()){
+            return false;
+        }
+    }
+    return true;
+}
+
 TacheComposite::~TacheComposite(){
     for(unsigned int i = 0 ; i < nbSsTaches ; i++){
         delete ssTaches[i];

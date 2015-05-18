@@ -4,7 +4,7 @@
 
 /*!
  * \class TacheCompositeException
- * Permet de générer des exception pour les TacheComposite
+ * Permet de générer des exceptions pour les TacheComposite
  * Hérite de la classe Exception
  */
 class TacheCompositeException : public std::logic_error {
