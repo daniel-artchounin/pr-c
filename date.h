@@ -76,6 +76,24 @@ public:
      */
     bool operator<(const Date& d) const;
     /*!
+     * \brief operator >
+     * \param d Date
+     * \return true si Date succède d dans le temps
+     */
+    bool operator>(const Date& d) const;
+    /*!
+     * \brief operator <=
+     * \param d Date
+     * \return true si Date inférieur ou égal à d dans le temps
+     */
+    bool operator<=(const Date& d) const ;
+    /*!
+     * \brief operator >=
+     * \param d Date
+     * \return true si Date supérieur ou égal à d dans le temps
+     */
+    bool operator>=(const Date& d) const;
+    /*!
      * \brief operator -
      * \param d
      * \return nombre de jours séparant les deux dates

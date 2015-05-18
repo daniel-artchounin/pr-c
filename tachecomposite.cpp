@@ -27,7 +27,7 @@ int TacheComposite::getnbSsTaches(){
 int TacheComposite::getnbSsTachesMax(){
     return nbSsTachesMax;
 }
-Tache* TacheComposite::trouverSsTache(const std::string& nomTache){
+Tache* TacheComposite::trouverSsTache(const std::string& nomTache)const{
     for (unsigned int i = 0 ; i< nbSsTaches; i++){
         if(ssTaches[i]->getTitre()==nomTache){
             return ssTaches[i];
@@ -35,7 +35,7 @@ Tache* TacheComposite::trouverSsTache(const std::string& nomTache){
     }
     return 0;
 }
-int TacheComposite::trouverIndiceSsTache(const std::string& nomTache){
+int TacheComposite::trouverIndiceSsTache(const std::string& nomTache)const{
     for (unsigned int i = 0 ; i< nbSsTaches; i++){
         if(ssTaches[i]->getTitre()==nomTache){
             return i;

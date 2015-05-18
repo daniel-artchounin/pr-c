@@ -10,6 +10,18 @@ bool Horaire::operator<(const Horaire& h) const {
     return true;
 }
 
+bool Horaire::operator>(const Horaire& h) const {
+    return h<*this;
+}
+
+bool Horaire::operator<=(const Horaire& h) const {
+    return !(h<*this);
+}
+
+bool Horaire::operator>=(const Horaire& h) const {
+    return !(*this < h);
+}
+
 QString Horaire::toQString() const {
     std::stringstream ss;
     ss<<*this;

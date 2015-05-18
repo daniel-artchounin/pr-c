@@ -9,6 +9,7 @@
 
 class TacheSimplePreemptive : public TacheSimple
 {
+protected:
     unsigned int pourcentageComplete;
 
 public:

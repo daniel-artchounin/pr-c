@@ -63,6 +63,24 @@ public:
      */
     bool operator<(const Horaire& h) const;
     /*!
+     * \brief operator >
+     * \param h Horaire
+     * \return true si Horaire succède h dans le temps
+     */
+    bool operator>(const Horaire& h) const;
+    /*!
+     * \brief operator <=
+     * \param h Horaire
+     * \return true si Horaire inférieur ou égal à h dans le temps
+     */
+    bool operator<=(const Horaire& h) const;
+    /*!
+     * \brief operator >=
+     * \param h Horaire
+     * \return true si Horaire supérieur ou égal à h dans le temps
+     */
+    bool operator>=(const Horaire& h) const;
+    /*!
      * \brief Horaire::toQString
      * \return horaire au format hhHmm
      */

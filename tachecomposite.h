@@ -4,6 +4,7 @@
 # include "tachecompositeexception.h"
 # include "tachesimplenonpreemptive.h"
 # include "tachesimplepreemptive.h"
+# include <string>
 
 /**\class TacheComposite
  * \brief Classe permettant de manipuler des tâches composites
@@ -12,6 +13,7 @@
 
 class TacheComposite : public Tache
 {
+protected:
     Tache** ssTaches;
     unsigned int nbSsTaches;
     unsigned int nbSsTachesMax;
@@ -44,7 +46,7 @@ public:
      */
     int getnbSsTaches();
     /**
-     * \brief getnbSsTaches accesseur
+     * \brief getnbSsTachesMax accesseur
      * \return retourne la taille du tableau de pointeurs ssTaches
      */
     int getnbSsTachesMax();
@@ -55,7 +57,7 @@ public:
      * \return retourne un pointeur vers la tâche trouvée ou 0
      * sinon
      */
-    Tache* trouverSsTache(const std::string& nomTache);
+    Tache* trouverSsTache(const std::string& nomTache)const;
     /**
      * \brief trouverIndiceSsTache
      * permet de trouver l'indice d'une sous tâche de la tâche courante
@@ -64,7 +66,7 @@ public:
      * \return retourne l'indice de la sous-tâche ou
      * 0 sinon
      */
-    int trouverIndiceSsTache(const std::string& nomTache);
+    int trouverIndiceSsTache(const std::string& nomTache)const;
     /**
      * \brief ajouterSsTache
      * permet de créer et d'ajouter une sous-tâche à la tache actuelle
@@ -109,7 +111,7 @@ public:
      */
     bool isTermine()const;
     /**
-     * \brief TacheComposite destructeur
+     * \brief ~TacheComposite destructeur
      * supprime toutes les sous tâches de la tâche actuelle
      */
     ~TacheComposite();

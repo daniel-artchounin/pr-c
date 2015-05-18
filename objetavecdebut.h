@@ -8,7 +8,7 @@
    */
 class ObjetAvecDebut
 {
-private:
+protected:
     Date dateDebut; /*!< date de début */
     Horaire horaireDebut; /*!< horaire de début */
 public:

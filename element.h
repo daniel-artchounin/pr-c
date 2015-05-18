@@ -11,6 +11,7 @@
    */
 class Element : public ObjetAvecDebut
 {
+protected:
     std::string titre; /*!< titre de l'élément */
     Date dateFin; /*!< date de fin de l'élément */
     Horaire horaireFin; /*!< horaire de fin de l'élément */

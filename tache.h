@@ -11,7 +11,7 @@
  */
 
 class Tache : public Element {
-    private:
+    protected:
         Tache ** tachesPrecedentes;
         unsigned int nbTachesPrecedentes;
         unsigned int nbTachesPrecedentesMax;
