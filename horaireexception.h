@@ -5,7 +5,7 @@
 /*!
  * \class HoraireException
  * Permet de générer des exception pour les Horaires
- * Hérite de la classe Exception
+ * Hérite de la classe Logic_error
  */
 class HoraireException : public std::logic_error {
 public:

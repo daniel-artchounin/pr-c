@@ -5,7 +5,7 @@
 /*!
  * \class ProjetException
  * Permet de générer des exceptions pour les Projet
- * Hérite de la classe Exception
+ * Hérite de la classe Logic_error
  */
 class ProjetException : public std::logic_error {
 public:

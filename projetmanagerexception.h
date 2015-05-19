@@ -5,7 +5,7 @@
 /*!
  * \class ProjetManagerException
  * Permet de générer des exception pour les ProjetManagers
- * Hérite de la classe Exception
+ * Hérite de la classe Logic_error
  */
 class ProjetManagerException : public std::logic_error {
 public:

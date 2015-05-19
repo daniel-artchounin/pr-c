@@ -5,7 +5,7 @@
 /*!
  * \class TacheSimpleNonPreemptiveException
  * Permet de générer des exceptions pour les TacheSimpleNonPreemptive
- * Hérite de la classe Exception
+ * Hérite de la classe Logic_error
  */
 class TacheSimpleNonPreemptiveException : public std::logic_error {
 public:

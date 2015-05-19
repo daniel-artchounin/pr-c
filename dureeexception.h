@@ -5,7 +5,7 @@
 /*!
  * \class DureeException
  * Permet de générer des exception pour les dates
- * Hérite de la classe Exception
+ * Hérite de la classe Logic_error
  */
 class DureeException : public std::logic_error{
 public:
