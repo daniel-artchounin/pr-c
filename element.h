@@ -7,7 +7,7 @@
 
 /*! \class Element
    * \brief Classe possédant une date et un horaire de fin ainsi qu'un titre
-   * Hérite de la classe ObjetAvecDebut afin de gérer une date et horaire de début.
+   * Classe abstraite. Hérite de la classe ObjetAvecDebut afin de manipuler une date et horaire de début.
    */
 class Element : public ObjetAvecDebut
 {
@@ -25,6 +25,11 @@ public:
      * \param hf horaire de fin
      */
     Element(const Date& dd, const Horaire& hd, const std::string& t, const Date& df, const Horaire& hf):ObjetAvecDebut(dd, hd), titre(t), dateFin(df), horaireFin(hf) {}
+    /*!
+     * \brief Desctructeur
+     * Destructeur virtual pure.
+     */
+    virtual ~Element()=0;
     /*!
      * \brief getTitre
      * \return titre de l'élément

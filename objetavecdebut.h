@@ -4,7 +4,7 @@
 #include "horaire.h"
 
 /*! \class ObjetAvecDebut
-   * \brief Classe possédant une date et un horaire de début
+   * \brief Classe abstraite possédant une date et un horaire de début
    */
 class ObjetAvecDebut
 {
@@ -19,6 +19,11 @@ public:
      */
     ObjetAvecDebut(const Date& d, const Horaire& h):dateDebut(d),horaireDebut(h) {}
     /*!
+     * \brief Desctructeur
+     * Destructeur virtual pure.
+     */
+    virtual ~ObjetAvecDebut()=0;
+    /*!
      * \brief getDateDebut
      * \return date de début
      */
@@ -32,7 +37,6 @@ public:
     const Horaire& getHoraireDebut() const {
         return horaireDebut;
     }
-    virtual ~ObjetAvecDebut();
 };
 
 #endif // OBJETAVECDEBUT_H
