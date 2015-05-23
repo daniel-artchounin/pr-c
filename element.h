@@ -5,8 +5,7 @@
 #include "horaire.h"
 
 /*! \class Element
-   * \brief Classe possédant une date et un horaire de fin ainsi qu'un titre
-   * Classe abstraite. Hérite de la classe ObjetAvecDebut afin de manipuler une date et horaire de début.
+   * \brief Classe possédant un titre ainsi que des dates et horaires de début et de fin.
    */
 class Element {
 protected:
@@ -24,7 +23,7 @@ public:
      * \param dateF date de fin
      * \param horaireF horaire de fin
      */
-    Element(const std::string& t, const Date& dateD, const Horaire& horaireD, const Date& dateF, const Horaire& horaireF): titre(t), dateDebut(dateD), horaireDebut(horaireD), dateFin(dateF), horaireFin(horaireF) {}
+    Element(const std::string t, const Date dateD, const Horaire horaireD, const Date dateF, const Horaire horaireF): titre(t), dateDebut(dateD), horaireDebut(horaireD), dateFin(dateF), horaireFin(horaireF) {}
     /*!
      * \brief Desctructeur
      * Destructeur virtual pure.
