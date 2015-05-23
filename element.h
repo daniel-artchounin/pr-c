@@ -1,7 +1,6 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
 #include <string>
-#include "objetavecdebut.h"
 #include "date.h"
 #include "horaire.h"
 
@@ -9,22 +8,23 @@
    * \brief Classe possédant une date et un horaire de fin ainsi qu'un titre
    * Classe abstraite. Hérite de la classe ObjetAvecDebut afin de manipuler une date et horaire de début.
    */
-class Element : public ObjetAvecDebut
-{
+class Element {
 protected:
     std::string titre; /*!< titre de l'élément */
-    Date dateFin; /*!< date de fin de l'élément */
-    Horaire horaireFin; /*!< horaire de fin de l'élément */
+    Date dateDebut; /*!< date de début */
+    Horaire horaireDebut; /*!< horaire de début */
+    Date dateFin; /*!< date de fin */
+    Horaire horaireFin; /*!< horaire de fin */
 public:
     /*!
      * \brief Constructeur
-     * \param dd date de début
-     * \param hd horaire de début
      * \param t titre
-     * \param df date de fin
-     * \param hf horaire de fin
+     * \param dateD date de début
+     * \param horaireD horaire de début
+     * \param dateF date de fin
+     * \param horaireF horaire de fin
      */
-    Element(const Date& dd, const Horaire& hd, const std::string& t, const Date& df, const Horaire& hf):ObjetAvecDebut(dd, hd), titre(t), dateFin(df), horaireFin(hf) {}
+    Element(const std::string& t, const Date& dateD, const Horaire& horaireD, const Date& dateF, const Horaire& horaireF): titre(t), dateDebut(dateD), horaireDebut(horaireD), dateFin(dateF), horaireFin(horaireF) {}
     /*!
      * \brief Desctructeur
      * Destructeur virtual pure.
@@ -36,6 +36,20 @@ public:
      */
     const std::string& getTitre() const {
         return titre;
+    }
+    /*!
+     * \brief getDateDebut
+     * \return date de début
+     */
+    const Date& getDateDebut() const {
+        return dateDebut;
+    }
+    /*!
+     * \brief getHoraireDebut
+     * \return horaire de début
+     */
+    const Horaire& getHoraireDebut() const {
+        return horaireDebut;
     }
     /*!
      * \brief getDateFin
