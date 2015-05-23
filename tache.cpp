@@ -3,7 +3,7 @@
 
 Tache::Tache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
       const Horaire& heureEcheance,const std::string & titre):
-    Element(dateD,heureD, titre, dateEcheance, heureEcheance),
+    Element(titre, dateD, heureD, dateEcheance, heureEcheance),
     tachesPrecedentes(0), nbTachesPrecedentes(0), nbTachesPrecedentesMax(0){
 }
 
