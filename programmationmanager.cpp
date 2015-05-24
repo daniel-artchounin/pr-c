@@ -25,6 +25,9 @@ bool ProgrammationManager::hasIntersection(const Date dateProg, const Horaire ho
 }
 
 bool ProgrammationManager::isValid(const Date date, const Horaire horaire, const Duree duree) {
+    if(items.find(getKeyFrom(date, horaire))!=end()) {
+        return false;
+    }
     for(iterator it=begin(); it!=end(); it++) {
         Programmation& prog = *it->second;
         if(hasIntersection(prog.getDateProgrammation(), prog.getHoraireProgrammation(), prog.getDateFin(), prog.getHoraireFin(), date, horaire, duree)) {
@@ -39,7 +42,7 @@ std::string ProgrammationManager::getKeyFrom(const Date date, const Horaire hora
 }
 
 Programmation& ProgrammationManager::addProgrammationEvenement(const Date dateProg, const Horaire horaireProg, const Duree duree) {
-    if(items.find(getKeyFrom(dateProg, horaireProg))!=end() || !isValid(dateProg, horaireProg, duree)) {
+    if(!isValid(dateProg, horaireProg, duree)) {
         throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationEvenement, Programmation incompatible avec une programmation existante");
     }
     ProgrammationEvenement* programmation = new ProgrammationEvenement(dateProg, horaireProg, duree);
