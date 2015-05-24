@@ -123,11 +123,10 @@ public:
     QString toQString() const;
     /*!
      * \brief addDuree
-     * Ajoute duree donnée en paramètre si celle-ci est supérieur à 24h
      * \param duree
-     * \return date après ajout ou la même si durée inférieur à 24h
+     * \return une date après ajout ou la même si durée inférieur à 24h
      */
-    Date addDuree(const Duree duree);
+    Date addDuree(const Duree duree) const;
 };
 
 /*!

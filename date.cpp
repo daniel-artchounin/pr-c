@@ -156,7 +156,7 @@ QString Date::toQString() const {
     return QString::fromStdString(ss.str());
 }
 
-Date Date::addDuree(const Duree duree) {
+Date Date::addDuree(const Duree duree) const{
     Date date = *this;
     return date+(duree.getHeure()/24);
 }
