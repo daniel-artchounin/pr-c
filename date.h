@@ -2,6 +2,7 @@
 #define DATETIME_H
 #include <iostream>
 #include <QString>
+#include "duree.h"
 
 /*! \class Date
    * \brief Classe permettant de manipuler des dates standards
@@ -111,10 +112,22 @@ public:
      */
     Date operator+(unsigned int nb) const;
     /*!
+     * \brief formatAAAAMMJJ
+     * \return la date au format aaaammjj
+     */
+    std::string formatAAAAMMJJ() const;
+    /*!
      * \brief toQString
      * \return la date au format jj/mm/aaaa
      */
     QString toQString() const;
+    /*!
+     * \brief addDuree
+     * Ajoute duree donnée en paramètre si celle-ci est supérieur à 24h
+     * \param duree
+     * \return date après ajout ou la même si durée inférieur à 24h
+     */
+    Date addDuree(const Duree duree);
 };
 
 /*!

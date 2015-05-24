@@ -22,10 +22,24 @@ bool Horaire::operator>=(const Horaire& h) const {
     return !(*this < h);
 }
 
+std::string Horaire::formatHHMM() const {
+    std::stringstream ss;
+    ss<<std::setfill('0')<<std::setw(2)<<heure<<std::setfill('0')<<std::setw(2)<<minute;
+    return ss.str();
+}
+
 QString Horaire::toQString() const {
     std::stringstream ss;
     ss<<*this;
     return QString::fromStdString(ss.str());
+}
+
+Horaire Horaire::addDuree(const Duree duree) {
+    Horaire horaire = *this;
+    horaire.minute += duree.getMinute();
+    horaire.heure += duree.getHeure() + horaire.minute/60;
+    horaire.minute %=60;
+    return horaire;
 }
 
 std::ostream& operator<<(std::ostream& f, const Horaire & h) {

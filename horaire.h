@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <QString>
 #include "horaireexception.h"
+#include "duree.h"
 
 /*!
  * \class Horaire
@@ -81,10 +82,21 @@ public:
      */
     bool operator>=(const Horaire& h) const;
     /*!
+     * \brief formatHHMM
+     * \return l'horaire au format hhmm
+     */
+    std::string formatHHMM() const;
+    /*!
      * \brief Horaire::toQString
      * \return horaire au format hhHmm
      */
     QString toQString() const;
+    /*!
+     * \brief addDuree
+     * Ajoute durée donnée en paramètre à l'horaire
+     * \param duree
+     */
+    Horaire addDuree(const Duree duree);
 };
 
 /*!

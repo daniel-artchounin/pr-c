@@ -103,7 +103,7 @@ Date Date::demain() const {
     case 8:
     case 10:
     case 12:
-        if (d.jour==30) {
+        if (d.jour>31) {
             d.jour=1;
             d.mois++;
         }
@@ -112,17 +112,17 @@ Date Date::demain() const {
     case 6:
     case 9:
     case 11:
-        if (d.jour==31) {
+        if (d.jour>30) {
             d.jour=1;
             d.mois++;
         }
         break;
     case 2:
-        if (d.jour==29 && d.annee%4>0) {
+        if (d.jour>28 && d.annee%4>0) {
             d.jour=1;
             d.mois++;
         }
-        if (d.jour==30) {
+        if (d.jour>29) {
             d.jour=1;
             d.mois++;
         }
@@ -144,10 +144,21 @@ Date Date::operator+(unsigned int nb_jours) const {
     return d;
 }
 
+std::string Date::formatAAAAMMJJ() const {
+    std::stringstream ss;
+    ss<<std::setfill('0')<<annee<<std::setw(2)<<mois<<std::setw(2)<<jour;
+    return ss.str();
+}
+
 QString Date::toQString() const {
     std::stringstream ss;
     ss<<*this;
     return QString::fromStdString(ss.str());
+}
+
+Date Date::addDuree(const Duree duree) {
+    Date date = *this;
+    return date+(duree.getHeure()/24);
 }
 
 std::ostream& operator<<(std::ostream& f, const Date& x) {

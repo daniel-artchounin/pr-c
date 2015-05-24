@@ -67,8 +67,29 @@ public:
      */
     QString toQString() const;
 
+    /*!
+     * \brief estPlusPetitQue
+     * \param b duree à comparer
+     * \return true si duree est inférieur à b, false sinon
+     */
     bool estPlusPetitQue(const Duree&b)const{
         return this->nb_minutes < b.nb_minutes;
+    }
+
+    /*!
+     * \brief getMinute
+     * \return partie minute
+     */
+    unsigned int getMinute() const {
+        return nb_minutes%60;
+    }
+
+    /*!
+     * \brief getHeure
+     * \return partie heure
+     */
+    unsigned int getHeure() const {
+        return nb_minutes/60;
     }
 };
 
