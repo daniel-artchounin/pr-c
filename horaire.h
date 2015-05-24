@@ -93,10 +93,10 @@ public:
     QString toQString() const;
     /*!
      * \brief addDuree
-     * Ajoute durée donnée en paramètre à l'horaire
      * \param duree
+     * \return un horaire après ajout de la durée
      */
-    Horaire addDuree(const Duree duree);
+    Horaire addDuree(const Duree duree) const;
 };
 
 /*!

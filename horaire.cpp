@@ -7,7 +7,7 @@ bool Horaire::operator<(const Horaire& h) const {
     if (heure>h.heure) return false;
     if (minute<h.minute) return true;
     if (minute>h.minute) return false;
-    return true;
+    return false;
 }
 
 bool Horaire::operator>(const Horaire& h) const {
@@ -34,10 +34,10 @@ QString Horaire::toQString() const {
     return QString::fromStdString(ss.str());
 }
 
-Horaire Horaire::addDuree(const Duree duree) {
+Horaire Horaire::addDuree(const Duree duree) const{
     Horaire horaire = *this;
     horaire.minute += duree.getMinute();
-    horaire.heure += duree.getHeure() + horaire.minute/60;
+    horaire.heure += (duree.getHeure() + horaire.minute/60)%24;
     horaire.minute %=60;
     return horaire;
 }
