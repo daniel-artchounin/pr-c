@@ -5,6 +5,7 @@
 #include "element.h"
 #include <string>
 #include <map>
+# include "tacheexception.h"
 
 /**\class Tache
  * \brief Classe permettant de manipuler des taches
@@ -68,20 +69,46 @@ class Tache : public Element {
         /**
          * \brief isTachePrecedente
          * permet de savoir si une tâche envoyée en paramètre précède la tâche courante
-         * \param tachePotentPrecedente référence sur une potentielle tache précédente
+         * \param tachePotentPrecedente titre d'une potentielle tache précédente
          * \return retourne un booléen (en fonction du statut de la tache par rapport à la tâche actuelle)
          */
-
-        bool isTachePrecedente(const Tache& tachePotentPrecedente) const;
+        bool isTachePrecedente(const std::string& titre) const;
         /**
          * \brief trouverTachePrecedente
          * permet de trouver la tâche précédente envoyée en paramètre
          * parmi les contraintes de precedence de la tâche actuelle
-         * \param tachePotentPrecedente référence sur une tache potentiellement précédente
+         * \param tachePotentPrecedente titre de la tache potentiellement précédente
          * \return retourne un pointeur vers la tâche précédente si elle l'est vraiment
          * ou 0 sinon
          */
-        Tache* trouverTachePrecedente(const Tache& tachePotentPrecedente) const;
+        Tache* trouverTachePrecedente(const std::string& titre) const;
+
+        /**
+         * \brief getTachePrecedente
+         * permet de trouver une tâche précédente de la tâche courante
+         * déclenche une exception si la tâche n'est pas trouvée
+         * \param titre nom de la sous tâche
+         * \return retourne une référence sur la tâche
+         */
+        Tache& getTachePrecedente(const std::string& titre){
+
+            Tache* t=trouverTachePrecedente(titre);
+            if (!t) {
+                throw TacheException("erreur : tache inexistante");
+            }
+            return *t;
+        }
+        /**
+         * \brief getTachePrecedente méthode const (elle sera utilisé par les références
+         * const ou les pointeurs const)
+         * permet de trouver une tâche précédente de la tâche courante
+         * déclenche une exception si la tâche n'est pas trouvée
+         * \param titre nom de la tâche
+         * \return retourne une référence sur la tâche
+         */
+        const Tache& getTachePrecedente(const std::string& titre)const{
+            return const_cast<Tache*>(this)->getTachePrecedente(titre);
+        }
         /**
          * \brief ajouterTachePrecedente
          * ajoute une tâche précédente à la tâche courante
@@ -93,7 +120,7 @@ class Tache : public Element {
          * supprime une contrainte de précedence
          * \param tachePrecedente référence sur une tache à supprimer
          */
-        void supprimerTachesPrecedente(const Tache & tachePrecedente);
+        void supprimerTachesPrecedente(const std::string& tachePrecedente);
 
         typedef typename Map2::iterator iterator2;
         typedef typename Map2::const_iterator const_iterator2;

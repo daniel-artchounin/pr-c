@@ -15,6 +15,8 @@
 
 class TacheComposite : public Manager <Tache>, public Tache
 {
+protected:
+
 public:
     /**
      * \brief TacheComposite Constructeur
@@ -43,23 +45,6 @@ public:
      */
     // int getnbSsTachesMax();
     /**
-     * \brief trouverSsTache
-     * permet de trouver une sous tâche de la tâche courante
-     * \param nomTache nom de la sous tâche
-     * \return retourne un pointeur vers la tâche trouvée ou 0
-     * sinon
-     */
-    Tache* trouverSsTache(const std::string& nomTache)const;
-    /**
-     * \brief trouverIndiceSsTache
-     * permet de trouver l'indice d'une sous tâche de la tâche courante
-     * dans le tableau de pointeurs ssTaches
-     * \param nomTache nom de la sous tâche
-     * \return retourne l'indice de la sous-tâche ou
-     * 0 sinon
-     */
-    int trouverIndiceSsTache(const std::string& nomTache)const;
-    /**
      * \brief ajouterSsTache
      * permet de créer et d'ajouter une sous-tâche à la tache actuelle
      * génère une exception si le titre de cette tâche est déjà une sous tâche
@@ -72,6 +57,16 @@ public:
      */
     Tache& ajouterSsTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                         const Horaire& heureEcheance,const std::string & titre,const Duree & dur, bool preemptive);
+
+    /**
+     * \brief trouverSsTache
+     * permet de trouver une sous tâche de la tâche courante
+     * \param nomTache nom de la sous tâche
+     * \return retourne un pointeur vers la tâche trouvée ou 0
+     * sinon
+     */
+    Tache* trouverSsTache(const std::string& nomTache)const;
+
     /**
      * \brief getSsTache
      * permet de trouver une sous tâche de la tâche courante
@@ -79,6 +74,7 @@ public:
      * \param titre nom de la sous tâche
      * \return retourne une référence sur la tâche
      */
+
     Tache& getSsTache(const std::string& titre);
     /**
      * \brief getSsTache méthode const (elle sera utilisé par les références

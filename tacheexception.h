@@ -16,3 +16,4 @@ public:
     TacheException(const std::string& m):logic_error(m) {}
 };
 #endif // TACHEEXCEPTION_H
+

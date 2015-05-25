@@ -11,17 +11,18 @@
  * elle est responsable du cycle de vie de ses tâches (tâches à la racine du projet)
  */
 
-class Projet : public Element
+class Projet : public Manager<Tache>, public Element
 {
-    Tache ** taches;
-    unsigned int nbTaches;
-    unsigned int nbTachesMax;
+
+protected :
     /**
-     * \brief addItem
-     * ajouter la tâche envoyée en paramètre sans vérification
-     * \param t pointeur vers la tâche à ajouter
+     * \brief trouverTache
+     * permet de trouver une tâche à la racine du projet
+     * \param nomTache nom de la tâche
+     * \return retourne un pointeur vers la tâche trouvée ou 0
+     * sinon
      */
-    void addItem(Tache* t);
+    Tache* trouverTache(const std::string& nomTache)const;
 public:
     /**
      * \brief Projet Constructeur
@@ -38,34 +39,18 @@ public:
      * \return retourne un pointeur vers un tableau de pointeur
      * vers les tâches à la racine du projet
      */
-    Tache** getTaches()const;
+    // Tache** getTaches()const;
     /**
      * \brief getNbTaches accesseur
      * \return retourne le nombre de tâches à la racine du projet
      */
-    unsigned int getNbTaches()const;
+    // unsigned int getNbTaches()const;
     /**
      * \brief getNbTachesMax accesseur
      * \return retourne la taille du tableau de pointeurs de tâches à la racine du projet
      */
-    unsigned int getNbTachesMax()const;
-    /**
-     * \brief trouverTache
-     * permet de trouver une tâche à la racine du projet
-     * \param nomTache nom de la tâche
-     * \return retourne un pointeur vers la tâche trouvée ou 0
-     * sinon
-     */
-    Tache* trouverTache(const std::string& nomTache)const;
-    /**
-     * \brief trouverIndiceTache
-     * permet de trouver l'indice d'une tâche à la racine du projet
-     * dans le tableau de pointeurs taches
-     * \param nomTache nom de la tâche
-     * \return retourne l'indice de la tâche ou
-     * 0 sinon
-     */
-    int trouverIndiceTache(const std::string& nomTache)const;
+    // unsigned int getNbTachesMax()const;
+
     /**
      * \brief ajouterTache
      * permet de créer et d'ajouter une tâche à la racine du projet
@@ -116,7 +101,7 @@ public:
      * \return retourne un booléen
      */
     bool isPrecedence( const Tache & tachePrecedente, const Tache& tacheSuivante)const{
-        return const_cast<Tache &>(tacheSuivante).isTachePrecedente(tachePrecedente);
+        return const_cast<Tache &>(tacheSuivante).isTachePrecedente(tachePrecedente.getTitre());
     }
     /**
      * \brief accederTache
@@ -134,7 +119,7 @@ public:
      * méthode
      * \return retourne une référence vers la tache à laquelle on souhaitait accéder
      */
-    const Tache& accederTache(const std::string * nomsTachesComposites , unsigned int nbTaches,const std::string& nomTache,
+    const Tache& accederTache(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache,
                               unsigned int profondeur = 0, const TacheComposite* tacheCourante = 0);
     /**
      * \brief verifierContraintesRespectees
@@ -152,12 +137,8 @@ public:
      * \return retourne un booleen permettant de savoir si les contraintes sont respectées
      */
     bool verifierContraintesRespectees(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD
-                                       ,const Horaire& heureD,const Date& dateF, const Horaire& heureF);
-    /**
-     * \brief ~Projet destructeur
-     * supprime toutes les tâches du projet actuel
-     */
-    ~Projet();
+                                       ,const Horaire& heureD,const Date& dateF, const Horaire& heureF)const;
+
     // verifierTachesPrecedentesTerminees -> à voir mercredi matin
 
 
