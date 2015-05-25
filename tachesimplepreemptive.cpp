@@ -11,7 +11,7 @@ TacheSimplePreemptive::TacheSimplePreemptive(const Date& dateD,
                    dateEcheance,
                    heureEcheance,
                    titre,
-                   dur){
+                   dur),pourcentageComplete(0){
 }
 unsigned int TacheSimplePreemptive::getPourcentageComplete()const{
     return pourcentageComplete;

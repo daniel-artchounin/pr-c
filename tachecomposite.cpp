@@ -1,47 +1,23 @@
 #include "tachecomposite.h"
 
-void TacheComposite::addItem(Tache* t){
-    if (nbSsTaches==nbSsTachesMax){
-        Tache** newtab=new Tache*[nbSsTachesMax+10];
-        for(unsigned int i=0; i<nbSsTaches; i++)
-            newtab[i]=ssTaches[i];
-        nbSsTachesMax+=10;
-        Tache** old=ssTaches;
-        ssTaches=newtab;
-        delete[] old;
-    }
-    ssTaches[nbSsTaches++]=t;
-}
 
 TacheComposite::TacheComposite(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
       const Horaire& heureEcheance,const std::string & titre):
-    Tache(dateD, heureD, dateEcheance,heureEcheance,
-          titre), ssTaches(0), nbSsTaches(0), nbSsTachesMax(0){
+    Manager<Tache>(),Tache(dateD, heureD, dateEcheance,heureEcheance,
+          titre){
 }
-Tache** TacheComposite::getSsTaches() const{
+/*Tache** TacheComposite::getSsTaches() const{
     return ssTaches;
-}
-int TacheComposite::getnbSsTaches(){
+}*/
+/*int TacheComposite::getnbSsTaches(){
     return nbSsTaches;
-}
-int TacheComposite::getnbSsTachesMax(){
+}*/
+/*int TacheComposite::getnbSsTachesMax(){
     return nbSsTachesMax;
-}
+}*/
+
 Tache* TacheComposite::trouverSsTache(const std::string& nomTache)const{
-    for (unsigned int i = 0 ; i< nbSsTaches; i++){
-        if(ssTaches[i]->getTitre()==nomTache){
-            return ssTaches[i];
-        }
-    }
-    return 0;
-}
-int TacheComposite::trouverIndiceSsTache(const std::string& nomTache)const{
-    for (unsigned int i = 0 ; i< nbSsTaches; i++){
-        if(ssTaches[i]->getTitre()==nomTache){
-            return i;
-        }
-    }
-    return -1;
+    return getItem(nomTache);
 }
 
 Tache& TacheComposite::ajouterSsTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
@@ -55,10 +31,19 @@ Tache& TacheComposite::ajouterSsTache(const Date& dateD, const Horaire& heureD, 
 
     }
     else{
-        newTache = new TacheSimpleNonPreemptive(dateD,heureD, dateEcheance, heureEcheance,
-                                             titre,dur);
+        try{
+            newTache = new TacheSimpleNonPreemptive(dateD,heureD, dateEcheance, heureEcheance,
+                                                 titre,dur);
+
+        }catch (TacheSimpleNonPreemptiveException& e){
+            delete newTache;
+        }
+
     }
-    addItem(newTache);
+    if(!addItem(titre,newTache)){
+        delete newTache;
+        throw TacheCompositeException("erreur : Nous n'avons pas réussi à ajouter la tâche à tâche composite");
+    }
     return *newTache;
 }
 
@@ -75,30 +60,18 @@ const Tache& TacheComposite::getSsTache(const std::string& titre)const{
 }
 
 void TacheComposite::supprimerSsTache(const std::string& titre){
-    int i =trouverIndiceSsTache(titre);
-    if (i == -1){
-        throw TacheCompositeException("erreur : tache inexistante");
+    if(!trouverSsTache(titre)){
+        throw TacheCompositeException("Erreur : la tâche envoyée en paramètre ne précède pas la tâche actuelle");
     }
-    Tache * t = ssTaches[i];
-    if(nbSsTaches > 1){
-        ssTaches[i]=ssTaches[nbSsTaches-1];
-    }
-    delete t;
-    nbSsTaches--;
+    items.erase(titre);
 }
 
 bool TacheComposite::isTermine()const{
-    for (unsigned int i = 0 ; i< nbSsTaches; i++){
-        if(!ssTaches[i]->isTermine()){
+    for(const_iterator it = begin(); it != end(); ++it){
+        if(!(it->second->isTermine())){
             return false;
         }
     }
     return true;
 }
 
-TacheComposite::~TacheComposite(){
-    for(unsigned int i = 0 ; i < nbSsTaches ; i++){
-        delete ssTaches[i];
-    }
-    delete[]ssTaches;
-}

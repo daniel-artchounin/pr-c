@@ -4,25 +4,17 @@
 # include "tachecompositeexception.h"
 # include "tachesimplenonpreemptive.h"
 # include "tachesimplepreemptive.h"
+# include "manager.h"
 # include <string>
+# include "tachecompositeexception.h"
 
 /**\class TacheComposite
  * \brief Classe permettant de manipuler des tâches composites
  * elle est responsable du cycle de vie de ses sous-tâches
  */
 
-class TacheComposite : public Tache
+class TacheComposite : public Manager <Tache>, public Tache
 {
-protected:
-    Tache** ssTaches;
-    unsigned int nbSsTaches;
-    unsigned int nbSsTachesMax;
-    /**
-     * \brief addItem
-     * ajouter la tâche envoyée en paramètre sans vérification
-     * \param t pointeur vers la tâche à ajouter
-     */
-    void addItem(Tache* t);
 public:
     /**
      * \brief TacheComposite Constructeur
@@ -39,17 +31,17 @@ public:
      * \return retourne un pointeur vers un tableau de pointeur
      * vers les sous tâches de la tâche actuelle
      */
-    Tache** getSsTaches() const;
+    // Tache** getSsTaches() const;
     /**
      * \brief getnbSsTaches accesseur
      * \return retourne le nombre de sous tâche de la tâche courante
      */
-    int getnbSsTaches();
+    // int getnbSsTaches();
     /**
      * \brief getnbSsTachesMax accesseur
      * \return retourne la taille du tableau de pointeurs ssTaches
      */
-    int getnbSsTachesMax();
+    // int getnbSsTachesMax();
     /**
      * \brief trouverSsTache
      * permet de trouver une sous tâche de la tâche courante
@@ -110,11 +102,7 @@ public:
      * false sinon
      */
     bool isTermine()const;
-    /**
-     * \brief ~TacheComposite destructeur
-     * supprime toutes les sous tâches de la tâche actuelle
-     */
-    ~TacheComposite();
+
 };
 
 #endif // TACHECOMPOSITE_H

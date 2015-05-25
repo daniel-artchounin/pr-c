@@ -19,7 +19,7 @@ protected:
      * \return true si l'item à été ajouté, false sinon
      */
     bool addItem(std::string key, T* item) {
-        std::pair<iterator,bool> retour =items.insert(std::pair<std::string, T*>(key, item));
+        std::pair<iterator,bool> retour = items.insert(std::pair<std::string, T*>(key, item));
         return retour.second;
     }
     /*!
@@ -27,13 +27,14 @@ protected:
      * \param key clé de l'item à trouver
      * \return item si trouvé, 0 sinon
      */
-    T* getItem(std::string key) {
-        iterator result = items.find(key);
+    T* getItem(std::string key) const {
+        const_iterator result = items.find(key);
         if(result == end()) {
             return 0;
         }
         return result->second;
     }
+
 public:
     /*!
      * \brief Constructeur
@@ -82,6 +83,17 @@ public:
      * \return iterator sur la fin de la map
      */
     iterator end() { return items.end(); }
+
+    /*!
+     * \brief begin
+     * \return iterator sur le début de la map
+     */
+    const_iterator begin() const { return const_cast<Manager*>(this)->begin(); }
+    /*!
+     * \brief end
+     * \return iterator sur la fin de la map
+     */
+    const_iterator end() const { return const_cast<Manager*>(this)->end(); }
 };
 
 #endif // MANAGER_H

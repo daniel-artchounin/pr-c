@@ -4,24 +4,27 @@
 Tache::Tache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
       const Horaire& heureEcheance,const std::string & titre):
     Element(titre, dateD, heureD, dateEcheance, heureEcheance),
-    tachesPrecedentes(0), nbTachesPrecedentes(0), nbTachesPrecedentesMax(0){
+    tachesPrecedentes(){
 }
 
+/*
 Tache** Tache::getTachesPrecedentes()const{
     return tachesPrecedentes;
 }
-
-int Tache::getNbTachesPrecedentes() const{
-    return nbTachesPrecedentes;
+*/
+/*size_type Tache::getNbTachesPrecedentes() const{
+    return tachesPrecedentes.size();
 }
-
+*/
+/*
 int Tache::getNbTachesPrecedentesMax() const{
     return nbTachesPrecedentesMax;
 }
+*/
 
 bool Tache::finTachesPrecedentes() const{
-    for(unsigned int i = 0; i < nbTachesPrecedentes; i++ ){
-        if(!(tachesPrecedentes[i]->isTermine())) {
+    for (const_iterator2 it= tPBegin() ; it != tPEnd(); ++it){
+        if(!(it->second->isTermine())){
             return false;
         }
     }
@@ -39,34 +42,24 @@ bool Tache::isTachePrecedente(const Tache& tachePotentPrecedente) const{
 }
 
 Tache* Tache::trouverTachePrecedente(const Tache& tachePotentPrecedente)const{
-    for (unsigned int i = 0 ; i< nbTachesPrecedentes; i++){
-        if(tachesPrecedentes[i]==&tachePotentPrecedente){
-            return tachesPrecedentes[i];
-        }
+    std::string titre = tachePotentPrecedente.getTitre();
+    const_iterator2 result = tachesPrecedentes.find(titre);
+    if(result == tPEnd()){
+        return 0;
     }
-    return 0;
+    return result->second;
 }
 
 void Tache::ajouterTachePrecedente(Tache & tachePrecedente){
     if(tachePrecedente.trouverTachePrecedente(*this)){
         throw TacheException("Erreur : la tâche envoyée en paramètre a pour tâche precedente la tâche courante");
     }
-    if (nbTachesPrecedentes==nbTachesPrecedentesMax){
-        Tache** newtab=new Tache*[nbTachesPrecedentesMax+10];
-        for(unsigned int i=0; i<nbTachesPrecedentes; i++)
-            newtab[i]=tachesPrecedentes[i];
-        nbTachesPrecedentesMax+=10;
-        Tache** old = tachesPrecedentes;
-        tachesPrecedentes = newtab;
-        delete[] old;
-    }
-    tachesPrecedentes[nbTachesPrecedentes++]=&tachePrecedente;
+    tachesPrecedentes.insert(std::pair<std::string, Tache*>(tachePrecedente.getTitre(), &tachePrecedente));
 }
+
 void Tache::supprimerTachesPrecedente(const Tache & tachePrecedente){
-    for (unsigned int i = 0; i < nbTachesPrecedentesMax ; i++ ){
-        if (tachesPrecedentes[i] == &tachePrecedente) {
-            tachesPrecedentes[i]= tachesPrecedentes[nbTachesPrecedentes];
-            nbTachesPrecedentes--;
-        }
+    if(!trouverTachePrecedente(tachePrecedente)){
+        throw TacheException("Erreur : la tâche envoyée en paramètre ne précède pas la tâche actuelle");
     }
+    tachesPrecedentes.erase(tachePrecedente.getTitre());
 }

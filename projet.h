@@ -116,7 +116,7 @@ public:
      * \return retourne un booléen
      */
     bool isPrecedence( const Tache & tachePrecedente, const Tache& tacheSuivante)const{
-        return tacheSuivante.isTachePrecedente(tachePrecedente);
+        return const_cast<Tache &>(tacheSuivante).isTachePrecedente(tachePrecedente);
     }
     /**
      * \brief accederTache
