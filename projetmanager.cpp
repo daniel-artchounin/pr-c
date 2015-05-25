@@ -15,10 +15,11 @@ void ProjetManager::libererInstance() {
 }
 
 Projet& ProjetManager::addProjet(const std::string titre, const Date dateDebut, const Horaire horaireDebut, const Date dateFin, const Horaire horaireFin) {
-    Projet* projet = new Projet(dateDebut, horaireDebut, dateFin, horaireFin, titre);
-    if(!Manager::addItem(titre, projet)) {
+    if(getItem(titre)) {
         throw ProjetManagerException("Erreur, ProjetManager, addProjet, Projet deja existant");
     }
+    Projet* projet = new Projet(dateDebut, horaireDebut, dateFin, horaireFin, titre);
+    Manager::addItem(titre, projet);
     return *projet;
 }
 
