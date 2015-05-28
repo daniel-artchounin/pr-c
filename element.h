@@ -16,14 +16,9 @@ protected:
     Date dateFin; /*!< date de fin */
     Horaire horaireFin; /*!< horaire de fin */
     Duree duree;
-    bool estDansIntervalle(const Date& dateProg, const Horaire& horaireProg){
-        if( ( dateProg>=dateDebut || (dateProg==dateDebut && horaireProg >= horaireDebut) )
-              && ( (dateFin-dateProg)*24*60+(horaireFin-horaireProg)-duree.getNbMinutes()  >= 0) ){
-            return true;
-        }
-        return false;
-    }
+
 public:
+    bool estDansIntervalle(const Date& dateProg, const Horaire& horaireProg);
     /*!
      * \brief Constructeur
      * \param t titre

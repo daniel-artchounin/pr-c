@@ -20,4 +20,21 @@ void TacheSimplePreemptive::setPourcentageComplete(int prt){
     pourcentageComplete = prt;
 }
 
+bool TacheSimplePreemptive::isEndProgrammationOk(const Date& dateProg, const Horaire& horaireProg)const{
+    if(!hasProgrammation() || pourcentageComplete != 100){
+        // la tache ne possède pas encore de programmation ou elle n'as pas encore totalement été programmée
+        return false;
+    }else{
+        // la tache préemptive a été totalement programmée
+        // récupération de la dernière programmation
+        ProgrammationTacheSimplePreemptive * lastProgrammation = programmationstachessimplespreemptives.back();
+        if(lastProgrammation->getDateFin()<= dateProg ||
+                (lastProgrammation->getDateFin()== dateProg && lastProgrammation->getHoraireFin() <= horaireProg) ){
+            return true;
+        }
+        // la dernière programmation ne sera pas terminée avant le début de notre prévision de programmation
+        return false;
 
+    }
+
+}

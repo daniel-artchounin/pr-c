@@ -155,44 +155,7 @@ class Tache : public Element {
         // fonction permettant de savoir siles tâches précédentes sont toutes programmés
         // et que la programmation de la fin soit antérieure à ma programmation
 
-        bool checkProgrammationCoherente(const Date& dateProg, const Horaire& horaireProg, const Tache* tacheActuelle){
-            TacheComposite * tacheCompositeActuelle = 0 ;
-            if(!tacheActuelle){
-                tacheCompositeActuelle =  dynamic_cast<TacheComposite*>(const_cast<Tache*>(this));
-
-            }
-            else{
-                tacheCompositeActuelle = dynamic_cast<TacheComposite *>(const_cast<Tache*>(tacheActuelle));
-
-            }
-            TacheSimplePreemptive * tacheSimplePreemptiveActuelle = 0;
-            TacheSimpleNonPreemptive * tacheSimpleNonPreemptiveActuelle = 0;
-            if(tacheCompositeActuelle !=0){
-                // on applique l'algo sur une tache composite
-                for (const_iterator2 it= tPBegin(); it!=tPEnd(); it++){
-                    // on applique l'algo récursif sur toutes les taches filles de la tache composite actuelle
-                    if(!checkProgrammationCoherente(dateProg, horaireProg,it->second)){
-                        // si une tache précédente implique une programmation non cohérente, on retourne false
-                        return false;
-                    }
-                }
-                // toutes les taches composites parcourus sont cohérentes, c'est gagné pour la programmation
-                return true;
-            }
-            else if(!(tacheSimpleNonPreemptiveActuelle=dynamic_cast< TacheSimpleNonPreemptive *>(const_cast<Tache*>(tacheActuelle)))){
-                // on applique l'algo sur une tache simple non préemptive
-                return tacheSimpleNonPreemptiveActuelle->isEndProgrammationOk(dateProg,horaireProg);
-            }
-            else if(!(tacheSimplePreemptiveActuelle= dynamic_cast<TacheSimplePreemptive *>(const_cast<Tache*>(tacheActuelle)) ) ){
-                ;
-                return tacheSimplePreemptiveActuelle->isEndProgrammationOk(dateProg,horaireProg);
-            }
-            else{
-                // ce cas n'est pas censé arrivé vu notre architecture
-                throw TacheException("checkProgrammationCoherente : un problème subsiste dans l'application");
-                return false; // pour faire plaisir au compilateur
-            }
-        }
+        bool checkProgrammationCoherente(const Date& dateProg, const Horaire& horaireProg, const Tache* tacheActuelle);
 };
 
 #endif // TACHE_H

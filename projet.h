@@ -3,14 +3,14 @@
 
 #include "projetexception.h"
 #include <string>
+# include "tache.h"
+# include "manager.h"
+# include "tachecomposite.h"
 
 /**\class Projet
  * \brief Classe permettant de manipuler des projets
  * elle est responsable du cycle de vie de ses tâches (tâches à la racine du projet)
  */
-
-class TacheComposite;
-class Tache;
 class Projet : public Manager<Tache>, public Element
 {
 

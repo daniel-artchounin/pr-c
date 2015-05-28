@@ -32,3 +32,5 @@ Projet& ProjetManager::getProjet(const std::string& titre) {
 const Projet& ProjetManager::getProjet(const std::string& id)const {
     return const_cast<ProjetManager*>(this)->getProjet(id);
 }
+
+

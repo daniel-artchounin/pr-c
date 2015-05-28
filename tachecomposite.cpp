@@ -71,12 +71,5 @@ void TacheComposite::supprimerSsTache(const std::string& titre){
     items.erase(titre);
 }
 
-bool TacheComposite::isTermine()const{
-    for(const_iterator it = begin(); it != end(); ++it){
-        if(!(it->second->isTermine())){
-            return false;
-        }
-    }
-    return true;
-}
+
 

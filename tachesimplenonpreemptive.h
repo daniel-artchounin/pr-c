@@ -7,6 +7,7 @@
 /**\class TacheSimpleNonPreemptive
  * \brief Classe permettant de manipuler des tâches non préemptives
  */
+class ProgrammationTacheSimpleNonPreemptive;
 class TacheSimpleNonPreemptive : public TacheSimple
 {
     /**
@@ -30,32 +31,10 @@ public:
      */
     TacheSimpleNonPreemptive(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                              const Horaire& heureEcheance,const std::string & titre,const Duree & dur);
-    void setProgrammation(ProgrammationTacheSimpleNonPreemptive* programmationTacheSimpleNonP){
-        programmationTacheSimpleNonPreemptive = programmationTacheSimpleNonP;
-    }
-    virtual bool hasProgrammation()const{
-        if(programmationTacheSimpleNonPreemptive==0){
-            return false;
-        }
-        return true;
-    }
+    void setProgrammation(ProgrammationTacheSimpleNonPreemptive* programmationTacheSimpleNonP);
+    virtual bool hasProgrammation()const;
 
-    virtual bool isEndProgrammationOk(const Date& dateProg, const Horaire& horaireProg)const{
-        if(!hasProgrammation()){
-            // la tache ne possède pas encore de programmation
-            return false;
-        }else{
-            // récupération de la programmation
-            if(programmationTacheSimpleNonPreemptive->getDateFin()<= dateProg ||
-                    (programmationTacheSimpleNonPreemptive->getDateFin()== dateProg && programmationTacheSimpleNonPreemptive->getHoraireFin() <= horaireProg) ){
-                return true;
-            }
-            // la programmation ne sera pas terminée avant le début de notre prévision de programmation
-            return false;
-
-        }
-
-    }
+    virtual bool isEndProgrammationOk(const Date& dateProg, const Horaire& horaireProg)const;
 
 };
 

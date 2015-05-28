@@ -95,7 +95,6 @@ public:
      * \return retourne true si la toutes les sous tâches sont terminées ou
      * false sinon
      */
-    bool isTermine()const;
 
 };
 

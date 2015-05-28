@@ -12,20 +12,12 @@ protected :
     TacheSimplePreemptive& tacheSimplePreemtive;
 
 public:
-    ProgrammationTacheSimplePreemptive(Date dateD, Horaire heureD, unsigned int pourc, TacheSimplePreemptive& tacheSimpleP):
-        ProgrammationTacheSimple(dateD,heureD),
-        pourcentage(pourc), tacheSimplePreemtive(tacheSimpleP){
-        tacheSimplePreemtive.addProgrammation(this);
-        tacheSimplePreemtive.addPourcentageComplete(pourc);
+    ProgrammationTacheSimplePreemptive(Date dateD, Horaire heureD, unsigned int pourc, TacheSimplePreemptive& tacheSimpleP);
 
-
-    }
     const TacheSimplePreemptive & getTacheSimple(){
         return tacheSimplePreemtive;
     }
-    virtual const Duree& getDuree()const{
-        return tacheSimplePreemtive.getDuree();
-    }
+    virtual const Duree& getDuree()const;
 
 
     virtual ~ProgrammationTacheSimplePreemptive(){}

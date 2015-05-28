@@ -14,3 +14,30 @@ TacheSimpleNonPreemptive::TacheSimpleNonPreemptive(const Date& dateD, const Hora
 bool TacheSimpleNonPreemptive::dureeValide(const Duree& duree){
     return duree < Duree(12,00);
 }
+
+bool TacheSimpleNonPreemptive::isEndProgrammationOk(const Date& dateProg, const Horaire& horaireProg)const{
+    if(!hasProgrammation()){
+        // la tache ne possède pas encore de programmation
+        return false;
+    }else{
+        // récupération de la programmation
+        if(programmationTacheSimpleNonPreemptive->getDateFin()<= dateProg ||
+                (programmationTacheSimpleNonPreemptive->getDateFin()== dateProg && programmationTacheSimpleNonPreemptive->getHoraireFin() <= horaireProg) ){
+            return true;
+        }
+        // la programmation ne sera pas terminée avant le début de notre prévision de programmation
+        return false;
+
+    }
+
+}
+
+void TacheSimpleNonPreemptive::setProgrammation(ProgrammationTacheSimpleNonPreemptive* programmationTacheSimpleNonP){
+    programmationTacheSimpleNonPreemptive = programmationTacheSimpleNonP;
+}
+bool TacheSimpleNonPreemptive::hasProgrammation()const{
+    if(programmationTacheSimpleNonPreemptive==0){
+        return false;
+    }
+    return true;
+}
