@@ -85,10 +85,10 @@ bool Date::operator>=(const Date& d) const {
     return !(*this < d);
 }
 
-int Date::operator-(const Date& d) const {
-    int n=(annee-d.annee)*365+(annee-d.annee)/4;
-    n+=int((mois-d.mois)*30.5);
-    n+=jour-d.jour;
+int operator-(const Date& d1, const Date&d2 ){
+    int n=(d1.getAnnee()-d2.getAnnee())*365+(d1.getAnnee()-d2.getAnnee())/4;
+    n+=int((d1.getMois()-d2.getMois())*30.5);
+    n+=d1.getJour()-d2.getJour();
     return n;
 }
 

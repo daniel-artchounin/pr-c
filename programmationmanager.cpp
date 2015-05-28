@@ -1,6 +1,6 @@
 #include "programmationmanager.h"
-#include "programmationevenement.h"
-#include "programmationmanagerexception.h"
+
+
 #include "iostream"
 
 //design pattern singleton
@@ -16,15 +16,15 @@ void ProgrammationManager::libererInstance() {
     if(!instance) delete instance;
 }
 
-bool ProgrammationManager::inclus(const Date dateProg, const Horaire horaireProg, const Date dateFin, const Horaire horaireFin, const Date date, const Horaire horaire) const {
+bool ProgrammationManager::inclus(const Date& dateProg, const Horaire& horaireProg, const Date& dateFin, const Horaire& horaireFin, const Date& date, const Horaire& horaire) const {
     return (dateProg<date || (dateProg==date && horaireProg<=horaire)) && (date<dateFin || (date==dateFin && horaire<=horaireFin));
 }
 
-bool ProgrammationManager::hasIntersection(const Date dateProg, const Horaire horaireProg, const Date dateFin, const Horaire horaireFin, const Date newDate, const Horaire newHoraire, const Duree newDuree) const{
+bool ProgrammationManager::hasIntersection(const Date& dateProg, const Horaire& horaireProg, const Date& dateFin, const Horaire& horaireFin, const Date& newDate, const Horaire& newHoraire, const Duree& newDuree) const{
     return inclus(dateProg, horaireProg, dateFin, horaireFin, newDate, newHoraire) || inclus(newDate, newHoraire, newDate.addDuree(newDuree), newHoraire.addDuree(newDuree), dateProg, horaireProg);
 }
 
-bool ProgrammationManager::isValid(const Date date, const Horaire horaire, const Duree duree) {
+bool ProgrammationManager::isValid(const Date& date, const Horaire& horaire, const Duree& duree) {
     if(items.find(getKeyFrom(date, horaire))!=end()) {
         return false;
     }
@@ -37,11 +37,11 @@ bool ProgrammationManager::isValid(const Date date, const Horaire horaire, const
     return true;
 }
 
-std::string ProgrammationManager::getKeyFrom(const Date date, const Horaire horaire) {
+std::string ProgrammationManager::getKeyFrom(const Date& date, const Horaire& horaire) {
     return date.formatAAAAMMJJ()+horaire.formatHHMM();
 }
 
-Programmation& ProgrammationManager::addProgrammationEvenement(const Date dateProg, const Horaire horaireProg, const Duree duree) {
+Programmation& ProgrammationManager::addProgrammationEvenement(const Date& dateProg, const Horaire& horaireProg, const Duree& duree) {
     if(!isValid(dateProg, horaireProg, duree)) {
         throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationEvenement, Programmation incompatible avec une programmation existante");
     }
@@ -50,12 +50,15 @@ Programmation& ProgrammationManager::addProgrammationEvenement(const Date datePr
     return *programmation;
 }
 
-Programmation& ProgrammationManager::getProgrammation(const Date dateProg, const Horaire horaireProg) {
+
+
+
+Programmation& ProgrammationManager::getProgrammation(const Date& dateProg, const Horaire& horaireProg) {
     Programmation* programmation=getItem(getKeyFrom(dateProg, horaireProg));
     if (!programmation) throw ProgrammationManagerException("erreur, ProgrammationManager, getProgrammation, Programmation inexistante");
     return *programmation;
 }
 
-const Programmation& ProgrammationManager::getProgrammation(const Date dateProg, const Horaire horaireProg) const {
+const Programmation& ProgrammationManager::getProgrammation(const Date& dateProg, const Horaire& horaireProg) const {
     return const_cast<ProgrammationManager*>(this)->getProgrammation(dateProg, horaireProg);
 }

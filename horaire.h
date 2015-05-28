@@ -6,6 +6,7 @@
 #include "horaireexception.h"
 #include "duree.h"
 
+class Duree;
 /*!
  * \class Horaire
  * \brief Classe permettant de manipuler des horaires
@@ -97,6 +98,15 @@ public:
      * \return un horaire après ajout de la durée
      */
     Horaire addDuree(const Duree duree) const;
+
+    /*!
+     * \brief soustraction
+     * \param horaire2
+     * \return un nombre de minutes entre deux horaires : ce nombre peut volontairement etre négatif
+     */
+    int soustraction(const Horaire& horaire2) const{
+        return ( this->getHeure()- horaire2.getHeure() )*60 + this->getMinute() - horaire2.getMinute();
+    }
 };
 
 /*!
@@ -107,5 +117,9 @@ public:
  * \return ostream
  */
 std::ostream& operator<<(std::ostream& f, const Horaire & h);
+
+// retourne le nombre de minutes séparant les deux horaires
+int operator-(const Horaire& horaire1, const Horaire& horaire2);
+
 
 #endif // Horaire_H

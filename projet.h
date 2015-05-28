@@ -1,9 +1,7 @@
 #ifndef PROJET_H
 #define PROJET_H
 
-#include "tache.h"
 #include "projetexception.h"
-#include "tachecomposite.h"
 #include <string>
 
 /**\class Projet
@@ -11,6 +9,8 @@
  * elle est responsable du cycle de vie de ses tâches (tâches à la racine du projet)
  */
 
+class TacheComposite;
+class Tache;
 class Projet : public Manager<Tache>, public Element
 {
 
@@ -67,7 +67,7 @@ public:
      * \param dur duree de la tache
      * \return retourne une référence sur la tâche créée
      */
-    Tache& ajouterTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
+    void ajouterTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                         const Horaire& heureEcheance,const std::string & titre,bool preemptive, bool composite,const Duree & dur = 0);
     /**
      * \brief getTache
@@ -137,10 +137,12 @@ public:
      * \return retourne un booleen permettant de savoir si les contraintes sont respectées
      */
     bool verifierContraintesRespectees(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD
-                                       ,const Horaire& heureD,const Date& dateF, const Horaire& heureF)const;
+                                       ,const Horaire& heureD,const Date& dateF, const Horaire& heureF, const Duree & dur)const;
 
     // verifierTachesPrecedentesTerminees -> à voir mercredi matin
-
+    void creerAjouterTache(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD
+                                       ,const Horaire& heureD,const Date& dateF, const Horaire& heureF,
+                                   const std::string& titre, bool preemptive, bool composite,const Duree & dur=0);
 
 };
 

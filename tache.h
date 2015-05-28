@@ -6,12 +6,17 @@
 #include <string>
 #include <map>
 # include "tacheexception.h"
-
+# include "duree.h"
+# include <typeinfo>
 /**\class Tache
  * \brief Classe permettant de manipuler des taches
  * Cette classe est abstraite
  */
 
+class TacheComposite;
+class TacheSimple;
+class TacheSimpleNonPreemptive;
+class TacheSimplePreemptive;
 class Tache : public Element {
     protected:
         typedef std::map<std::string, Tache*> Map2;
@@ -27,7 +32,7 @@ class Tache : public Element {
          * \param titre titre de la tache
          */
         Tache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
-              const Horaire& heureEcheance,const std::string & titre);
+              const Horaire& heureEcheance,const std::string & titre,const Duree& dur=0);
 
         /**
          * \brief getTachesPrecedentes
@@ -59,13 +64,11 @@ class Tache : public Element {
          * \return retourne un booléen (en fonction de la terminaison de la tache)
          */
 
-        virtual bool isTermine() const = 0;
         /**
          * \brief finTachesPrecedentes
          * \return retourne un booléen (en fonction de la terminaison des tâches précédentes)
          */
 
-        bool finTachesPrecedentes() const;
         /**
          * \brief isTachePrecedente
          * permet de savoir si une tâche envoyée en paramètre précède la tâche courante
@@ -122,6 +125,7 @@ class Tache : public Element {
          */
         void supprimerTachesPrecedente(const std::string& tachePrecedente);
 
+
         typedef typename Map2::iterator iterator2;
         typedef typename Map2::const_iterator const_iterator2;
         /*!
@@ -145,6 +149,50 @@ class Tache : public Element {
          * \return iterator sur la fin de la map
          */
         const_iterator2 tPEnd() const{ return const_cast<Tache *>(this)->tPEnd(); }
+
+        // getDateFin -> erreur dans l'UML
+        // getHeureFin -> erreur dans l'UML
+        // fonction permettant de savoir siles tâches précédentes sont toutes programmés
+        // et que la programmation de la fin soit antérieure à ma programmation
+
+        bool checkProgrammationCoherente(const Date& dateProg, const Horaire& horaireProg, const Tache* tacheActuelle){
+            TacheComposite * tacheCompositeActuelle = 0 ;
+            if(!tacheActuelle){
+                tacheCompositeActuelle =  dynamic_cast<TacheComposite*>(const_cast<Tache*>(this));
+
+            }
+            else{
+                tacheCompositeActuelle = dynamic_cast<TacheComposite *>(const_cast<Tache*>(tacheActuelle));
+
+            }
+            TacheSimplePreemptive * tacheSimplePreemptiveActuelle = 0;
+            TacheSimpleNonPreemptive * tacheSimpleNonPreemptiveActuelle = 0;
+            if(tacheCompositeActuelle !=0){
+                // on applique l'algo sur une tache composite
+                for (const_iterator2 it= tPBegin(); it!=tPEnd(); it++){
+                    // on applique l'algo récursif sur toutes les taches filles de la tache composite actuelle
+                    if(!checkProgrammationCoherente(dateProg, horaireProg,it->second)){
+                        // si une tache précédente implique une programmation non cohérente, on retourne false
+                        return false;
+                    }
+                }
+                // toutes les taches composites parcourus sont cohérentes, c'est gagné pour la programmation
+                return true;
+            }
+            else if(!(tacheSimpleNonPreemptiveActuelle=dynamic_cast< TacheSimpleNonPreemptive *>(const_cast<Tache*>(tacheActuelle)))){
+                // on applique l'algo sur une tache simple non préemptive
+                return tacheSimpleNonPreemptiveActuelle->isEndProgrammationOk(dateProg,horaireProg);
+            }
+            else if(!(tacheSimplePreemptiveActuelle= dynamic_cast<TacheSimplePreemptive *>(const_cast<Tache*>(tacheActuelle)) ) ){
+                ;
+                return tacheSimplePreemptiveActuelle->isEndProgrammationOk(dateProg,horaireProg);
+            }
+            else{
+                // ce cas n'est pas censé arrivé vu notre architecture
+                throw TacheException("checkProgrammationCoherente : un problème subsiste dans l'application");
+                return false; // pour faire plaisir au compilateur
+            }
+        }
 };
 
 #endif // TACHE_H

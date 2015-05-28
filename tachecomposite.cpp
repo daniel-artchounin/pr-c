@@ -20,8 +20,11 @@ Tache* TacheComposite::trouverSsTache(const std::string& nomTache)const{
     return getItem(nomTache);
 }
 
-Tache& TacheComposite::ajouterSsTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
-                    const Horaire& heureEcheance,const std::string & titre,const Duree & dur, bool preemptive){
+void TacheComposite::ajouterSsTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
+                    const Horaire& heureEcheance,const std::string & titre,bool preemptive, bool composite, const Duree & dur){
+    if(preemptive && composite){
+        throw TacheCompositeException("erreur : On ne peut pas créer de tâche composite et preemptive");
+    }
     if (trouverSsTache(titre))
         throw TacheCompositeException("erreur : TacheSimple deja existante");
     Tache* newTache = 0;
@@ -30,21 +33,23 @@ Tache& TacheComposite::ajouterSsTache(const Date& dateD, const Horaire& heureD, 
                                              titre,dur);
 
     }
-    else{
+    else if(!preemptive && !composite){
         try{
             newTache = new TacheSimpleNonPreemptive(dateD,heureD, dateEcheance, heureEcheance,
-                                                 titre,dur);
-
+                                             titre,dur);
         }catch (TacheSimpleNonPreemptiveException& e){
             delete newTache;
+            throw TacheCompositeException("La tache possède une durée supérieur à 12 heures");
         }
-
+    }
+    else{
+        newTache = new TacheComposite(dateD,heureD, dateEcheance, heureEcheance,
+                                             titre);
     }
     if(!addItem(titre,newTache)){
         delete newTache;
         throw TacheCompositeException("erreur : Nous n'avons pas réussi à ajouter la tâche à tâche composite");
     }
-    return *newTache;
 }
 
 Tache& TacheComposite::getSsTache(const std::string& titre){

@@ -10,6 +10,7 @@
    * L'utilisation de cette classe nécessite des dates valides au sens commun du terme.
    * Déclenchement d'exception dans le cas contraire.
    */
+class Duree;
 class Date {
 private:
     unsigned short int jour; /*!< jour entre 1 et 31*/
@@ -24,6 +25,8 @@ public:
      */
     Date(unsigned int short j=1, unsigned int short m=1, unsigned int a=0):jour(1),mois(1),annee(0) {
         setDate(j,m,a);
+    }
+    Date(const Date& date):jour(date.jour),mois(date.mois),annee(date.annee) {
     }
     /*!
      * \brief getJour
@@ -99,7 +102,6 @@ public:
      * \param d
      * \return nombre de jours séparant les deux dates
      */
-    int operator-(const Date& d) const;
     /*!
      * \brief demain
      * \return date du jour suivant
@@ -147,6 +149,9 @@ std::ostream& operator<<(std::ostream& f, const Date& x);
  * \return istream
  */
 std::istream& operator>>(std::istream& flot, Date& date);
+
+int operator-(const Date& d1, const Date&d2 );
+
 
 
 #endif // DATETIME_H

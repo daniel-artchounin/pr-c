@@ -24,19 +24,24 @@ Tache* Projet::trouverTache(const std::string& nomTache)const{
     return getItem(nomTache);
 }
 
-Tache& Projet::ajouterTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
+void Projet::ajouterTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                     const Horaire& heureEcheance,const std::string & titre,bool preemptive, bool composite, const Duree & dur){
     if(preemptive && composite){
         throw ProjetException("erreur : On ne peut pas créer de tâche composite et preemptive");
     }
-    if (trouverTache(titre))
-        throw ProjetException("erreur : Tache deja existante");
     Tache* newTache = 0;
     if(preemptive){
         newTache = new TacheSimplePreemptive(dateD,heureD, dateEcheance, heureEcheance,
                                              titre,dur);
     }
     else if(!preemptive && !composite){
+        try{
+            newTache = new TacheSimpleNonPreemptive(dateD,heureD, dateEcheance, heureEcheance,
+                                             titre,dur);
+        }catch (TacheSimpleNonPreemptiveException& e){
+            delete newTache;
+            throw ProjetException("La tache possède une durée supérieur à 12 heures");
+        }
         newTache = new TacheSimpleNonPreemptive(dateD,heureD, dateEcheance, heureEcheance,
                                              titre,dur);
     }
@@ -44,8 +49,10 @@ Tache& Projet::ajouterTache(const Date& dateD, const Horaire& heureD, const Date
         newTache = new TacheComposite(dateD,heureD, dateEcheance, heureEcheance,
                                              titre);
     }
-    addItem(titre,newTache);
-    return *newTache;
+    if(!addItem(titre,newTache)){
+        delete newTache;
+        throw TacheCompositeException("erreur : Nous n'avons pas réussi à ajouter la tâche au projet");
+    }
 }
 
 Tache& Projet::getTache(const std::string& titre){
@@ -115,7 +122,19 @@ const Tache& Projet::accederTache(const std::string * nomsTachesComposites , uns
 }
 
 bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD
-                                   ,const Horaire& heureD,const Date& dateF, const Horaire& heureF)const{
+                                   ,const Horaire& heureD,const Date& dateF, const Horaire& heureF,const Duree & dur)const{
+    if(dateF< dateD || (dateF==dateD && heureF <=heureD )){
+        return false;
+    }
+    if((((dateF-dateD)*24*60+ (heureF-heureD))-dur.getNbMinutes()) < dur.getNbMinutes()){
+        return false;
+    }
+    if(nbTaches == 0){
+        if (trouverTache(titre)){
+            // throw ProjetException("erreur : Tache deja existante");
+            return false;
+        }
+    }
     Tache* tacheActuelle = 0;
     TacheComposite* tacheCompositeActuelle = 0;
     for(unsigned int i = 0; i < nbTaches; i++){
@@ -125,6 +144,9 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
                     ||( (dateF == dateFin) && (heureF > horaireFin) )   ){
                     return false;
             }
+            if( ( ( (getDateFin()-getDateDebut())*24*60+ (getHoraireFin()-getHoraireDebut()) ) - getDuree().getNbMinutes() ) < dur.getNbMinutes()){
+                return false; // la duree de la tâche est supérieur à la durée libre du projet
+            }
             tacheActuelle = trouverTache(nomsTaches[i]);
         }
         else{
@@ -132,6 +154,11 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
                     ||( (dateD == tacheCompositeActuelle->getDateDebut()) && (heureD < tacheCompositeActuelle->getHoraireDebut()) )
                     ||( (dateF == tacheCompositeActuelle->getDateFin()) && (heureF > tacheCompositeActuelle->getHoraireFin()) )   ){
                     return false;
+            }
+            if( ( ( (tacheCompositeActuelle->getDateFin()-tacheCompositeActuelle->getDateDebut())*24*60 +
+                    (tacheCompositeActuelle->getHoraireFin()-tacheCompositeActuelle->getHoraireDebut()) ) -
+                  tacheCompositeActuelle->getDuree().getNbMinutes() ) < dur.getNbMinutes()){
+                return false; // la duree de la tâche est supérieur à la durée libre de la tâche composite
             }
             tacheActuelle = tacheCompositeActuelle->trouverSsTache(nomsTaches[i]);
         }
@@ -153,4 +180,44 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
     return true;
 
 }
+
+void Projet::creerAjouterTache(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD
+                                   ,const Horaire& heureD,const Date& dateF, const Horaire& heureF,
+                               const std::string& titre, bool preemptive, bool composite,const Duree & dur){
+    Tache* tacheActuelle = 0;
+    TacheComposite* tacheCompositeActuelle = 0;
+    addDuree(dur); // on ajoute la durée de la tache au projet
+    if(nbTaches==0){
+        ajouterTache(dateD,heureD,dateF, heureF, titre, preemptive, composite, dur);
+    }
+    else {
+        for(unsigned int i = 0; i < nbTaches; i++){
+            if(i==0){
+                tacheActuelle = trouverTache(nomsTaches[i]);
+            }
+            else{
+                tacheActuelle = tacheCompositeActuelle->trouverSsTache(nomsTaches[i]);
+            }
+            if(tacheActuelle == 0){
+                throw ProjetException("erreur : tache inexistante");
+            }
+            try{
+                tacheCompositeActuelle = dynamic_cast<TacheComposite*>(tacheActuelle);
+            }
+            catch(std::bad_cast& e){
+                // on n'est normalement pas censé entrer ici car dynamic_cast ne génère pas d'exception pour les
+                // conversions de pointeur
+                throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
+            }
+            if(tacheCompositeActuelle == 0){
+                throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
+            }
+            tacheCompositeActuelle->addDuree(dur); // on ajoute la durée de la tache à celle de la tache composite
+
+        }
+        tacheCompositeActuelle->ajouterSsTache(dateD,heureD,dateF, heureF, titre, preemptive, composite, dur); // o
+
+    }
+}
+
 

@@ -46,3 +46,6 @@ std::ostream& operator<<(std::ostream& f, const Horaire & h) {
     h.afficher(f);
     return f;
 }
+int operator-(const Horaire& horaire1, const Horaire& horaire2){
+        return horaire1.soustraction(horaire2);
+}

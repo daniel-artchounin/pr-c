@@ -5,7 +5,14 @@
 #include "date.h"
 #include "horaire.h"
 #include "duree.h"
-
+# include "tachesimplepreemptive.h"
+# include "tachesimplenonpreemptive.h"
+# include "programmationmanagerexception.h"
+# include "programmationevenement.h"
+# include "programmationtachesimple.h"
+# include "programmationtachesimplepreemptive.h"
+# include "programmationtachesimplenonpreemptive.h"
+# include "tache.h"
 
 /*! \class ProgrammationManager
  * \brief Classe permettant de manipuler des Programmations. Hérite de la classe Manager. Utilise le design pattern singleton
@@ -39,6 +46,7 @@ private:
     ProgrammationManager& operator=(const ProgrammationManager& pm);
     /*!
      * \brief inclus
+     * permet de savoir si une programmation potentielle est compris entre deux bornes
      * \param dateProg date de programmation
      * \param horaireProg horaire de programmation
      * \param dateFin date de fin de la programmation
@@ -47,19 +55,19 @@ private:
      * \param horaire horaire à tester
      * \return true si newDate et newHoraire sont compris entre dateProg, horaireProg et dateFin, horaireFin, false sinon
      */
-    bool inclus(const Date dateProg, const Horaire horaireProg, const Date dateFin, const Horaire horaireFin, const Date date, const Horaire horaire) const;
+    bool inclus(const Date& dateProg, const Horaire& horaireProg, const Date& dateFin, const Horaire& horaireFin, const Date& date, const Horaire& horaire) const;
     /*!
      * \brief hasIntersection
      * \param dateProg date de programmation
      * \param horaireProg horaire de programmation
      * \param dateFin date de fin de la programmation
      * \param horaireFin horaire de fin de la programmation
-     * \param newDate date de la programmationà ajouter
+     * \param newDate date de la programmation à ajouter
      * \param newHoraire horaire de la programmation à ajouter
      * \param newDuree duree de la programmation à ajouter
      * \return true si newDate et newHoraire sont compris entre dateProg, horaireProg et dateFin, horaireFin ou inversement, false sinon
      */
-    bool hasIntersection(const Date dateProg, const Horaire horaireProg, const Date dateFin, const Horaire horaireFin, const Date newDate, const Horaire newHoraire, const Duree newDuree) const;
+    bool hasIntersection(const Date& dateProg, const Horaire& horaireProg, const Date& dateFin, const Horaire& horaireFin, const Date& newDate, const Horaire& newHoraire, const Duree& newDuree) const;
     /*!
      * \brief isValid
      * \param date date de la programmation à ajouter
@@ -67,14 +75,14 @@ private:
      * \param duree duree de la programmation à ajouter
      * \return true si la nouvelle programmation n'a pas d'intersection avec celles existantes, false sinon
      */
-    bool isValid(const Date date, const Horaire horaire, const Duree duree);
+    bool isValid(const Date& date, const Horaire& horaire, const Duree& duree);
     /*!
      * \brief getKeyFrom
      * \param date date de la programmation
      * \param horaire horaire de la programmation
      * \return clé de la forme aaaammjjhhmm
      */
-    std::string getKeyFrom(const Date date, const Horaire horaire);
+    std::string getKeyFrom(const Date& date, const Horaire& horaire);
 public:
     //design pattern singleton
     /*!
@@ -95,23 +103,80 @@ public:
      * \param duree duree de la programmation
      * \return Programmation ajoutée si elle est valide
      */
-    Programmation& addProgrammationEvenement(const Date dateProg, const Horaire horaireProg, const Duree duree);
+    Programmation& addProgrammationEvenement(const Date& dateProg, const Horaire& horaireProg, const Duree& duree);
     /*!
      * \brief getProgrammation
-     * Génère une exception ProgrammationManageException si la programmation n'existe pas
+     * Génère une exception ProgrammationManagerException si la programmation n'existe pas
      * \param dateProg date de la programmation
      * \param horaireProg horaire de la programmation
      * \return programmation débutant à dateProg horaireProg
      */
-    Programmation& getProgrammation(const Date dateProg, const Horaire horaireProg);
+    Programmation& getProgrammation(const Date& dateProg, const Horaire& horaireProg);
     /*!
      * \brief getProgrammation
-     * Génère une exception ProgrammationManageException si la programmation n'existe pas
+     * Génère une exception ProgrammationManagerException si la programmation n'existe pas
      * \param dateProg date de la programmation
      * \param horaireProg horaire de la programmation
      * \return const programmation débutant à dateProg horaireProg
      */
-    const Programmation& getProgrammation(const Date dateProg, const Horaire horaireProg) const;
+    const Programmation& getProgrammation(const Date& dateProg, const Horaire& horaireProg) const;
+
+    Programmation& addProgrammationTacheSimpleNonPreemptive(const Date& dateProg, const Horaire& horaireProg, TacheSimpleNonPreemptive& tache) {
+        if(tache.hasProgrammation()){
+            throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, La tâche a déjà été programmée");
+        }
+        if(!isValid(dateProg, horaireProg, tache.getDuree())) {
+            throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, Programmation incompatible avec une programmation existante");
+        }
+        if(!tache.estDansIntervalle()){
+            throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, Programmation ne respectant pas la disponibilité ou l'échéance de la tâche");
+        }
+        for(Tache::const_iterator2 it = tache.tPBegin(); it != tache.tPEnd(); ++it){
+            // on parcourt toutes les tâches précédentes de la tâche que l'on souhaite programmer
+            // (*it) pour accéder à la tâche *
+            // -> pour accéder à la méthoe
+            if(!(*it)->isEndProgrammationOk(dateProg,horaireProg)){
+                throw ProgrammationManagerException("Désolé, votre programmation de tâche entre en conflit avec une de ses tâches précédentes");
+            }
+        }
+        ProgrammationTacheSimple* programmation = new ProgrammationTacheSimpleNonPreemptive(dateProg, horaireProg,tache);
+        Manager::addItem(getKeyFrom(dateProg, horaireProg), programmation);
+        return *programmation;
+    }
+    Programmation& addProgrammationTacheSimplePreemptive(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage, TacheSimplePreemptive& tache) {
+        if(tache.getPourcentageComplete() == 100){
+            throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, la tâche a déjà été programmée");
+        }
+        if(!isValid(dateProg, horaireProg, duree)) {
+            throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimplePreemptive, Programmation incompatible avec une programmation existante");
+        }
+        if(!tache.estDansIntervalle()){
+            throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, Programmation ne respectant pas la disponibilité ou l'échéance de la tâche");
+        }
+        if(tache.getPourcentageComplete()+pourcentage>100){
+            throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, le pourcentage de la tâche a été sélectionné de telle manière qu'il dépasse les 100 %");
+        }
+        for(Tache::const_iterator2 it = tache.tPBegin(); it != tache.tPEnd(); ++it){
+            // on parcourt toutes les tâches précédentes de la tâche que l'on souhaite programmer
+            // (*it) pour accéder à la tâche *
+            // -> pour accéder à la méthoe
+            if(!(*it)->isEndProgrammationOk(dateProg,horaireProg)){
+                throw ProgrammationManagerException("Désolé, votre programmation de tâche entre en conflit avec une de ses tâches précédentes");
+            }
+        }
+        ProgrammationTacheSimple* programmation = new ProgrammationTacheSimplePreemptive(dateProg, horaireProg, pourcentage,tache);
+        Manager::addItem(getKeyFrom(dateProg, horaireProg), programmation);
+        return *programmation;
+    }
+
+    Programmation& ProgrammationManager::addProgrammationEvenement(const Date& dateProg, const Horaire& horaireProg, const Duree& duree) {
+        if(!isValid(dateProg, horaireProg, duree)) {
+            throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationEvenement, Programmation incompatible avec une programmation existante");
+        }
+        ProgrammationEvenement* programmation = new ProgrammationEvenement(dateProg, horaireProg, duree);
+        Manager::addItem(getKeyFrom(dateProg, horaireProg), programmation);
+        return *programmation;
+    }
 };
 
 #endif // PROGRAMMATIONMANAGER_H

@@ -1,6 +1,5 @@
 #ifndef PROGRAMMATIONEVENEMENT_H
 #define PROGRAMMATIONEVENEMENT_H
-#include "programmation.h"
 #include "horaire.h"
 #include "date.h"
 #include "duree.h"
@@ -8,6 +7,9 @@
 /*! \class ProgrammationEvenement
    * \brief Classe permettant de programmer un évènement. Hérite de la classe Programmation
    */
+
+
+class Programmation;
 class ProgrammationEvenement : public Programmation
 {
 protected:
@@ -24,8 +26,12 @@ public:
      * \brief getDuree
      * \return duree de la programmation
      */
-    const Duree& getDuree() {
+
+    virtual const Duree& getDuree() const{
         return duree;
+    }
+    virtual ~ProgrammationEvenement(){
+
     }
 };
 

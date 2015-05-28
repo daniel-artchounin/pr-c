@@ -49,3 +49,7 @@ bool operator>=(const Duree& a, const Duree&b){
     return !a.estPlusPetitQue(b);
 }
 
+Duree operator+(const Duree& duree1, const Duree& duree2){
+    return duree1.addition(duree2);
+
+}

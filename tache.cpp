@@ -2,8 +2,8 @@
 # include "tacheexception.h"
 
 Tache::Tache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
-      const Horaire& heureEcheance,const std::string & titre):
-    Element(titre, dateD, heureD, dateEcheance, heureEcheance),
+      const Horaire& heureEcheance,const std::string & titre,const Duree& dur):
+    Element(titre, dateD, heureD, dateEcheance, heureEcheance,dur),
     tachesPrecedentes(){
 }
 
@@ -22,14 +22,6 @@ int Tache::getNbTachesPrecedentesMax() const{
 }
 */
 
-bool Tache::finTachesPrecedentes() const{
-    for (const_iterator2 it= tPBegin() ; it != tPEnd(); ++it){
-        if(!(it->second->isTermine())){
-            return false;
-        }
-    }
-    return true;
-}
 
 bool Tache::isTachePrecedente(const std::string& titre) const{
     Tache* tachePrecedente = trouverTachePrecedente(titre);
@@ -53,6 +45,11 @@ void Tache::ajouterTachePrecedente(Tache & tachePrecedente){
     if(tachePrecedente.trouverTachePrecedente(tachePrecedente.getTitre())){
         throw TacheException("Erreur : la tâche envoyée en paramètre a pour tâche precedente la tâche courante");
     }
+    //(date1-date2)*24*60+heure1-heure2)
+    if( ((this->getDateFin()-tachePrecedente.getDateDebut())*24*60+(this->getHoraireFin()-tachePrecedente.getHoraireDebut()))
+            -tachePrecedente.getDuree().getNbMinutes()< this->getDuree().getNbMinutes()){
+        throw TacheException("Erreur : la tâche envoyée en paramètre ne sera pas programmable");
+    }
     tachesPrecedentes.insert(std::pair<std::string, Tache*>(tachePrecedente.getTitre(), &tachePrecedente));
 }
 
@@ -62,3 +59,5 @@ void Tache::supprimerTachesPrecedente(const std::string & tachePrecedente){
     }
     tachesPrecedentes.erase(tachePrecedente);
 }
+
+

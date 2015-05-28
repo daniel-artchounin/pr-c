@@ -19,3 +19,5 @@ unsigned int TacheSimplePreemptive::getPourcentageComplete()const{
 void TacheSimplePreemptive::setPourcentageComplete(int prt){
     pourcentageComplete = prt;
 }
+
+

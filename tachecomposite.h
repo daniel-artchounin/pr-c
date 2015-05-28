@@ -1,18 +1,17 @@
 #ifndef TACHECOMPOSITE_H
 #define TACHECOMPOSITE_H
-# include "tache.h"
 # include "tachecompositeexception.h"
 # include "tachesimplenonpreemptive.h"
 # include "tachesimplepreemptive.h"
 # include "manager.h"
 # include <string>
 # include "tachecompositeexception.h"
+# include "tache.h"
 
 /**\class TacheComposite
  * \brief Classe permettant de manipuler des tâches composites
  * elle est responsable du cycle de vie de ses sous-tâches
  */
-
 class TacheComposite : public Manager <Tache>, public Tache
 {
 protected:
@@ -55,9 +54,8 @@ public:
      * \param titre titre de la tache
      * \return retourne une référence sur la tâche créée
      */
-    Tache& ajouterSsTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
-                        const Horaire& heureEcheance,const std::string & titre,const Duree & dur, bool preemptive);
-
+    void ajouterSsTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
+                        const Horaire& heureEcheance,const std::string & titre,bool preemptive, bool composite, const Duree & dur=0);
     /**
      * \brief trouverSsTache
      * permet de trouver une sous tâche de la tâche courante
