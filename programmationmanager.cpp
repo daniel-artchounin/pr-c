@@ -71,16 +71,16 @@ Programmation& ProgrammationManager::addProgrammationTacheSimpleNonPreemptive(co
     if(!isValid(dateProg, horaireProg, tache.getDuree())) {
         throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, Programmation incompatible avec une programmation existante");
     }
-    //if(!tache.estDansIntervalle()){
-    //    throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, Programmation ne respectant pas la disponibilité ou l'échéance de la tâche");
-    //}
+    if(!tache.estDansIntervalle(dateProg, horaireProg)){
+       throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, Programmation ne respectant pas la disponibilité ou l'échéance de la tâche");
+    }
     for(Tache::const_iterator2 it = tache.tPBegin(); it != tache.tPEnd(); ++it){
         // on parcourt toutes les tâches précédentes de la tâche que l'on souhaite programmer
         // (*it) pour accéder à la tâche *
-        // -> pour accéder à la méthoe
-        // if(!(it->second->isEndProgrammationOk(dateProg,horaireProg))){
-        //    throw ProgrammationManagerException("Désolé, votre programmation de tâche entre en conflit avec une de ses tâches précédentes");
-        //}
+        // -> pour accéder à la méthode
+        if(!(it->second->checkProgrammationCoherente(dateProg, horaireProg))){
+            throw ProgrammationManagerException("Désolé, votre programmation de tâche entre en conflit avec une de ses tâches précédentes");
+        }
     }
     ProgrammationTacheSimple* programmation = new ProgrammationTacheSimpleNonPreemptive(dateProg, horaireProg,tache);
     Manager::addItem(getKeyFrom(dateProg, horaireProg), programmation);
@@ -90,12 +90,12 @@ Programmation& ProgrammationManager::addProgrammationTacheSimplePreemptive(const
     if(tache.getPourcentageComplete() == 100){
         throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, la tâche a déjà été programmée");
     }
-    // if(!isValid(dateProg, horaireProg, duree)) {
+    if(!isValid(dateProg, horaireProg, tache.getDureeProgrammationViaPourcentage(pourcentage))) {
     //    throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimplePreemptive, Programmation incompatible avec une programmation existante");
-    //}
-    //if(!tache.estDansIntervalle()){
-    //    throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, Programmation ne respectant pas la disponibilité ou l'échéance de la tâche");
-    //}
+    }
+    if(!tache.estDansIntervalle(dateProg, horaireProg)){
+        throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, Programmation ne respectant pas la disponibilité ou l'échéance de la tâche");
+    }
     if(tache.getPourcentageComplete()+pourcentage>100){
         throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, le pourcentage de la tâche a été sélectionné de telle manière qu'il dépasse les 100 %");
     }
@@ -103,9 +103,9 @@ Programmation& ProgrammationManager::addProgrammationTacheSimplePreemptive(const
         // on parcourt toutes les tâches précédentes de la tâche que l'on souhaite programmer
         // (*it) pour accéder à la tâche *
         // -> pour accéder à la méthoe
-        //if(!(it->second->isEndProgrammationOk(dateProg,horaireProg))){
-        //    throw ProgrammationManagerException("Désolé, votre programmation de tâche entre en conflit avec une de ses tâches précédentes");
-        //}
+        if(!(it->second->checkProgrammationCoherente(dateProg, horaireProg))){
+            throw ProgrammationManagerException("Désolé, votre programmation de tâche entre en conflit avec une de ses tâches précédentes");
+        }
     }
     ProgrammationTacheSimple* programmation = new ProgrammationTacheSimplePreemptive(dateProg, horaireProg, pourcentage,tache);
     Manager::addItem(getKeyFrom(dateProg, horaireProg), programmation);

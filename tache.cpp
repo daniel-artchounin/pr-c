@@ -63,7 +63,7 @@ void Tache::supprimerTachesPrecedente(const std::string & tachePrecedente){
     tachesPrecedentes.erase(tachePrecedente);
 }
 
-bool Tache::checkProgrammationCoherente(const Date& dateProg, const Horaire& horaireProg, const Tache* tacheActuelle){
+bool Tache::checkProgrammationCoherente(const Date& dateProg, const Horaire& horaireProg, const Tache* tacheActuelle)const{
     TacheComposite * tacheCompositeActuelle = 0 ;
     if(!tacheActuelle){
         tacheCompositeActuelle =  dynamic_cast<TacheComposite*>(const_cast<Tache*>(this));
@@ -76,7 +76,7 @@ bool Tache::checkProgrammationCoherente(const Date& dateProg, const Horaire& hor
     TacheSimpleNonPreemptive * tacheSimpleNonPreemptiveActuelle = 0;
     if(tacheCompositeActuelle !=0){
         // on applique l'algo sur une tache composite
-        for (const_iterator2 it= tPBegin(); it!=tPEnd(); it++){
+        for (TacheComposite::const_iterator it= tacheCompositeActuelle->begin(); it!=tacheCompositeActuelle->end(); it++){
             // on applique l'algo récursif sur toutes les taches filles de la tache composite actuelle
             if(!checkProgrammationCoherente(dateProg, horaireProg,it->second)){
                 // si une tache précédente implique une programmation non cohérente, on retourne false

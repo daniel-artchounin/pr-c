@@ -56,6 +56,10 @@ public:
     void addProgrammation(ProgrammationTacheSimplePreemptive * pgrm){
         programmationstachessimplespreemptives.push_back(pgrm);
     }
+
+    Duree getDureeProgrammationViaPourcentage(unsigned int pourcentage)const{
+        return Duree((pourcentage * getDuree().getNbMinutes())/100);
+    }
 };
 
 #endif // TACHESIMPLEPREEMPTIVE_H

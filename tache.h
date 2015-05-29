@@ -155,7 +155,7 @@ class Tache : public Element {
         // fonction permettant de savoir siles tâches précédentes sont toutes programmés
         // et que la programmation de la fin soit antérieure à ma programmation
 
-        bool checkProgrammationCoherente(const Date& dateProg, const Horaire& horaireProg, const Tache* tacheActuelle);
+        bool checkProgrammationCoherente(const Date& dateProg, const Horaire& horaireProg, const Tache* tacheActuelle=0)const;
 };
 
 #endif // TACHE_H

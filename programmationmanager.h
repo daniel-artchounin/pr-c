@@ -122,6 +122,7 @@ public:
     const Programmation& getProgrammation(const Date& dateProg, const Horaire& horaireProg) const;
 
     Programmation& addProgrammationTacheSimpleNonPreemptive(const Date& dateProg, const Horaire& horaireProg, TacheSimpleNonPreemptive& tache);
+
     Programmation& addProgrammationTacheSimplePreemptive(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage, TacheSimplePreemptive& tache);
 };
 
