@@ -8,13 +8,14 @@
 class Evenement {
 protected:
     std::string nom; /*!< nom de l'évènement */
-
+    std::string lieu; /*!< lieu de l'évenement */
+    std::string motif; /*!< motif de l'évenement */
 public:
     /*!
      * \brief Constructeur
      * \param n nom de l'évènement
      */
-    Evenement(const std::string n):nom(n){}
+    Evenement(const std::string n, const std::string l, const std::string m):nom(n), lieu(l), motif(m){}
 
     /*!
      * \brief Desctructeur
@@ -28,6 +29,22 @@ public:
      */
     std::string getNom() const{
         return nom;
+    }
+
+    /*!
+     * \brief getLieu
+     * \return lieu de la réunion
+     */
+    std::string getLieu() const {
+        return lieu;
+    }
+
+    /*!
+     * \brief getMotif
+     * \return motif de la réunion
+     */
+    std::string getMotif() const {
+        return motif;
     }
 };
 
