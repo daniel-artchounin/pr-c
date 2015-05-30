@@ -18,6 +18,7 @@ class Duree {
 private:
     unsigned int nb_minutes; /*!< nombre de minutes avec nb_minutes >=0 */
 
+
 public:
     /*!
      * \brief Constructeur
@@ -33,9 +34,7 @@ public:
      * \param m minute avec m>=0
      */
     Duree(unsigned int m=0):nb_minutes(m) {}
-    Duree addition(const Duree & dureeBis)const{
-        return Duree(getNbMinutes()+dureeBis.getNbMinutes());
-    }
+
     /*!
      * \brief setDuree
      * \param heures heures>=
@@ -99,10 +98,15 @@ public:
         return nb_minutes/60;
     }
 
-    unsigned int getNbMinutes() const {
-        return nb_minutes;
+    /**
+     * \brief addition permet d'additionner une date à la date de notre objet et de retourner
+     * le résultat
+     * \param dureeBis la durée à ajouter
+     * \return le résultat de l'addition
+     */
+    Duree addition(const Duree & dureeBis)const{
+        return Duree(getDureeEnMinutes()+dureeBis.getDureeEnMinutes());
     }
-
 };
 
 /*!
@@ -146,6 +150,7 @@ bool operator>(const Duree& a, const Duree&b);
  * \return booleen
  */
 bool operator<=(const Duree& a, const Duree&b);
+
 /*!
  * \brief operator >=
  * \param a duree
@@ -154,6 +159,12 @@ bool operator<=(const Duree& a, const Duree&b);
  */
 bool operator>=(const Duree& a, const Duree&b);
 
+/*!
+ * \brief operator +
+ * \param duree1 duree
+ * \param duree2 duree
+ * \return résultat (Duree)
+ */
 Duree operator+(const Duree& duree1, const Duree& duree2);
 
 #endif // DUREE_H

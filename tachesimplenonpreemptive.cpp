@@ -11,7 +11,7 @@ TacheSimpleNonPreemptive::TacheSimpleNonPreemptive(const Date& dateD, const Hora
     }
 }
 
-bool TacheSimpleNonPreemptive::dureeValide(const Duree& duree){
+bool TacheSimpleNonPreemptive::dureeValide(const Duree& duree)const{
     return duree < Duree(12,00);
 }
 

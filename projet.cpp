@@ -76,7 +76,7 @@ void Projet::supprimerTache(const std::string& titre){
 }
 
 const Tache& Projet::accederTache(const std::string * nomsTachesComposites , unsigned int nbTaches,
-                                  const std::string& nomTache, unsigned int profondeur, const TacheComposite* tacheCourante){
+                                  const std::string& nomTache, unsigned int profondeur, const TacheComposite* tacheCourante)const{
     const TacheComposite* newTache = 0;
     if (nbTaches == 0){
         // la tâche recherchée se trouve directement à la racine du projet
@@ -126,7 +126,7 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
     if(dateF< dateD || (dateF==dateD && heureF <=heureD )){
         return false;
     }
-    if((((dateF-dateD)*24*60+ (heureF-heureD))-dur.getNbMinutes()) < dur.getNbMinutes()){
+    if((((dateF-dateD)*24*60+ (heureF-heureD))-dur.getDureeEnMinutes()) < dur.getDureeEnMinutes()){
         return false;
     }
     if(nbTaches == 0){
@@ -144,7 +144,7 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
                     ||( (dateF == dateFin) && (heureF > horaireFin) )   ){
                     return false;
             }
-            if( ( ( (getDateFin()-getDateDebut())*24*60+ (getHoraireFin()-getHoraireDebut()) ) - getDuree().getNbMinutes() ) < dur.getNbMinutes()){
+            if( ( ( (getDateFin()-getDateDebut())*24*60+ (getHoraireFin()-getHoraireDebut()) ) - getDuree().getDureeEnMinutes() ) < dur.getDureeEnMinutes()){
                 return false; // la duree de la tâche est supérieur à la durée libre du projet
             }
             tacheActuelle = trouverTache(nomsTaches[i]);
@@ -157,7 +157,7 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
             }
             if( ( ( (tacheCompositeActuelle->getDateFin()-tacheCompositeActuelle->getDateDebut())*24*60 +
                     (tacheCompositeActuelle->getHoraireFin()-tacheCompositeActuelle->getHoraireDebut()) ) -
-                  tacheCompositeActuelle->getDuree().getNbMinutes() ) < dur.getNbMinutes()){
+                  tacheCompositeActuelle->getDuree().getDureeEnMinutes() ) < dur.getDureeEnMinutes()){
                 return false; // la duree de la tâche est supérieur à la durée libre de la tâche composite
             }
             tacheActuelle = tacheCompositeActuelle->trouverSsTache(nomsTaches[i]);
@@ -184,6 +184,9 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
 void Projet::creerAjouterTache(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD
                                    ,const Horaire& heureD,const Date& dateF, const Horaire& heureF,
                                const std::string& titre, bool preemptive, bool composite,const Duree & dur){
+    if(!verifierContraintesRespectees(nomsTaches,nbTaches, dateD,heureD, dateF, heureF, dur)){
+        throw ProjetException("ProjetException, création de la tâche impossible : contraintes non respectées");
+    }
     Tache* tacheActuelle = 0;
     TacheComposite* tacheCompositeActuelle = 0;
     addDuree(dur); // on ajoute la durée de la tache au projet

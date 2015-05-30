@@ -19,39 +19,41 @@ public:
      * \param horaire horaire de programmation
      */
     Programmation(const Date& date, const Horaire& horaire):dateProg(date), horaireProg(horaire) {}
+
     /*!
      * \brief Destructeur
-     * Desctructeur virtual
+     * Desctructeur abstrait
      */
-    virtual ~Programmation(){
-
-    }
+    virtual ~Programmation();
 
     /*!
      * \brief getDateProgrammation
      * \return date de programmation
      */
-    const Date& getDateProgrammation() {
+    Date getDateProgrammation()const{
         return dateProg;
     }
+
     /*!
      * \brief getHoraireProgrammation
      * \return horaire de programmation
      */
-    const Horaire& getHoraireProgrammation() {
+     Horaire getHoraireProgrammation()const{
         return horaireProg;
     }
+
     /*!
      * \brief getDuree
      * Devra être défini par les classes héritant de Programmation
      * \return duree de la programmation
      */    
-    virtual const Duree& getDuree()const=0;
+    virtual Duree getDuree()const=0;
+
     /*!
      * \brief getDateFin
      * \return date de fin de la programmation
      */
-    const Date getDateFin() {
+    Date getDateFin()const{
         return dateProg.addDuree(getDuree());
     }
 
@@ -59,7 +61,7 @@ public:
      * \brief getHoraireFin
      * \return horaire de fin de la programmation
      */
-    const Horaire getHoraireFin() {
+    Horaire getHoraireFin()const{
         return horaireProg.addDuree(getDuree());
     }
 };

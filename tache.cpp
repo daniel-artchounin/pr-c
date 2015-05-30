@@ -1,4 +1,4 @@
-#include "tache.h"
+# include "tache.h"
 # include "tacheexception.h"
 # include "tachesimplenonpreemptive.h"
 # include "tachesimplepreemptive.h"
@@ -6,25 +6,8 @@
 
 Tache::Tache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
       const Horaire& heureEcheance,const std::string & titre,const Duree& dur):
-    Element(titre, dateD, heureD, dateEcheance, heureEcheance,dur),
-    tachesPrecedentes(){
+    Element(titre, dateD, heureD, dateEcheance, heureEcheance,dur),tachesPrecedentes(){
 }
-
-/*
-Tache** Tache::getTachesPrecedentes()const{
-    return tachesPrecedentes;
-}
-*/
-/*size_type Tache::getNbTachesPrecedentes() const{
-    return tachesPrecedentes.size();
-}
-*/
-/*
-int Tache::getNbTachesPrecedentesMax() const{
-    return nbTachesPrecedentesMax;
-}
-*/
-
 
 bool Tache::isTachePrecedente(const std::string& titre) const{
     Tache* tachePrecedente = trouverTachePrecedente(titre);
@@ -37,7 +20,7 @@ bool Tache::isTachePrecedente(const std::string& titre) const{
 }
 
 Tache* Tache::trouverTachePrecedente(const std::string & titre)const{
-    const_iterator2 result = tachesPrecedentes.find(titre);
+    tp_const_iterator result = tachesPrecedentes.find(titre);
     if(result == tPEnd()) {
         return 0;
     }
@@ -48,9 +31,8 @@ void Tache::ajouterTachePrecedente(Tache & tachePrecedente){
     if(tachePrecedente.trouverTachePrecedente(tachePrecedente.getTitre())){
         throw TacheException("Erreur : la tâche envoyée en paramètre a pour tâche precedente la tâche courante");
     }
-    //(date1-date2)*24*60+heure1-heure2)
     if( ((this->getDateFin()-tachePrecedente.getDateDebut())*24*60+(this->getHoraireFin()-tachePrecedente.getHoraireDebut()))
-            -tachePrecedente.getDuree().getNbMinutes()< this->getDuree().getNbMinutes()){
+            -tachePrecedente.getDuree().getDureeEnMinutes()< this->getDuree().getDureeEnMinutes()){
         throw TacheException("Erreur : la tâche envoyée en paramètre ne sera pas programmable");
     }
     tachesPrecedentes.insert(std::pair<std::string, Tache*>(tachePrecedente.getTitre(), &tachePrecedente));
@@ -91,7 +73,7 @@ bool Tache::checkProgrammationCoherente(const Date& dateProg, const Horaire& hor
         return tacheSimpleNonPreemptiveActuelle->isEndProgrammationOk(dateProg,horaireProg);
     }
     else if(!(tacheSimplePreemptiveActuelle= dynamic_cast<TacheSimplePreemptive *>(const_cast<Tache*>(tacheActuelle)) ) ){
-        ;
+        // on applique l'algo sur une tache simple préemptive
         return tacheSimplePreemptiveActuelle->isEndProgrammationOk(dateProg,horaireProg);
     }
     else{

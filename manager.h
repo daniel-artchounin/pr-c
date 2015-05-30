@@ -85,13 +85,16 @@ public:
     iterator end() { return items.end(); }
 
     /*!
-     * \brief begin
-     * \return iterator sur le début de la map
+     * \brief begin (sera utilisé si on utilise une référence const ou
+     * un pointeur const vers un objet de type Element ou d'un type descendant d'Element)
+     * \return const_iterator sur le début de la map
      */
     const_iterator begin() const { return const_cast<Manager*>(this)->begin(); }
+
     /*!
-     * \brief end
-     * \return iterator sur la fin de la map
+     * \brief end (sera utilisé si on utilise une référence const ou
+     * un pointeur const vers un objet de type Element ou d'un type descendant d'Element)
+     * \return const_iterator sur la fin de la map
      */
     const_iterator end() const { return const_cast<Manager*>(this)->end(); }
 };

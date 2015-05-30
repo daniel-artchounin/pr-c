@@ -26,6 +26,10 @@ public:
     Date(unsigned int short j=1, unsigned int short m=1, unsigned int a=0):jour(1),mois(1),annee(0) {
         setDate(j,m,a);
     }
+    /*!
+     * \brief Constructeur de recopie
+     * \param date référence const vers une date
+     */
     Date(const Date& date):jour(date.jour),mois(date.mois),annee(date.annee) {
     }
     /*!
@@ -97,11 +101,7 @@ public:
      * \return true si Date supérieur ou égal à d dans le temps
      */
     bool operator>=(const Date& d) const;
-    /*!
-     * \brief operator -
-     * \param d
-     * \return nombre de jours séparant les deux dates
-     */
+
     /*!
      * \brief demain
      * \return date du jour suivant
@@ -142,14 +142,18 @@ std::ostream& operator<<(std::ostream& f, const Date& x);
 
 /*!
  * \brief operator >>
- * Surcharge de l'opératuer >>
+ * Surcharge de l'opérateur >>
  * Lecture de la date au format JJ/MM/AAAA
  * \param flot istream
  * \param date Date
  * \return istream
  */
 std::istream& operator>>(std::istream& flot, Date& date);
-
+/*!
+ * \brief operator -
+ * \param d
+ * \return nombre de jours séparant les deux dates
+ */
 int operator-(const Date& d1, const Date&d2 );
 
 

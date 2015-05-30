@@ -3,6 +3,7 @@
 #include "horaire.h"
 #include "date.h"
 #include "duree.h"
+# include "programmation.h"
 
 /*! \class ProgrammationEvenement
    * \brief Classe permettant de programmer un évènement. Hérite de la classe Programmation
@@ -15,6 +16,7 @@ class ProgrammationEvenement : public Programmation
 protected:
     Duree duree; /*!< duree de la programmation */
 public:
+
     /*!
      * \brief ProgrammationEvenement
      * \param date date de début de la programmation
@@ -22,17 +24,19 @@ public:
      * \param dur duree de l'evènement programmé
      */
     ProgrammationEvenement(const Date date, const Horaire horaire, const Duree dur):Programmation(date, horaire), duree(dur) {}
+
     /*!
      * \brief getDuree
      * \return duree de la programmation
      */
-
-    virtual const Duree& getDuree() const{
+    virtual Duree getDuree() const{
         return duree;
     }
-    virtual ~ProgrammationEvenement(){
 
-    }
+    /*!
+     * \brief ~ProgrammationEvenement destructeur
+     */
+    virtual ~ProgrammationEvenement();
 };
 
 #endif // PROGRAMMATIONEVENEMENT_H

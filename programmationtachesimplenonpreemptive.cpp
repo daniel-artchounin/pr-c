@@ -6,9 +6,15 @@ ProgrammationTacheSimpleNonPreemptive::ProgrammationTacheSimpleNonPreemptive(con
     tacheSimpleNonPreemptive->setProgrammation(this);
 
 }
-const TacheSimpleNonPreemptive & ProgrammationTacheSimpleNonPreemptive::getTacheSimple(){
+
+const TacheSimpleNonPreemptive& ProgrammationTacheSimpleNonPreemptive::getTacheSimple()const{
     return *tacheSimpleNonPreemptive;
 }
-const Duree& ProgrammationTacheSimpleNonPreemptive::getDuree()const{
+Duree ProgrammationTacheSimpleNonPreemptive::getDuree()const{
     return tacheSimpleNonPreemptive->getDuree();
+}
+
+
+ProgrammationTacheSimpleNonPreemptive::~ProgrammationTacheSimpleNonPreemptive(){
+
 }

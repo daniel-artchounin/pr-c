@@ -15,11 +15,13 @@ public:
      * \param n nom de l'évènement
      */
     Evenement(const std::string n):nom(n){}
+
     /*!
      * \brief Desctructeur
      * Destructeur virtual pure.
      */
-    virtual ~Evenement() =0;
+    virtual ~Evenement()=0;
+
     /*!
      * \brief getNom
      * \return nom de l'évènement

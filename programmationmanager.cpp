@@ -50,9 +50,6 @@ Programmation& ProgrammationManager::addProgrammationEvenement(const Date& dateP
     return *programmation;
 }
 
-
-
-
 Programmation& ProgrammationManager::getProgrammation(const Date& dateProg, const Horaire& horaireProg) {
     Programmation* programmation=getItem(getKeyFrom(dateProg, horaireProg));
     if (!programmation) throw ProgrammationManagerException("erreur, ProgrammationManager, getProgrammation, Programmation inexistante");
@@ -65,16 +62,13 @@ const Programmation& ProgrammationManager::getProgrammation(const Date& dateProg
 
 
 Programmation& ProgrammationManager::addProgrammationTacheSimpleNonPreemptive(const Date& dateProg, const Horaire& horaireProg, TacheSimpleNonPreemptive& tache) {
-    if(tache.hasProgrammation()){
-        throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, La tâche a déjà été programmée");
-    }
     if(!isValid(dateProg, horaireProg, tache.getDuree())) {
         throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, Programmation incompatible avec une programmation existante");
     }
     if(!tache.estDansIntervalle(dateProg, horaireProg)){
        throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, Programmation ne respectant pas la disponibilité ou l'échéance de la tâche");
     }
-    for(Tache::const_iterator2 it = tache.tPBegin(); it != tache.tPEnd(); ++it){
+    for(Tache::tp_const_iterator it = tache.tPBegin(); it != tache.tPEnd(); ++it){
         // on parcourt toutes les tâches précédentes de la tâche que l'on souhaite programmer
         // (*it) pour accéder à la tâche *
         // -> pour accéder à la méthode
@@ -87,19 +81,19 @@ Programmation& ProgrammationManager::addProgrammationTacheSimpleNonPreemptive(co
     return *programmation;
 }
 Programmation& ProgrammationManager::addProgrammationTacheSimplePreemptive(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage, TacheSimplePreemptive& tache) {
-    if(tache.getPourcentageComplete() == 100){
+    if(tache.getPourcentageDejaProgramme() == 100){
         throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, la tâche a déjà été programmée");
     }
     if(!isValid(dateProg, horaireProg, tache.getDureeProgrammationViaPourcentage(pourcentage))) {
-    //    throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimplePreemptive, Programmation incompatible avec une programmation existante");
+        throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimplePreemptive, Programmation incompatible avec une programmation existante");
     }
     if(!tache.estDansIntervalle(dateProg, horaireProg)){
         throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, Programmation ne respectant pas la disponibilité ou l'échéance de la tâche");
     }
-    if(tache.getPourcentageComplete()+pourcentage>100){
+    if(tache.getPourcentageDejaProgramme()+pourcentage>100){
         throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, le pourcentage de la tâche a été sélectionné de telle manière qu'il dépasse les 100 %");
     }
-    for(Tache::const_iterator2 it = tache.tPBegin(); it != tache.tPEnd(); ++it){
+    for(Tache::tp_const_iterator it = tache.tPBegin(); it != tache.tPEnd(); ++it){
         // on parcourt toutes les tâches précédentes de la tâche que l'on souhaite programmer
         // (*it) pour accéder à la tâche *
         // -> pour accéder à la méthoe

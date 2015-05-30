@@ -15,10 +15,19 @@ protected:
     Horaire horaireDebut; /*!< horaire de début */
     Date dateFin; /*!< date de fin */
     Horaire horaireFin; /*!< horaire de fin */
-    Duree duree;
+    Duree duree; /*!< la duree minimale du projet (en supposant que les tâches se succèdent sans espace)*/
 
 public:
+    /*!
+     * \brief estDansIntervalle permet de vérifier si une programmation se
+     * se situe bien dans l'intervalle autorisé (après la disponibilité et avant
+     * échéance)
+     * \param dateProg date de programmation
+     * \param horaireProg horaire de programmation
+     * \return vrai si la programmation se trouve dans l'intervalle ou faux sinon
+     */
     bool estDansIntervalle(const Date& dateProg, const Horaire& horaireProg);
+
     /*!
      * \brief Constructeur
      * \param t titre
@@ -27,13 +36,14 @@ public:
      * \param dateF date de fin
      * \param horaireF horaire de fin
      */
-    Element(const std::string t, const Date dateD, const Horaire horaireD, const Date dateF, const Horaire horaireF,const Duree& dur=0):
+    Element(const std::string& t, const Date& dateD, const Horaire& horaireD, const Date& dateF, const Horaire& horaireF,const Duree& dur=0):
         titre(t), dateDebut(dateD), horaireDebut(horaireD), dateFin(dateF), horaireFin(horaireF),duree(dur) {}
     /*!
      * \brief Desctructeur
      * Destructeur virtual pure.
      */
     virtual ~Element()=0;
+
     /*!
      * \brief getTitre
      * \return titre de l'élément
@@ -41,6 +51,7 @@ public:
     const std::string& getTitre() const {
         return titre;
     }
+
     /*!
      * \brief getDateDebut
      * \return date de début
@@ -70,18 +81,27 @@ public:
         return horaireFin;
     }
 
-    /**
+    /*!
      * \brief getDuree accesseur
      * \return retourne un pointeur vers la tâche trouvée ou 0
      */
     const Duree & getDuree()const;
 
-    void setDuree(Duree duree1){
-        duree = duree1;
+    /*!
+     * \brief setDuree mutateur (permet de mettre à jour
+     * la durée de l'élément
+     * \param duree1 la nouvelle durée
+     */
+    void setDuree(const Duree& dur){
+        duree = dur;
     }
-
-    void addDuree(const Duree& dureeBis){
-        setDuree(getDuree()+dureeBis);
+    /*!
+     * \brief addDuree permet d'ajouter une durée à la
+     * durée de notre élément
+     * \param duree la durée ajoutée
+     */
+    void addDuree(const Duree& duree){
+        setDuree(getDuree()+duree);
     }
 
 

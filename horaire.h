@@ -26,6 +26,7 @@ public:
     Horaire(unsigned short int  h, unsigned short int  m):heure(h),minute(m) {
         if (h>23||m>59) throw HoraireException("erreur: initialisation horaire invalide");
     }
+
     /*!
      * \brief setHoraire
      * \param h heure avec 0<=h<=23
@@ -36,6 +37,7 @@ public:
         heure=h;
         minute=m;
     }
+
     /*!
      * \brief afficher
      * Affiche l'horaire sous le format hhHmm
@@ -44,6 +46,7 @@ public:
     void afficher(std::ostream& f=std::cout) const {
         f<<std::setfill('0')<<std::setw(2)<<heure<<"H"<<std::setfill('0')<<std::setw(2)<<minute<<std::setfill(' ');
     }
+
     /*!
      * \brief getHeure
      * \return heure de l'Horaire
@@ -51,6 +54,7 @@ public:
     unsigned short int getHeure() const {
         return heure;
     }
+
     /*!
      * \brief getMinute
      * \return minute de l'Horaire
@@ -58,40 +62,47 @@ public:
     unsigned short int getMinute() const {
         return minute;    //<!Retourne les minutes de l'Horaire
     }
+
     /*!
      * \brief operator <
      * \param h Horaire
      * \return true si Horaire précède h dans le temps
      */
     bool operator<(const Horaire& h) const;
+
     /*!
      * \brief operator >
      * \param h Horaire
      * \return true si Horaire succède h dans le temps
      */
     bool operator>(const Horaire& h) const;
+
     /*!
      * \brief operator <=
      * \param h Horaire
      * \return true si Horaire inférieur ou égal à h dans le temps
      */
     bool operator<=(const Horaire& h) const;
+
     /*!
      * \brief operator >=
      * \param h Horaire
      * \return true si Horaire supérieur ou égal à h dans le temps
      */
     bool operator>=(const Horaire& h) const;
+
     /*!
      * \brief formatHHMM
      * \return l'horaire au format hhmm
      */
     std::string formatHHMM() const;
+
     /*!
      * \brief Horaire::toQString
      * \return horaire au format hhHmm
      */
     QString toQString() const;
+
     /*!
      * \brief addDuree
      * \param duree
@@ -100,12 +111,12 @@ public:
     Horaire addDuree(const Duree duree) const;
 
     /*!
-     * \brief soustraction
-     * \param horaire2
-     * \return un nombre de minutes entre deux horaires : ce nombre peut volontairement etre négatif
+     * \brief soustraction permet de calculer le nombre de minutes séparant deux horaires (le résultat peut-être négatif)
+     * \param horaire l'horaire à déduire de l'horaire de notre objet
+     * \return le nombre de minutes entre les deux horaires : ce nombre peut volontairement etre négatif
      */
-    int soustraction(const Horaire& horaire2) const{
-        return ( this->getHeure()- horaire2.getHeure() )*60 + this->getMinute() - horaire2.getMinute();
+    int soustraction(const Horaire& horaire) const{
+        return ( this->getHeure()- horaire.getHeure() )*60 + this->getMinute() - horaire.getMinute();
     }
 };
 
@@ -118,8 +129,12 @@ public:
  */
 std::ostream& operator<<(std::ostream& f, const Horaire & h);
 
-// retourne le nombre de minutes séparant les deux horaires
+/*!
+ * \brief operator - permet le nombre de minutes séparant deux horaires (le résultat peut-être négatif)
+ * \param horaire1 le premier horaire
+ * \param horaire2 le deuxième horaire
+ * \return le nombre de minutes entre les deux horaires : ce nombre peut volontairement etre négatif
+ */
 int operator-(const Horaire& horaire1, const Horaire& horaire2);
-
 
 #endif // Horaire_H

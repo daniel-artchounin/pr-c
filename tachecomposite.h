@@ -14,8 +14,6 @@
  */
 class TacheComposite : public Manager <Tache>, public Tache
 {
-protected:
-
 public:
     /**
      * \brief TacheComposite Constructeur
@@ -27,22 +25,7 @@ public:
      */
     TacheComposite(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
           const Horaire& heureEcheance,const std::string & titre);
-    /**
-     * \brief getSsTaches accesseur
-     * \return retourne un pointeur vers un tableau de pointeur
-     * vers les sous tâches de la tâche actuelle
-     */
-    // Tache** getSsTaches() const;
-    /**
-     * \brief getnbSsTaches accesseur
-     * \return retourne le nombre de sous tâche de la tâche courante
-     */
-    // int getnbSsTaches();
-    /**
-     * \brief getnbSsTachesMax accesseur
-     * \return retourne la taille du tableau de pointeurs ssTaches
-     */
-    // int getnbSsTachesMax();
+
     /**
      * \brief ajouterSsTache
      * permet de créer et d'ajouter une sous-tâche à la tache actuelle
@@ -55,7 +38,9 @@ public:
      * \return retourne une référence sur la tâche créée
      */
     void ajouterSsTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
-                        const Horaire& heureEcheance,const std::string & titre,bool preemptive, bool composite, const Duree & dur=0);
+                        const Horaire& heureEcheance,const std::string & titre,
+                        bool preemptive, bool composite, const Duree& dur=0);
+
     /**
      * \brief trouverSsTache
      * permet de trouver une sous tâche de la tâche courante
@@ -65,6 +50,7 @@ public:
      */
     Tache* trouverSsTache(const std::string& nomTache)const;
 
+
     /**
      * \brief getSsTache
      * permet de trouver une sous tâche de la tâche courante
@@ -72,8 +58,8 @@ public:
      * \param titre nom de la sous tâche
      * \return retourne une référence sur la tâche
      */
-
     Tache& getSsTache(const std::string& titre);
+
     /**
      * \brief getSsTache méthode const (elle sera utilisé par les références
      * const ou les pointeurs const)

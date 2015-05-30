@@ -6,15 +6,6 @@ TacheComposite::TacheComposite(const Date& dateD, const Horaire& heureD, const D
     Manager<Tache>(),Tache(dateD, heureD, dateEcheance,heureEcheance,
           titre){
 }
-/*Tache** TacheComposite::getSsTaches() const{
-    return ssTaches;
-}*/
-/*int TacheComposite::getnbSsTaches(){
-    return nbSsTaches;
-}*/
-/*int TacheComposite::getnbSsTachesMax(){
-    return nbSsTachesMax;
-}*/
 
 Tache* TacheComposite::trouverSsTache(const std::string& nomTache)const{
     return getItem(nomTache);

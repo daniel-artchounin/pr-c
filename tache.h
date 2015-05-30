@@ -19,9 +19,17 @@ class TacheSimpleNonPreemptive;
 class TacheSimplePreemptive;
 class Tache : public Element {
     protected:
-        typedef std::map<std::string, Tache*> Map2;
-        Map2 tachesPrecedentes; /*!< map de taches */
-        // ajouter un iterateur
+        typedef std::map<std::string, Tache*> TPMap;
+        TPMap tachesPrecedentes; /*!< map de taches */
+        /**
+         * \brief trouverTachePrecedente
+         * permet de trouver la tâche précédente envoyée en paramètre
+         * parmi les contraintes de precedence de la tâche actuelle
+         * \param tachePotentPrecedente titre de la tache potentiellement précédente
+         * \return retourne un pointeur vers la tâche précédente si elle l'est vraiment
+         * ou 0 sinon
+         */
+        Tache* trouverTachePrecedente(const std::string& titre) const;
     public:
         /**
          * \brief Constructeur
@@ -35,56 +43,12 @@ class Tache : public Element {
               const Horaire& heureEcheance,const std::string & titre,const Duree& dur=0);
 
         /**
-         * \brief getTachesPrecedentes
-         * accesseur
-         * \return retourne un pointeur sur le premier élément d'un tableau
-         * de pointeur vers les taches précédents la tache
-         */
-
-       // Tache** getTachesPrecedentes()const;
-
-        /**
-         * \brief getNbTachesPrecedentes
-         * accesseur
-         * \return retourne le nombre de taches précédentes
-         */
-
-        // size_type getNbTachesPrecedentes() const;
-
-        /**
-         * \brief getNbTachesPrecedentesMax
-         * accesseur
-         * \return retourne la taille du tableau dynamique tachesPrecedentes
-         */
-        // int getNbTachesPrecedentesMax() const;
-
-        /**
-         * \brief isTermine
-         * méthode virutelle pure
-         * \return retourne un booléen (en fonction de la terminaison de la tache)
-         */
-
-        /**
-         * \brief finTachesPrecedentes
-         * \return retourne un booléen (en fonction de la terminaison des tâches précédentes)
-         */
-
-        /**
          * \brief isTachePrecedente
          * permet de savoir si une tâche envoyée en paramètre précède la tâche courante
          * \param tachePotentPrecedente titre d'une potentielle tache précédente
          * \return retourne un booléen (en fonction du statut de la tache par rapport à la tâche actuelle)
          */
         bool isTachePrecedente(const std::string& titre) const;
-        /**
-         * \brief trouverTachePrecedente
-         * permet de trouver la tâche précédente envoyée en paramètre
-         * parmi les contraintes de precedence de la tâche actuelle
-         * \param tachePotentPrecedente titre de la tache potentiellement précédente
-         * \return retourne un pointeur vers la tâche précédente si elle l'est vraiment
-         * ou 0 sinon
-         */
-        Tache* trouverTachePrecedente(const std::string& titre) const;
 
         /**
          * \brief getTachePrecedente
@@ -118,6 +82,7 @@ class Tache : public Element {
          * \param tachePrecedente référence sur une tache à ajouter
          */
         void ajouterTachePrecedente(Tache & tachePrecedente);
+
         /**
          * \brief supprimerTachesPrecedente
          * supprime une contrainte de précedence
@@ -125,36 +90,44 @@ class Tache : public Element {
          */
         void supprimerTachesPrecedente(const std::string& tachePrecedente);
 
-
-        typedef typename Map2::iterator iterator2;
-        typedef typename Map2::const_iterator const_iterator2;
-        /*!
-         * \brief begin
-         * \return iterator sur le début de la map
-         */
-        iterator2 tPBegin() { return tachesPrecedentes.begin(); }
-        /*!
-         * \brief end
-         * \return iterator sur la fin de la map
-         */
-        iterator2 tPEnd() { return tachesPrecedentes.end(); }
+        typedef typename TPMap::iterator tp_iterator;
+        typedef typename TPMap::const_iterator tp_const_iterator;
 
         /*!
          * \brief begin
          * \return iterator sur le début de la map
          */
-        const_iterator2 tPBegin() const{ return const_cast<Tache *>(this)->tPBegin(); }
+        tp_iterator tPBegin() { return tachesPrecedentes.begin(); }
+
         /*!
          * \brief end
          * \return iterator sur la fin de la map
          */
-        const_iterator2 tPEnd() const{ return const_cast<Tache *>(this)->tPEnd(); }
+        tp_iterator tPEnd() { return tachesPrecedentes.end(); }
 
-        // getDateFin -> erreur dans l'UML
-        // getHeureFin -> erreur dans l'UML
-        // fonction permettant de savoir siles tâches précédentes sont toutes programmés
-        // et que la programmation de la fin soit antérieure à ma programmation
+        /*!
+         * \brief begin
+         * \return iterator sur le début de la map
+         */
+        tp_const_iterator tPBegin() const{ return const_cast<Tache *>(this)->tPBegin(); }
+        /*!
+         * \brief end
+         * \return iterator sur la fin de la map
+         */
+        tp_const_iterator tPEnd() const{ return const_cast<Tache *>(this)->tPEnd(); }
 
+
+        /*!
+         * \brief checkProgrammationCoherente
+         * permet de savoir si les tâches précédent ma tâche ont
+         * toutes été programmés et si fin de la programmation est
+         * antérieure à la programmation de ma tâche
+         * \param dateProg date de programmation
+         * \param horaireProg horaire de programmation
+         * \param tacheActuelle pointeur sur la tâche actuelle dans la boucle récursive
+         * (ne doit pas être utilisé par le client)
+         * \return vrai si la programmation est correcte ou faux sinon
+         */
         bool checkProgrammationCoherente(const Date& dateProg, const Horaire& horaireProg, const Tache* tacheActuelle=0)const;
 };
 

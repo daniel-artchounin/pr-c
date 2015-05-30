@@ -11,17 +11,23 @@ TacheSimplePreemptive::TacheSimplePreemptive(const Date& dateD,
                    dateEcheance,
                    heureEcheance,
                    titre,
-                   dur),pourcentageComplete(0){
+                   dur),pourcentageDejaProgramme(0){
 }
-unsigned int TacheSimplePreemptive::getPourcentageComplete()const{
-    return pourcentageComplete;
+unsigned int TacheSimplePreemptive::getPourcentageDejaProgramme()const{
+    return pourcentageDejaProgramme;
 }
-void TacheSimplePreemptive::setPourcentageComplete(int prt){
-    pourcentageComplete = prt;
+void TacheSimplePreemptive::setPourcentageDejaProgramme(int prt){
+    if (prt>100){
+        throw TacheSimplePreemptiveException("setPourcentageDejaProgramme : Le pourcentage est supérieur à 100 !");
+    }else if(prt <0){
+        throw TacheSimplePreemptiveException("setPourcentageDejaProgramme : Le pourcentage est inférieur à 100 !");
+    }
+    else
+    pourcentageDejaProgramme = prt;
 }
 
 bool TacheSimplePreemptive::isEndProgrammationOk(const Date& dateProg, const Horaire& horaireProg)const{
-    if(!hasProgrammation() || pourcentageComplete != 100){
+    if(!hasProgrammation() || pourcentageDejaProgramme != 100){
         // la tache ne possède pas encore de programmation ou elle n'as pas encore totalement été programmée
         return false;
     }else{
@@ -34,7 +40,5 @@ bool TacheSimplePreemptive::isEndProgrammationOk(const Date& dateProg, const Hor
         }
         // la dernière programmation ne sera pas terminée avant le début de notre prévision de programmation
         return false;
-
     }
-
 }

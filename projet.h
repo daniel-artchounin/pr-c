@@ -23,6 +23,24 @@ protected :
      * sinon
      */
     Tache* trouverTache(const std::string& nomTache)const;
+
+    /**
+     * \brief verifierContraintesRespectees
+     * permet de vérifier si la date de début, l'heure de début, la date de fin et l'heure de fin
+     * de la tache qui peut etre ultérieurement créée sont cohérentes avec ses potentielles taches composites
+     * mères et son potentiel projet père
+     * \param nomsTaches tableau de chaines de caractères contenant les titres
+     * des taches composites (correspond au cheminement pour parvenir à la tache qui va probablement
+     * etre créée)
+     * \param nbTaches taille du tableau nomsTaches
+     * \param dateD date de disponiblité
+     * \param heureD heure de disponiblité
+     * \param dateF dateEcheance date d'échéance
+     * \param heureF heure d'échéance
+     * \return retourne un booleen permettant de savoir si les contraintes sont respectées
+     */
+    bool verifierContraintesRespectees(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD,
+                                       const Horaire& heureD, const Date& dateF, const Horaire& heureF, const Duree& dur)const;
 public:
     /**
      * \brief Projet Constructeur
@@ -34,22 +52,6 @@ public:
      */
     Projet(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
           const Horaire& heureEcheance,const std::string & titre);
-    /**
-     * \brief getTaches accesseur
-     * \return retourne un pointeur vers un tableau de pointeur
-     * vers les tâches à la racine du projet
-     */
-    // Tache** getTaches()const;
-    /**
-     * \brief getNbTaches accesseur
-     * \return retourne le nombre de tâches à la racine du projet
-     */
-    // unsigned int getNbTaches()const;
-    /**
-     * \brief getNbTachesMax accesseur
-     * \return retourne la taille du tableau de pointeurs de tâches à la racine du projet
-     */
-    // unsigned int getNbTachesMax()const;
 
     /**
      * \brief ajouterTache
@@ -68,7 +70,8 @@ public:
      * \return retourne une référence sur la tâche créée
      */
     void ajouterTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
-                        const Horaire& heureEcheance,const std::string & titre,bool preemptive, bool composite,const Duree & dur = 0);
+                        const Horaire& heureEcheance,const std::string & titre,bool preemptive,
+                      bool composite,const Duree& dur = 0);
     /**
      * \brief getTache
      * permet de trouver une tâche du projet actuel
@@ -120,12 +123,10 @@ public:
      * \return retourne une référence vers la tache à laquelle on souhaitait accéder
      */
     const Tache& accederTache(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache,
-                              unsigned int profondeur = 0, const TacheComposite* tacheCourante = 0);
-    /**
-     * \brief verifierContraintesRespectees
-     * permet de vérifier si la date de début, l'heure de début, la date de fin et l'heure de fin
-     * de la tache qui peut etre ultérieurement créée sont cohérentes avec ses potentielles taches composites
-     * mères et son potentiel projet père
+                              unsigned int profondeur = 0, const TacheComposite* tacheCourante = 0)const;
+
+    /*!
+     * \brief creerAjouterTache
      * \param nomsTaches tableau de chaines de caractères contenant les titres
      * des taches composites (correspond au cheminement pour parvenir à la tache qui va probablement
      * etre créée)
@@ -134,15 +135,14 @@ public:
      * \param heureD heure de disponiblité
      * \param dateF dateEcheance date d'échéance
      * \param heureF heure d'échéance
-     * \return retourne un booleen permettant de savoir si les contraintes sont respectées
+     * \param titre
+     * \param preemptive
+     * \param composite
+     * \param dur
      */
-    bool verifierContraintesRespectees(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD
-                                       ,const Horaire& heureD,const Date& dateF, const Horaire& heureF, const Duree & dur)const;
-
-    // verifierTachesPrecedentesTerminees -> à voir mercredi matin
-    void creerAjouterTache(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD
-                                       ,const Horaire& heureD,const Date& dateF, const Horaire& heureF,
-                                   const std::string& titre, bool preemptive, bool composite,const Duree & dur=0);
+    void creerAjouterTache(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD,
+                           const Horaire& heureD, const Date& dateF, const Horaire& heureF,
+                                   const std::string& titre, bool preemptive, bool composite, const Duree & dur=0);
 
 };
 

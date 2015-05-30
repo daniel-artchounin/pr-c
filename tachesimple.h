@@ -10,7 +10,11 @@
  */
 class TacheSimple : public Tache{
     protected:
-        bool termine;
+        /*!
+         * \brief hasProgrammation
+         * \return vrai si la taĉhe a au moins une programmtion ou faux sinon
+         */
+        virtual bool hasProgrammation()const=0;
     public:
         /**
          * \brief TacheSimple Constructeur
@@ -24,19 +28,16 @@ class TacheSimple : public Tache{
         TacheSimple(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                     const Horaire& heureEcheance,const std::string & titre,const Duree & dur);
 
-        /**
-         * \brief isTermine
-         * \return retourne true si la tâche est terminé ou
-         * false sinon
+        /*!
+         * \brief isEndProgrammationOk permet de vérifier que
+         * la tâche a été programmée intégralement et que la fin de la programmation
+         * précéde celle transmise en paramètre
+         * \param dateProg date de début de la programmation
+         * \param horaireProg horaire de début de la programmation
+         * \return vrai si la tâche a été programmé intégralement et que la fin de la programmation
+         * précédè celle transmise en paramètre ou faux sinon
          */
-        /**
-         * \brief setTermine mutateur
-         * \param state le nouvel état de la tâche (true : terminé / false : non terminé)
-         */
-        virtual bool hasProgrammation()const=0;
         virtual bool isEndProgrammationOk(const Date& dateProg, const Horaire& horaireProg) const=0;
-
-
 };
 
 #endif // TACHESIMPLE_H

@@ -27,23 +27,27 @@ private:
      * Constructeur privé afin d'empêcher la duplication
      */
     ProgrammationManager(): Manager<Programmation>(){}
+
     /*!
      *\brief Destructeur
      * Destructeur privé
      */
     ~ProgrammationManager() {}
+
     /*!
      * \brief Contructeur par recopie
      * Constructeur par recopie privé
      * \param pm ProgrammationManager
-     */
+     */    
     ProgrammationManager(const ProgrammationManager& pm);
+
     /*!
      * \brief Operateur d'affectation
      * Opérateur d'affectation privé
      * \param pm ProgrammationManager
      */
     ProgrammationManager& operator=(const ProgrammationManager& pm);
+
     /*!
      * \brief inclus
      * permet de savoir si une programmation potentielle est compris entre deux bornes
@@ -56,6 +60,7 @@ private:
      * \return true si newDate et newHoraire sont compris entre dateProg, horaireProg et dateFin, horaireFin, false sinon
      */
     bool inclus(const Date& dateProg, const Horaire& horaireProg, const Date& dateFin, const Horaire& horaireFin, const Date& date, const Horaire& horaire) const;
+
     /*!
      * \brief hasIntersection
      * \param dateProg date de programmation
@@ -68,6 +73,7 @@ private:
      * \return true si newDate et newHoraire sont compris entre dateProg, horaireProg et dateFin, horaireFin ou inversement, false sinon
      */
     bool hasIntersection(const Date& dateProg, const Horaire& horaireProg, const Date& dateFin, const Horaire& horaireFin, const Date& newDate, const Horaire& newHoraire, const Duree& newDuree) const;
+
     /*!
      * \brief isValid
      * \param date date de la programmation à ajouter
@@ -76,6 +82,7 @@ private:
      * \return true si la nouvelle programmation n'a pas d'intersection avec celles existantes, false sinon
      */
     bool isValid(const Date& date, const Horaire& horaire, const Duree& duree);
+
     /*!
      * \brief getKeyFrom
      * \param date date de la programmation
@@ -84,17 +91,20 @@ private:
      */
     std::string getKeyFrom(const Date& date, const Horaire& horaire);
 public:
-    //design pattern singleton
+
+    //design pattern singleton    
     /*!
      * \brief getInstance
      * \return instance unique de ProgrammationManager
      */
     static ProgrammationManager& getInstance();
+
     /*!
      * \brief libererInstance
      * Détruit l'instance unique de ProgrammationManager
      */
     static void libererInstance();
+
     /*!
      * \brief addProgrammationEvenement
      * Génère une exception ProgrammationManagerException si la nouvelle programmation n'est pas valide
@@ -104,7 +114,29 @@ public:
      * \return Programmation ajoutée si elle est valide
      */
     Programmation& addProgrammationEvenement(const Date& dateProg, const Horaire& horaireProg, const Duree& duree);
+
     /*!
+     * \brief addProgrammationTacheSimpleNonPreemptive
+     * Génère une exception ProgrammationManagerException si la nouvelle programmation n'est pas valide
+     * \param dateProg date de la programmation
+     * \param horaireProg horaire de la programmation
+     * \param tache référence vers une TacheSimpleNonPreemptive
+     * \return Programmation ajoutée si elle est valide
+     */
+    Programmation& addProgrammationTacheSimpleNonPreemptive(const Date& dateProg, const Horaire& horaireProg, TacheSimpleNonPreemptive& tache);
+
+    /*!
+     * \brief addProgrammationTacheSimplePreemptive
+     * Génère une exception ProgrammationManagerException si la nouvelle programmation n'est pas valide
+     * \param dateProg date de la programmation
+     * \param horaireProg horaire de la programmation
+     * \param pourcentage pourcentage de la programmation que l'on souhaite programmer
+     * \param tache référence vers une TacheSimplePreemptive
+     * \return Programmation ajoutée si elle est valide
+     */
+    Programmation& addProgrammationTacheSimplePreemptive(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage, TacheSimplePreemptive& tache);
+
+     /*!
      * \brief getProgrammation
      * Génère une exception ProgrammationManagerException si la programmation n'existe pas
      * \param dateProg date de la programmation
@@ -112,6 +144,7 @@ public:
      * \return programmation débutant à dateProg horaireProg
      */
     Programmation& getProgrammation(const Date& dateProg, const Horaire& horaireProg);
+
     /*!
      * \brief getProgrammation
      * Génère une exception ProgrammationManagerException si la programmation n'existe pas
@@ -121,9 +154,6 @@ public:
      */
     const Programmation& getProgrammation(const Date& dateProg, const Horaire& horaireProg) const;
 
-    Programmation& addProgrammationTacheSimpleNonPreemptive(const Date& dateProg, const Horaire& horaireProg, TacheSimpleNonPreemptive& tache);
-
-    Programmation& addProgrammationTacheSimplePreemptive(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage, TacheSimplePreemptive& tache);
-};
+   };
 
 #endif // PROGRAMMATIONMANAGER_H
