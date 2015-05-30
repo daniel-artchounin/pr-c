@@ -174,6 +174,7 @@ public:
                            const Horaire& heureD, const Date& dateF, const Horaire& heureF,
                                    const std::string& titre, bool preemptive, bool composite, const Duree & dur=0);
 
+    void exportTo(QXmlStreamWriter& stream);
 };
 
 #endif // PROJET_H

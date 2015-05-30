@@ -123,6 +123,8 @@ public:
      * \return vrai si la programmation est correcte ou faux sinon
      */
     bool checkProgrammationCoherente(const Date& dateProg, const Horaire& horaireProg, const Tache* tacheActuelle=0)const;
+
+    virtual void exportTo(QXmlStreamWriter& stream);
 };
 
 #endif // TACHE_H

@@ -54,3 +54,8 @@ ProgrammationTacheSimplePreemptive* TacheSimplePreemptive::getProgrammation(cons
     return 0;
 }
 
+void TacheSimplePreemptive::exportTo(QXmlStreamWriter& stream) {
+    stream.writeStartElement("TachePreemptive");
+    TacheSimple::exportTo(stream);
+    stream.writeEndElement();
+}

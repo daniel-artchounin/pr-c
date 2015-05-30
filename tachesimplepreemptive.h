@@ -127,6 +127,8 @@ public:
      * \return pointeur vers un objet de type ProgrammationTacheSimplePreemptive si trouvé, 0 sinon
      */
     ProgrammationTacheSimplePreemptive* getProgrammation(const Date&  dateDebut, const Horaire& horaireDebut) const;
+
+    void exportTo(QXmlStreamWriter& stream);
 };
 
 #endif // TACHESIMPLEPREEMPTIVE_H
