@@ -1,5 +1,4 @@
 #include "horaire.h"
-#include <QString>
 #include <sstream>
 
 bool Horaire::operator<(const Horaire& h) const {
@@ -33,10 +32,10 @@ std::string Horaire::formatHHMM() const {
     return ss.str();
 }
 
-QString Horaire::toQString() const {
+std::string Horaire::toString() const {
     std::stringstream ss;
     ss<<*this;
-    return QString::fromStdString(ss.str());
+    return ss.str();
 }
 
 Horaire Horaire::addDuree(const Duree duree) const{

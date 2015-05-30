@@ -1,10 +1,10 @@
 #include "duree.h"
 #include <sstream>
 
-QString Duree::toQString() const {
+std::string Duree::toString() const {
     std::stringstream ss;
     ss<<*this;
-    return QString::fromStdString(ss.str());
+    return ss.str();
 }
 
 std::ostream& operator<<(std::ostream& f, const Duree & d) {

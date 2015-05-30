@@ -1,7 +1,7 @@
 #include <ctime>
 #include <iomanip>
 #include <sstream>
-#include <QString>
+#include <string>
 #include "date.h"
 #include "dateexception.h"
 
@@ -150,10 +150,10 @@ std::string Date::formatAAAAMMJJ() const {
     return ss.str();
 }
 
-QString Date::toQString() const {
+std::string Date::toString() const {
     std::stringstream ss;
     ss<<*this;
-    return QString::fromStdString(ss.str());
+    return ss.str();
 }
 
 Date Date::addDuree(const Duree duree) const{

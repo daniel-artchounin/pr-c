@@ -3,9 +3,9 @@
 #include <iostream>
 #include <iomanip>
 #include "dureeexception.h"
-#include <QString>
-# include "date.h"
-# include "horaire.h"
+#include <string>
+#include "date.h"
+#include "horaire.h"
 
 class Horaire;
 class Date;
@@ -68,10 +68,10 @@ public:
     }
 
     /*!
-     * \brief toQString
+     * \brief toString
      * \return duree au format hhHmm
      */
-    QString toQString() const;
+    std::string toString() const;
 
     /*!
      * \brief estPlusPetitQue

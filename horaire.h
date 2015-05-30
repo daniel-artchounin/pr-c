@@ -2,7 +2,7 @@
 #define Horaire_H
 #include <iostream>
 #include <iomanip>
-#include <QString>
+#include <string>
 #include "horaireexception.h"
 #include "duree.h"
 
@@ -105,10 +105,10 @@ public:
     std::string formatHHMM() const;
 
     /*!
-     * \brief Horaire::toQString
+     * \brief Horaire::toString
      * \return horaire au format hhHmm
      */
-    QString toQString() const;
+    std::string toString() const;
 
     /*!
      * \brief addDuree

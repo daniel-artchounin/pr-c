@@ -1,7 +1,7 @@
 #ifndef DATETIME_H
 #define DATETIME_H
 #include <iostream>
-#include <QString>
+#include <string>
 #include "duree.h"
 
 /*! \class Date
@@ -119,10 +119,10 @@ public:
      */
     std::string formatAAAAMMJJ() const;
     /*!
-     * \brief toQString
+     * \brief toString
      * \return la date au format jj/mm/aaaa
      */
-    QString toQString() const;
+    std::string toString() const;
     /*!
      * \brief addDuree
      * \param duree
