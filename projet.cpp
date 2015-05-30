@@ -8,18 +8,6 @@ Projet::Projet(const Date& dateD, const Horaire& heureD, const Date& dateEcheanc
 {
 }
 
-/*Tache** Projet::getTaches()const{
-    return taches;
-}*/
-
-/*unsigned int Projet::getNbTaches()const{
-    return nbTaches;
-}*/
-
-/*unsigned int Projet::getNbTachesMax()const{
-    return nbTachesMax;
-}*/
-
 Tache* Projet::trouverTache(const std::string& nomTache)const{
     return getItem(nomTache);
 }

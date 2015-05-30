@@ -41,17 +41,6 @@ protected :
      */
     bool verifierContraintesRespectees(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD,
                                        const Horaire& heureD, const Date& dateF, const Horaire& heureF, const Duree& dur)const;
-public:
-    /**
-     * \brief Projet Constructeur
-     * \param dateD date de disponiblité
-     * \param heureD heure de disponiblité
-     * \param dateEcheance date d'échéance
-     * \param heureEcheance heure d'échéance
-     * \param titre titre de la tache
-     */
-    Projet(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
-          const Horaire& heureEcheance,const std::string & titre);
 
     /**
      * \brief ajouterTache
@@ -72,6 +61,18 @@ public:
     void ajouterTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                         const Horaire& heureEcheance,const std::string & titre,bool preemptive,
                       bool composite,const Duree& dur = 0);
+public:
+    /**
+     * \brief Projet Constructeur
+     * \param dateD date de disponiblité
+     * \param heureD heure de disponiblité
+     * \param dateEcheance date d'échéance
+     * \param heureEcheance heure d'échéance
+     * \param titre titre de la tache
+     */
+    Projet(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
+          const Horaire& heureEcheance,const std::string & titre);
+
     /**
      * \brief getTache
      * permet de trouver une tâche du projet actuel

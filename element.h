@@ -4,6 +4,7 @@
 #include "date.h"
 #include "horaire.h"
 # include "duree.h"
+# include "elementexception.h"
 
 /*! \class Element
    * \brief Classe possédant un titre ainsi que des dates et horaires de début et de fin.
@@ -37,7 +38,12 @@ public:
      * \param horaireF horaire de fin
      */
     Element(const std::string& t, const Date& dateD, const Horaire& horaireD, const Date& dateF, const Horaire& horaireF,const Duree& dur=0):
-        titre(t), dateDebut(dateD), horaireDebut(horaireD), dateFin(dateF), horaireFin(horaireF),duree(dur) {}
+        titre(t), dateDebut(dateD), horaireDebut(horaireD), dateFin(dateF), horaireFin(horaireF),duree(dur) {
+        if( (dateF-dateD)*24*60+(horaireF-horaireD) < dur.getDureeEnMinutes() ){
+            throw ElementException("ElementException, la durée est supérieure à l'intervalle entre la disponibilité et l'échéance");
+        }
+
+    }
     /*!
      * \brief Desctructeur
      * Destructeur virtual pure.

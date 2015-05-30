@@ -7,6 +7,7 @@
 # include <string>
 # include "tachecompositeexception.h"
 # include "tache.h"
+# include "projet.h"
 
 /**\class TacheComposite
  * \brief Classe permettant de manipuler des tâches composites
@@ -14,18 +15,8 @@
  */
 class TacheComposite : public Manager <Tache>, public Tache
 {
-public:
-    /**
-     * \brief TacheComposite Constructeur
-     * \param dateD date de disponiblité
-     * \param heureD heure de disponiblité
-     * \param dateEcheance date d'échéance
-     * \param heureEcheance heure d'échéance
-     * \param titre titre de la tache
-     */
-    TacheComposite(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
-          const Horaire& heureEcheance,const std::string & titre);
-
+    friend class Projet;
+protected :
     /**
      * \brief ajouterSsTache
      * permet de créer et d'ajouter une sous-tâche à la tache actuelle
@@ -40,6 +31,17 @@ public:
     void ajouterSsTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                         const Horaire& heureEcheance,const std::string & titre,
                         bool preemptive, bool composite, const Duree& dur=0);
+public:
+    /**
+     * \brief TacheComposite Constructeur
+     * \param dateD date de disponiblité
+     * \param heureD heure de disponiblité
+     * \param dateEcheance date d'échéance
+     * \param heureEcheance heure d'échéance
+     * \param titre titre de la tache
+     */
+    TacheComposite(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
+          const Horaire& heureEcheance,const std::string & titre);
 
     /**
      * \brief trouverSsTache

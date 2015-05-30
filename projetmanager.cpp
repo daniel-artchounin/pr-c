@@ -14,7 +14,7 @@ void ProjetManager::libererInstance() {
     if(!instance) delete instance;
 }
 
-Projet& ProjetManager::addProjet(const std::string titre, const Date dateDebut, const Horaire horaireDebut, const Date dateFin, const Horaire horaireFin) {
+Projet& ProjetManager::addProjet(const std::string& titre, const Date& dateDebut, const Horaire& horaireDebut, const Date& dateFin, const Horaire& horaireFin) {
     if(getItem(titre)) {
         throw ProjetManagerException("Erreur, ProjetManager, addProjet, Projet deja existant");
     }

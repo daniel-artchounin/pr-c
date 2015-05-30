@@ -59,7 +59,7 @@ public:
      * \param horaireFin horaire de fin du projet
      * \return Projet si celui-ci a été ajouté
      */
-    Projet& addProjet(const std::string titre, const Date dateDebut, const Horaire horaireDebut, const Date dateFin, const Horaire horaireFin);
+    Projet& addProjet(const std::string& titre, const Date& dateDebut, const Horaire& horaireDebut, const Date& dateFin, const Horaire& horaireFin);
     /*!
      * \brief getProjet
      * Génère une exception ProjetManagerException si le projet n'a pas été trouvé
