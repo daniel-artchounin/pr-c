@@ -36,7 +36,7 @@ public:
     /*!
      * \brief ~ProgrammationEvenement destructeur
      */
-    virtual ~ProgrammationEvenement();
+    virtual ~ProgrammationEvenement() {}
 };
 
 #endif // PROGRAMMATIONEVENEMENT_H

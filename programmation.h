@@ -24,7 +24,7 @@ public:
      * \brief Destructeur
      * Desctructeur abstrait
      */
-    virtual ~Programmation();
+    virtual ~Programmation() {}
 
     /*!
      * \brief getDateProgrammation
