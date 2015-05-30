@@ -2,16 +2,15 @@
 #define PROGRAMMATION_H
 #include "date.h"
 #include "horaire.h"
-#include "duree.h"
 
 /*! \class Programmation
-   * \brief Classe permettant de programmer à une date et un horaire.
-   */
-class Programmation
-{
+ * \brief Classe permettant de programmer à une date et un horaire.
+ */
+class Programmation {
 protected:
     Date dateProg; /*!< date de programmation */
     Horaire horaireProg; /*!< horaire de programmation */
+
 public:
     /*!
      * \brief Constructeur
@@ -38,7 +37,7 @@ public:
      * \brief getHoraireProgrammation
      * \return horaire de programmation
      */
-     Horaire getHoraireProgrammation()const{
+    Horaire getHoraireProgrammation()const{
         return horaireProg;
     }
 
@@ -46,7 +45,7 @@ public:
      * \brief getDuree
      * Devra être défini par les classes héritant de Programmation
      * \return duree de la programmation
-     */    
+     */
     virtual Duree getDuree()const=0;
 
     /*!

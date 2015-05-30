@@ -1,11 +1,7 @@
 #ifndef PROJETMANAGER_H
 #define PROJETMANAGER_H
-
 #include "manager.h"
 #include "projet.h"
-#include "date.h"
-#include "horaire.h"
-#include <string>
 
 /*! \class ProjetManager
  * \brief Classe permettant de manipuler des projets. Hérite de la classe Manager. Utilise le design pattern singleton

@@ -1,14 +1,10 @@
 #ifndef Horaire_H
 #define Horaire_H
 #include <iostream>
-#include <iomanip>
-#include <string>
-#include "horaireexception.h"
 #include "duree.h"
+#include "horaireexception.h"
 
-class Duree;
-/*!
- * \class Horaire
+/*! \class Horaire
  * \brief Classe permettant de manipuler des horaires
  * L'utilisation de cette classe nécessite des dates valides au sens commun du terme.
  * Déclenchement d'exception dans le cas contraire.
@@ -17,6 +13,7 @@ class Horaire {
 private:
     unsigned short int  heure; /*!< heure avec 0<=h<=23 */
     unsigned short int  minute; /*!< minute avec 0<=m<=59 */
+
 public:
     /*!
      * \brief Constructeur

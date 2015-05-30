@@ -2,8 +2,7 @@
 #define PROJETEXCEPTION_H
 #include <stdexcept>
 
-/*!
- * \class ProjetException
+/*! \class ProjetException
  * Permet de générer des exceptions pour les Projet
  * Hérite de la classe Logic_error
  */

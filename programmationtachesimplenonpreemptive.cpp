@@ -1,5 +1,5 @@
 #include "programmationtachesimplenonpreemptive.h"
-# include "tachesimplenonpreemptive.h"
+#include "tachesimplenonpreemptive.h"
 
 ProgrammationTacheSimpleNonPreemptive::ProgrammationTacheSimpleNonPreemptive(const Date& dateD, const Horaire& heureD, TacheSimpleNonPreemptive& tacheSimpleNonP):
     ProgrammationTacheSimple(dateD,heureD), tacheSimpleNonPreemptive(&tacheSimpleNonP){
@@ -10,11 +10,9 @@ ProgrammationTacheSimpleNonPreemptive::ProgrammationTacheSimpleNonPreemptive(con
 const TacheSimpleNonPreemptive& ProgrammationTacheSimpleNonPreemptive::getTacheSimple()const{
     return *tacheSimpleNonPreemptive;
 }
+
 Duree ProgrammationTacheSimpleNonPreemptive::getDuree()const{
     return tacheSimpleNonPreemptive->getDuree();
 }
 
-
-ProgrammationTacheSimpleNonPreemptive::~ProgrammationTacheSimpleNonPreemptive(){
-
-}
+ProgrammationTacheSimpleNonPreemptive::~ProgrammationTacheSimpleNonPreemptive(){}

@@ -1,18 +1,12 @@
 #ifndef TACHESIMPLEPREEMPTIVE_H
 #define TACHESIMPLEPREEMPTIVE_H
-# include "tachesimple.h"
-# include "duree.h"
-# include <vector>
-# include "tachesimplepreemptiveexception.h"
-# include "programmationtachesimple.h"
-# include "programmationtachesimplepreemptive.h"
-# include "date.h"
-# include "horaire.h"
-/**\class TacheSimplePreemptive
- * \brief Classe permettant de manipuler des tâches préemptives
- */
+#include "tachesimple.h"
+#include <vector>
 
 class ProgrammationTacheSimplePreemptive;
+/*! \class TacheSimplePreemptive
+ * \brief Classe permettant de manipuler des tâches préemptives
+ */
 class TacheSimplePreemptive : public TacheSimple
 {
     friend class ProgrammationTacheSimplePreemptive;

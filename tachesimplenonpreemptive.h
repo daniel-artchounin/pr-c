@@ -1,17 +1,15 @@
 #ifndef TACHESIMPLENONPREEMPTIVE_H
 #define TACHESIMPLENONPREEMPTIVE_H
-# include "tachesimple.h"
-# include "tachesimplenonpreemptiveexception.h"
-# include "programmationtachesimplenonpreemptive.h"
+#include "tachesimple.h"
 
-/**\class TacheSimpleNonPreemptive
+class ProgrammationTacheSimpleNonPreemptive;
+
+/*! \class TacheSimpleNonPreemptive
  * \brief Classe permettant de manipuler des tâches non préemptives
  */
-class ProgrammationTacheSimpleNonPreemptive;
 class TacheSimpleNonPreemptive : public TacheSimple
 {
     friend class ProgrammationTacheSimpleNonPreemptive;
-
 
 protected :
     ProgrammationTacheSimpleNonPreemptive* programmationTacheSimpleNonPreemptive; /*!< pointeur vers la programmation de la tâche simple non préemptive */
@@ -47,7 +45,6 @@ public:
     TacheSimpleNonPreemptive(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                              const Horaire& heureEcheance,const std::string & titre,const Duree & dur);
 
-
     /*!
      * \brief isEndProgrammationOk permet de vérifier que
      * la tâche a été programmée intégralement et que la fin de la programmation
@@ -64,7 +61,6 @@ public:
      * \return la programmation associée à la tâche ou 0 sinon
      */
     ProgrammationTacheSimpleNonPreemptive* getProgrammation() const;
-
 };
 
 #endif // TACHESIMPLENONPREEMPTIVE_H

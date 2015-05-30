@@ -1,8 +1,7 @@
-# include "tache.h"
-# include "tacheexception.h"
-# include "tachesimplenonpreemptive.h"
-# include "tachesimplepreemptive.h"
-# include "tachecomposite.h"
+#include "tache.h"
+#include "tachecomposite.h"
+#include "tachesimplepreemptive.h"
+#include "tachesimplenonpreemptive.h"
 
 Tache::Tache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
       const Horaire& heureEcheance,const std::string & titre,const Duree& dur):

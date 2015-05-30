@@ -1,16 +1,17 @@
 #ifndef PROGRAMMATIONTACHESIMPLENONPREEMPTIVE_H
 #define PROGRAMMATIONTACHESIMPLENONPREEMPTIVE_H
-# include "programmationtachesimple.h"
-# include "tachesimplenonpreemptive.h"
+#include "programmationtachesimple.h"
 
-/*!
- * \class ProgrammationTacheSimpleNonPreemptive
+class TacheSimpleNonPreemptive;
+
+/*! \class ProgrammationTacheSimpleNonPreemptive
  * \brief Permet de gérer la programmation des tâches simples non préemptives
  */
 class ProgrammationTacheSimpleNonPreemptive : public ProgrammationTacheSimple
 {
 protected :
     TacheSimpleNonPreemptive* tacheSimpleNonPreemptive; /*!< pointeur vers la tache simple non préemptive que l'on programme */
+
 public:
     /*!
      * \brief ProgrammationTacheSimpleNonPreemptive
@@ -37,7 +38,6 @@ public:
      * \brief ~ProgrammationTacheSimpleNonPreemptive destructeur
      */
     virtual ~ProgrammationTacheSimpleNonPreemptive();
-
 };
 
 #endif // PROGRAMMATIONTACHESIMPLENONPREEMPTIVE_H

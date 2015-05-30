@@ -1,13 +1,8 @@
 #ifndef TOOLS_H
 #define TOOLS_H
 #include <QXmlStreamWriter>
-#include <QTextStream>
-#include <QString>
-#include <string>
-#include "projetmanager.h"
 #include "element.h"
 #include "projet.h"
-#include "tachecomposite.h"
 #include "tachesimplenonpreemptive.h"
 #include "tachesimplepreemptive.h"
 

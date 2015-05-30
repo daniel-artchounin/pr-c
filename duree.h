@@ -1,14 +1,9 @@
 #ifndef DUREE_H
 #define DUREE_H
-#include <iostream>
-#include <iomanip>
 #include "dureeexception.h"
-#include <string>
-#include "date.h"
-#include "horaire.h"
+#include <iomanip>
+#include <iostream>
 
-class Horaire;
-class Date;
 /*! \class Duree
  * \brief Classe permettant de manipuler des durees
  * L'utilisation de cette classe nécessite des dates valides au sens commun du terme.
@@ -17,7 +12,6 @@ class Date;
 class Duree {
 private:
     unsigned int nb_minutes; /*!< nombre de minutes avec nb_minutes >=0 */
-
 
 public:
     /*!
@@ -44,6 +38,7 @@ public:
         if (minutes>59) throw DureeException("erreur: initialisation duree invalide");
         nb_minutes=heures*60+minutes;
     }
+
     /*!
      * \brief getDureeEnMinutes
      * \return duree en minute
@@ -51,6 +46,7 @@ public:
     unsigned int getDureeEnMinutes() const {
         return nb_minutes;
     }
+
     /*!
      * \brief getDureeEnHeures
      * \return duree en heure
@@ -58,6 +54,7 @@ public:
     double getDureeEnHeures() const {
         return double(nb_minutes)/60;
     }
+
     /*!
      * \brief afficher
      * Affiche la duree sous le format hhHmm

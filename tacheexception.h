@@ -1,9 +1,7 @@
 #ifndef TACHEEXCEPTION_H
 #define TACHEEXCEPTION_H
-#include <stdexcept>
 
-/*!
- * \class TacheException
+/*! \class TacheException
  * Permet de générer des exceptions pour les Tache
  * Hérite de la classe Logic_error
  */

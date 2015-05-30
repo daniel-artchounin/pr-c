@@ -1,12 +1,10 @@
 #ifndef PROGRAMMATIONTACHESIMPLEPREEMPTIVE_H
 #define PROGRAMMATIONTACHESIMPLEPREEMPTIVE_H
-# include "programmationtachesimple.h"
-# include "duree.h"
-#include "tachesimplepreemptive.h"
+#include "programmationtachesimple.h"
 
-class ProgrammationTacheSimplePreemptive : public ProgrammationTacheSimple
-{
+class TacheSimplePreemptive;
 
+class ProgrammationTacheSimplePreemptive : public ProgrammationTacheSimple {
 protected :
     unsigned int pourcentage; /*!< pourcentage de la durée que l'on va programmer */
     TacheSimplePreemptive* tacheSimplePreemtive; /*!< pointeur vers la tache simple préemptive que l'on programme */
@@ -19,7 +17,6 @@ public:
      * \param pourc pourcentage de la durée que l'on va programmer
      * \param tacheSimpleP référence vers la tache simple préemptive que l'on programme
      */
-
     ProgrammationTacheSimplePreemptive(const Date& dateD, const Horaire& heureD, unsigned int pourc, TacheSimplePreemptive& tacheSimpleP);
 
     /*!
