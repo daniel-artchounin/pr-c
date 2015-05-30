@@ -1,5 +1,8 @@
 #include "tachecomposite.h"
-
+#include "tachecompositeexception.h"
+#include "tachesimplepreemptive.h"
+#include "tachesimplenonpreemptiveexception.h"
+#include "tachesimplenonpreemptive.h"
 
 TacheComposite::TacheComposite(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
       const Horaire& heureEcheance,const std::string & titre):

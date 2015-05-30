@@ -1,6 +1,5 @@
 #ifndef PROJETMANAGEREXCEPTION
 #define PROJETMANAGEREXCEPTION
-#include <stdexcept>
 
 /*! \class ProjetManagerException
  * Permet de générer des exception pour les ProjetManagers

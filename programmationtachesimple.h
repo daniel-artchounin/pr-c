@@ -1,7 +1,8 @@
 #ifndef PROGRAMMATIONTACHESIMPLE_H
 #define PROGRAMMATIONTACHESIMPLE_H
-#include "tachesimple.h"
-# include "programmation.h"
+#include "programmation.h"
+#include "date.h"
+#include "horaire.h"
 
 /*! \class ProgrammationTacheSimple
  * \brief Classe permettant de manipuler de gérer des programmations de TacheSimple. Hérite de la classe Programmation.

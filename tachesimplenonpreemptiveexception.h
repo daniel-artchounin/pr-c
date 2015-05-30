@@ -1,6 +1,5 @@
 #ifndef TACHESIMPLENONPREEMPTIVEEXCEPTION_H
 #define TACHESIMPLENONPREEMPTIVEEXCEPTION_H
-#include <stdexcept>
 
 /*! \class TacheSimpleNonPreemptiveException
  * Permet de générer des exceptions pour les TacheSimpleNonPreemptive

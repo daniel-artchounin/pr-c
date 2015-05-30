@@ -1,12 +1,14 @@
 #include "projet.h"
+#include "tachesimplepreemptive.h"
+#include "tachesimplenonpreemptive.h"
+#include "tachesimplenonpreemptiveexception.h"
+#include "tachecompositeexception.h"
 #include <typeinfo>
-# include <string>
+#include "projetexception.h"
 
 Projet::Projet(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
       const Horaire& heureEcheance,const std::string & titre):
-    Manager<Tache>(),Element(titre, dateD, heureD, dateEcheance, heureEcheance)
-{
-}
+    Manager<Tache>(),Element(titre, dateD, heureD, dateEcheance, heureEcheance){}
 
 Tache* Projet::trouverTache(const std::string& nomTache)const{
     return getItem(nomTache);

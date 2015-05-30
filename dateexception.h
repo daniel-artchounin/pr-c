@@ -1,6 +1,5 @@
 #ifndef DATEEXCEPTION
 #define DATEEXCEPTION
-#include "stdexcept"
 
 /*! \class DateException
  * Permet de générer des exception pour les dates

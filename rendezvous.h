@@ -1,7 +1,5 @@
 #ifndef RENDEZVOUS_H
 #define RENDEZVOUS_H
-#include "evenement.h"
-#include <string>
 
 /*! \class RendezVous
  * \brief Classe permettant de manipuler un rendez-vous en définissant un lieu et un motif. Hérite de la classe Evenement.

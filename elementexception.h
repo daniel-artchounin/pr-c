@@ -1,6 +1,5 @@
 #ifndef ELEMENTEXCEPTION_H
 #define ELEMENTEXCEPTION_H
-#include <stdexcept>
 
 /*!
  * \class ElementException

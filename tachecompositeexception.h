@@ -1,6 +1,5 @@
 #ifndef TACHECOMPOSITEEXCEPTION_H
 #define TACHECOMPOSITEEXCEPTION_H
-#include <stdexcept>
 
 /*! \class TacheCompositeException
  * Permet de générer des exceptions pour les TacheComposite

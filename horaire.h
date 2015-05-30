@@ -1,10 +1,8 @@
 #ifndef Horaire_H
 #define Horaire_H
 #include <iostream>
-#include <iomanip>
-#include <string>
-#include "horaireexception.h"
 #include "duree.h"
+#include "horaireexception.h"
 
 /*! \class Horaire
  * \brief Classe permettant de manipuler des horaires

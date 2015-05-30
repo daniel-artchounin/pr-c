@@ -1,9 +1,7 @@
-#include <ctime>
-#include <iomanip>
-#include <sstream>
-#include <string>
 #include "date.h"
 #include "dateexception.h"
+#include "time.h"
+#include <sstream>
 
 void Date::setDate(unsigned short int j, unsigned short int m, unsigned int a) {
     // initialisation de la date, renvoie vrai si la date est valide

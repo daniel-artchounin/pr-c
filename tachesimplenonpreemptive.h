@@ -1,8 +1,8 @@
 #ifndef TACHESIMPLENONPREEMPTIVE_H
 #define TACHESIMPLENONPREEMPTIVE_H
-# include "tachesimple.h"
-# include "tachesimplenonpreemptiveexception.h"
-# include "programmationtachesimplenonpreemptive.h"
+#include "tachesimple.h"
+
+class ProgrammationTacheSimpleNonPreemptive;
 
 /*! \class TacheSimpleNonPreemptive
  * \brief Classe permettant de manipuler des tâches non préemptives

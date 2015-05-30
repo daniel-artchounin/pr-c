@@ -1,15 +1,9 @@
 #ifndef TACHECOMPOSITE_H
 #define TACHECOMPOSITE_H
-# include "tachecompositeexception.h"
-# include "tachesimplenonpreemptive.h"
-# include "tachesimplepreemptive.h"
-# include "manager.h"
-# include <string>
-# include "tachecompositeexception.h"
-# include "tache.h"
-# include "projet.h"
+#include "manager.h"
+#include "tache.h"
 
-/**\class TacheComposite
+/*! \class TacheComposite
  * \brief Classe permettant de manipuler des tâches composites
  * elle est responsable du cycle de vie de ses sous-tâches
  */

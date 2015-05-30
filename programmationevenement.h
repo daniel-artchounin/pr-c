@@ -1,9 +1,6 @@
 #ifndef PROGRAMMATIONEVENEMENT_H
 #define PROGRAMMATIONEVENEMENT_H
-#include "horaire.h"
-#include "date.h"
-#include "duree.h"
-# include "programmation.h"
+#include "programmation.h"
 
 /*! \class ProgrammationEvenement
  * \brief Classe permettant de programmer un évènement. Hérite de la classe Programmation

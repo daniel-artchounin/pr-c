@@ -1,11 +1,8 @@
 #ifndef DUREE_H
 #define DUREE_H
-#include <iostream>
-#include <iomanip>
 #include "dureeexception.h"
-#include <string>
-#include "date.h"
-#include "horaire.h"
+#include <iomanip>
+#include <iostream>
 
 /*! \class Duree
  * \brief Classe permettant de manipuler des durees

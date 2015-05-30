@@ -2,7 +2,6 @@
 #define MANAGER_H
 #include <map>
 #include <string>
-#include <iterator>
 
 /*! \class Manager
  * \brief Patron de classe permettant de manipuler une map d'item.

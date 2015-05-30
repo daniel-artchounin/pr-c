@@ -1,7 +1,8 @@
 #include "tools.h"
-#include <typeinfo>
-#include "toolsexception.h"
 #include <QFile>
+#include "toolsexception.h"
+#include "projetmanager.h"
+#include <typeinfo>
 
 void save(const QString& file){
     QFile newfile(file);

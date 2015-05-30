@@ -1,4 +1,5 @@
 #include "programmationtachesimplepreemptive.h"
+#include "tachesimplepreemptive.h"
 
 Duree ProgrammationTacheSimplePreemptive::getDuree()const{
     return tacheSimplePreemtive->getDureeProgrammationViaPourcentage(pourcentage);
@@ -15,7 +16,4 @@ ProgrammationTacheSimplePreemptive::ProgrammationTacheSimplePreemptive(const Dat
     tacheSimplePreemtive->addPourcentageDejaProgramme(pourc);
 }
 
-
-ProgrammationTacheSimplePreemptive::~ProgrammationTacheSimplePreemptive(){
-
-}
+ProgrammationTacheSimplePreemptive::~ProgrammationTacheSimplePreemptive(){}

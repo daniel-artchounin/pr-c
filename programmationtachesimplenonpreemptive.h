@@ -1,7 +1,8 @@
 #ifndef PROGRAMMATIONTACHESIMPLENONPREEMPTIVE_H
 #define PROGRAMMATIONTACHESIMPLENONPREEMPTIVE_H
-# include "programmationtachesimple.h"
-# include "tachesimplenonpreemptive.h"
+#include "programmationtachesimple.h"
+
+class TacheSimpleNonPreemptive;
 
 /*! \class ProgrammationTacheSimpleNonPreemptive
  * \brief Permet de gérer la programmation des tâches simples non préemptives

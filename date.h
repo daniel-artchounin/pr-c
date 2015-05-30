@@ -1,7 +1,6 @@
 #ifndef DATETIME_H
 #define DATETIME_H
-#include <iostream>
-#include <string>
+#include "iostream"
 #include "duree.h"
 
 /*! \class Date

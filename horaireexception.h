@@ -1,6 +1,5 @@
 #ifndef HoraireEXCEPTION
 #define HoraireEXCEPTION
-#include <stdexcept>
 
 /*! \class HoraireException
  * Permet de générer des exception pour les Horaires

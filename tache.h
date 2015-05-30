@@ -1,13 +1,8 @@
 #ifndef TACHE_H
 #define TACHE_H
-#include "date.h"
-#include "horaire.h"
 #include "element.h"
-#include <string>
 #include <map>
-# include "tacheexception.h"
-# include "duree.h"
-# include <typeinfo>
+#include "tacheexception.h"
 
 /*! \class Tache
  * \brief Classe permettant de manipuler des taches

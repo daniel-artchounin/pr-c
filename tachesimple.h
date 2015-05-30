@@ -1,10 +1,7 @@
 #ifndef TACHESIMPLE_H
 #define TACHESIMPLE_H
+#include "tache.h"
 
-#include "duree.h"
-#include "date.h"
-# include "horaire.h"
-# include "tache.h"
 /*! \class TacheSimple
  * \brief Classe permettant de manipuler des tâches simples
  */

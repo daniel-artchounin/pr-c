@@ -1,4 +1,6 @@
 #include "tachesimplepreemptive.h"
+#include "tachesimplepreemptiveexception.h"
+#include "programmationtachesimplepreemptive.h"
 
 TacheSimplePreemptive::TacheSimplePreemptive(const Date& dateD,
                       const Horaire& heureD,

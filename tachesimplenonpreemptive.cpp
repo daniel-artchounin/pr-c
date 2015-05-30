@@ -1,4 +1,6 @@
 #include "tachesimplenonpreemptive.h"
+#include "tachesimplenonpreemptiveexception.h"
+#include "programmationtachesimplenonpreemptive.h"
 
 TacheSimpleNonPreemptive::TacheSimpleNonPreemptive(const Date& dateD, const Horaire& heureD,
                                                    const Date& dateEcheance,

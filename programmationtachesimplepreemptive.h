@@ -1,8 +1,8 @@
 #ifndef PROGRAMMATIONTACHESIMPLEPREEMPTIVE_H
 #define PROGRAMMATIONTACHESIMPLEPREEMPTIVE_H
-# include "programmationtachesimple.h"
-# include "duree.h"
-#include "tachesimplepreemptive.h"
+#include "programmationtachesimple.h"
+
+class TacheSimplePreemptive;
 
 class ProgrammationTacheSimplePreemptive : public ProgrammationTacheSimple {
 protected :

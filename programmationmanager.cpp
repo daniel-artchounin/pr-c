@@ -1,7 +1,9 @@
 #include "programmationmanager.h"
-
-
-#include "iostream"
+#include "programmationmanagerexception.h"
+#include "programmationevenement.h"
+#include "programmationtachesimple.h"
+#include "programmationtachesimplenonpreemptive.h"
+#include "programmationtachesimplepreemptive.h"
 
 //design pattern singleton
 ProgrammationManager * ProgrammationManager::instance=0; //initialisation à null, pour la première vérification

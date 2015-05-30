@@ -1,18 +1,9 @@
 #ifndef PROGRAMMATIONMANAGER_H
 #define PROGRAMMATIONMANAGER_H
-#include "manager.h"
 #include "programmation.h"
-#include "date.h"
-#include "horaire.h"
-#include "duree.h"
-# include "tachesimplepreemptive.h"
-# include "tachesimplenonpreemptive.h"
-# include "programmationmanagerexception.h"
-# include "programmationevenement.h"
-# include "programmationtachesimple.h"
-# include "programmationtachesimplepreemptive.h"
-# include "programmationtachesimplenonpreemptive.h"
-# include "tache.h"
+#include "tachesimplenonpreemptive.h"
+#include "tachesimplepreemptive.h"
+#include "manager.h"
 
 /*! \class ProgrammationManager
  * \brief Classe permettant de manipuler des Programmations. Hérite de la classe Manager. Utilise le design pattern singleton

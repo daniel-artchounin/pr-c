@@ -1,7 +1,5 @@
 #ifndef REUNION_H
 #define REUNION_H
-#include "evenement.h"
-#include <string>
 
 /*! \class Reunion
  * \brief Classe permettant de manipuler une réunion en définissant un lieu et un motif. Hérite de la classe Evenement.

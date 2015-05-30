@@ -1,10 +1,8 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
-#include <string>
 #include "date.h"
 #include "horaire.h"
-# include "duree.h"
-# include "elementexception.h"
+#include "elementexception.h"
 
 /*! \class Element
    * \brief Classe possédant un titre ainsi que des dates et horaires de début et de fin.

@@ -2,7 +2,6 @@
 #define PROGRAMMATION_H
 #include "date.h"
 #include "horaire.h"
-#include "duree.h"
 
 /*! \class Programmation
  * \brief Classe permettant de programmer à une date et un horaire.

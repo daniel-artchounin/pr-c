@@ -1,19 +1,15 @@
 #ifndef PROJET_H
 #define PROJET_H
+#include "manager.h"
+#include "tache.h"
+#include "tachecomposite.h"
+#include "element.h"
 
-#include "projetexception.h"
-#include <string>
-# include "tache.h"
-# include "manager.h"
-# include "tachecomposite.h"
-
-/**\class Projet
+/*! \class Projet
  * \brief Classe permettant de manipuler des projets
  * elle est responsable du cycle de vie de ses tâches (tâches à la racine du projet)
  */
-class Projet : public Manager<Tache>, public Element
-{
-
+class Projet : public Manager<Tache>, public Element {
 protected :
     /**
      * \brief trouverTache

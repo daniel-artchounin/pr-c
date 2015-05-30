@@ -1,8 +1,6 @@
 #ifndef PROGRAMMATIONMANAGEREXCEPTION
 #define PROGRAMMATIONMANAGEREXCEPTION
 
-#include <stdexcept>
-
 /*! \class ProgrammationManagerException
  * Permet de générer des exception pour les ProgrammationManagers
  * Hérite de la classe Logic_error

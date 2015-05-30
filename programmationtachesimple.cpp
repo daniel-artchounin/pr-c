@@ -1,7 +1,3 @@
 #include "programmationtachesimple.h"
-#include "programmationtachesimplepreemptive.h"
 
-
-ProgrammationTacheSimple::~ProgrammationTacheSimple(){
-
-}
+ProgrammationTacheSimple::~ProgrammationTacheSimple(){}
