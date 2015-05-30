@@ -7,11 +7,11 @@
 /*! \class Manager
  * \brief Patron de classe permettant de manipuler une map d'item.
  */
-template <class T> class Manager
-{
+template <class T> class Manager {
 protected:
     typedef std::map<std::string, T*> Map;
     Map items; /*!< map d'item */
+
     /*!
      * \brief addItem
      * \param key clé de l'item à ajouter
@@ -47,29 +47,28 @@ public:
      * \brief Destructeur
      * Destructeur virtual
      */
-
     virtual ~Manager() {
         for(iterator it=items.begin(); it!=items.end(); ++it) {
             delete it->second;
         }
         items.clear();
     }
+
     /*!
      * \brief Constructeur par recopie
      * \param m Manager à recopier
      */
-
     Manager(const Manager& m): items() {
         for(iterator it=m.items.begin(); it!=m.items.end(); ++it) {
             items.insert(std::pair<std::string, T*>(it->first, it->second));
         }
     }
+
     /*!
      * \brief Opérateur d'affectation
      * \param m Manager
      * \return Manager
      */
-
     Manager& operator=(const Manager& m) {
         if (this==&m) return *this;
         this->~Manager();

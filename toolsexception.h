@@ -3,8 +3,7 @@
 
 #include <stdexcept>
 
-/*!
- * \class ToolsException
+/*! \class ToolsException
  * Permet de générer des exception pour les méthodes de Tools
  * Hérite de la classe Logic_error
  */

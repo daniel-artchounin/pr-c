@@ -6,17 +6,13 @@
 # include "programmation.h"
 
 /*! \class ProgrammationEvenement
-   * \brief Classe permettant de programmer un évènement. Hérite de la classe Programmation
-   */
-
-
-class Programmation;
-class ProgrammationEvenement : public Programmation
-{
+ * \brief Classe permettant de programmer un évènement. Hérite de la classe Programmation
+ */
+class ProgrammationEvenement : public Programmation {
 protected:
     Duree duree; /*!< duree de la programmation */
-public:
 
+public:
     /*!
      * \brief ProgrammationEvenement
      * \param date date de début de la programmation

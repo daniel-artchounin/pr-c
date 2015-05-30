@@ -2,8 +2,7 @@
 #define HoraireEXCEPTION
 #include <stdexcept>
 
-/*!
- * \class HoraireException
+/*! \class HoraireException
  * Permet de générer des exception pour les Horaires
  * Hérite de la classe Logic_error
  */

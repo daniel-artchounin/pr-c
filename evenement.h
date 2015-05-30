@@ -3,12 +3,12 @@
 #include <string>
 
 /*! \class Evenement
-   * \brief Classe possédant un nom. Correspond à un évènement traditionnel.
-   */
-class Evenement
-{
+ * \brief Classe possédant un nom. Correspond à un évènement traditionnel.
+ */
+class Evenement {
 protected:
     std::string nom; /*!< nom de l'évènement */
+
 public:
     /*!
      * \brief Constructeur

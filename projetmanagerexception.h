@@ -2,8 +2,7 @@
 #define PROJETMANAGEREXCEPTION
 #include <stdexcept>
 
-/*!
- * \class ProjetManagerException
+/*! \class ProjetManagerException
  * Permet de générer des exception pour les ProjetManagers
  * Hérite de la classe Logic_error
  */

@@ -8,11 +8,10 @@
 # include "programmationtachesimplepreemptive.h"
 # include "date.h"
 # include "horaire.h"
-/**\class TacheSimplePreemptive
+
+/*! \class TacheSimplePreemptive
  * \brief Classe permettant de manipuler des tâches préemptives
  */
-
-class ProgrammationTacheSimplePreemptive;
 class TacheSimplePreemptive : public TacheSimple
 {
     friend class ProgrammationTacheSimplePreemptive;

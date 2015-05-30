@@ -38,7 +38,7 @@ private:
      * \brief Contructeur par recopie
      * Constructeur par recopie privé
      * \param pm ProgrammationManager
-     */    
+     */
     ProgrammationManager(const ProgrammationManager& pm);
 
     /*!
@@ -90,9 +90,9 @@ private:
      * \return clé de la forme aaaammjjhhmm
      */
     std::string getKeyFrom(const Date& date, const Horaire& horaire);
-public:
 
-    //design pattern singleton    
+public:
+    //design pattern singleton
     /*!
      * \brief getInstance
      * \return instance unique de ProgrammationManager
@@ -136,7 +136,7 @@ public:
      */
     Programmation& addProgrammationTacheSimplePreemptive(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage, TacheSimplePreemptive& tache);
 
-     /*!
+    /*!
      * \brief getProgrammation
      * Génère une exception ProgrammationManagerException si la programmation n'existe pas
      * \param dateProg date de la programmation
@@ -153,7 +153,6 @@ public:
      * \return const programmation débutant à dateProg horaireProg
      */
     const Programmation& getProgrammation(const Date& dateProg, const Horaire& horaireProg) const;
-
-   };
+};
 
 #endif // PROGRAMMATIONMANAGER_H
