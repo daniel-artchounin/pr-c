@@ -22,7 +22,7 @@ void TacheComposite::ajouterSsTache(const Date& dateD, const Horaire& heureD, co
     if (trouverSsTache(titre))
         throw TacheCompositeException("erreur : TacheSimple deja existante");
     Tache* newTache = 0;
-    if(preemptive){
+    if(preemptive && !composite){
         newTache = new TacheSimplePreemptive(dateD,heureD, dateEcheance, heureEcheance,
                                              titre,dur);
 

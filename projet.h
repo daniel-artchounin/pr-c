@@ -4,6 +4,10 @@
 #include "tache.h"
 #include "tachecomposite.h"
 #include "element.h"
+# include "tachesimplepreemptive.h"
+# include "tachesimplenonpreemptive.h"
+# include "typeinfo"
+# include "projetexception.h"
 
 /*! \class Projet
  * \brief Classe permettant de manipuler des projets
@@ -154,6 +158,31 @@ public:
      */
     Tache& accederTache(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache,
                               unsigned int profondeur = 0, const TacheComposite* tacheCourante = 0)const;
+
+    TacheSimplePreemptive& accederTacheSimplePreemptive(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache)const{
+        Tache& maTache = accederTache(nomsTachesComposites, nbTaches, nomTache);
+        try{
+            dynamic_cast <TacheSimplePreemptive&>(maTache);
+        }
+        catch(std::bad_cast e){
+            throw ProjetException("La tache "+maTache.getTitre()+" n'est pas une tache simple préemptive");
+        }
+        return dynamic_cast <TacheSimplePreemptive&>(maTache);;
+
+    }
+
+    TacheSimpleNonPreemptive& accederTacheSimpleNonPreemptive(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache,
+                                                             unsigned int profondeur = 0, const TacheComposite* tacheCourante = 0)const{
+        Tache& maTache = accederTache(nomsTachesComposites, nbTaches, nomTache);
+        try{
+            dynamic_cast <TacheSimpleNonPreemptive&>(maTache) ;
+        }
+        catch(std::bad_cast e){
+            throw ProjetException("La tache "+maTache.getTitre()+" n'est pas une tache simple non préemptive");
+        }
+        return dynamic_cast <TacheSimpleNonPreemptive&>(maTache) ;
+    }
+
 
     /*!
      * \brief creerAjouterTache

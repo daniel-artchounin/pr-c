@@ -4,6 +4,7 @@
 #include "tachesimplenonpreemptive.h"
 #include "tachesimplepreemptive.h"
 #include "manager.h"
+# include "programmationevenement.h"
 
 /*! \class ProgrammationManager
  * \brief Classe permettant de manipuler des Programmations. Hérite de la classe Manager. Utilise le design pattern singleton
@@ -104,7 +105,7 @@ public:
      * \param duree duree de la programmation
      * \return Programmation ajoutée si elle est valide
      */
-    Programmation& addProgrammationEvenement(const Date& dateProg, const Horaire& horaireProg, const Duree& duree);
+    ProgrammationEvenement& addProgrammationEvenement(const Date& dateProg, const Horaire& horaireProg, const Duree& duree);
 
     /*!
      * \brief addProgrammationTacheSimpleNonPreemptive
@@ -114,7 +115,7 @@ public:
      * \param tache référence vers une TacheSimpleNonPreemptive
      * \return Programmation ajoutée si elle est valide
      */
-    Programmation& addProgrammationTacheSimpleNonPreemptive(const Date& dateProg, const Horaire& horaireProg, TacheSimpleNonPreemptive& tache);
+    ProgrammationTacheSimpleNonPreemptive& addProgrammationTacheSimpleNonPreemptive(const Date& dateProg, const Horaire& horaireProg, TacheSimpleNonPreemptive& tache);
 
     /*!
      * \brief addProgrammationTacheSimplePreemptive
@@ -125,7 +126,7 @@ public:
      * \param tache référence vers une TacheSimplePreemptive
      * \return Programmation ajoutée si elle est valide
      */
-    Programmation& addProgrammationTacheSimplePreemptive(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage, TacheSimplePreemptive& tache);
+    ProgrammationTacheSimplePreemptive& addProgrammationTacheSimplePreemptive(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage, TacheSimplePreemptive& tache);
 
     /*!
      * \brief getProgrammation

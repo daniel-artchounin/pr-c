@@ -2,6 +2,8 @@
 #include "tachecomposite.h"
 #include "tachesimplepreemptive.h"
 #include "tachesimplenonpreemptive.h"
+# include <typeinfo>
+# include <iostream>
 
 Tache::Tache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
       const Horaire& heureEcheance,const std::string & titre,const Duree& dur):
@@ -48,16 +50,16 @@ void Tache::supprimerTachesPrecedente(const std::string & tachePrecedente){
 }
 
 bool Tache::checkProgrammationCoherente(const Date& dateProg, const Horaire& horaireProg, const Tache* tacheActuelle)const{
-    TacheComposite * tacheCompositeActuelle = 0 ;
-    if(!tacheActuelle){
-        tacheCompositeActuelle =  dynamic_cast<TacheComposite*>(const_cast<Tache*>(this));
+    const TacheComposite * tacheCompositeActuelle = 0 ;
+    if(tacheActuelle==0){
+        tacheCompositeActuelle =  dynamic_cast<const TacheComposite*>(this);
     }
     else{
-        tacheCompositeActuelle = dynamic_cast<TacheComposite *>(const_cast<Tache*>(tacheActuelle));
+        tacheCompositeActuelle = dynamic_cast<const TacheComposite *>(tacheActuelle);
 
     }
-    TacheSimplePreemptive * tacheSimplePreemptiveActuelle = 0;
-    TacheSimpleNonPreemptive * tacheSimpleNonPreemptiveActuelle = 0;
+    const TacheSimplePreemptive * tacheSimplePreemptiveActuelle = 0;
+    const TacheSimpleNonPreemptive * tacheSimpleNonPreemptiveActuelle = 0;
     if(tacheCompositeActuelle !=0){
         // on applique l'algo sur une tache composite
         for (TacheComposite::const_iterator it= tacheCompositeActuelle->begin(); it!=tacheCompositeActuelle->end(); it++){
@@ -70,11 +72,24 @@ bool Tache::checkProgrammationCoherente(const Date& dateProg, const Horaire& hor
         // toutes les taches composites parcourus sont cohérentes, c'est gagné pour la programmation
         return true;
     }
-    else if(!(tacheSimpleNonPreemptiveActuelle=dynamic_cast< TacheSimpleNonPreemptive *>(const_cast<Tache*>(tacheActuelle)))){
+    if(tacheActuelle==0){
+        tacheSimpleNonPreemptiveActuelle=dynamic_cast<const TacheSimpleNonPreemptive*>(this);
+    }
+    else{
+        tacheSimpleNonPreemptiveActuelle=dynamic_cast<const TacheSimpleNonPreemptive*>(tacheActuelle);
+    }
+    if(tacheSimpleNonPreemptiveActuelle!=0){
         // on applique l'algo sur une tache simple non préemptive
         return tacheSimpleNonPreemptiveActuelle->isEndProgrammationOk(dateProg,horaireProg);
     }
-    else if(!(tacheSimplePreemptiveActuelle= dynamic_cast<TacheSimplePreemptive *>(const_cast<Tache*>(tacheActuelle)) ) ){
+    if(tacheActuelle==0){
+        tacheSimplePreemptiveActuelle=dynamic_cast<const TacheSimplePreemptive*>(this);
+    }
+    else{
+        tacheSimplePreemptiveActuelle= dynamic_cast<const TacheSimplePreemptive*>(tacheActuelle);
+    }
+
+    if(tacheSimplePreemptiveActuelle!=0){
         // on applique l'algo sur une tache simple préemptive
         return tacheSimplePreemptiveActuelle->isEndProgrammationOk(dateProg,horaireProg);
     }
