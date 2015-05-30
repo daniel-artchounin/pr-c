@@ -81,7 +81,7 @@ Tache& Projet::accederTache(const std::string * nomsTachesComposites , unsigned 
         else if(profondeur == 0){
             // on cherche une tâche composite à la racine du projet
             try{
-                newTache = dynamic_cast<const TacheComposite*>(trouverTache(nomsTachesComposites[profondeur]));
+                newTache = dynamic_cast<TacheComposite*>(trouverTache(nomsTachesComposites[profondeur]));
             }
             catch(std::bad_cast& e){
                 // on n'est normalement pas censé entrer ici car dynamic_cast ne génère pas d'exception pour les
@@ -91,12 +91,12 @@ Tache& Projet::accederTache(const std::string * nomsTachesComposites , unsigned 
             if(newTache == 0){
                 throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
             }
-            return accederTache(nomsTachesComposites, nbTaches, nomTache, profondeur++,newTache);
+            return accederTache(nomsTachesComposites, nbTaches, nomTache, profondeur+1,newTache);
         }
         else{
             // on cherche une tâche composite sous la tâche composite actuelle
             try{
-                newTache = dynamic_cast<const TacheComposite *>(tacheCourante->trouverSsTache(nomsTachesComposites[profondeur]));
+                newTache = dynamic_cast<TacheComposite *>(tacheCourante->trouverSsTache(nomsTachesComposites[profondeur]));
             }
             catch(std::bad_cast &e){
                 // on n'est normalement pas censé entrer ici car dynamic_cast ne génère pas d'exception pour les
@@ -106,7 +106,7 @@ Tache& Projet::accederTache(const std::string * nomsTachesComposites , unsigned 
             if(newTache == 0){
                 throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
             }
-            return accederTache(nomsTachesComposites,nbTaches, nomTache, profondeur++,newTache);
+            return accederTache(nomsTachesComposites,nbTaches, nomTache, profondeur+1,newTache);
         }
     }
 }
