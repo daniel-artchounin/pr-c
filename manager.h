@@ -2,6 +2,7 @@
 #define MANAGER_H
 #include <map>
 #include <string>
+#include <QXmlStreamWriter>
 
 /*! \class Manager
  * \brief Patron de classe permettant de manipuler une map d'item.
@@ -103,6 +104,12 @@ public:
      * \return const_iterator sur la fin de la map
      */
     const_iterator end() const { return const_cast<Manager*>(this)->end(); }
+
+    virtual void exportTo(QXmlStreamWriter& stream) {
+        for(iterator it=begin(); it!=end(); ++it){
+            (*it->second).exportTo(stream);
+        }
+    }
 };
 
 #endif // MANAGER_H

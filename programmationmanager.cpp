@@ -108,3 +108,8 @@ Programmation& ProgrammationManager::addProgrammationTacheSimplePreemptive(const
     return *programmation;
 }
 
+void ProgrammationManager::exportTo(QXmlStreamWriter& stream) {
+    stream.writeStartElement("ProgrammationManager");
+    Manager::exportTo(stream);
+    stream.writeEndElement();
+}

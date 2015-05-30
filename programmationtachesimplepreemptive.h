@@ -36,6 +36,7 @@ public:
      */
     virtual ~ProgrammationTacheSimplePreemptive();
 
+    void exportTo(QXmlStreamWriter& stream);
 };
 #endif // PROGRAMMATIONTACHESIMPLEPREEMPTIVE_H
 

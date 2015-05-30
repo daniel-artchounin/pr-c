@@ -2,6 +2,7 @@
 #define PROGRAMMATION_H
 #include "date.h"
 #include "horaire.h"
+#include <QXmlStreamWriter>
 
 /*! \class Programmation
  * \brief Classe permettant de programmer à une date et un horaire.
@@ -63,6 +64,8 @@ public:
     Horaire getHoraireFin()const{
         return horaireProg.addDuree(getDuree());
     }
+
+    virtual void exportTo(QXmlStreamWriter& stream);
 };
 
 #endif // PROGRAMMATION_H

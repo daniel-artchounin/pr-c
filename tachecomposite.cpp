@@ -68,9 +68,7 @@ void TacheComposite::supprimerSsTache(const std::string& titre){
 void TacheComposite::exportTo(QXmlStreamWriter& stream) {
     stream.writeStartElement("TacheComposite");
     Tache::exportTo(stream);
-    for(iterator it=begin(); it!=end(); ++it){
-        (*it->second).exportTo(stream);
-    }
+    Manager::exportTo(stream);
     stream.writeEndElement();
 }
 

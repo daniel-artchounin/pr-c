@@ -35,8 +35,6 @@ const Projet& ProjetManager::getProjet(const std::string& id)const {
 
 void ProjetManager::exportTo(QXmlStreamWriter& stream) {
     stream.writeStartElement("ProjetManager");
-    for(iterator it=begin(); it!=end(); ++it){
-        (*it->second).exportTo(stream);
-    }
+    Manager::exportTo(stream);
     stream.writeEndElement();
 }

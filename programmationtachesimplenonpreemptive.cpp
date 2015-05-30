@@ -16,3 +16,9 @@ Duree ProgrammationTacheSimpleNonPreemptive::getDuree()const{
 }
 
 ProgrammationTacheSimpleNonPreemptive::~ProgrammationTacheSimpleNonPreemptive(){}
+
+void ProgrammationTacheSimpleNonPreemptive::exportTo(QXmlStreamWriter& stream) {
+    stream.writeStartElement("ProgrammationTacheSimpleNonPreemptive");
+    ProgrammationTacheSimple::exportTo(stream);
+    stream.writeEndElement();
+}

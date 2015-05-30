@@ -20,6 +20,10 @@ QString toQString(const std::string& str) {
     return QString::fromStdString(str);
 }
 
+QString toQString(const int entier) {
+    return QString::number(entier);
+}
+
 std::string toString(const QString& str) {
     return str.toStdString();
 }
