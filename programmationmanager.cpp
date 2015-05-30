@@ -4,6 +4,7 @@
 #include "programmationtachesimple.h"
 #include "programmationtachesimplenonpreemptive.h"
 #include "programmationtachesimplepreemptive.h"
+#include <typeinfo>
 
 //design pattern singleton
 ProgrammationManager * ProgrammationManager::instance=0; //initialisation à null, pour la première vérification
@@ -110,6 +111,10 @@ Programmation& ProgrammationManager::addProgrammationTacheSimplePreemptive(const
 
 void ProgrammationManager::exportTo(QXmlStreamWriter& stream) {
     stream.writeStartElement("ProgrammationManager");
-    Manager::exportTo(stream);
+    for(iterator it=begin(); it!=end(); ++it){
+        if(typeid(*it->second)==typeid(ProgrammationEvenement)) {
+            (*it->second).exportTo(stream);
+        }
+    }
     stream.writeEndElement();
 }

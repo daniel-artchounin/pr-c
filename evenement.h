@@ -1,6 +1,7 @@
 #ifndef EVENEMENT_H
 #define EVENEMENT_H
 #include <string>
+#include <QXmlStreamWriter>
 
 /*! \class Evenement
  * \brief Classe possédant un nom. Correspond à un évènement traditionnel.
@@ -46,6 +47,8 @@ public:
     std::string getMotif() const {
         return motif;
     }
+
+    virtual void exportTo(QXmlStreamWriter& stream);
 };
 
 #endif // EVENEMENT_H

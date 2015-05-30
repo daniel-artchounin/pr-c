@@ -20,3 +20,10 @@ Evenement& ProgrammationEvenement::programmerRendezVous(const std::string nom, c
     evenement=new RendezVous(nom, lieu, motif);
     return *evenement;
 }
+
+void ProgrammationEvenement::exportTo(QXmlStreamWriter& stream) {
+    stream.writeStartElement("ProgrammationEvenement");
+    Programmation::exportTo(stream);
+    evenement->exportTo(stream);
+    stream.writeEndElement();
+}

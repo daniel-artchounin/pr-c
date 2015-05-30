@@ -14,6 +14,12 @@ public:
      * \param m motif du rendez-vous
      */
     RendezVous(const std::string n, const std::string l, const std::string m):Evenement(n, l, m) {}
+
+    void exportTo(QXmlStreamWriter& stream) {
+        stream.writeStartElement("RendezVous");
+        Evenement::exportTo(stream);
+        stream.writeEndElement();
+    }
 };
 
 #endif // RENDEZVOUS_H

@@ -14,6 +14,12 @@ public:
      * \param m motif de la réunion
      */
     Reunion(const std::string n, const std::string l, const std::string m):Evenement(n, l, m) {}
+
+    void exportTo(QXmlStreamWriter& stream) {
+        stream.writeStartElement("Reunion");
+        Evenement::exportTo(stream);
+        stream.writeEndElement();
+    }
 };
 
 #endif // REUNION_H

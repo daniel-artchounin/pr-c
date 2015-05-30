@@ -16,10 +16,10 @@ bool Element::estDansIntervalle(const Date& dateProg, const Horaire& horaireProg
 }
 
 void Element::exportTo(QXmlStreamWriter& stream) {
-    stream.writeTextElement("titre",toQString(getTitre()));
-    stream.writeTextElement("dateDebut",toQString(getDateDebut().toString()));
-    stream.writeTextElement("horaireDebut",toQString(getHoraireDebut().toString()));
-    stream.writeTextElement("dateFin",toQString(getDateFin().toString()));
-    stream.writeTextElement("horaireFin",toQString(getHoraireFin().toString()));
-    stream.writeTextElement("duree",toQString(getDuree().toString()));
+    stream.writeTextElement("titre",toQString(titre));
+    stream.writeTextElement("dateDebut",toQString(dateDebut.toString()));
+    stream.writeTextElement("horaireDebut",toQString(horaireDebut.toString()));
+    stream.writeTextElement("dateFin",toQString(dateFin.toString()));
+    stream.writeTextElement("horaireFin",toQString(horaireFin.toString()));
+    stream.writeTextElement("duree",toQString(duree.toString()));
 }
