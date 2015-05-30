@@ -22,6 +22,7 @@ protected:
         std::pair<iterator,bool> retour = items.insert(std::pair<std::string, T*>(key, item));
         return retour.second;
     }
+
     /*!
      * \brief getItem
      * \param key clé de l'item à trouver
@@ -41,10 +42,12 @@ public:
      * Initialise la map
      */
     Manager():items(){}
+
     /*!
      * \brief Destructeur
      * Destructeur virtual
      */
+
     virtual ~Manager() {
         for(iterator it=items.begin(); it!=items.end(); ++it) {
             delete it->second;
@@ -55,6 +58,7 @@ public:
      * \brief Constructeur par recopie
      * \param m Manager à recopier
      */
+
     Manager(const Manager& m): items() {
         for(iterator it=m.items.begin(); it!=m.items.end(); ++it) {
             items.insert(std::pair<std::string, T*>(it->first, it->second));
@@ -65,19 +69,23 @@ public:
      * \param m Manager
      * \return Manager
      */
+
     Manager& operator=(const Manager& m) {
         if (this==&m) return *this;
         this->~Manager();
         for(iterator it=m.items.begin(); it!=m.items.end(); ++it) items.insert(std::pair<std::string, T*>(it->first, it->second));
         return *this;
     }
+
     typedef typename Map::iterator iterator;
     typedef typename Map::const_iterator const_iterator;
+
     /*!
      * \brief begin
      * \return iterator sur le début de la map
      */
     iterator begin() { return items.begin(); }
+
     /*!
      * \brief end
      * \return iterator sur la fin de la map

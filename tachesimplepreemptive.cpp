@@ -33,7 +33,7 @@ bool TacheSimplePreemptive::isEndProgrammationOk(const Date& dateProg, const Hor
     }else{
         // la tache préemptive a été totalement programmée
         // récupération de la dernière programmation
-        ProgrammationTacheSimplePreemptive * lastProgrammation = programmationstachessimplespreemptives.back();
+        ProgrammationTacheSimplePreemptive * lastProgrammation = programmationsTachesSimplesPreemptives.back();
         if(lastProgrammation->getDateFin()<= dateProg ||
                 (lastProgrammation->getDateFin()== dateProg && lastProgrammation->getHoraireFin() <= horaireProg) ){
             return true;
@@ -42,3 +42,13 @@ bool TacheSimplePreemptive::isEndProgrammationOk(const Date& dateProg, const Hor
         return false;
     }
 }
+
+ProgrammationTacheSimplePreemptive* TacheSimplePreemptive::getProgrammation(const Date&  dateDebut, const Horaire& horaireDebut) const{
+    for(p_const_iterator it = pBegin(); it != pEnd();++it){
+        if( ( (*it)->getDateProgrammation() == dateDebut )  && ( (*it)->getHoraireProgrammation() == horaireDebut ) ){
+            return *it;
+        }
+    }
+    return 0;
+}
+

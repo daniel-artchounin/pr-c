@@ -6,6 +6,8 @@
 # include "tachesimplepreemptiveexception.h"
 # include "programmationtachesimple.h"
 # include "programmationtachesimplepreemptive.h"
+# include "date.h"
+# include "horaire.h"
 /**\class TacheSimplePreemptive
  * \brief Classe permettant de manipuler des tâches préemptives
  */
@@ -17,14 +19,15 @@ class TacheSimplePreemptive : public TacheSimple
 
 protected:
     unsigned int pourcentageDejaProgramme;/*!< le pourcentage déjà programmé de la tâche*/
-    std::vector <ProgrammationTacheSimplePreemptive*> programmationstachessimplespreemptives;  /*!< vector contenant des pointeurs vers les programmations de la tâche simple préemptive */
+    typedef std::vector <ProgrammationTacheSimplePreemptive*> PVector;
+    PVector programmationsTachesSimplesPreemptives;  /*!< vector contenant des pointeurs vers les programmations de la tâche simple préemptive */
 
     /*!
      * \brief hasProgrammation
      * \return vrai si la taĉhe a au moins une programmtion ou faux sinon
      */
     virtual bool hasProgrammation()const{
-        return !programmationstachessimplespreemptives.empty();
+        return !programmationsTachesSimplesPreemptives.empty();
     }
 
     /**
@@ -49,7 +52,7 @@ protected:
      * \param pgrm pointeur vers la programmtion de tâche simple préemptive
      */
     void addProgrammation(ProgrammationTacheSimplePreemptive * pgrm){
-        programmationstachessimplespreemptives.push_back(pgrm);
+        programmationsTachesSimplesPreemptives.push_back(pgrm);
     }
 
 public:
@@ -95,6 +98,40 @@ public:
     Duree getDureeProgrammationViaPourcentage(unsigned int pourcentage)const{
         return Duree((pourcentage * getDuree().getDureeEnMinutes())/100);
     }
+
+    typedef typename PVector::iterator p_iterator;
+    typedef typename PVector::const_iterator p_const_iterator;
+
+    /*!
+     * \brief pBegin
+     * \return iterator sur le début du vector
+     */
+    p_iterator pBegin() { return programmationsTachesSimplesPreemptives.begin(); }
+
+    /*!
+     * \brief pEnd
+     * \return iterator sur la fin du vector
+     */
+    p_iterator pEnd() { return programmationsTachesSimplesPreemptives.end(); }
+
+    /*!
+     * \brief pBegin
+     * \return iterator sur le début du vector
+     */
+    p_const_iterator pBegin() const{ return const_cast<TacheSimplePreemptive *>(this)->pBegin(); }
+    /*!
+     * \brief pEnd
+     * \return iterator sur la fin du vector
+     */
+    p_const_iterator pEnd() const{ return const_cast<TacheSimplePreemptive *>(this)->pEnd(); }
+
+    /*!
+     * \brief getItem
+     * \param dateDebut date de la programmation à trouver
+     * \param horaireDebut horaire de la programmation à trouver
+     * \return item si trouvé, 0 sinon
+     */
+    ProgrammationTacheSimplePreemptive* getProgrammation(const Date&  dateDebut, const Horaire& horaireDebut) const;
 };
 
 #endif // TACHESIMPLEPREEMPTIVE_H

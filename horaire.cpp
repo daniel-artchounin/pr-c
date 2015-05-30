@@ -22,6 +22,11 @@ bool Horaire::operator>=(const Horaire& h) const {
     return !(*this < h);
 }
 
+bool Horaire::operator==(const Horaire& h) const{
+    return (heure == h.heure && minute == h.minute);
+}
+
+
 std::string Horaire::formatHHMM() const {
     std::stringstream ss;
     ss<<std::setfill('0')<<std::setw(2)<<heure<<std::setfill('0')<<std::setw(2)<<minute;

@@ -58,7 +58,6 @@ public:
      * précédè celle transmise en paramètre ou faux sinon
      */
     virtual bool isEndProgrammationOk(const Date& dateProg, const Horaire& horaireProg)const;
-
 };
 
 #endif // TACHESIMPLENONPREEMPTIVE_H

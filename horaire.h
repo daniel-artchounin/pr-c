@@ -92,6 +92,13 @@ public:
     bool operator>=(const Horaire& h) const;
 
     /*!
+     * \brief operator ==
+     * \param h Horaire
+     * \return true si Horaire est égal à h dans le temps
+     */
+    bool operator==(const Horaire& h) const;
+
+    /*!
      * \brief formatHHMM
      * \return l'horaire au format hhmm
      */

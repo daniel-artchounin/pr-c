@@ -94,25 +94,25 @@ class Tache : public Element {
         typedef typename TPMap::const_iterator tp_const_iterator;
 
         /*!
-         * \brief begin
+         * \brief tPBegin
          * \return iterator sur le début de la map
          */
         tp_iterator tPBegin() { return tachesPrecedentes.begin(); }
 
         /*!
-         * \brief end
+         * \brief tPEnd
          * \return iterator sur la fin de la map
          */
         tp_iterator tPEnd() { return tachesPrecedentes.end(); }
 
         /*!
-         * \brief begin
-         * \return iterator sur le début de la map
+         * \brief tPBegin
+         * \return const_iterator sur le début de la map
          */
         tp_const_iterator tPBegin() const{ return const_cast<Tache *>(this)->tPBegin(); }
         /*!
-         * \brief end
-         * \return iterator sur la fin de la map
+         * \brief tPEnd
+         * \return const_iterator sur la fin de la map
          */
         tp_const_iterator tPEnd() const{ return const_cast<Tache *>(this)->tPEnd(); }
 
