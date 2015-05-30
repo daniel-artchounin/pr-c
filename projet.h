@@ -103,6 +103,39 @@ public:
     bool isPrecedence( const Tache & tachePrecedente, const Tache& tacheSuivante)const{
         return const_cast<Tache &>(tacheSuivante).isTachePrecedente(tachePrecedente.getTitre());
     }
+
+    /*!
+     * \brief ajouterPrecedence
+     * permet d'ajouter une contrainte de précénde entre deux tâches
+     * soulève une exception si cet ajout n'est pas possible
+     * \param nomsTachesComposites1 tableau de chaines de caractères contenant les titres
+     * des taches composites (correspond au cheminement pour parvenir à la tache 1)
+     * \param nbTaches1 taille du tableau nomsTachesComposites1
+     * \param nomTache1 nom de la tâche 1 (celle qui doit précéder)
+     * \param nomsTachesComposites2 tableau de chaines de caractères contenant les titres
+     * des taches composites (correspond au cheminement pour parvenir à la tache 2)
+     * \param nbTaches2 taille du tableau nomsTachesComposites2
+     * \param nomTache2 nom de la tâche 2 (celle qui doit succéder)
+     */
+    void ajouterPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
+                           const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2);
+
+    /*!
+     * \brief supprimerPrecedence
+     * permet de supprimer une contrainte de précénde entre deux tâches
+     * soulève une exception si cette suppression n'est pas possible
+     * \param nomsTachesComposites1 tableau de chaines de caractères contenant les titres
+     * des taches composites (correspond au cheminement pour parvenir à la tache 1)
+     * \param nbTaches1 taille du tableau nomsTachesComposites1
+     * \param nomTache1 nom de la tâche 1 (celle qui précéde)
+     * \param nomsTachesComposites2 tableau de chaines de caractères contenant les titres
+     * des taches composites (correspond au cheminement pour parvenir à la tache 2)
+     * \param nbTaches2 taille du tableau nomsTachesComposites2
+     * \param nomTache2 nom de la tâche 2 (celle qui succède)
+     */
+    void supprimerPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
+                             const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2);
+
     /**
      * \brief accederTache
      * permet d'accéder à une tache
@@ -119,7 +152,7 @@ public:
      * méthode
      * \return retourne une référence vers la tache à laquelle on souhaitait accéder
      */
-    const Tache& accederTache(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache,
+    Tache& accederTache(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache,
                               unsigned int profondeur = 0, const TacheComposite* tacheCourante = 0)const;
 
     /*!

@@ -65,18 +65,18 @@ void Projet::supprimerTache(const std::string& titre){
     items.erase(titre);
 }
 
-const Tache& Projet::accederTache(const std::string * nomsTachesComposites , unsigned int nbTaches,
+Tache& Projet::accederTache(const std::string * nomsTachesComposites , unsigned int nbTaches,
                                   const std::string& nomTache, unsigned int profondeur, const TacheComposite* tacheCourante)const{
     const TacheComposite* newTache = 0;
     if (nbTaches == 0){
         // la tâche recherchée se trouve directement à la racine du projet
-        return getTache(nomTache);
+        return const_cast<Projet*>(this)->getTache(nomTache);
     }
     else{
         // la tâche recherchée ne se trouve pas directement à la racine du projet
         if(profondeur == nbTaches){
             // la tâche recherchée est une sous tâche de la tâche composite actuelle
-            return tacheCourante->getSsTache(nomTache);
+            return const_cast<TacheComposite*>(tacheCourante)->getSsTache(nomTache);
         }
         else if(profondeur == 0){
             // on cherche une tâche composite à la racine du projet
@@ -220,4 +220,17 @@ void Projet::creerAjouterTache(const std::string * nomsTaches, unsigned int nbTa
     }
 }
 
+void Projet::ajouterPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
+                       const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2){
+    Tache& tache1 = accederTache(nomsTachesComposites1, nbTaches1, nomTache1);
+    Tache& tache2 = accederTache(nomsTachesComposites2, nbTaches2, nomTache2);
+    tache2.ajouterTachePrecedente(tache1);
+}
 
+void Projet::supprimerPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
+                         const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2){
+    Tache& tache1 = accederTache(nomsTachesComposites1, nbTaches1, nomTache1);
+    Tache& tache2 = accederTache(nomsTachesComposites2, nbTaches2, nomTache2);
+    tache2.supprimerTachesPrecedente(tache1.getTitre());
+
+}

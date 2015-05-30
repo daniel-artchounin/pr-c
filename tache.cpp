@@ -27,19 +27,22 @@ Tache* Tache::trouverTachePrecedente(const std::string & titre)const{
 }
 
 void Tache::ajouterTachePrecedente(Tache & tachePrecedente){
+    if(trouverTachePrecedente(tachePrecedente.getTitre())){
+        throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " envoyée en paramètre précède déjà la tâche courante "+ this->getTitre());
+    }
     if(tachePrecedente.trouverTachePrecedente(tachePrecedente.getTitre())){
-        throw TacheException("Erreur : la tâche envoyée en paramètre a pour tâche precedente la tâche courante");
+        throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " envoyée en paramètre a pour tâche precedente la tâche courante "+ this->getTitre());
     }
     if( ((this->getDateFin()-tachePrecedente.getDateDebut())*24*60+(this->getHoraireFin()-tachePrecedente.getHoraireDebut()))
             -tachePrecedente.getDuree().getDureeEnMinutes()< this->getDuree().getDureeEnMinutes()){
-        throw TacheException("Erreur : la tâche envoyée en paramètre ne sera pas programmable");
+        throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " envoyée en paramètre ne sera pas programmable");
     }
     tachesPrecedentes.insert(std::pair<std::string, Tache*>(tachePrecedente.getTitre(), &tachePrecedente));
 }
 
 void Tache::supprimerTachesPrecedente(const std::string & tachePrecedente){
     if(!trouverTachePrecedente(tachePrecedente)){
-        throw TacheException("Erreur : la tâche envoyée en paramètre ne précède pas la tâche actuelle");
+        throw TacheException("Erreur : la tâche " + tachePrecedente + " envoyée en paramètre ne précède pas la tâche courante "+ this->getTitre());
     }
     tachesPrecedentes.erase(tachePrecedente);
 }
