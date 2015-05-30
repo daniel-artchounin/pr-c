@@ -126,10 +126,11 @@ public:
     p_const_iterator pEnd() const{ return const_cast<TacheSimplePreemptive *>(this)->pEnd(); }
 
     /*!
-     * \brief getItem
+     * \brief getProgrammation permet de trouver une programmation de notre
+     * tâche simple préemptive à partir d'une date et d'un horaire
      * \param dateDebut date de la programmation à trouver
      * \param horaireDebut horaire de la programmation à trouver
-     * \return item si trouvé, 0 sinon
+     * \return pointeur vers un objet de type ProgrammationTacheSimplePreemptive si trouvé, 0 sinon
      */
     ProgrammationTacheSimplePreemptive* getProgrammation(const Date&  dateDebut, const Horaire& horaireDebut) const;
 };
