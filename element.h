@@ -39,7 +39,7 @@ public:
      */
     Element(const std::string& t, const Date& dateD, const Horaire& horaireD, const Date& dateF, const Horaire& horaireF,const Duree& dur=0):
         titre(t), dateDebut(dateD), horaireDebut(horaireD), dateFin(dateF), horaireFin(horaireF),duree(dur) {
-        if( (dateF-dateD)*24*60+(horaireF-horaireD) < dur.getDureeEnMinutes() ){
+        if( (dateF-dateD)*24*60+(horaireF-horaireD) < (int)(dur.getDureeEnMinutes()) ){
             throw ElementException("ElementException, la durée est supérieure à l'intervalle entre la disponibilité et l'échéance");
         }
 
