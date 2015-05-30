@@ -11,7 +11,7 @@ TacheSimplePreemptive::TacheSimplePreemptive(const Date& dateD,
                    dateEcheance,
                    heureEcheance,
                    titre,
-                   dur),pourcentageDejaProgramme(0){
+                   dur),pourcentageDejaProgramme(0),programmationsTachesSimplesPreemptives(){
 }
 unsigned int TacheSimplePreemptive::getPourcentageDejaProgramme()const{
     return pourcentageDejaProgramme;

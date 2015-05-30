@@ -58,6 +58,13 @@ public:
      * précédè celle transmise en paramètre ou faux sinon
      */
     virtual bool isEndProgrammationOk(const Date& dateProg, const Horaire& horaireProg)const;
+
+    /*!
+     * \brief getProgrammation accesseur
+     * \return la programmation associée à la tâche ou 0 sinon
+     */
+    ProgrammationTacheSimpleNonPreemptive* getProgrammation() const;
+
 };
 
 #endif // TACHESIMPLENONPREEMPTIVE_H
