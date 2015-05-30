@@ -35,6 +35,8 @@ public:
      * \brief ~ProgrammationEvenement destructeur
      */
     virtual ~ProgrammationEvenement();
+
+    void exportTo(QXmlStreamWriter& stream);
 };
 
 #endif // PROGRAMMATIONEVENEMENT_H

@@ -1,5 +1,6 @@
 #include "programmationtachesimplepreemptive.h"
 #include "tachesimplepreemptive.h"
+#include "tools.h"
 
 Duree ProgrammationTacheSimplePreemptive::getDuree()const{
     return tacheSimplePreemtive->getDureeProgrammationViaPourcentage(pourcentage);
@@ -17,3 +18,10 @@ ProgrammationTacheSimplePreemptive::ProgrammationTacheSimplePreemptive(const Dat
 }
 
 ProgrammationTacheSimplePreemptive::~ProgrammationTacheSimplePreemptive(){}
+
+void ProgrammationTacheSimplePreemptive::exportTo(QXmlStreamWriter& stream) {
+    stream.writeStartElement("ProgrammationTacheSimplePreemptive");
+    ProgrammationTacheSimple::exportTo(stream);
+    stream.writeTextElement("pourcentage",toQString(pourcentage));
+    stream.writeEndElement();
+}

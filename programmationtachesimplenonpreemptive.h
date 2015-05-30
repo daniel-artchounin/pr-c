@@ -38,6 +38,8 @@ public:
      * \brief ~ProgrammationTacheSimpleNonPreemptive destructeur
      */
     virtual ~ProgrammationTacheSimpleNonPreemptive();
+
+    void exportTo(QXmlStreamWriter& stream);
 };
 
 #endif // PROGRAMMATIONTACHESIMPLENONPREEMPTIVE_H

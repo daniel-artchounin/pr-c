@@ -111,3 +111,12 @@ ProgrammationTacheSimplePreemptive& ProgrammationManager::addProgrammationTacheS
     return *programmation;
 }
 
+void ProgrammationManager::exportTo(QXmlStreamWriter& stream) {
+    stream.writeStartElement("ProgrammationManager");
+    for(iterator it=begin(); it!=end(); ++it){
+        if(typeid(*it->second)==typeid(ProgrammationEvenement)) {
+            (*it->second).exportTo(stream);
+        }
+    }
+    stream.writeEndElement();
+}

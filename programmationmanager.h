@@ -145,6 +145,8 @@ public:
      * \return const programmation débutant à dateProg horaireProg
      */
     const Programmation& getProgrammation(const Date& dateProg, const Horaire& horaireProg) const;
+
+    void exportTo(QXmlStreamWriter& stream);
 };
 
 #endif // PROGRAMMATIONMANAGER_H

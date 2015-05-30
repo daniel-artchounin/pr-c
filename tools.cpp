@@ -3,6 +3,7 @@
 #include "toolsexception.h"
 #include <QXmlStreamWriter>
 #include "projetmanager.h"
+#include "programmationmanager.h"
 
 void save(const QString& file){
     QFile newfile(file);
@@ -12,12 +13,17 @@ void save(const QString& file){
     stream.setAutoFormatting(true);
     stream.writeStartDocument();
     ProjetManager::getInstance().exportTo(stream);
+    ProgrammationManager::getInstance().exportTo(stream);
     stream.writeEndDocument();
     newfile.close();
 }
 
 QString toQString(const std::string& str) {
     return QString::fromStdString(str);
+}
+
+QString toQString(const int entier) {
+    return QString::number(entier);
 }
 
 std::string toString(const QString& str) {
