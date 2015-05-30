@@ -70,6 +70,8 @@ public:
      * \return const Projet si le projet existe
      */
     const Projet& getProjet(const std::string& titre) const;
+
+    void exportTo(QXmlStreamWriter& stream);
 };
 
 #endif // PROJETMANAGER_H

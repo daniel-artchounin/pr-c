@@ -3,6 +3,7 @@
 #include "date.h"
 #include "horaire.h"
 #include "elementexception.h"
+#include <QXmlStreamWriter>
 
 /*! \class Element
    * \brief Classe possédant un titre ainsi que des dates et horaires de début et de fin.
@@ -108,7 +109,7 @@ public:
         setDuree(getDuree()+duree);
     }
 
-
+    void exportTo(QXmlStreamWriter& stream);
 };
 
 #endif // ELEMENT_H

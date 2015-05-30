@@ -234,3 +234,12 @@ void Projet::supprimerPrecedence(const std::string * nomsTachesComposites1, unsi
     tache2.supprimerTachesPrecedente(tache1.getTitre());
 
 }
+
+void Projet::exportTo(QXmlStreamWriter& stream) {
+    stream.writeStartElement("Projet");
+    Element::exportTo(stream);
+    for(iterator it=begin(); it!=end(); ++it){
+        (*it->second).exportTo(stream);
+    }
+    stream.writeEndElement();
+}

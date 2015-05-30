@@ -47,3 +47,9 @@ bool TacheSimpleNonPreemptive::hasProgrammation()const{
 ProgrammationTacheSimpleNonPreemptive* TacheSimpleNonPreemptive::getProgrammation() const{
     return programmationTacheSimpleNonPreemptive;
 }
+
+void TacheSimpleNonPreemptive::exportTo(QXmlStreamWriter& stream) {
+    stream.writeStartElement("TacheSimpleNonPreemptive");
+    TacheSimple::exportTo(stream);
+    stream.writeEndElement();
+}

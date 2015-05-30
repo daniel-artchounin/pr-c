@@ -78,6 +78,8 @@ public:
      * false sinon
      */
 
+
+    void exportTo(QXmlStreamWriter& stream);
 };
 
 #endif // TACHECOMPOSITE_H

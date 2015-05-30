@@ -61,6 +61,8 @@ public:
      * \return la programmation associée à la tâche ou 0 sinon
      */
     ProgrammationTacheSimpleNonPreemptive* getProgrammation() const;
+
+    void exportTo(QXmlStreamWriter& stream);
 };
 
 #endif // TACHESIMPLENONPREEMPTIVE_H
