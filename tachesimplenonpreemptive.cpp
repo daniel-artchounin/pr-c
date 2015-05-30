@@ -1,6 +1,7 @@
 #include "tachesimplenonpreemptive.h"
 #include "tachesimplenonpreemptiveexception.h"
 #include "programmationtachesimplenonpreemptive.h"
+#include "tools.h"
 
 TacheSimpleNonPreemptive::TacheSimpleNonPreemptive(const Date& dateD, const Horaire& heureD,
                                                    const Date& dateEcheance,
@@ -51,5 +52,6 @@ ProgrammationTacheSimpleNonPreemptive* TacheSimpleNonPreemptive::getProgrammatio
 void TacheSimpleNonPreemptive::exportTo(QXmlStreamWriter& stream) {
     stream.writeStartElement("TacheSimpleNonPreemptive");
     TacheSimple::exportTo(stream);
+    stream.writeTextElement("duree",toQString(getDuree().toString()));
     stream.writeEndElement();
 }
