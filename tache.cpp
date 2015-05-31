@@ -102,7 +102,7 @@ bool Tache::checkProgrammationCoherente(const Date& dateProg, const Horaire& hor
 
 void Tache::exportTo(QXmlStreamWriter& stream) {
     Element::exportTo(stream);
-    stream.writeStartElement("Precedents");
+    stream.writeStartElement("ListePrecedents");
     for(tp_iterator it=tPBegin(); it!=tPEnd(); ++it){
         (*it->second).exportTo(stream);
     }
