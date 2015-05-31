@@ -1,6 +1,11 @@
 #include "horaire.h"
 #include "sstream"
 
+void Horaire::setHoraire(std::string horaire) {
+    std::istringstream iss(horaire);
+    iss>>*this;
+}
+
 bool Horaire::operator<(const Horaire& h) const {
     if (heure<h.heure) return true;
     if (heure>h.heure) return false;
@@ -50,6 +55,29 @@ std::ostream& operator<<(std::ostream& f, const Horaire & h) {
     h.afficher(f);
     return f;
 }
+
+std::istream& operator>>(std::istream& flot, Horaire& horaire) {
+    unsigned int short h,m;
+    bool ok=true;
+    flot>>h;
+    if (flot) while (flot.peek()==' ') flot.ignore(); // passe les espaces
+    else ok=false;
+
+    if (!flot) ok=false;
+
+    if(flot.peek()=='H') {
+        flot.ignore();
+        flot>>m;
+        if (!flot) ok=false;
+    } else {
+        ok=false;
+    }
+
+    if (ok) horaire=Horaire(h,m);
+    else flot.clear(std::ios::failbit);
+    return flot;
+}
+
 int operator-(const Horaire& horaire1, const Horaire& horaire2){
         return horaire1.soustraction(horaire2);
 }

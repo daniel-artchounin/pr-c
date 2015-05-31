@@ -40,6 +40,12 @@ public:
     }
 
     /*!
+     * \brief setDuree
+     * \param duree string format hhHmm
+     */
+    void setDuree(std::string duree);
+
+    /*!
      * \brief getDureeEnMinutes
      * \return duree en minute
      */
