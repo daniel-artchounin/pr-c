@@ -30,6 +30,14 @@ public:
     Duree(unsigned int m=0):nb_minutes(m) {}
 
     /*!
+     * \brief Duree
+     * \param duree string format hhHmm
+     */
+    Duree(std::string duree):nb_minutes(0) {
+        setDuree(duree);
+    }
+
+    /*!
      * \brief setDuree
      * \param heures heures>=
      * \param minutes 0<=minutes<=59
