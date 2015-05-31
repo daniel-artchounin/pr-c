@@ -57,7 +57,7 @@ ProgrammationTacheSimplePreemptive* TacheSimplePreemptive::getProgrammation(cons
 void TacheSimplePreemptive::exportTo(QXmlStreamWriter& stream) {
     stream.writeStartElement("TachePreemptive");
     TacheSimple::exportTo(stream);
-    stream.writeStartElement("Programmation");
+    stream.writeStartElement("ListeProgrammations");
     for(p_iterator it=pBegin(); it!=pEnd(); ++it) {
         (*it)->exportTo(stream);
     }
