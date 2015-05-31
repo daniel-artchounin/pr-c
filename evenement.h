@@ -48,6 +48,11 @@ public:
         return motif;
     }
 
+    /*!
+     * \brief exportTo
+     * Permet d'exporter les données dans un fichier XML via le streamwriter
+     * \param stream
+     */
     virtual void exportTo(QXmlStreamWriter& stream);
 };
 

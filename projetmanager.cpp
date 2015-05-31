@@ -1,5 +1,6 @@
 #include "projetmanager.h"
 #include "projetmanagerexception.h"
+#include "tools.h"
 
 //design pattern singleton
 ProjetManager * ProjetManager::instance=0; //initialisation à null, pour la première vérification
@@ -37,4 +38,44 @@ void ProjetManager::exportTo(QXmlStreamWriter& stream) {
     stream.writeStartElement("ProjetManager");
     Manager::exportTo(stream);
     stream.writeEndElement();
+}
+
+void ProjetManager::loadFrom(QXmlStreamReader& xml) {
+    while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "ProjetManager")) {
+        xml.readNextStartElement();
+        if(xml.name() == "Projet") {
+            std::string titre;
+            std::string dateDebut;
+            std::string horaireDebut;
+            std::string dateFin;
+            std::string horaireFin;
+            xml.readNext();
+            while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "Projet")) {
+                if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                    if(xml.name() == "titre") {
+                        xml.readNext();
+                        titre=toString(xml.text().toString());
+                    }else if(xml.name() == "dateDebut") {
+                        xml.readNext();
+                        dateDebut=toString(xml.text().toString());
+                    }else if(xml.name() == "horaireDebut") {
+                        xml.readNext();
+                        horaireDebut=toString(xml.text().toString());
+                    }else if(xml.name() == "dateFin") {
+                        xml.readNext();
+                        dateFin=toString(xml.text().toString());
+                    }else if(xml.name() == "horaireFin") {
+                        xml.readNext();
+                        horaireFin=toString(xml.text().toString());
+                    }else if(xml.name() == "ListeTaches") {
+                        xml.readNext();
+                        Projet& projet = addProjet(titre,dateDebut,horaireDebut,dateFin,horaireFin);
+                        std::vector<std::string> vect=std::vector<std::string>();
+                        projet.loadFrom(xml,vect);
+                    }
+                }
+                xml.readNext();
+            }
+        }
+    }
 }

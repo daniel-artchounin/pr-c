@@ -36,7 +36,18 @@ public:
      */
     virtual ~ProgrammationEvenement();
 
+    /*!
+     * \brief exportTo
+     * Permet d'exporter les données dans un fichier XML via le streamwriter
+     * \param stream
+     */
     void exportTo(QXmlStreamWriter& stream);
+    /*!
+     * \brief loadFrom
+     * Permet d'importer les données depuis un fichier XML via le streamreader
+     * \param xml
+     */
+    void loadFrom(QXmlStreamReader &xml);
 };
 
 #endif // PROGRAMMATIONEVENEMENT_H

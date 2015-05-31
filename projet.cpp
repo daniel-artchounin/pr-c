@@ -6,9 +6,12 @@
 #include <typeinfo>
 # include <string>
 #include "projetexception.h"
+#include "tools.h"
+#include "programmationmanager.h"
+#include <algorithm>
 
 Projet::Projet(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
-      const Horaire& heureEcheance,const std::string & titre):
+               const Horaire& heureEcheance,const std::string & titre):
     Manager<Tache>(),Element(titre, dateD, heureD, dateEcheance, heureEcheance){}
 
 Tache* Projet::trouverTache(const std::string& nomTache)const{
@@ -16,7 +19,7 @@ Tache* Projet::trouverTache(const std::string& nomTache)const{
 }
 
 void Projet::ajouterTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
-                    const Horaire& heureEcheance,const std::string & titre,bool preemptive, bool composite, const Duree & dur){
+                          const Horaire& heureEcheance,const std::string & titre,bool preemptive, bool composite, const Duree & dur){
     if(preemptive && composite){
         throw ProjetException("erreur : On ne peut pas créer de tâche composite et preemptive");
     }
@@ -28,17 +31,17 @@ void Projet::ajouterTache(const Date& dateD, const Horaire& heureD, const Date& 
     else if(!preemptive && !composite){
         try{
             newTache = new TacheSimpleNonPreemptive(dateD,heureD, dateEcheance, heureEcheance,
-                                             titre,dur);
+                                                    titre,dur);
         }catch (TacheSimpleNonPreemptiveException& e){
             delete newTache;
             throw ProjetException("La tache possède une durée supérieur à 12 heures");
         }
         newTache = new TacheSimpleNonPreemptive(dateD,heureD, dateEcheance, heureEcheance,
-                                             titre,dur);
+                                                titre,dur);
     }
     else{
         newTache = new TacheComposite(dateD,heureD, dateEcheance, heureEcheance,
-                                             titre);
+                                      titre);
     }
     if(!addItem(titre,newTache)){
         delete newTache;
@@ -67,7 +70,7 @@ void Projet::supprimerTache(const std::string& titre){
 }
 
 Tache& Projet::accederTache(const std::string * nomsTachesComposites , unsigned int nbTaches,
-                                  const std::string& nomTache, unsigned int profondeur, const TacheComposite* tacheCourante)const{
+                            const std::string& nomTache, unsigned int profondeur, const TacheComposite* tacheCourante)const{
     const TacheComposite* newTache = 0;
     if (nbTaches == 0){
         // la tâche recherchée se trouve directement à la racine du projet
@@ -113,7 +116,7 @@ Tache& Projet::accederTache(const std::string * nomsTachesComposites , unsigned 
 }
 
 bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD
-                                   ,const Horaire& heureD,const Date& dateF, const Horaire& heureF,const Duree & dur)const{
+                                           ,const Horaire& heureD,const Date& dateF, const Horaire& heureF,const Duree & dur)const{
     if(dateF< dateD || (dateF==dateD && heureF < heureD )){
         return false;
     }
@@ -130,7 +133,7 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
             || (dateF > dateFin)
             ||( (dateD == dateDebut) && (heureD < horaireDebut) )
             ||( (dateF == dateFin) && (heureF > horaireFin) )  ){
-            return false;
+        return false;
     }
     Tache* tacheActuelle = 0;
     TacheComposite* tacheCompositeActuelle = 0;
@@ -166,11 +169,11 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
         if( (dateD < tacheCompositeActuelle->getDateDebut()) || (dateF > tacheCompositeActuelle->getDateFin())
                 ||( (dateD == tacheCompositeActuelle->getDateDebut()) && (heureD < tacheCompositeActuelle->getHoraireDebut()) )
                 ||( (dateF == tacheCompositeActuelle->getDateFin()) && (heureF > tacheCompositeActuelle->getHoraireFin()) )   ){
-                return false;
+            return false;
         }
         if( ( (nbTaches-1) == i) && ( ( ( (tacheCompositeActuelle->getDateFin()-tacheCompositeActuelle->getDateDebut())*24*60 +
-                (tacheCompositeActuelle->getHoraireFin()-tacheCompositeActuelle->getHoraireDebut()) ) -
-              int(tacheCompositeActuelle->getDuree().getDureeEnMinutes()) ) < int(dur.getDureeEnMinutes()) ) ){
+                                          (tacheCompositeActuelle->getHoraireFin()-tacheCompositeActuelle->getHoraireDebut()) ) -
+                                        int(tacheCompositeActuelle->getDuree().getDureeEnMinutes()) ) < int(dur.getDureeEnMinutes()) ) ){
             return false; // la duree de la tâche est supérieur à la durée libre de la tâche composite
         }
     }
@@ -179,7 +182,7 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
 }
 
 void Projet::creerAjouterTache(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD
-                                   ,const Horaire& heureD,const Date& dateF, const Horaire& heureF,
+                               ,const Horaire& heureD,const Date& dateF, const Horaire& heureF,
                                const std::string& titre, bool preemptive, bool composite,const Duree & dur){
     if(!verifierContraintesRespectees(nomsTaches,nbTaches, dateD,heureD, dateF, heureF, dur)){
         throw ProjetException("ProjetException, création de la tâche " + titre + " impossible : contraintes non respectées");
@@ -222,7 +225,7 @@ void Projet::creerAjouterTache(const std::string * nomsTaches, unsigned int nbTa
 }
 
 void Projet::ajouterPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
-                       const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2){
+                               const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2){
     Tache& tache1 = accederTache(nomsTachesComposites1, nbTaches1, nomTache1);
     Tache& tache2 = accederTache(nomsTachesComposites2, nbTaches2, nomTache2);
     std::string chemin1 = genererChemin(nomsTachesComposites1, nbTaches1, nomTache1);
@@ -231,7 +234,7 @@ void Projet::ajouterPrecedence(const std::string * nomsTachesComposites1, unsign
 }
 
 void Projet::supprimerPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
-                         const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2){
+                                 const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2){
     std::string chemin1 = genererChemin(nomsTachesComposites1, nbTaches1, nomTache1);
     Tache& tache2 = accederTache(nomsTachesComposites2, nbTaches2, nomTache2);
     tache2.supprimerTachesPrecedente(chemin1);
@@ -245,6 +248,107 @@ void Projet::exportTo(QXmlStreamWriter& stream) {
     Manager::exportTo(stream);
     stream.writeEndElement();
     stream.writeEndElement();
+}
+
+void Projet::loadListePrecedents(QXmlStreamReader &xml, std::string * arr, int longueur, std::string titre) {
+    while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "ListePrecedents")) {
+        xml.readNextStartElement();
+        if(xml.name() == "Precedent") {
+            xml.readNext();
+            while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "Precedent")) {
+                std::string chemin= toString(xml.text().toString());
+                std::string delimiter = "/";
+                int nbPrecedents=std::count(chemin.begin(), chemin.end(), '/');
+                std::string precedents[nbPrecedents];
+                size_t pos = 0;
+                int i=0;
+                while ((pos = chemin.find(delimiter)) != std::string::npos) {
+                    precedents[i] = chemin.substr(0, pos);
+                    chemin.erase(0, pos + delimiter.length());
+                    i++;
+                }
+                ajouterPrecedence(precedents,nbPrecedents,chemin,arr,longueur,titre);
+                xml.readNext();
+            }
+        }
+    }
+}
+
+void Projet::loadFrom(QXmlStreamReader &xml, std::vector<std::string>& vect) {
+    while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "ListeTaches")) {
+        xml.readNextStartElement();
+        bool composite = false;
+        bool preemptive = false;
+        if(xml.name() == "TacheComposite") {
+            composite = true;
+        }
+        if(xml.name() == "TachePreemptive") {
+            preemptive = true;
+        }
+        if(xml.name() == "TacheComposite" || xml.name() == "TachePreemptive" || xml.name() == "TacheSimpleNonPreemptive") {
+            std::string titre;
+            std::string dateDebut;
+            std::string horaireDebut;
+            std::string dateFin;
+            std::string horaireFin;
+            std::string duree;
+            xml.readNext();
+            while(!(xml.tokenType() == QXmlStreamReader::EndElement && (xml.name() == "TacheComposite" || xml.name() == "TachePreemptive" || xml.name() == "TacheSimpleNonPreemptive"))) {
+                if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                    if(xml.name() == "titre") {
+                        xml.readNext();
+                        titre=toString(xml.text().toString());
+                    }else if(xml.name() == "dateDebut") {
+                        xml.readNext();
+                        dateDebut=toString(xml.text().toString());
+                    }else if(xml.name() == "horaireDebut") {
+                        xml.readNext();
+                        horaireDebut=toString(xml.text().toString());
+                    }else if(xml.name() == "dateFin") {
+                        xml.readNext();
+                        dateFin=toString(xml.text().toString());
+                    }else if(xml.name() == "horaireFin") {
+                        xml.readNext();
+                        horaireFin=toString(xml.text().toString());
+                    }else if(xml.name() == "duree") {
+                        xml.readNext();
+                        duree=toString(xml.text().toString());
+                    }else if(xml.name() == "ListeTaches") {
+                        xml.readNext();
+
+                        vect.push_back(titre);
+                        loadFrom(xml,vect);
+                    }else if(xml.name() == "ListeProgrammations") {
+                        xml.readNext();
+                        std::string arr[(int)(vect.size())];
+                        std::copy(vect.begin(), vect.end(), arr);
+
+                        ProgrammationManager::getInstance().loadListeProgrammations(xml, accederTache(arr,(int)vect.size(),titre),preemptive);
+                    }else if(xml.name() == "ListePrecedents") {
+                        xml.readNext();
+                        std::string arr[(int)(vect.size())];
+                        std::copy(vect.begin(), vect.end(), arr);
+                        try {
+                            if(composite) {
+                                creerAjouterTache(arr,(int)vect.size(),Date(dateDebut),Horaire(horaireDebut),Date(dateFin),Horaire(horaireFin),titre,preemptive,composite);
+                            } else {
+                                creerAjouterTache(arr,(int)vect.size(),Date(dateDebut),Horaire(horaireDebut),Date(dateFin),Horaire(horaireFin),titre,preemptive,composite,Duree(duree));
+                            }
+                        }catch(TacheCompositeException tce) {
+
+                        }catch(ProjetException pe) {
+
+                        }
+                        loadListePrecedents(xml,arr,(int)(vect.size()),titre);
+                    }
+                }
+                xml.readNext();
+            }
+        }
+    }
+    if(!vect.empty()) {
+        vect.pop_back();
+    }
 }
 
 std::string Projet::genererChemin(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache){

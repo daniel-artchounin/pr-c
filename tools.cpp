@@ -4,6 +4,8 @@
 #include <QXmlStreamWriter>
 #include "projetmanager.h"
 #include "programmationmanager.h"
+#include <vector>
+#include "tachecompositeexception.h"
 
 void save(const QString& file){
     QFile newfile(file);
@@ -12,10 +14,40 @@ void save(const QString& file){
     QXmlStreamWriter stream(&newfile);
     stream.setAutoFormatting(true);
     stream.writeStartDocument();
+    stream.writeStartElement("root");
     ProjetManager::getInstance().exportTo(stream);
     ProgrammationManager::getInstance().exportTo(stream);
+    stream.writeEndElement();
     stream.writeEndDocument();
     newfile.close();
+}
+
+void load(const QString &file) {
+    QFile oldFile(file);
+    if (!oldFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        throw ToolsException("Erreur ouverture fichier");
+    }
+    QXmlStreamReader xml(&oldFile);
+
+    while(!xml.atEnd() && !xml.hasError()) {
+        QXmlStreamReader::TokenType token = xml.readNext();
+        if(token == QXmlStreamReader::StartDocument) continue;
+        if(token == QXmlStreamReader::StartElement) {
+            if(xml.name() == "root") continue;
+            if(xml.name() == "ProjetManager") {
+                ProjetManager::getInstance().loadFrom(xml);
+            }
+            if(xml.name() == "ProgrammationManager") {
+                ProgrammationManager::getInstance().loadFrom(xml);
+            }
+        }
+    }
+    ProgrammationManager& pgm = ProgrammationManager::getInstance();
+    ProjetManager& pm = ProjetManager::getInstance();
+    if(xml.hasError()) {
+        throw ToolsException("Erreur lecteur fichier taches, parser xml. " + toString(xml.errorString()));
+    }
+    xml.clear();
 }
 
 QString toQString(const std::string& str) {
