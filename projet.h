@@ -206,6 +206,12 @@ public:
 
     std::string genererChemin(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1);
 
+    /*!
+     *\brief Destructeur
+     */
+    ~Projet(){
+
+    }
 };
 
 #endif // PROJET_H

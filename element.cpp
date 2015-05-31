@@ -10,7 +10,7 @@ const Duree & Element::getDuree()const{
 bool Element::estDansIntervalle(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage){
     std::cout << (((dateFin-dateProg)*24*60+(horaireFin-horaireProg))-int(duree.getDureeEnMinutes()));
     if( ( dateProg>=dateDebut || (dateProg==dateDebut && horaireProg >= horaireDebut) )
-          && ( ( (dateFin-dateProg)*24*60+(horaireFin-horaireProg)-( (pourcentage * int(getDuree().getDureeEnMinutes()) )/100) ) >= 0) ){
+          && ( ( (dateFin-dateProg)*24*60+(horaireFin-horaireProg)-( (int(pourcentage) * int(getDuree().getDureeEnMinutes()) )/100) ) >= 0) ){
         return true;
     }
     return false;
