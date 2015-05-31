@@ -104,7 +104,7 @@ void Tache::exportTo(QXmlStreamWriter& stream) {
     Element::exportTo(stream);
     stream.writeStartElement("ListePrecedents");
     for(tp_iterator it=tPBegin(); it!=tPEnd(); ++it){
-        (*it->second).exportTo(stream);
+        stream.writeTextElement("Precedent",*it->first);
     }
     stream.writeEndElement();
 }
