@@ -1,6 +1,5 @@
 #ifndef DATETIME_H
 #define DATETIME_H
-#include "iostream"
 #include "duree.h"
 
 /*! \class Date
@@ -23,6 +22,15 @@ public:
      */
     Date(unsigned int short j=1, unsigned int short m=1, unsigned int a=0):jour(1),mois(1),annee(0) {
         setDate(j,m,a);
+    }
+
+    /*!
+     * \brief Constructeur
+     * Permet de créer une date depuis un std::string format JJ/MM/AAAA
+     * \param date string au format JJ/MM/AAAA
+     */
+    Date(std::string date):jour(1),mois(1),annee(0) {
+        setDate(date);
     }
 
     /*!
@@ -62,6 +70,12 @@ public:
      * \param a année avec a>=0
      */
     void setDate(unsigned short int j, unsigned short int m, unsigned int a);
+
+    /*!
+     * \brief setDate
+     * \param date string format JJ/MM/AAAA
+     */
+    void setDate(std::string date);
 
     /*!
      * \brief setDateAujourdhui

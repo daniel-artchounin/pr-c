@@ -35,6 +35,11 @@ void Date::setDate(unsigned short int j, unsigned short int m, unsigned int a) {
     }
 }
 
+void Date::setDate(std::string date) {
+    std::istringstream iss(date);
+    iss>>*this;
+}
+
 void Date::setDateAujourdhui() {
     // initialisation de la date avec la date d'aujourd'hui
     time_t rawtime;

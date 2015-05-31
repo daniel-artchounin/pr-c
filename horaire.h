@@ -25,6 +25,14 @@ public:
     }
 
     /*!
+     * \brief Horaire
+     * \param horaire format hhHmm
+     */
+    Horaire(std::string horaire):heure(0),minute(0) {
+        setHoraire(horaire);
+    }
+
+    /*!
      * \brief setHoraire
      * \param h heure avec 0<=h<=23
      * \param m minute avec 0<=m<=59
@@ -34,6 +42,12 @@ public:
         heure=h;
         minute=m;
     }
+
+    /*!
+     * \brief setHoraire
+     * \param horaire string au format hhHmm
+     */
+    void setHoraire(std::string horaire);
 
     /*!
      * \brief afficher
@@ -132,6 +146,15 @@ public:
  * \return ostream
  */
 std::ostream& operator<<(std::ostream& f, const Horaire & h);
+
+/*!
+ * \brief operator >>
+ * Surcharde de l'opératuer >>
+ * \param flot istream
+ * \param horaire Horaire
+ * \return istream
+ */
+std::istream& operator>>(std::istream& flot, Horaire& horaire);
 
 /*!
  * \brief operator - permet le nombre de minutes séparant deux horaires (le résultat peut-être négatif)

@@ -1,6 +1,11 @@
 #include "duree.h"
 #include <sstream>
 
+void Duree::setDuree(std::string duree) {
+    std::istringstream iss(duree);
+    iss>>*this;
+}
+
 std::string Duree::toString() const {
     std::stringstream ss;
     ss<<*this;
