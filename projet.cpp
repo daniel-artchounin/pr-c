@@ -241,7 +241,9 @@ void Projet::supprimerPrecedence(const std::string * nomsTachesComposites1, unsi
 void Projet::exportTo(QXmlStreamWriter& stream) {
     stream.writeStartElement("Projet");
     Element::exportTo(stream);
+    stream.writeStartElement("ListeTaches");
     Manager::exportTo(stream);
+    stream.writeEndElement();
     stream.writeEndElement();
 }
 

@@ -52,8 +52,7 @@ ProgrammationTacheSimpleNonPreemptive* TacheSimpleNonPreemptive::getProgrammatio
 void TacheSimpleNonPreemptive::exportTo(QXmlStreamWriter& stream) {
     stream.writeStartElement("TacheSimpleNonPreemptive");
     TacheSimple::exportTo(stream);
-    stream.writeTextElement("duree",toQString(getDuree().toString()));
-    stream.writeStartElement("Programmations");
+    stream.writeStartElement("ListeProgrammations");
     if(programmationTacheSimpleNonPreemptive) {
         programmationTacheSimpleNonPreemptive->exportTo(stream);
     }
