@@ -73,9 +73,10 @@ public:
     /*!
      * \brief ajouterTachePrecedente
      * ajoute une tâche précédente à la tâche courante
-     * \param tachePrecedente référence sur une tache à ajouter
+     * \param cheminementPrecedent chemin de la tache précédente
+     * \param cheminementSuivant chemin de la tache suivante
      */
-    void ajouterTachePrecedente(Tache & tachePrecedente);
+    void ajouterTachePrecedente(Tache & tachePrecedente, const std::string& cheminementPrecedent, const std::string& cheminementSuivant);
 
     /*!
      * \brief supprimerTachesPrecedente

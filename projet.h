@@ -171,8 +171,7 @@ public:
 
     }
 
-    TacheSimpleNonPreemptive& accederTacheSimpleNonPreemptive(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache,
-                                                             unsigned int profondeur = 0, const TacheComposite* tacheCourante = 0)const{
+    TacheSimpleNonPreemptive& accederTacheSimpleNonPreemptive(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache)const{
         Tache& maTache = accederTache(nomsTachesComposites, nbTaches, nomTache);
         try{
             dynamic_cast <TacheSimpleNonPreemptive&>(maTache) ;
@@ -204,6 +203,9 @@ public:
                                    const std::string& titre, bool preemptive, bool composite, const Duree & dur=0);
 
     void exportTo(QXmlStreamWriter& stream);
+
+    std::string genererChemin(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1);
+
 };
 
 #endif // PROJET_H

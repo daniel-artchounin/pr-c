@@ -4,6 +4,7 @@
 #include "tachesimplenonpreemptiveexception.h"
 #include "tachecompositeexception.h"
 #include <typeinfo>
+# include <string>
 #include "projetexception.h"
 
 Projet::Projet(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
@@ -224,14 +225,16 @@ void Projet::ajouterPrecedence(const std::string * nomsTachesComposites1, unsign
                        const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2){
     Tache& tache1 = accederTache(nomsTachesComposites1, nbTaches1, nomTache1);
     Tache& tache2 = accederTache(nomsTachesComposites2, nbTaches2, nomTache2);
-    tache2.ajouterTachePrecedente(tache1);
+    std::string chemin1 = genererChemin(nomsTachesComposites1, nbTaches1, nomTache1);
+    std::string chemin2 = genererChemin(nomsTachesComposites2, nbTaches2, nomTache2);
+    tache2.ajouterTachePrecedente(tache1, chemin1, chemin2);
 }
 
 void Projet::supprimerPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
                          const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2){
-    Tache& tache1 = accederTache(nomsTachesComposites1, nbTaches1, nomTache1);
+    std::string chemin1 = genererChemin(nomsTachesComposites1, nbTaches1, nomTache1);
     Tache& tache2 = accederTache(nomsTachesComposites2, nbTaches2, nomTache2);
-    tache2.supprimerTachesPrecedente(tache1.getTitre());
+    tache2.supprimerTachesPrecedente(chemin1);
 
 }
 
@@ -240,4 +243,14 @@ void Projet::exportTo(QXmlStreamWriter& stream) {
     Element::exportTo(stream);
     Manager::exportTo(stream);
     stream.writeEndElement();
+}
+
+std::string Projet::genererChemin(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache){
+    std::string chemin = "";
+    for (unsigned int i=0; i<nbTaches; i++){
+        chemin += (nomsTachesComposites[i]+'/');
+    }
+    chemin += nomTache;
+    // std::cout << chemin << std::endl; -> test
+    return chemin;
 }

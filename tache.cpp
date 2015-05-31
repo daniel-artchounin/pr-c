@@ -28,18 +28,18 @@ Tache* Tache::trouverTachePrecedente(const std::string & titre)const{
     return result->second;
 }
 
-void Tache::ajouterTachePrecedente(Tache & tachePrecedente){
-    if(trouverTachePrecedente(tachePrecedente.getTitre())){
+void Tache::ajouterTachePrecedente(Tache & tachePrecedente, const std::string& cheminementPrecedent, const std::string& cheminementSuivant){
+    if(trouverTachePrecedente(cheminementPrecedent)){
         throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " envoyée en paramètre précède déjà la tâche courante "+ this->getTitre());
     }
-    if(tachePrecedente.trouverTachePrecedente(tachePrecedente.getTitre())){
+    if(tachePrecedente.trouverTachePrecedente(cheminementSuivant)){
         throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " envoyée en paramètre a pour tâche precedente la tâche courante "+ this->getTitre());
     }
     if( ((this->getDateFin()-tachePrecedente.getDateDebut())*24*60+(this->getHoraireFin()-tachePrecedente.getHoraireDebut()))
             -tachePrecedente.getDuree().getDureeEnMinutes()< this->getDuree().getDureeEnMinutes()){
         throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " envoyée en paramètre ne sera pas programmable");
     }
-    tachesPrecedentes.insert(std::pair<std::string, Tache*>(tachePrecedente.getTitre(), &tachePrecedente));
+    tachesPrecedentes.insert(std::pair<std::string, Tache*>(cheminementPrecedent, &tachePrecedente));
 }
 
 void Tache::supprimerTachesPrecedente(const std::string & tachePrecedente){
