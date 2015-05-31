@@ -78,8 +78,14 @@ public:
      * false sinon
      */
 
-
     void exportTo(QXmlStreamWriter& stream);
+
+    /*!
+     *\brief Destructeur
+     */
+    ~TacheComposite() {
+
+    }
 };
 
 #endif // TACHECOMPOSITE_H
