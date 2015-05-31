@@ -4,6 +4,7 @@
 #include "tachesimplenonpreemptive.h"
 # include <typeinfo>
 # include <iostream>
+#include "tools.h"
 
 Tache::Tache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
       const Horaire& heureEcheance,const std::string & titre,const Duree& dur):
@@ -104,7 +105,7 @@ void Tache::exportTo(QXmlStreamWriter& stream) {
     Element::exportTo(stream);
     stream.writeStartElement("ListePrecedents");
     for(tp_iterator it=tPBegin(); it!=tPEnd(); ++it){
-        stream.writeTextElement("Precedent",*it->first);
+        stream.writeTextElement("Precedent", toQString(it->first));
     }
     stream.writeEndElement();
 }
