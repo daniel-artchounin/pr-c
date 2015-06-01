@@ -61,6 +61,14 @@ protected :
     void ajouterTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                         const Horaire& heureEcheance,const std::string & titre,bool preemptive,
                       bool composite,const Duree& dur = 0);
+
+    /*!
+     * \brief loadListePrecedents
+     * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les contraintes de précédences des Taches
+     * \param xml
+     */
+    void loadListePrecedents(QXmlStreamReader &xml, std::string * arr, int longueur, std::string titre);
+
 public:
     /**
      * \brief Projet Constructeur
@@ -202,7 +210,19 @@ public:
                            const Horaire& heureD, const Date& dateF, const Horaire& heureF,
                                    const std::string& titre, bool preemptive, bool composite, const Duree & dur=0);
 
+    /*!
+     * \brief exportTo
+     * Permet d'exporter les données dans un fichier XML via le streamwriter
+     * \param stream
+     */
     void exportTo(QXmlStreamWriter& stream);
+
+    /*!
+     * \brief loadFrom
+     * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les différentes Taches
+     * \param xml
+     */
+    void loadFrom(QXmlStreamReader& xml, std::vector<std::string>& vect);
 
     std::string genererChemin(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1);
 

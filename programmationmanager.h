@@ -146,7 +146,26 @@ public:
      */
     const Programmation& getProgrammation(const Date& dateProg, const Horaire& horaireProg) const;
 
+    /*!
+     * \brief exportTo
+     * Permet d'exporter les données dans un fichier XML via le streamwriter
+     * \param stream
+     */
     void exportTo(QXmlStreamWriter& stream);
+
+    /*!
+     * \brief loadFrom
+     * Permet d'importer les données depuis un fichier XML via le streamreader. Charge uniquement les ProgrammationEvenement
+     * \param xml
+     */
+    void loadFrom(QXmlStreamReader& xml);
+
+    /*!
+     * \brief loadListeProgrammations
+     * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les programmations des Taches
+     * \param xml
+     */
+    void loadListeProgrammations(QXmlStreamReader& xml, Tache& tache, bool preemptive);
 };
 
 #endif // PROGRAMMATIONMANAGER_H

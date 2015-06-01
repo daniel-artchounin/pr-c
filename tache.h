@@ -125,6 +125,11 @@ public:
      */
     bool checkProgrammationCoherente(const Date& dateProg, const Horaire& horaireProg, const Tache* tacheActuelle=0)const;
 
+    /*!
+     * \brief exportTo
+     * Permet d'exporter les données dans un fichier XML via le streamwriter, notamment les contraintes de précédences
+     * \param stream
+     */
     virtual void exportTo(QXmlStreamWriter& stream);
 };
 

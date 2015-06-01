@@ -15,6 +15,11 @@ public:
      */
     RendezVous(const std::string n, const std::string l, const std::string m):Evenement(n, l, m) {}
 
+    /*!
+     * \brief exportTo
+     * Permet d'exporter les données dans un fichier XML via le streamwriter
+     * \param stream
+     */
     void exportTo(QXmlStreamWriter& stream) {
         stream.writeStartElement("RendezVous");
         Evenement::exportTo(stream);

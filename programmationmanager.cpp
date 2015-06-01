@@ -4,8 +4,9 @@
 #include "programmationtachesimple.h"
 #include "programmationtachesimplenonpreemptive.h"
 #include "programmationtachesimplepreemptive.h"
-# include <typeinfo>
+#include <typeinfo>
 #include <iostream>
+#include "tools.h"
 
 //design pattern singleton
 ProgrammationManager * ProgrammationManager::instance=0; //initialisation à null, pour la première vérification
@@ -70,7 +71,7 @@ ProgrammationTacheSimpleNonPreemptive& ProgrammationManager::addProgrammationTac
         throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, Programmation incompatible avec une programmation existante");
     }
     if(!tache.estDansIntervalle(dateProg, horaireProg)){
-       throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, Programmation ne respectant pas la disponibilité ou l'échéance de la tâche");
+        throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimpleNonPreemptive, Programmation ne respectant pas la disponibilité ou l'échéance de la tâche");
     }
     for(Tache::tp_const_iterator it = tache.tPBegin(); it != tache.tPEnd(); ++it){
         // on parcourt toutes les tâches précédentes de la tâche que l'on souhaite programmer
@@ -119,4 +120,71 @@ void ProgrammationManager::exportTo(QXmlStreamWriter& stream) {
         }
     }
     stream.writeEndElement();
+}
+
+void ProgrammationManager::loadFrom(QXmlStreamReader &xml) {
+    while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "ProgrammationManager")) {
+        xml.readNextStartElement();
+        if(xml.name() == "ProgrammationEvenement") {
+            std::string dateProgrammation;
+            std::string horaireProgrammation;
+            std::string duree;
+
+            xml.readNext();
+            while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "ProgrammationEvenement")) {
+                if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                    if(xml.name() == "dateProgrammation") {
+                        xml.readNext();
+                        dateProgrammation=toString(xml.text().toString());
+                    }
+                    if(xml.name() == "horaireProgrammation") {
+                        xml.readNext();
+                        horaireProgrammation=toString(xml.text().toString());
+                    }
+                    if(xml.name() == "duree") {
+                        xml.readNext();
+                        duree=toString(xml.text().toString());
+                    }
+                    if(xml.name() == "RendezVous" || xml.name() == "Reunion") {
+                        xml.readNext();
+                        ProgrammationEvenement& pe = addProgrammationEvenement(Date(dateProgrammation),Horaire(horaireProgrammation),Duree(duree));
+                        pe.loadFrom(xml);
+                    }
+                }
+                xml.readNext();
+            }
+        }
+    }
+}
+
+void ProgrammationManager::loadListeProgrammations(QXmlStreamReader &xml, Tache& tache, bool preemptive) {
+    while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "ListeProgrammations")) {
+        xml.readNextStartElement();
+        if(xml.name() == "ProgrammationTacheSimplePreemptive" || xml.name() == "ProgrammationTacheSimpleNonPreemptive") {
+            std::string dateProgrammation;
+            std::string horaireProgrammation;
+            std::string pourcentage;
+            xml.readNext();
+            while(!(xml.tokenType() == QXmlStreamReader::EndElement && (xml.name() == "ProgrammationTacheSimpleNonPreemptive" || xml.name() == "ProgrammationTacheSimplePreemptive"))) {
+                if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                    if(xml.name() == "dateProgrammation") {
+                        xml.readNext();
+                        dateProgrammation=toString(xml.text().toString());
+                    }else if(xml.name() == "horaireProgrammation") {
+                        xml.readNext();
+                        horaireProgrammation=toString(xml.text().toString());
+                    }else if(xml.name() == "pourcentage") {
+                        xml.readNext();
+                        pourcentage=toString(xml.text().toString());
+                    }
+                }
+                xml.readNext();
+            }
+            if(preemptive) {
+                addProgrammationTacheSimplePreemptive(Date(dateProgrammation),Horaire(horaireProgrammation),atoi(pourcentage.c_str()),dynamic_cast<TacheSimplePreemptive&>(tache));
+            }else {
+                addProgrammationTacheSimpleNonPreemptive(Date(dateProgrammation),Horaire(horaireProgrammation),dynamic_cast<TacheSimpleNonPreemptive&>(tache));
+            }
+        }
+    }
 }
