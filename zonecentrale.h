@@ -12,6 +12,7 @@ private:
     QTabWidget* onglets;
     FenetreEDT* fenetreEDT;
     FenetreGestionProjet* fenetreGestionProjet;
+    QHBoxLayout* bBox;
 public:
     explicit ZoneCentrale(QWidget *parent = 0);
 

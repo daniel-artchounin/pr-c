@@ -1,11 +1,13 @@
 #include "projetmanager.h"
 #include "projetmanagerexception.h"
+# include <QDebug>
 
 //design pattern singleton
 ProjetManager * ProjetManager::instance=0; //initialisation à null, pour la première vérification
 
 ProjetManager& ProjetManager::getInstance() {
     //si l'instance interne n'est pas encore créé, on doit le faire
+    std::cout << "instance" << instance << std::endl;
     if(!instance) instance = new ProjetManager();
     return *instance;
 }

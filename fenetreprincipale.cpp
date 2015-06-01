@@ -9,5 +9,4 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     barrreOutils = addToolBar("BarreOutils");
     zoneCentrale = new ZoneCentrale(this);
     setCentralWidget(zoneCentrale);
-
 }
