@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <ProjetManager>
+        <Projet>
+            <titre>projet 1</titre>
+            <dateDebut>08/09/1994</dateDebut>
+            <horaireDebut>15H15</horaireDebut>
+            <dateFin>10/09/1994</dateFin>
+            <horaireFin>23H15</horaireFin>
+            <duree>00H00</duree>
+            <ListeTaches>
+                <TacheComposite>
+                    <titre>tache compo 1</titre>
+                    <dateDebut>08/09/1994</dateDebut>
+                    <horaireDebut>15H15</horaireDebut>
+                    <dateFin>08/09/1994</dateFin>
+                    <horaireFin>17H15</horaireFin>
+                    <duree>00H00</duree>
+                    <ListePrecedents/>
+                    <ListeTaches>
+                        <TacheComposite>
+                            <titre>tache 1</titre>
+                            <dateDebut>08/09/1994</dateDebut>
+                            <horaireDebut>15H16</horaireDebut>
+                            <dateFin>08/09/1994</dateFin>
+                            <horaireFin>15H45</horaireFin>
+                            <duree>00H13</duree>
+                            <ListePrecedents/>
+                            <ListeTaches>
+                                <TacheComposite>
+                                    <titre>tache 2</titre>
+                                    <dateDebut>08/09/1994</dateDebut>
+                                    <horaireDebut>15H16</horaireDebut>
+                                    <dateFin>08/09/1994</dateFin>
+                                    <horaireFin>15H45</horaireFin>
+                                    <duree>00H00</duree>
+                                    <ListePrecedents/>
+                                    <ListeTaches/>
+                                </TacheComposite>
+                                <TachePreemptive>
+                                    <titre>tache 3</titre>
+                                    <dateDebut>08/09/1994</dateDebut>
+                                    <horaireDebut>15H16</horaireDebut>
+                                    <dateFin>08/09/1994</dateFin>
+                                    <horaireFin>15H45</horaireFin>
+                                    <duree>00H13</duree>
+                                    <ListePrecedents/>
+                                    <ListeProgrammations>
+                                        <ProgrammationTacheSimplePreemptive>
+                                            <dateProgrammation>08/09/1994</dateProgrammation>
+                                            <horaireProgrammation>15H18</horaireProgrammation>
+                                            <dateEcheance>08/09/1994</dateEcheance>
+                                            <horaireEcheance>15H31</horaireEcheance>
+                                            <duree>00H13</duree>
+                                            <pourcentage>100</pourcentage>
+                                        </ProgrammationTacheSimplePreemptive>
+                                    </ListeProgrammations>
+                                </TachePreemptive>
+                            </ListeTaches>
+                        </TacheComposite>
+                    </ListeTaches>
+                </TacheComposite>
+                <TacheComposite>
+                    <titre>tache compo 2</titre>
+                    <dateDebut>08/09/1994</dateDebut>
+                    <horaireDebut>15H15</horaireDebut>
+                    <dateFin>09/09/1994</dateFin>
+                    <horaireFin>17H15</horaireFin>
+                    <duree>00H00</duree>
+                    <ListePrecedents/>
+                    <ListeTaches>
+                        <TacheComposite>
+                            <titre>tache 1</titre>
+                            <dateDebut>09/09/1994</dateDebut>
+                            <horaireDebut>15H16</horaireDebut>
+                            <dateFin>09/09/1994</dateFin>
+                            <horaireFin>15H45</horaireFin>
+                            <duree>00H29</duree>
+                            <ListePrecedents/>
+                            <ListeTaches>
+                                <TacheSimpleNonPreemptive>
+                                    <titre>tache 2</titre>
+                                    <dateDebut>09/09/1994</dateDebut>
+                                    <horaireDebut>15H16</horaireDebut>
+                                    <dateFin>09/09/1994</dateFin>
+                                    <horaireFin>15H45</horaireFin>
+                                    <duree>00H16</duree>
+                                    <ListePrecedents/>
+                                    <ListeProgrammations>
+                                        <ProgrammationTacheSimpleNonPreemptive>
+                                            <dateProgrammation>09/09/1994</dateProgrammation>
+                                            <horaireProgrammation>15H16</horaireProgrammation>
+                                            <dateEcheance>09/09/1994</dateEcheance>
+                                            <horaireEcheance>15H32</horaireEcheance>
+                                            <duree>00H16</duree>
+                                        </ProgrammationTacheSimpleNonPreemptive>
+                                    </ListeProgrammations>
+                                </TacheSimpleNonPreemptive>
+                                <TachePreemptive>
+                                    <titre>tache 3</titre>
+                                    <dateDebut>09/09/1994</dateDebut>
+                                    <horaireDebut>15H16</horaireDebut>
+                                    <dateFin>09/09/1994</dateFin>
+                                    <horaireFin>15H45</horaireFin>
+                                    <duree>00H13</duree>
+                                    <ListePrecedents>
+                                        <Precedent>tache compo 1/tache 1</Precedent>
+                                        <Precedent>tache compo 2/tache 1/tache 2</Precedent>
+                                    </ListePrecedents>
+                                    <ListeProgrammations>
+                                        <ProgrammationTacheSimplePreemptive>
+                                            <dateProgrammation>09/09/1994</dateProgrammation>
+                                            <horaireProgrammation>15H33</horaireProgrammation>
+                                            <dateEcheance>09/09/1994</dateEcheance>
+                                            <horaireEcheance>15H39</horaireEcheance>
+                                            <duree>00H06</duree>
+                                            <pourcentage>50</pourcentage>
+                                        </ProgrammationTacheSimplePreemptive>
+                                    </ListeProgrammations>
+                                </TachePreemptive>
+                            </ListeTaches>
+                        </TacheComposite>
+                    </ListeTaches>
+                </TacheComposite>
+            </ListeTaches>
+        </Projet>
+        <Projet>
+            <titre>projet 2</titre>
+            <dateDebut>09/09/1994</dateDebut>
+            <horaireDebut>15H15</horaireDebut>
+            <dateFin>09/09/1996</dateFin>
+            <horaireFin>23H15</horaireFin>
+            <duree>00H00</duree>
+            <ListeTaches/>
+        </Projet>
+    </ProjetManager>
+    <ProgrammationManager>
+        <ProgrammationEvenement>
+            <dateProgrammation>12/09/2015</dateProgrammation>
+            <horaireProgrammation>15H15</horaireProgrammation>
+            <dateEcheance>12/09/2015</dateEcheance>
+            <horaireEcheance>34H15</horaireEcheance>
+            <duree>19H00</duree>
+            <RendezVous>
+                <nom>RDV cool</nom>
+                <lieu>Paris</lieu>
+                <motif>J'ai rien à faire</motif>
+            </RendezVous>
+        </ProgrammationEvenement>
+        <ProgrammationEvenement>
+            <dateProgrammation>13/09/2015</dateProgrammation>
+            <horaireProgrammation>15H15</horaireProgrammation>
+            <dateEcheance>13/09/2015</dateEcheance>
+            <horaireEcheance>34H15</horaireEcheance>
+            <duree>19H00</duree>
+            <Reunion>
+                <nom>Réunion</nom>
+                <lieu>Marseille</lieu>
+                <motif>On va jouer au foot</motif>
+            </Reunion>
+        </ProgrammationEvenement>
+    </ProgrammationManager>
+</root>

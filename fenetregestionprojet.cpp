@@ -17,13 +17,14 @@ FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
 
 void FenetreGestionProjet::afficherTreeWidget(unsigned int profondeur, ProjetManager& projetManager, QTreeWidget* arbre, QTreeWidgetItem * actuel, Element* element){
     if(profondeur==0){
+        arbre->clear();
         for(ProjetManager::iterator it= projetManager.begin(); it!=projetManager.end(); ++it){
             QTreeWidgetItem * topLevel = new QTreeWidgetItem();
             topLevel->setText(profondeur, QString::fromStdString(it->first)); // QString::fromStdString(it->second->getTitre())
             arbre->addTopLevelItem(topLevel);
             QString::fromStdString(it->second->getTitre());
             // std::cout<<it->second->getTitre();
-           std::cout << it->second->getTitre()<< std::endl;
+            // std::cout << it->second->getTitre()<< std::endl; // -> test
             afficherTreeWidget(profondeur+1, projetManager, arbre, topLevel,it->second);
 
 
@@ -37,15 +38,15 @@ void FenetreGestionProjet::afficherTreeWidget(unsigned int profondeur, ProjetMan
                 QTreeWidgetItem * item = new QTreeWidgetItem();
                 item->setText(0,QString::fromStdString((it->first)));
                 actuel->addChild(item);
-                std::cout << it->second->getTitre()<< std::endl;
+                // std::cout << it->second->getTitre()<< std::endl; -> test
                 afficherTreeWidget(profondeur+1, projetManager, arbre, item,it->second);
             }
         }
         else{
             TacheComposite * tacheComposite = dynamic_cast<TacheComposite *>(element);
             if(tacheComposite!=0){
-                // qDebug() << typeid(tacheComposite).name()<< QDate::currentDate();
-                // qDebug() << typeid(*tacheComposite).name()<< QDate::currentDate();
+                // qDebug() << typeid(tacheComposite).name()<< QDate::currentDate(); -> test
+                // qDebug() << typeid(*tacheComposite).name()<< QDate::currentDate(); -> test
                 tacheComposite->getTitre();
                 tacheComposite->begin();
                 tacheComposite->end();
@@ -53,13 +54,13 @@ void FenetreGestionProjet::afficherTreeWidget(unsigned int profondeur, ProjetMan
                     QTreeWidgetItem * item = new QTreeWidgetItem();
                     item->setText(0, QString::fromStdString((it->first)));
                     actuel->addChild(item);
-                    std::cout << it->second->getTitre()<< std::endl;
+                    // std::cout << it->second->getTitre()<< std::endl; -> test
                     afficherTreeWidget(profondeur+1, projetManager, arbre, item,it->second);
                 }
 
             }
             else{
-                std::cout << "tache de fin" <<std::endl;
+                // std::cout << "tache de fin" <<std::endl; // -> test
             }
 
         }

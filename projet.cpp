@@ -117,6 +117,7 @@ Tache& Projet::accederTache(const std::string * nomsTachesComposites , unsigned 
 
 bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD
                                            ,const Horaire& heureD,const Date& dateF, const Horaire& heureF,const Duree & dur)const{
+    // vérification si la tâche n'est pas
     if(dateF< dateD || (dateF==dateD && heureF < heureD )){
         return false;
     }

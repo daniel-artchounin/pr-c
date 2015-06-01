@@ -13,13 +13,19 @@ ProgrammationManager * ProgrammationManager::instance=0; //initialisation à nul
 
 ProgrammationManager& ProgrammationManager::getInstance() {
     //si l'instance interne n'est pas encore créé, on doit le faire
-    if(!instance) instance = new ProgrammationManager();
+    if(instance == 0){
+        instance = new ProgrammationManager();
+    }
     return *instance;
 }
 
 void ProgrammationManager::libererInstance() {
-    if(!instance) delete instance;
+    if(instance != 0){
+        delete instance;
+        instance = 0;
+    }
 }
+
 
 bool ProgrammationManager::inclus(const Date& dateProg, const Horaire& horaireProg, const Date& dateFin, const Horaire& horaireFin, const Date& date, const Horaire& horaire) const {
     return (dateProg<date || (dateProg==date && horaireProg<=horaire)) && (date<dateFin || (date==dateFin && horaire<=horaireFin));

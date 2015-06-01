@@ -15,6 +15,12 @@ private:
     QHBoxLayout* bBox;
 public:
     explicit ZoneCentrale(QWidget *parent = 0);
+    FenetreGestionProjet* getFenetreGestionProjet()const{
+        return fenetreGestionProjet;
+    }
+    FenetreEDT* getFenetreEDT()const{
+        return fenetreEDT;
+    }
 
 signals:
 

@@ -33,7 +33,6 @@ Thumbs.db
 
 # qtcreator generated files
 *.pro.user*
-main.cpp
 pr-c.pro
 
 # xemacs temporary files

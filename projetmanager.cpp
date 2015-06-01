@@ -5,17 +5,23 @@
 
 
 //design pattern singleton
-ProjetManager * ProjetManager::instance=0; //initialisation à null, pour la première vérification
+ProjetManager * ProjetManager::instance= 0; //initialisation à null, pour la première vérification
 
 ProjetManager& ProjetManager::getInstance() {
     //si l'instance interne n'est pas encore créé, on doit le faire
-    std::cout << "instance" << instance << std::endl;
-    if(!instance) instance = new ProjetManager();
+    // std::cout << "instance :" << instance << std::endl; // -> test
+    if(instance == 0){
+        instance = new ProjetManager();
+    }
     return *instance;
 }
 
 void ProjetManager::libererInstance() {
-    if(!instance) delete instance;
+    // std::cout << "liberation :" << instance << std::endl; // -> test
+    if(instance != 0){
+        delete instance;
+        instance = 0;
+    }
 }
 
 Projet& ProjetManager::addProjet(const std::string& titre, const Date& dateDebut, const Horaire& horaireDebut, const Date& dateFin, const Horaire& horaireFin) {
