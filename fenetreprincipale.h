@@ -1,9 +1,11 @@
 #ifndef FENETREPRINCIPALE_H
 #define FENETREPRINCIPALE_H
 
-#include <QtWidgets>
 #include "zonecentrale.h"
 # include <tools.h>
+# include <QToolBar>
+# include <QMainWindow>
+# include "creerprojet.h"
 
 class FenetrePrincipale : public QMainWindow
 {
@@ -22,6 +24,7 @@ private:
     QAction* actionLoad;
     QAction* actionCreerProjet;
     QAction* actionQuitter;
+    CreerProjet* creerProjet;
     bool dejaSauver;
 
     static FenetrePrincipale * instance; /*!< instance unique de FenetrePrincipale */
@@ -64,6 +67,7 @@ signals:
 public slots:
     void chargerFichier();
     void sauverFichier();
+    void creerFenetreProjet();
 };
 
 #endif // FENETREPRINCIPALE_H

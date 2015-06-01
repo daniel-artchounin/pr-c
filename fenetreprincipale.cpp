@@ -1,5 +1,11 @@
-#include "fenetreprincipale.h"
+# include "fenetreprincipale.h"
 # include "programmationmanager.h"
+# include "creerprojet.h"
+# include <QMenuBar>
+# include <QMessageBox>
+# include <QFileDialog>
+# include <QCloseEvent>
+# include <QApplication>
 
 FenetrePrincipale * FenetrePrincipale::instance=0; //initialisation à null, pour la première vérification
 
@@ -23,6 +29,7 @@ FenetrePrincipale& FenetrePrincipale::getInstance(){
 FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     QMainWindow(parent)
 {
+    creerProjet = 0;
     dejaSauver = false;
     // creation de la barre de menus
     menuGestion = menuBar()->addMenu("&Gestion");
@@ -61,9 +68,14 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     connect(actionSave, SIGNAL(triggered()), this, SLOT(sauverFichier()));
     connect(actionLoad, SIGNAL(triggered()), this, SLOT(chargerFichier()));
     connect(actionQuitter, SIGNAL(triggered()), qApp, SLOT(quit()));
+    connect(actionCreerProjet, SIGNAL(triggered()), this, SLOT(creerFenetreProjet()));
 }
 
 void FenetrePrincipale::chargerFichier(){
+    if(creerProjet !=0){
+        delete creerProjet;
+        creerProjet = 0;
+    }
     QString fichier;
     if(!dejaSauver){
             int reponse = QMessageBox::question(this, "Confirmation de chargement", "N'oubliez pas de sauvegarder votre travail en cours sinon les modifications en cours serons définitivement perdues. Etes-vous sur de vouloir charger un fichier de données ?", QMessageBox ::Yes | QMessageBox::No);
@@ -98,10 +110,25 @@ void FenetrePrincipale::chargerFichier(){
 }
 
 void FenetrePrincipale::sauverFichier(){
+    if(creerProjet !=0){
+        delete creerProjet;
+        creerProjet = 0;
+    }
     QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Fichier XML (*.xml)");
     save(fichier);
     dejaSauver = true;
 }
+
+void FenetrePrincipale::creerFenetreProjet(){
+    if(creerProjet !=0){
+        delete creerProjet;
+        creerProjet = 0;
+    }
+    creerProjet = new CreerProjet;
+    creerProjet->show();
+    this->hide();
+}
+
 
 void FenetrePrincipale::closeEvent(QCloseEvent *event)
 {

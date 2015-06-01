@@ -3,7 +3,6 @@
 # include <projetmanager.h>
 # include <programmationmanager.h>
 # include <string>
-# include <QtWidgets>
 # include <fenetreprincipale.h>
 # include "tools.h"
 using namespace std;

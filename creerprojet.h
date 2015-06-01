@@ -2,23 +2,36 @@
 #define CREERPROJET_H
 
 #include <QWidget>
+# include <QPushButton>
+# include <QVBoxLayout>
+# include <QDateEdit>
+# include <QTimeEdit>
+# include <QFormLayout>
+# include <QLineEdit>
 
 class CreerProjet : public QWidget
 {
     Q_OBJECT
+protected :
+    virtual void closeEvent(QCloseEvent *event);
 private :
-    //Date dateDebut; /*!< date de début */
-    // Horaire horaireDebut; /*!< horaire de début */
-    //Date dateFin; /*!< date de fin */
-    //Horaire horaireFin; /*!< horaire de fin */
-    //Duree duree; /*!< la duree minimale du projet (en supposant que les tâches se succèdent sans espace)*/
-
+    QVBoxLayout* vBox;
+    QHBoxLayout* hBox;
+    QFormLayout* formlayout;
+    QLineEdit* titre; /*!< titre de l'élément */
+    QDateEdit* dateDebut;/*!< date de début */
+    QTimeEdit* horaireDebut; /*!< horaire de début */
+    QDateEdit* dateFin; /*!< date de fin */
+    QTimeEdit* horaireFin; /*!< horaire de fin */
+    QPushButton* annuler;  /*!< bouton annuler */
+    QPushButton* sauver;  /*!< bouton sauver */
 public:
     explicit CreerProjet(QWidget *parent = 0);
 
 signals:
 
 public slots:
+    void retourFenetrePrincipale();
 
 };
 
