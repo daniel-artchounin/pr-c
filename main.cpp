@@ -10,7 +10,7 @@ using namespace std;
 
 int main(int argc, char * argv[]){
     QApplication myApp(argc, argv);
-    FenetrePrincipale fenetrePrincipale;
+    FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
     fenetrePrincipale.showMaximized();
     return myApp.exec();
 }

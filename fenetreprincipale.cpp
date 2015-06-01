@@ -1,6 +1,25 @@
 #include "fenetreprincipale.h"
 # include "programmationmanager.h"
 
+FenetrePrincipale * FenetrePrincipale::instance=0; //initialisation à null, pour la première vérification
+
+void FenetrePrincipale::libererInstance(){
+    if(instance != 0){
+        delete instance;
+        instance = 0;
+    }
+
+}
+
+FenetrePrincipale& FenetrePrincipale::getInstance(){
+    if(instance == 0){
+        instance = new FenetrePrincipale();
+    }
+    return *instance;
+}
+
+
+
 FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     QMainWindow(parent)
 {
@@ -84,3 +103,9 @@ void FenetrePrincipale::sauverFichier(){
     dejaSauver = true;
 }
 
+void FenetrePrincipale::closeEvent(QCloseEvent *event)
+{
+    libererInstance();
+    event->accept();
+
+}
