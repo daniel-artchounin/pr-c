@@ -10,12 +10,14 @@ class FenetrePrincipale : public QMainWindow
     Q_OBJECT
 private:
     ZoneCentrale* zoneCentrale;
-    QMenu* menuFichier;
-    QMenu* menuEdition;
-    QMenu* menuAffichage;
-    QToolBar *barrreOutils;
-    QAction *actionSave;
-    QAction *actionLoad;
+    QMenu* menuGestion;
+    QMenu* menuFenetre;
+    QMenu* menuAide;
+    QToolBar* barrreOutils;
+    QAction* actionSave;
+    QAction* actionLoad;
+    QAction* actionCreerProjet;
+    QAction* actionQuitter;
     bool dejaSauver;
 public:
     explicit FenetrePrincipale(QWidget *parent = 0);

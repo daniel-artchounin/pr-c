@@ -5,22 +5,43 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     QMainWindow(parent)
 {
     dejaSauver = false;
-    menuFichier = menuBar()->addMenu("&Fichier");
-    menuEdition = menuBar()->addMenu("&Edition");
-    menuAffichage = menuBar()->addMenu("&Affichage");
+    // creation de la barre de menus
+    menuGestion = menuBar()->addMenu("&Gestion");
+    menuFenetre = menuBar()->addMenu("&Fenêtre");
+    menuAide = menuBar()->addMenu("&Aide");
+    // creation de la barre d'outils
     barrreOutils = addToolBar("BarreOutils");
+    // creation des actions
     actionSave = new QAction("&Sauver", this);
     actionLoad = new QAction("&Charger", this);
-    actionSave->setShortcut(QKeySequence("Ctrl+S"));
-    actionLoad->setShortcut(QKeySequence("Ctrl+L"));
+    actionCreerProjet = new QAction("Créer un &projet", this);
+    actionQuitter = new QAction("&Quitter ProjectCalendar", this);
+    // raccourcis des actions
+    // actionSave->setShortcut(QKeySequence("Ctrl+S"));
+    // actionLoad->setShortcut(QKeySequence("Ctrl+L"));
+    // actionCreerProjet->setShortcut(QKeySequence("Ctrl+P"));
+    // actionQuitter->setShortcut(QKeySequence("Ctrl+Q"));
+    // icones des actions
     actionSave->setIcon(QIcon("../pr-c/images/enregistrer.png"));
     actionLoad->setIcon(QIcon("../pr-c/images/charger.png"));
-    zoneCentrale = new ZoneCentrale(this);
-    setCentralWidget(zoneCentrale);
+    actionCreerProjet->setIcon(QIcon("../pr-c/images/creer_projet.jpeg"));
+    actionQuitter->setIcon(QIcon("../pr-c/images/quitter.png"));
+    // ajouts des actions à la barre de menus
+    menuGestion->addAction(actionSave);
+    menuGestion->addAction(actionLoad);
+    menuGestion->addAction(actionCreerProjet);
+    menuFenetre->addAction(actionQuitter);
+    // ajouts des actions à la barre d'outils
     barrreOutils->addAction(actionLoad);
     barrreOutils->addAction(actionSave);
+    barrreOutils->addAction(actionCreerProjet);
+    // instanciation et définition de la zone centrale
+    zoneCentrale = new ZoneCentrale(this);
+    setCentralWidget(zoneCentrale);
+    // connections
     connect(actionSave, SIGNAL(triggered()), this, SLOT(sauverFichier()));
     connect(actionLoad, SIGNAL(triggered()), this, SLOT(chargerFichier()));
+    connect(actionQuitter, SIGNAL(triggered()), qApp, SLOT(quit()));
 }
 
 void FenetrePrincipale::chargerFichier(){
