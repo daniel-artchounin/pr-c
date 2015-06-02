@@ -121,6 +121,31 @@ void FenetreGestionProjet::fenetreCreerTacheComposite(){
         delete creerTacheComposite;
         creerTacheComposite = 0;
     }
+    QTreeWidgetItem * actuel = tree->currentItem();
+    QList<QString> cheminement;
+    if(actuel == 0){
+        // afficher un message
+        qDebug() << "bonjour";
+    }
+    else{
+        do{
+            // qDebug() << actuel; -> test
+            cheminement.prepend(actuel->data(0,0).toString());
+            // qDebug() << actuel; -> test
+            actuel = actuel->parent();
+            // qDebug() << actuel; -> test
+        }while(actuel != 0);
+    }
+    for(QList<QString>::iterator it = cheminement.begin() ; it != cheminement.end() ; ++it){
+        qDebug() << *it;
+
+    }
+
+    // QString sel_projet = selection[0]->data(0, 0).toString();
+    // QStringList arg;
+    // QString user = "/U=******";
+    // QString mdp = "/P=" + motDePasse->text();
+    // qDebug() << sel_projet;
     creerTacheComposite = new CreerTacheComposite;
     creerTacheComposite->show();
     FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();

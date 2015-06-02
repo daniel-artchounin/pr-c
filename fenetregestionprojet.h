@@ -10,6 +10,7 @@
 # include "creertachesimplepreemptive.h"
 # include "creertachesimplenonpreemptive.h"
 
+class CreerTacheComposite;
 class CreerTacheSimplePreemptive;
 class CreerTacheSimpleNonPreemptive;
 class FenetreGestionProjet : public QWidget
