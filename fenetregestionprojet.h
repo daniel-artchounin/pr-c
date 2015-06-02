@@ -5,6 +5,7 @@
 # include <projetmanager.h>
 # include <QTreeWidget>
 # include <QHBoxLayout>
+# include <QMenu>
 
 class FenetreGestionProjet : public QWidget
 {
@@ -12,6 +13,7 @@ class FenetreGestionProjet : public QWidget
 private:
     QTreeWidget * tree;
     QHBoxLayout* hBox;
+    QAction * monAction;
 public:
     explicit FenetreGestionProjet(QWidget *parent = 0);
     void afficherTreeWidget(unsigned int profondeur, ProjetManager& projetManager, QTreeWidget* arbre, QTreeWidgetItem * actuel=0, Element * element=0);
@@ -21,6 +23,9 @@ public:
 signals:
 
 public slots:
+    void showContextMenu(const QPoint&);
+    void test();
+
 
 };
 

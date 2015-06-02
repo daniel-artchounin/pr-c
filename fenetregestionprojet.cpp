@@ -3,6 +3,7 @@
 # include "projet.h"
 # include "tachecomposite.h"
 # include <QDate>
+# include <QDebug>
 FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     QWidget(parent)
 {
@@ -13,6 +14,11 @@ FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     tree->show();
     hBox->addWidget(tree);
     this->setLayout(hBox);
+    this->setContextMenuPolicy(Qt::CustomContextMenu);
+    monAction = new QAction("Test",this);
+    connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),this, SLOT(showContextMenu(const QPoint&)));
+    connect(monAction, SIGNAL(triggered()),this, SLOT(test()));
+
 }
 
 void FenetreGestionProjet::afficherTreeWidget(unsigned int profondeur, ProjetManager& projetManager, QTreeWidget* arbre, QTreeWidgetItem * actuel, Element* element){
@@ -67,3 +73,35 @@ void FenetreGestionProjet::afficherTreeWidget(unsigned int profondeur, ProjetMan
 
     }
 }
+
+void FenetreGestionProjet::showContextMenu(const QPoint& pos){
+    // for most widgets
+    QPoint globalPos = this->mapToGlobal(pos);
+    // for QAbstractScrollArea and derived classes you would use:
+    // QPoint globalPos = myWidget->viewport()->mapToGlobal(pos);
+
+    QMenu myMenu;
+    myMenu.addAction("Supprimer une contrainte de précédence");
+    myMenu.addAction("Ajouter une contrainte de précédence");
+    myMenu.addAction("Créer un projet");
+    myMenu.addAction("Créer une tâche composite");
+    myMenu.addAction("Créer une tâche simple non préemptive");
+    myMenu.addAction("Créer une tâche simple préemptive");
+    myMenu.addAction(monAction);
+    // myMenu.addAction("Programmer une tâche simple non préemptive");
+    // myMenu.addAction("Programmer une tâche simple préemptive");
+    QAction* selectedItem = myMenu.exec(globalPos);
+    // if (selectedItem)
+    // {
+        // something was chosen, do stuff
+    // }
+    // else
+    // {
+        // nothing was chosen
+    // }
+}
+
+void FenetreGestionProjet::test(){
+    qDebug() << "Le test semble fonctionner";
+}
+
