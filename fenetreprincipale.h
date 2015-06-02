@@ -7,6 +7,7 @@
 # include <QMainWindow>
 # include "creerprojet.h"
 
+class ZoneCentrale;
 class FenetrePrincipale : public QMainWindow
 {
     Q_OBJECT
@@ -67,7 +68,7 @@ signals:
 public slots:
     void chargerFichier();
     void sauverFichier();
-    void creerFenetreProjet();
+    void fenetreCreerProjet();
 };
 
 #endif // FENETREPRINCIPALE_H

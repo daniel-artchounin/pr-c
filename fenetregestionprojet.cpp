@@ -7,6 +7,9 @@
 FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     QWidget(parent)
 {
+    creerTacheComposite = 0;
+    creerTacheSimplePreemptive = 0;
+    creerTacheSimpleNonPreemptive = 0;
     ProjetManager& projetManager = ProjetManager::getInstance();
     tree = new QTreeWidget(this);
     hBox = new QHBoxLayout;
@@ -16,8 +19,16 @@ FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     this->setLayout(hBox);
     this->setContextMenuPolicy(Qt::CustomContextMenu);
     monAction = new QAction("Test",this);
+    creationTacheComposite = new QAction("Creer une tâche composite",this);;
+    creationTacheSimplePreemptive = new QAction("Creer une tâche simple préemptive",this);;
+    creationTacheSimpleNonPreemptive = new QAction("Créer une tâche simple non préemptive",this);
     connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),this, SLOT(showContextMenu(const QPoint&)));
     connect(monAction, SIGNAL(triggered()),this, SLOT(test()));
+    connect(creationTacheComposite, SIGNAL(triggered()),this, SLOT(fenetreCreerTacheComposite()));
+    connect(creationTacheSimplePreemptive, SIGNAL(triggered()),this, SLOT(fenetreCreerTacheSimplePreemptive()));
+    connect(creationTacheSimpleNonPreemptive, SIGNAL(triggered()),this, SLOT(fenetreCreerTacheSimpleNonPreemptive()));
+
+
 
 }
 
@@ -84,9 +95,9 @@ void FenetreGestionProjet::showContextMenu(const QPoint& pos){
     myMenu.addAction("Supprimer une contrainte de précédence");
     myMenu.addAction("Ajouter une contrainte de précédence");
     myMenu.addAction("Créer un projet");
-    myMenu.addAction("Créer une tâche composite");
-    myMenu.addAction("Créer une tâche simple non préemptive");
-    myMenu.addAction("Créer une tâche simple préemptive");
+    myMenu.addAction(creationTacheComposite);
+    myMenu.addAction(creationTacheSimplePreemptive);
+    myMenu.addAction(creationTacheSimpleNonPreemptive);
     myMenu.addAction(monAction);
     // myMenu.addAction("Programmer une tâche simple non préemptive");
     // myMenu.addAction("Programmer une tâche simple préemptive");
@@ -105,3 +116,35 @@ void FenetreGestionProjet::test(){
     qDebug() << "Le test semble fonctionner";
 }
 
+void FenetreGestionProjet::fenetreCreerTacheComposite(){
+    if(creerTacheComposite !=0){
+        delete creerTacheComposite;
+        creerTacheComposite = 0;
+    }
+    creerTacheComposite = new CreerTacheComposite;
+    creerTacheComposite->show();
+    FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+    fenetrePrincipale.hide();
+}
+
+void FenetreGestionProjet::fenetreCreerTacheSimplePreemptive(){
+    if(creerTacheSimplePreemptive !=0){
+        delete creerTacheSimplePreemptive;
+        creerTacheSimplePreemptive = 0;
+    }
+    creerTacheSimplePreemptive = new CreerTacheSimplePreemptive;
+    creerTacheSimplePreemptive->show();
+    FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+    fenetrePrincipale.hide();
+}
+
+void FenetreGestionProjet::fenetreCreerTacheSimpleNonPreemptive(){
+    if(creerTacheSimpleNonPreemptive !=0){
+        delete creerTacheSimpleNonPreemptive;
+        creerTacheSimpleNonPreemptive = 0;
+    }
+    creerTacheSimpleNonPreemptive = new CreerTacheSimpleNonPreemptive;
+    creerTacheSimpleNonPreemptive->show();
+    FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+    fenetrePrincipale.hide();
+}

@@ -5,6 +5,7 @@
 # include "fenetreedt.h"
 #include <QWidget>
 
+class FenetreGestionProjet;
 class ZoneCentrale : public QWidget
 {
     Q_OBJECT

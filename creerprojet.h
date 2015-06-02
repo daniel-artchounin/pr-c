@@ -32,7 +32,6 @@ signals:
 
 public slots:
     void retourFenetrePrincipale();
-
 };
 
 #endif // CREERPROJET_H

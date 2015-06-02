@@ -24,8 +24,6 @@ FenetrePrincipale& FenetrePrincipale::getInstance(){
     return *instance;
 }
 
-
-
 FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     QMainWindow(parent)
 {
@@ -68,7 +66,7 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     connect(actionSave, SIGNAL(triggered()), this, SLOT(sauverFichier()));
     connect(actionLoad, SIGNAL(triggered()), this, SLOT(chargerFichier()));
     connect(actionQuitter, SIGNAL(triggered()), qApp, SLOT(quit()));
-    connect(actionCreerProjet, SIGNAL(triggered()), this, SLOT(creerFenetreProjet()));
+    connect(actionCreerProjet, SIGNAL(triggered()), this, SLOT(fenetreCreerProjet()));
 }
 
 void FenetrePrincipale::chargerFichier(){
@@ -119,7 +117,7 @@ void FenetrePrincipale::sauverFichier(){
     dejaSauver = true;
 }
 
-void FenetrePrincipale::creerFenetreProjet(){
+void FenetrePrincipale::fenetreCreerProjet(){
     if(creerProjet !=0){
         delete creerProjet;
         creerProjet = 0;
