@@ -2,6 +2,10 @@
 # include <QPushButton>
 # include <fenetreprincipale.h>
 # include <QCloseEvent>
+# include "date.h"
+# include "time.h"
+# include "projetmanagerexception.h"
+# include <QMessageBox>
 
 CreerProjet::CreerProjet(QWidget *parent) :
     QWidget(parent)
@@ -25,12 +29,31 @@ CreerProjet::CreerProjet(QWidget *parent) :
     vBox = new QVBoxLayout(this);
     vBox->addLayout(formlayout);
     vBox->addLayout(hBox);
-    connect(annuler,SIGNAL(clicked()),this,SLOT(retourFenetrePrincipale()));
-    connect(sauver,SIGNAL(clicked()),this,SLOT(retourFenetrePrincipale()));
+    connect(annuler,SIGNAL(clicked()),this,SLOT(retourFenetrePrincipaleAnnuler()));
+    connect(sauver,SIGNAL(clicked()),this,SLOT(retourFenetrePrincipaleSauver()));
 }
 
-void CreerProjet::retourFenetrePrincipale(){
+void CreerProjet::retourFenetrePrincipaleAnnuler(){
     FenetrePrincipale& fenetrePrincipal = FenetrePrincipale::getInstance();
+    fenetrePrincipal.show();
+    this->close();
+}
+
+void CreerProjet::retourFenetrePrincipaleSauver(){
+    FenetrePrincipale& fenetrePrincipal = FenetrePrincipale::getInstance();
+    ProjetManager& projetMangager = ProjetManager::getInstance();
+    try{
+        projetMangager.addProjet(
+            titre->text().toStdString(),
+            Date(dateDebut->date().day(), dateDebut->date().month(), dateDebut->date().year()),
+            Horaire(horaireDebut->time().minute(), horaireDebut->time().hour()),
+            Date(dateFin->date().day(), dateFin->date().month(), dateFin->date().year()),
+            Horaire(horaireFin->time().minute(), horaireFin->time().hour())
+        );
+    }
+    catch(ProjetManagerException& e){
+        QMessageBox::warning(this, "Création de projet", e.what());
+    }
     fenetrePrincipal.show();
     this->close();
 }

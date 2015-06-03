@@ -4,6 +4,7 @@
 # include "tachecomposite.h"
 # include <QDate>
 # include <QDebug>
+# include <QMessageBox>
 
 FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     QWidget(parent)
@@ -124,6 +125,7 @@ void FenetreGestionProjet::test(){
     qDebug() << "Le test semble fonctionner";
 }
 
+// créer une méthode privé pour éviter les duplications de code !!!
 void FenetreGestionProjet::fenetreCreerTacheComposite(){
     if(creerTacheComposite !=0){
         delete creerTacheComposite;
@@ -132,8 +134,7 @@ void FenetreGestionProjet::fenetreCreerTacheComposite(){
     QTreeWidgetItem * actuel = tree->currentItem();
     QList<QString> cheminement;
     if(actuel == 0){
-        // afficher un message
-        qDebug() << "bonjour";
+        QMessageBox::warning(this, "Création de tache composite", "Veuillez d'abord sélectionner le projet ou la tache composite mère de votre future tache");
     }
     else{
         do{
@@ -143,21 +144,16 @@ void FenetreGestionProjet::fenetreCreerTacheComposite(){
             actuel = actuel->parent();
             // qDebug() << actuel; -> test
         }while(actuel != 0);
-    }
-    for(QList<QString>::iterator it = cheminement.begin() ; it != cheminement.end() ; ++it){
-        qDebug() << *it;
+        for(QList<QString>::iterator it = cheminement.begin() ; it != cheminement.end() ; ++it){
+            qDebug() << *it;
 
+        }
+        creerTacheComposite = new CreerTacheComposite;
+        creerTacheComposite->show();
+        FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+        fenetrePrincipale.hide();
     }
 
-    // QString sel_projet = selection[0]->data(0, 0).toString();
-    // QStringList arg;
-    // QString user = "/U=******";
-    // QString mdp = "/P=" + motDePasse->text();
-    // qDebug() << sel_projet;
-    creerTacheComposite = new CreerTacheComposite;
-    creerTacheComposite->show();
-    FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
-    fenetrePrincipale.hide();
 }
 
 void FenetreGestionProjet::fenetreCreerTacheSimplePreemptive(){
@@ -165,10 +161,27 @@ void FenetreGestionProjet::fenetreCreerTacheSimplePreemptive(){
         delete creerTacheSimplePreemptive;
         creerTacheSimplePreemptive = 0;
     }
-    creerTacheSimplePreemptive = new CreerTacheSimplePreemptive;
-    creerTacheSimplePreemptive->show();
-    FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
-    fenetrePrincipale.hide();
+    QTreeWidgetItem * actuel = tree->currentItem();
+    QList<QString> cheminement;
+    if(actuel == 0){
+        QMessageBox::warning(this, "Création de tache simple préemptive", "Veuillez d'abord sélectionner le projet ou la tache composite mère de votre future tache");
+    }
+    else{
+        do{
+            cheminement.prepend(actuel->data(0,0).toString());
+            // qDebug() << actuel; -> test
+            actuel = actuel->parent();
+            // qDebug() << actuel; -> test
+        }while(actuel != 0);
+        for(QList<QString>::iterator it = cheminement.begin() ; it != cheminement.end() ; ++it){
+            qDebug() << *it;
+
+        }
+        creerTacheSimplePreemptive = new CreerTacheSimplePreemptive;
+        creerTacheSimplePreemptive->show();
+        FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+        fenetrePrincipale.hide();
+    }
 }
 
 void FenetreGestionProjet::fenetreCreerTacheSimpleNonPreemptive(){
@@ -176,10 +189,25 @@ void FenetreGestionProjet::fenetreCreerTacheSimpleNonPreemptive(){
         delete creerTacheSimpleNonPreemptive;
         creerTacheSimpleNonPreemptive = 0;
     }
-    creerTacheSimpleNonPreemptive = new CreerTacheSimpleNonPreemptive;
-    creerTacheSimpleNonPreemptive->show();
-    FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
-    fenetrePrincipale.hide();
+    QTreeWidgetItem * actuel = tree->currentItem();
+    QList<QString> cheminement;
+    if(actuel == 0){
+        QMessageBox::warning(this, "Création de tache simple non préemptive", "Veuillez d'abord sélectionner le projet ou la tache composite mère de votre future tache");
+    }
+    else{
+        do{
+            cheminement.prepend(actuel->data(0,0).toString());
+            actuel = actuel->parent();
+        }while(actuel != 0);
+        for(QList<QString>::iterator it = cheminement.begin() ; it != cheminement.end() ; ++it){
+            qDebug() << *it;
+        }
+        creerTacheSimpleNonPreemptive = new CreerTacheSimpleNonPreemptive;
+        creerTacheSimpleNonPreemptive->show();
+        FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+        fenetrePrincipale.hide();
+    }
+
 }
 
 void FenetreGestionProjet::fenetreProgrammerTacheSimplePreemptive(){
@@ -187,10 +215,25 @@ void FenetreGestionProjet::fenetreProgrammerTacheSimplePreemptive(){
         delete programmerTacheSimplePreemptive;
         programmerTacheSimplePreemptive = 0;
     }
-    programmerTacheSimplePreemptive = new ProgrammerTacheSimplePreemptive;
-    programmerTacheSimplePreemptive->show();
-    FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
-    fenetrePrincipale.hide();
+    QTreeWidgetItem * actuel = tree->currentItem();
+    QList<QString> cheminement;
+    if(actuel == 0){
+        QMessageBox::warning(this, "Programmation de tache simple préemptive", "Veuillez d'abord sélectionner le projet ou la tache composite mère de votre future tache");
+    }
+    else{
+        do{
+            cheminement.prepend(actuel->data(0,0).toString());
+            actuel = actuel->parent();
+        }while(actuel != 0);
+        for(QList<QString>::iterator it = cheminement.begin() ; it != cheminement.end() ; ++it){
+            qDebug() << *it;
+        }
+        programmerTacheSimplePreemptive = new ProgrammerTacheSimplePreemptive;
+        programmerTacheSimplePreemptive->show();
+        FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+        fenetrePrincipale.hide();
+    }
+
 }
 
 void FenetreGestionProjet::fenetreProgrammerTacheSimpleNonPreemptive(){
@@ -198,9 +241,24 @@ void FenetreGestionProjet::fenetreProgrammerTacheSimpleNonPreemptive(){
         delete programmerTacheSimpleNonPreemptive;
         programmerTacheSimpleNonPreemptive = 0;
     }
-    programmerTacheSimpleNonPreemptive = new ProgrammerTacheSimpleNonPreemptive;
-    programmerTacheSimpleNonPreemptive->show();
-    FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
-    fenetrePrincipale.hide();
+    QTreeWidgetItem * actuel = tree->currentItem();
+    QList<QString> cheminement;
+    if(actuel == 0){
+        QMessageBox::warning(this, "Programmation de tache simple non préemptive", "Veuillez d'abord sélectionner le projet ou la tache composite mère de votre future tache");
+    }
+    else{
+        do{
+            cheminement.prepend(actuel->data(0,0).toString());
+            actuel = actuel->parent();
+        }while(actuel != 0);
+        for(QList<QString>::iterator it = cheminement.begin() ; it != cheminement.end() ; ++it){
+            qDebug() << *it;
+        }
+        programmerTacheSimpleNonPreemptive = new ProgrammerTacheSimpleNonPreemptive;
+        programmerTacheSimpleNonPreemptive->show();
+        FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+        fenetrePrincipale.hide();
+    }
+
 }
 

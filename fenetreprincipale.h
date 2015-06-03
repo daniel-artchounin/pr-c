@@ -15,6 +15,7 @@ protected :
     // This event handler is called with the given event when Qt receives a window close
     // request for a top-level widget from the window system.
     virtual void closeEvent(QCloseEvent *event);
+    void showEvent( QShowEvent* event );
 private:
     ZoneCentrale* zoneCentrale;
     QMenu* menuGestion;

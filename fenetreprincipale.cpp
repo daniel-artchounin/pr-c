@@ -121,10 +121,16 @@ void FenetrePrincipale::fenetreCreerProjet(){
     if(creerProjet !=0){
         delete creerProjet;
         creerProjet = 0;
-    }
+    }    
     creerProjet = new CreerProjet;
     creerProjet->show();
     this->hide();
+}
+
+
+void FenetrePrincipale::showEvent( QShowEvent* event ) {
+    QWidget::showEvent( event );
+    zoneCentrale->getFenetreGestionProjet()->afficherTreeWidget(0,ProjetManager::getInstance(),zoneCentrale->getFenetreGestionProjet()->getTree());
 }
 
 
