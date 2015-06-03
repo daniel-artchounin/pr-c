@@ -21,12 +21,14 @@ void FenetreEDT::creerActions() {
     connect(progEvt, SIGNAL(triggered()), this, SLOT(creerProgrammationEvenement()));
 }
 
-Date FenetreEDT::weekBegining(const QDate& date) {
+Date FenetreEDT::weekBegining() {
+    QDate date = (QDate::currentDate()).addDays(7*week);
     int day = date.dayOfWeek();
     return Date(toString((date.addDays(1-day)).toString("dd/MM/yyyy")));
 }
 
-Date FenetreEDT::weekEnd(const QDate& date) {
+Date FenetreEDT::weekEnd() {
+    QDate date = (QDate::currentDate()).addDays(7*week);
     int day = date.dayOfWeek();
     return Date(toString((date.addDays(7-day)).toString("dd/MM/yyyy")));
 }
@@ -61,13 +63,13 @@ void FenetreEDT::drawForeground(QPainter* painter, const QRectF& rect)
 
     painter->drawLines(linesX.data(), linesX.size());
     painter->drawLines(linesY.data(), linesY.size());
-    loadWeek((QDate::currentDate()).addDays(7*week));
+    loadWeek();
 }
 
-void FenetreEDT::loadWeek(const QDate& date) {
+void FenetreEDT::loadWeek() {
     ProgrammationManager& pgm = ProgrammationManager::getInstance();
 
-    for(ProgrammationManager::iterator it = pgm.constraint_begin(weekBegining(date)); it!=pgm.constraint_end(weekEnd(date)); ++it) {
+    for(ProgrammationManager::iterator it = pgm.constraint_begin(weekBegining()); it!=pgm.constraint_end(weekEnd()); ++it) {
         drawProgrammation(it->second->getDateProgrammation(), it->second->getHoraireProgrammation(), it->second->getDateFin(), it->second->getHoraireFin(), it->second->getDuree(), QBrush(QColor(128, 128, 255, 128)));
     }
 }

@@ -27,13 +27,13 @@ private:
      * \brief weekBegining
      * \return Date premier jour de la semaine actuelle
      */
-    Date weekBegining(const QDate &date);
+    Date weekBegining();
 
     /*!
      * \brief weekEnd
      * \return Date dernier jour de la semaine actuelle
      */
-    Date weekEnd(const QDate &date);
+    Date weekEnd();
 
     /*!
      * \brief getWidthDay
@@ -120,7 +120,7 @@ public:
      * \brief loadWeek
      * Permet d'afficher une semaine
      */
-    void loadWeek(const QDate &date);
+    void loadWeek();
 
     /*!
      * \brief drawProgrammation
