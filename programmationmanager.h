@@ -147,6 +147,26 @@ public:
     const Programmation& getProgrammation(const Date& dateProg, const Horaire& horaireProg) const;
 
     /*!
+     * \brief begin
+     * \param date Date
+     * \param horaire Horaire
+     * \return iterator au premiers date et horaire étant supérieur à ceux donnés en paramètre
+     */
+    iterator constraint_begin(const Date& date, const Horaire& horaire=Horaire(0,0)) {
+        return items.lower_bound(getKeyFrom(date,horaire));
+    }
+
+    /*!
+     * \brief end
+     * \param date Date
+     * \param horaire Horaire
+     * \return iterator au premiers date et horaire étant inférieur à ceux donnés en paramètre
+     */
+    iterator constraint_end(const Date& date, const Horaire& horaire=Horaire(0,0)) {
+        return items.upper_bound(getKeyFrom(date,horaire));
+    }
+
+    /*!
      * \brief exportTo
      * Permet d'exporter les données dans un fichier XML via le streamwriter
      * \param stream
