@@ -10,10 +10,10 @@ class ZoneCentrale : public QWidget
 {
     Q_OBJECT
 private:
-    QTabWidget* onglets;
+    // QTabWidget* onglets;
     FenetreEDT* fenetreEDT;
     FenetreGestionProjet* fenetreGestionProjet;
-    QHBoxLayout* bBox;
+    QHBoxLayout* hBox;
 public:
     explicit ZoneCentrale(QWidget *parent = 0);
     FenetreGestionProjet* getFenetreGestionProjet()const{

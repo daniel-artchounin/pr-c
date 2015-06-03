@@ -9,6 +9,8 @@
 # include "creertachecomposite.h"
 # include "creertachesimplepreemptive.h"
 # include "creertachesimplenonpreemptive.h"
+# include "programmertachesimplenonpreemptive.h"
+# include "programmertachesimplepreemptive.h"
 
 class CreerTacheComposite;
 class CreerTacheSimplePreemptive;
@@ -23,9 +25,13 @@ private:
     QAction * creationTacheComposite;
     QAction * creationTacheSimplePreemptive;
     QAction * creationTacheSimpleNonPreemptive;
+    QAction * programmationTacheSimplePreemptive;
+    QAction * programmationTacheSimpleNonPreemptive;
     CreerTacheComposite* creerTacheComposite;
     CreerTacheSimplePreemptive* creerTacheSimplePreemptive;
     CreerTacheSimpleNonPreemptive* creerTacheSimpleNonPreemptive;
+    ProgrammerTacheSimplePreemptive* programmerTacheSimplePreemptive;
+    ProgrammerTacheSimpleNonPreemptive* programmerTacheSimpleNonPreemptive;
 public:
     explicit FenetreGestionProjet(QWidget *parent = 0);
     void afficherTreeWidget(unsigned int profondeur, ProjetManager& projetManager, QTreeWidget* arbre, QTreeWidgetItem * actuel=0, Element * element=0);
@@ -40,6 +46,8 @@ public slots:
     void fenetreCreerTacheComposite();
     void fenetreCreerTacheSimplePreemptive();
     void fenetreCreerTacheSimpleNonPreemptive();
+    void fenetreProgrammerTacheSimplePreemptive();
+    void fenetreProgrammerTacheSimpleNonPreemptive();
 };
 
 #endif // FENETREGESTIONPROJET_H
