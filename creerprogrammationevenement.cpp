@@ -19,8 +19,14 @@ CreerProgrammationEvenement::CreerProgrammationEvenement(QWidget *parent) : QWid
     vBox = new QVBoxLayout(this);
     vBox->addLayout(formlayout);
     vBox->addLayout(hBox);
-    connect(annuler,SIGNAL(clicked()),this,SLOT(closeEvent()));
+    connect(annuler,SIGNAL(clicked()),this,SLOT(quitter()));
     connect(valider,SIGNAL(clicked()),this,SLOT(programmer()));
+}
+
+void CreerProgrammationEvenement::quitter() {
+    FenetrePrincipale& fp = FenetrePrincipale::getInstance();
+    fp.show();
+    this->close();
 }
 
 void CreerProgrammationEvenement::programmer() {
@@ -28,7 +34,6 @@ void CreerProgrammationEvenement::programmer() {
 }
 
 void CreerProgrammationEvenement::closeEvent(QCloseEvent *event) {
-    FenetrePrincipale& fp = FenetrePrincipale::getInstance();
-    fp.show();
-    this->close();
+    event->accept();
+    quitter();
 }

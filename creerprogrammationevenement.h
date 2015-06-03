@@ -34,6 +34,7 @@ signals:
 public slots:
     void closeEvent(QCloseEvent *event);
     void programmer();
+    void quitter();
 };
 
 #endif // CREERPROGRAMMATIONEVENEMENT_H
