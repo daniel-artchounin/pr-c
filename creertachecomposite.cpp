@@ -15,11 +15,11 @@ CreerTacheComposite::CreerTacheComposite(Projet& projet, std::string * chaine, u
     dateFin = new QDateEdit();
     horaireFin = new QTimeEdit();
     formlayout = new QFormLayout;
-    formlayout->addRow("Titre du projet : ", titre);
-    formlayout->addRow("Date de disponibilité du projet : ", dateDebut);
-    formlayout->addRow("Horaire de disponibilité du projet : ", horaireDebut);
-    formlayout->addRow("Date d'échéance du projet : ", dateFin);
-    formlayout->addRow("Horaire d'échéance du projet : ", horaireFin);
+    formlayout->addRow("Titre de la tâche composite :", titre);
+    formlayout->addRow("Date de disponibilité : ", dateDebut);
+    formlayout->addRow("Horaire de disponibilité : ", horaireDebut);
+    formlayout->addRow("Date d'échéance : ", dateFin);
+    formlayout->addRow("Horaire d'échéance : ", horaireFin);
     annuler = new QPushButton("Annuler");
     sauver = new QPushButton("Sauver");
     hBox = new QHBoxLayout;

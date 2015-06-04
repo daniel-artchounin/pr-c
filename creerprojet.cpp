@@ -40,7 +40,6 @@ void CreerProjet::retourFenetrePrincipaleAnnuler(){
 }
 
 void CreerProjet::retourFenetrePrincipaleSauver(){
-    FenetrePrincipale& fenetrePrincipal = FenetrePrincipale::getInstance();
     ProjetManager& projetMangager = ProjetManager::getInstance();
     try{
         projetMangager.addProjet(

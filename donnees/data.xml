@@ -185,9 +185,30 @@
                                     <horaireDebut>00H00</horaireDebut>
                                     <dateFin>01/01/2000</dateFin>
                                     <horaireFin>00H02</horaireFin>
-                                    <duree>00H00</duree>
+                                    <duree>00H02</duree>
                                     <ListePrecedents/>
-                                    <ListeTaches/>
+                                    <ListeTaches>
+                                        <TacheSimpleNonPreemptive>
+                                            <titre>dibida</titre>
+                                            <dateDebut>01/01/2000</dateDebut>
+                                            <horaireDebut>00H00</horaireDebut>
+                                            <dateFin>01/01/2000</dateFin>
+                                            <horaireFin>00H02</horaireFin>
+                                            <duree>00H01</duree>
+                                            <ListePrecedents/>
+                                            <ListeProgrammations/>
+                                        </TacheSimpleNonPreemptive>
+                                        <TacheSimpleNonPreemptive>
+                                            <titre>doibudou</titre>
+                                            <dateDebut>01/01/2000</dateDebut>
+                                            <horaireDebut>00H00</horaireDebut>
+                                            <dateFin>01/01/2000</dateFin>
+                                            <horaireFin>00H02</horaireFin>
+                                            <duree>00H01</duree>
+                                            <ListePrecedents/>
+                                            <ListeProgrammations/>
+                                        </TacheSimpleNonPreemptive>
+                                    </ListeTaches>
                                 </TacheComposite>
                             </ListeTaches>
                         </TacheComposite>
@@ -196,66 +217,4 @@
             </ListeTaches>
         </Projet>
     </ProjetManager>
-    <ProgrammationManager>
-        <ProgrammationEvenement>
-            <dateProgrammation>03/06/2015</dateProgrammation>
-            <horaireProgrammation>12H30</horaireProgrammation>
-            <dateEcheance>03/06/2015</dateEcheance>
-            <horaireEcheance>14H45</horaireEcheance>
-            <duree>02H15</duree>
-            <RendezVous>
-                <nom>rdv</nom>
-                <lieu>bf</lieu>
-                <motif>validation</motif>
-            </RendezVous>
-        </ProgrammationEvenement>
-        <ProgrammationEvenement>
-            <dateProgrammation>05/06/2015</dateProgrammation>
-            <horaireProgrammation>12H30</horaireProgrammation>
-            <dateEcheance>05/06/2015</dateEcheance>
-            <horaireEcheance>14H45</horaireEcheance>
-            <duree>02H15</duree>
-            <RendezVous>
-                <nom>rdv</nom>
-                <lieu>bf</lieu>
-                <motif>validation</motif>
-            </RendezVous>
-        </ProgrammationEvenement>
-        <ProgrammationEvenement>
-            <dateProgrammation>11/06/2015</dateProgrammation>
-            <horaireProgrammation>12H30</horaireProgrammation>
-            <dateEcheance>11/06/2015</dateEcheance>
-            <horaireEcheance>14H45</horaireEcheance>
-            <duree>02H15</duree>
-            <RendezVous>
-                <nom>rdv</nom>
-                <lieu>bf</lieu>
-                <motif>validation</motif>
-            </RendezVous>
-        </ProgrammationEvenement>
-        <ProgrammationEvenement>
-            <dateProgrammation>12/09/2015</dateProgrammation>
-            <horaireProgrammation>15H15</horaireProgrammation>
-            <dateEcheance>12/09/2015</dateEcheance>
-            <horaireEcheance>34H15</horaireEcheance>
-            <duree>19H00</duree>
-            <RendezVous>
-                <nom>RDV cool</nom>
-                <lieu>Paris</lieu>
-                <motif>J'ai rien à faire</motif>
-            </RendezVous>
-        </ProgrammationEvenement>
-        <ProgrammationEvenement>
-            <dateProgrammation>13/09/2015</dateProgrammation>
-            <horaireProgrammation>15H15</horaireProgrammation>
-            <dateEcheance>13/09/2015</dateEcheance>
-            <horaireEcheance>34H15</horaireEcheance>
-            <duree>19H00</duree>
-            <Reunion>
-                <nom>Réunion</nom>
-                <lieu>Marseille</lieu>
-                <motif>On va jouer au foot</motif>
-            </Reunion>
-        </ProgrammationEvenement>
-    </ProgrammationManager>
 </root>

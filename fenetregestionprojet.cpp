@@ -178,7 +178,7 @@ void FenetreGestionProjet::fenetreCreerTacheSimplePreemptive(){
             fenetrePrincipale.hide();
         }
         catch (std::logic_error& e){
-            QMessageBox::warning(this, "Création de projet", e.what());
+            QMessageBox::warning(this, "Création de tâche simple préemptive", e.what());
         }
     }
 
@@ -206,7 +206,7 @@ void FenetreGestionProjet::fenetreCreerTacheSimpleNonPreemptive(){
             fenetrePrincipale.hide();
         }
         catch (std::logic_error& e){
-            QMessageBox::warning(this, "Création de projet", e.what());
+            QMessageBox::warning(this, "Création de tache simple non préemptive", e.what());
         }
     }
 

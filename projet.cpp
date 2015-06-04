@@ -9,6 +9,7 @@
 #include "tools.h"
 #include "programmationmanager.h"
 #include <algorithm>
+# include <QDebug>
 
 Projet::Projet(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                const Horaire& heureEcheance,const std::string & titre):
@@ -136,15 +137,17 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
             ||( (dateF == dateFin) && (heureF > horaireFin) )  ){
         return false;
     }
+    // std::cout << "bonjour" ;
+    // std::cout << ((getDateFin()-getDateDebut())*24*60 + (getHoraireFin()-getHoraireDebut()) ) - int(getDuree().getDureeEnMinutes())  ;
+    // std::cout << int(dur.getDureeEnMinutes());
+    if(  ( ( (getDateFin()-getDateDebut())*24*60 + (getHoraireFin()-getHoraireDebut()) ) - int(getDuree().getDureeEnMinutes()) ) < int(dur.getDureeEnMinutes())  ) {
+        return false; // la duree de la tâche est supérieur à la durée libre du projet
+    }
     Tache* tacheActuelle = 0;
     TacheComposite* tacheCompositeActuelle = 0;
     for(unsigned int i = 0; i < nbTaches; i++){
         // std::cout<<"bonjour"<<std::endl;
         if(i==0){
-
-            if( nbTaches == 0 && ( ( ( (getDateFin()-getDateDebut())*24*60 + (getHoraireFin()-getHoraireDebut()) ) - int(getDuree().getDureeEnMinutes()) ) < int(dur.getDureeEnMinutes()) ) ) {
-                return false; // la duree de la tâche est supérieur à la durée libre du projet
-            }
             tacheActuelle = trouverTache(nomsTaches[i]);
         }
         else{
@@ -197,6 +200,8 @@ void Projet::creerAjouterTache(const std::string * nomsTaches, unsigned int nbTa
     else {
         for(unsigned int i = 0; i < nbTaches; i++){
             if(i==0){
+                // ajoute la durée au projet
+                addDuree(dur);
                 tacheActuelle = trouverTache(nomsTaches[i]);
             }
             else{
@@ -216,9 +221,9 @@ void Projet::creerAjouterTache(const std::string * nomsTaches, unsigned int nbTa
             if(tacheCompositeActuelle == 0){
                 throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
             }
+            tacheCompositeActuelle->addDuree(dur);
         }
         // std::cout<< (tacheCompositeActuelle->getHoraireFin()-tacheCompositeActuelle->getHoraireDebut() )<<std::endl ;
-        tacheCompositeActuelle->addDuree(dur); // on ajoute la durée de la tache à celle de la tache composite
         // std::cout<< (tacheCompositeActuelle->getDuree())<<std::endl ;
         tacheCompositeActuelle->ajouterSsTache(dateD,heureD,dateF, heureF, titre, preemptive, composite, dur);
 
@@ -316,14 +321,14 @@ void Projet::loadFrom(QXmlStreamReader &xml, std::vector<std::string>& vect) {
                         duree=toString(xml.text().toString());
                     }else if(xml.name() == "ListeTaches") {
                         xml.readNext();
-
                         vect.push_back(titre);
                         loadFrom(xml,vect);
                     }else if(xml.name() == "ListeProgrammations") {
                         xml.readNext();
                         std::string arr[(int)(vect.size())];
                         std::copy(vect.begin(), vect.end(), arr);
-
+                        //
+                        //
                         ProgrammationManager::getInstance().loadListeProgrammations(xml, accederTache(arr,(int)vect.size(),titre),preemptive);
                     }else if(xml.name() == "ListePrecedents") {
                         xml.readNext();

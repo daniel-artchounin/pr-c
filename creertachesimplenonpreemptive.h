@@ -11,6 +11,7 @@
 # include <QSpinBox>
 # include <QCloseEvent>
 # include <QLabel>
+# include <QMessageBox>
 # include "fenetreprincipale.h"
 
 class CreerTacheSimpleNonPreemptive : public QWidget
@@ -43,7 +44,7 @@ public:
 signals:
 
 public slots:
-    void retourFenetrePrincipale();
+    void retourFenetrePrincipaleAnnuler();
+    void retourFenetrePrincipaleSauver();
 };
-
 #endif // CREERTACHESIMPLENONPREEMPTIVE_H
