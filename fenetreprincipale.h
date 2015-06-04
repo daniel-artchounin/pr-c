@@ -1,7 +1,7 @@
 #ifndef FENETREPRINCIPALE_H
 #define FENETREPRINCIPALE_H
 
-#include "zonecentrale.h"
+# include "zonecentrale.h"
 # include <tools.h>
 # include <QToolBar>
 # include <QMainWindow>

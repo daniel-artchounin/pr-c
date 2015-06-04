@@ -8,11 +8,15 @@
 # include <QTimeEdit>
 # include <QFormLayout>
 # include <QPushButton>
+# include <projet.h>
 
 class ProgrammerTacheSimpleNonPreemptive : public QWidget
 {
     Q_OBJECT
 private:
+    Projet& nomProjet;
+    std::string * chemin;
+    unsigned int* tailleChemin;
     QVBoxLayout* vBox;
     QHBoxLayout* hBox;
     QDateEdit* dateProgrammation;
@@ -21,7 +25,7 @@ private:
     QPushButton* annuler;  /*!< bouton annuler */
     QPushButton* sauver;  /*!< bouton sauver */
 public:
-    explicit ProgrammerTacheSimpleNonPreemptive(QWidget *parent = 0);
+    explicit ProgrammerTacheSimpleNonPreemptive(Projet& projet, std::string * chaine, unsigned int* taille, QWidget *parent = 0);
 
 signals:
 

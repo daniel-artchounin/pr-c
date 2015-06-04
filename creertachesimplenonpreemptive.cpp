@@ -1,8 +1,10 @@
 #include "creertachesimplenonpreemptive.h"
 
-CreerTacheSimpleNonPreemptive::CreerTacheSimpleNonPreemptive(QWidget *parent) :
-    QWidget(parent)
+CreerTacheSimpleNonPreemptive::CreerTacheSimpleNonPreemptive(Projet& projet, std::string * chaine, unsigned int* taille, QWidget *parent) :
+    QWidget(parent), nomProjet(projet)
 {
+    chemin = chaine;
+    tailleChemin = taille;
     titre = new QLineEdit;
     dateDebut = new QDateEdit();
     horaireDebut = new QTimeEdit();

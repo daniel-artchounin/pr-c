@@ -22,14 +22,14 @@ FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     hBox->addWidget(tree);
     this->setLayout(hBox);
     this->setContextMenuPolicy(Qt::CustomContextMenu);
-    monAction = new QAction("Test",this);
+    monAction = new QAction("Test",this); // -> test
     creationTacheComposite = new QAction("Creer une tâche composite",this);;
     creationTacheSimplePreemptive = new QAction("Creer une tâche simple préemptive",this);;
     creationTacheSimpleNonPreemptive = new QAction("Créer une tâche simple non préemptive",this);
     programmationTacheSimplePreemptive = new QAction("Programmer une tâche simple préemptive",this);
     programmationTacheSimpleNonPreemptive = new QAction("Programmer une tâche simple non préemptive",this);
     connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),this, SLOT(showContextMenu(const QPoint&)));
-    connect(monAction, SIGNAL(triggered()),this, SLOT(test()));
+    connect(monAction, SIGNAL(triggered()),this, SLOT(test())); // -> test
     connect(creationTacheComposite, SIGNAL(triggered()),this, SLOT(fenetreCreerTacheComposite()));
     connect(creationTacheSimplePreemptive, SIGNAL(triggered()),this, SLOT(fenetreCreerTacheSimplePreemptive()));
     connect(creationTacheSimpleNonPreemptive, SIGNAL(triggered()),this, SLOT(fenetreCreerTacheSimpleNonPreemptive()));
@@ -107,10 +107,11 @@ void FenetreGestionProjet::showContextMenu(const QPoint& pos){
     myMenu.addAction(creationTacheSimpleNonPreemptive);
     myMenu.addAction(programmationTacheSimplePreemptive);
     myMenu.addAction(programmationTacheSimpleNonPreemptive);
-    myMenu.addAction(monAction);
+    // myMenu.addAction(monAction);
     // myMenu.addAction("Programmer une tâche simple non préemptive");
     // myMenu.addAction("Programmer une tâche simple préemptive");
-    QAction* selectedItem = myMenu.exec(globalPos);
+    myMenu.exec(globalPos);
+    // QAction* selectedItem = ;
     // if (selectedItem)
     // {
         // something was chosen, do stuff
@@ -125,6 +126,7 @@ void FenetreGestionProjet::test(){
     qDebug() << "Le test semble fonctionner";
 }
 
+
 // créer une méthode privé pour éviter les duplications de code !!!
 void FenetreGestionProjet::fenetreCreerTacheComposite(){
     if(creerTacheComposite !=0){
@@ -137,21 +139,19 @@ void FenetreGestionProjet::fenetreCreerTacheComposite(){
         QMessageBox::warning(this, "Création de tache composite", "Veuillez d'abord sélectionner le projet ou la tache composite mère de votre future tache");
     }
     else{
-        do{
-            // qDebug() << actuel; -> test
-            cheminement.prepend(actuel->data(0,0).toString());
-            // qDebug() << actuel; -> test
-            actuel = actuel->parent();
-            // qDebug() << actuel; -> test
-        }while(actuel != 0);
-        for(QList<QString>::iterator it = cheminement.begin() ; it != cheminement.end() ; ++it){
-            qDebug() << *it;
-
+        cheminement = getCheminement(actuel);
+        try{
+            Projet& projet = getProjet(cheminement);
+            unsigned int* taille = new unsigned int;
+            std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
+            creerTacheComposite = new CreerTacheComposite(projet, chaine, taille);
+            creerTacheComposite->show();
+            FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+            fenetrePrincipale.hide();
         }
-        creerTacheComposite = new CreerTacheComposite;
-        creerTacheComposite->show();
-        FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
-        fenetrePrincipale.hide();
+        catch (std::logic_error& e){
+            QMessageBox::warning(this, "Création de projet", e.what());
+        }
     }
 
 }
@@ -167,21 +167,21 @@ void FenetreGestionProjet::fenetreCreerTacheSimplePreemptive(){
         QMessageBox::warning(this, "Création de tache simple préemptive", "Veuillez d'abord sélectionner le projet ou la tache composite mère de votre future tache");
     }
     else{
-        do{
-            cheminement.prepend(actuel->data(0,0).toString());
-            // qDebug() << actuel; -> test
-            actuel = actuel->parent();
-            // qDebug() << actuel; -> test
-        }while(actuel != 0);
-        for(QList<QString>::iterator it = cheminement.begin() ; it != cheminement.end() ; ++it){
-            qDebug() << *it;
-
+        cheminement = getCheminement(actuel);
+        try{
+            Projet& projet = getProjet(cheminement);
+            unsigned int* taille = new unsigned int;
+            std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
+            creerTacheSimplePreemptive = new CreerTacheSimplePreemptive(projet, chaine, taille);
+            creerTacheSimplePreemptive->show();
+            FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+            fenetrePrincipale.hide();
         }
-        creerTacheSimplePreemptive = new CreerTacheSimplePreemptive;
-        creerTacheSimplePreemptive->show();
-        FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
-        fenetrePrincipale.hide();
+        catch (std::logic_error& e){
+            QMessageBox::warning(this, "Création de projet", e.what());
+        }
     }
+
 }
 
 void FenetreGestionProjet::fenetreCreerTacheSimpleNonPreemptive(){
@@ -195,17 +195,19 @@ void FenetreGestionProjet::fenetreCreerTacheSimpleNonPreemptive(){
         QMessageBox::warning(this, "Création de tache simple non préemptive", "Veuillez d'abord sélectionner le projet ou la tache composite mère de votre future tache");
     }
     else{
-        do{
-            cheminement.prepend(actuel->data(0,0).toString());
-            actuel = actuel->parent();
-        }while(actuel != 0);
-        for(QList<QString>::iterator it = cheminement.begin() ; it != cheminement.end() ; ++it){
-            qDebug() << *it;
+        cheminement = getCheminement(actuel);
+        try{
+            Projet& projet = getProjet(cheminement);
+            unsigned int* taille = new unsigned int;
+            std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
+            creerTacheSimpleNonPreemptive = new CreerTacheSimpleNonPreemptive(projet, chaine, taille);
+            creerTacheSimpleNonPreemptive->show();
+            FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+            fenetrePrincipale.hide();
         }
-        creerTacheSimpleNonPreemptive = new CreerTacheSimpleNonPreemptive;
-        creerTacheSimpleNonPreemptive->show();
-        FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
-        fenetrePrincipale.hide();
+        catch (std::logic_error& e){
+            QMessageBox::warning(this, "Création de projet", e.what());
+        }
     }
 
 }
@@ -221,18 +223,21 @@ void FenetreGestionProjet::fenetreProgrammerTacheSimplePreemptive(){
         QMessageBox::warning(this, "Programmation de tache simple préemptive", "Veuillez d'abord sélectionner le projet ou la tache composite mère de votre future tache");
     }
     else{
-        do{
-            cheminement.prepend(actuel->data(0,0).toString());
-            actuel = actuel->parent();
-        }while(actuel != 0);
-        for(QList<QString>::iterator it = cheminement.begin() ; it != cheminement.end() ; ++it){
-            qDebug() << *it;
+        cheminement = getCheminement(actuel);
+        try{
+            Projet& projet = getProjet(cheminement);
+            unsigned int* taille = new unsigned int;
+            std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
+            programmerTacheSimplePreemptive = new ProgrammerTacheSimplePreemptive(projet, chaine, taille);
+            programmerTacheSimplePreemptive->show();
+            FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+            fenetrePrincipale.hide();
         }
-        programmerTacheSimplePreemptive = new ProgrammerTacheSimplePreemptive;
-        programmerTacheSimplePreemptive->show();
-        FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
-        fenetrePrincipale.hide();
+        catch (std::logic_error& e){
+            QMessageBox::warning(this, "Création de projet", e.what());
+        }
     }
+
 
 }
 
@@ -247,18 +252,55 @@ void FenetreGestionProjet::fenetreProgrammerTacheSimpleNonPreemptive(){
         QMessageBox::warning(this, "Programmation de tache simple non préemptive", "Veuillez d'abord sélectionner le projet ou la tache composite mère de votre future tache");
     }
     else{
-        do{
-            cheminement.prepend(actuel->data(0,0).toString());
-            actuel = actuel->parent();
-        }while(actuel != 0);
-        for(QList<QString>::iterator it = cheminement.begin() ; it != cheminement.end() ; ++it){
-            qDebug() << *it;
+        cheminement = getCheminement(actuel);
+        try{
+            Projet& projet = getProjet(cheminement);
+            unsigned int* taille = new unsigned int;
+            std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
+            programmerTacheSimpleNonPreemptive = new ProgrammerTacheSimpleNonPreemptive(projet, chaine, taille);
+            programmerTacheSimpleNonPreemptive->show();
+            FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+            fenetrePrincipale.hide();
         }
-        programmerTacheSimpleNonPreemptive = new ProgrammerTacheSimpleNonPreemptive;
-        programmerTacheSimpleNonPreemptive->show();
-        FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
-        fenetrePrincipale.hide();
+        catch (std::logic_error& e){
+            QMessageBox::warning(this, "Création de projet", e.what());
+        }
     }
-
 }
 
+// récupération du projet et gestion du cas d'erreur
+Projet& FenetreGestionProjet::getProjet(QList<QString> chemin){
+    ProjetManager& projetManager = ProjetManager::getInstance();
+    QString& titreProjet = chemin.first();
+    return projetManager.getProjet(titreProjet.toStdString());
+}
+
+std::string* FenetreGestionProjet::recupCheminDepuisProjet(QList<QString> chemin, unsigned int* taille){
+    chemin.removeFirst();
+    *taille = (unsigned int)chemin.size();
+    qDebug() << "taille :"; // -> test
+    qDebug() << *taille; // -> test
+    qDebug() << "result"; // -> test
+    std::string* cheminFinal = new std::string[*taille];
+    unsigned int i = 0;
+    for(QList<QString>::iterator it = chemin.begin() ; it != chemin.end() ; ++it){
+        cheminFinal[i] = (*it).toStdString();
+        qDebug() << QString::fromStdString(cheminFinal[i]); // -> test
+        i++;
+    }
+    return cheminFinal;
+}
+
+
+// méthode permettant de générer le cheminement de la chaine à partir de la sélection du user
+QList<QString> FenetreGestionProjet::getCheminement(QTreeWidgetItem * actuel){
+    QList<QString> cheminement;
+    do{
+        cheminement.prepend(actuel->data(0,0).toString());
+        actuel = actuel->parent();
+    }while(actuel != 0);
+    for(QList<QString>::iterator it = cheminement.begin() ; it != cheminement.end() ; ++it){
+        qDebug() << *it; // -> test
+    }
+    return cheminement;
+}

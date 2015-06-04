@@ -2,9 +2,11 @@
 #include "fenetreprincipale.h"
 # include <QCloseEvent>
 
-ProgrammerTacheSimplePreemptive::ProgrammerTacheSimplePreemptive(QWidget *parent) :
-    QWidget(parent)
+ProgrammerTacheSimplePreemptive::ProgrammerTacheSimplePreemptive(Projet& projet, std::string * chaine, unsigned int* taille, QWidget *parent) :
+    QWidget(parent), nomProjet(projet)
 {
+    chemin = chaine;
+    tailleChemin = taille;
     dateProgrammation = new QDateEdit;
     horaireProgrammation = new QTimeEdit();
     pourcentage = new QSpinBox;

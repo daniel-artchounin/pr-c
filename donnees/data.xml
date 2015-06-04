@@ -133,8 +133,106 @@
             <duree>00H00</duree>
             <ListeTaches/>
         </Projet>
+        <Projet>
+            <titre>projet 3</titre>
+            <dateDebut>01/01/2000</dateDebut>
+            <horaireDebut>00H00</horaireDebut>
+            <dateFin>03/01/2000</dateFin>
+            <horaireFin>00H00</horaireFin>
+            <duree>00H00</duree>
+            <ListeTaches>
+                <TacheComposite>
+                    <titre>dodo</titre>
+                    <dateDebut>01/01/2000</dateDebut>
+                    <horaireDebut>00H01</horaireDebut>
+                    <dateFin>02/01/2000</dateFin>
+                    <horaireFin>00H01</horaireFin>
+                    <duree>00H00</duree>
+                    <ListePrecedents/>
+                    <ListeTaches/>
+                </TacheComposite>
+                <TacheComposite>
+                    <titre>doru</titre>
+                    <dateDebut>01/01/2000</dateDebut>
+                    <horaireDebut>00H00</horaireDebut>
+                    <dateFin>02/01/2000</dateFin>
+                    <horaireFin>00H01</horaireFin>
+                    <duree>00H00</duree>
+                    <ListePrecedents/>
+                    <ListeTaches>
+                        <TacheComposite>
+                            <titre>douy</titre>
+                            <dateDebut>01/01/2000</dateDebut>
+                            <horaireDebut>00H00</horaireDebut>
+                            <dateFin>01/01/2000</dateFin>
+                            <horaireFin>00H04</horaireFin>
+                            <duree>00H00</duree>
+                            <ListePrecedents/>
+                            <ListeTaches>
+                                <TacheComposite>
+                                    <titre>douy_fils</titre>
+                                    <dateDebut>01/01/2000</dateDebut>
+                                    <horaireDebut>00H00</horaireDebut>
+                                    <dateFin>01/01/2000</dateFin>
+                                    <horaireFin>00H02</horaireFin>
+                                    <duree>00H00</duree>
+                                    <ListePrecedents/>
+                                    <ListeTaches/>
+                                </TacheComposite>
+                                <TacheComposite>
+                                    <titre>douy_fils_2</titre>
+                                    <dateDebut>01/01/2000</dateDebut>
+                                    <horaireDebut>00H00</horaireDebut>
+                                    <dateFin>01/01/2000</dateFin>
+                                    <horaireFin>00H02</horaireFin>
+                                    <duree>00H00</duree>
+                                    <ListePrecedents/>
+                                    <ListeTaches/>
+                                </TacheComposite>
+                            </ListeTaches>
+                        </TacheComposite>
+                    </ListeTaches>
+                </TacheComposite>
+            </ListeTaches>
+        </Projet>
     </ProjetManager>
     <ProgrammationManager>
+        <ProgrammationEvenement>
+            <dateProgrammation>03/06/2015</dateProgrammation>
+            <horaireProgrammation>12H30</horaireProgrammation>
+            <dateEcheance>03/06/2015</dateEcheance>
+            <horaireEcheance>14H45</horaireEcheance>
+            <duree>02H15</duree>
+            <RendezVous>
+                <nom>rdv</nom>
+                <lieu>bf</lieu>
+                <motif>validation</motif>
+            </RendezVous>
+        </ProgrammationEvenement>
+        <ProgrammationEvenement>
+            <dateProgrammation>05/06/2015</dateProgrammation>
+            <horaireProgrammation>12H30</horaireProgrammation>
+            <dateEcheance>05/06/2015</dateEcheance>
+            <horaireEcheance>14H45</horaireEcheance>
+            <duree>02H15</duree>
+            <RendezVous>
+                <nom>rdv</nom>
+                <lieu>bf</lieu>
+                <motif>validation</motif>
+            </RendezVous>
+        </ProgrammationEvenement>
+        <ProgrammationEvenement>
+            <dateProgrammation>11/06/2015</dateProgrammation>
+            <horaireProgrammation>12H30</horaireProgrammation>
+            <dateEcheance>11/06/2015</dateEcheance>
+            <horaireEcheance>14H45</horaireEcheance>
+            <duree>02H15</duree>
+            <RendezVous>
+                <nom>rdv</nom>
+                <lieu>bf</lieu>
+                <motif>validation</motif>
+            </RendezVous>
+        </ProgrammationEvenement>
         <ProgrammationEvenement>
             <dateProgrammation>12/09/2015</dateProgrammation>
             <horaireProgrammation>15H15</horaireProgrammation>
@@ -158,42 +256,6 @@
                 <lieu>Marseille</lieu>
                 <motif>On va jouer au foot</motif>
             </Reunion>
-        </ProgrammationEvenement>
-        <ProgrammationEvenement>
-            <dateProgrammation>03/06/2015</dateProgrammation>
-            <horaireProgrammation>12H30</horaireProgrammation>
-            <dateEcheance>03/06/2015</dateEcheance>
-            <horaireEcheance>14H45</horaireEcheance>
-            <duree>02H15</duree>
-            <RendezVous>
-                <nom>rdv</nom>
-                <lieu>bf</lieu>
-                <motif>validation</motif>
-            </RendezVous>
-        </ProgrammationEvenement>
-		<ProgrammationEvenement>
-            <dateProgrammation>05/06/2015</dateProgrammation>
-            <horaireProgrammation>12H30</horaireProgrammation>
-            <dateEcheance>05/06/2015</dateEcheance>
-            <horaireEcheance>14H45</horaireEcheance>
-            <duree>02H15</duree>
-            <RendezVous>
-                <nom>rdv</nom>
-                <lieu>bf</lieu>
-                <motif>validation</motif>
-            </RendezVous>
-        </ProgrammationEvenement>
-		<ProgrammationEvenement>
-            <dateProgrammation>11/06/2015</dateProgrammation>
-            <horaireProgrammation>12H30</horaireProgrammation>
-            <dateEcheance>10/06/2015</dateEcheance>
-            <horaireEcheance>14H45</horaireEcheance>
-            <duree>02H15</duree>
-            <RendezVous>
-                <nom>rdv</nom>
-                <lieu>bf</lieu>
-                <motif>validation</motif>
-            </RendezVous>
         </ProgrammationEvenement>
     </ProgrammationManager>
 </root>

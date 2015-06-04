@@ -19,6 +19,9 @@ class CreerTacheSimplePreemptive : public QWidget
 protected :
     virtual void closeEvent(QCloseEvent *event);
 private :
+    Projet& nomProjet;
+    std::string * chemin;
+    unsigned int* tailleChemin;
     QVBoxLayout* vBox;
     QHBoxLayout* hBox1;
     QHBoxLayout* hBox2;
@@ -35,7 +38,7 @@ private :
     QPushButton* annuler;  /*!< bouton annuler */
     QPushButton* sauver;  /*!< bouton sauver */
 public:
-    explicit CreerTacheSimplePreemptive(QWidget *parent = 0);
+    explicit CreerTacheSimplePreemptive(Projet& projet, std::string * chaine, unsigned int* taille, QWidget *parent = 0);
 
 signals:
 

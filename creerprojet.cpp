@@ -46,15 +46,14 @@ void CreerProjet::retourFenetrePrincipaleSauver(){
         projetMangager.addProjet(
             titre->text().toStdString(),
             Date(dateDebut->date().day(), dateDebut->date().month(), dateDebut->date().year()),
-            Horaire(horaireDebut->time().minute(), horaireDebut->time().hour()),
+            Horaire(horaireDebut->time().hour(), horaireDebut->time().minute()),
             Date(dateFin->date().day(), dateFin->date().month(), dateFin->date().year()),
-            Horaire(horaireFin->time().minute(), horaireFin->time().hour())
+            Horaire(horaireFin->time().hour(), horaireFin->time().minute())
         );
     }
     catch(ProjetManagerException& e){
         QMessageBox::warning(this, "Création de projet", e.what());
     }
-    fenetrePrincipal.show();
     this->close();
 }
 
@@ -62,7 +61,6 @@ void CreerProjet::closeEvent(QCloseEvent *event)
 {
     FenetrePrincipale& fenetrePrincipal = FenetrePrincipale::getInstance();
     fenetrePrincipal.show();
-    this->close();
     event->accept();
 
 }

@@ -1,9 +1,11 @@
 #include "programmertachesimplenonpreemptive.h"
 #include "fenetreprincipale.h"
 
-ProgrammerTacheSimpleNonPreemptive::ProgrammerTacheSimpleNonPreemptive(QWidget *parent) :
-    QWidget(parent)
+ProgrammerTacheSimpleNonPreemptive::ProgrammerTacheSimpleNonPreemptive(Projet& projet, std::string * chaine, unsigned int* taille, QWidget *parent) :
+    QWidget(parent), nomProjet(projet)
 {
+    chemin = chaine;
+    tailleChemin = taille;
     dateProgrammation = new QDateEdit;
     horaireProgrammation = new QTimeEdit();
     formlayout = new QFormLayout;

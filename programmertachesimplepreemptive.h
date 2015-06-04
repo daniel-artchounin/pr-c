@@ -9,11 +9,15 @@
 # include <QSpinBox>
 # include <QFormLayout>
 # include <QPushButton>
+# include "projet.h"
 
 class ProgrammerTacheSimplePreemptive : public QWidget
 {
     Q_OBJECT
 private :
+    Projet& nomProjet;
+    std::string * chemin;
+    unsigned int* tailleChemin;
     QVBoxLayout* vBox;
     QHBoxLayout* hBox;
     QDateEdit* dateProgrammation;
@@ -23,7 +27,7 @@ private :
     QPushButton* annuler;  /*!< bouton annuler */
     QPushButton* sauver;  /*!< bouton sauver */
 public:
-    explicit ProgrammerTacheSimplePreemptive(QWidget *parent = 0);
+    explicit ProgrammerTacheSimplePreemptive(Projet& projet, std::string * chaine, unsigned int* taille, QWidget *parent = 0);
 
 signals:
 

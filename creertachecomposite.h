@@ -10,6 +10,8 @@
 # include <QPushButton>
 # include <QCloseEvent>
 # include "fenetreprincipale.h"
+# include <QList>
+# include <QString>
 
 class CreerTacheComposite : public QWidget
 {
@@ -17,6 +19,9 @@ class CreerTacheComposite : public QWidget
 protected :
     virtual void closeEvent(QCloseEvent *event);
 private :
+    Projet& nomProjet;
+    std::string * chemin;
+    unsigned int* tailleChemin;
     QVBoxLayout* vBox;
     QHBoxLayout* hBox;
     QFormLayout* formlayout;
@@ -28,12 +33,13 @@ private :
     QPushButton* annuler;  /*!< bouton annuler */
     QPushButton* sauver;  /*!< bouton sauver */
 public:
-    explicit CreerTacheComposite(QWidget *parent = 0);
+    explicit CreerTacheComposite(Projet& projet, std::string * chaine, unsigned int* taille, QWidget *parent = 0);
 
 signals:
 
 public slots:
-    void retourFenetrePrincipale();
+    void retourFenetrePrincipaleAnnuler();
+    void retourFenetrePrincipaleSauver();
 };
 
 #endif // CREERTACHECOMPOSITE_H

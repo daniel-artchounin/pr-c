@@ -11,6 +11,9 @@
 # include "creertachesimplenonpreemptive.h"
 # include "programmertachesimplenonpreemptive.h"
 # include "programmertachesimplepreemptive.h"
+# include <string>
+# include <stdexcept>
+
 
 class CreerTacheComposite;
 class CreerTacheSimplePreemptive;
@@ -32,12 +35,17 @@ private:
     CreerTacheSimpleNonPreemptive* creerTacheSimpleNonPreemptive;
     ProgrammerTacheSimplePreemptive* programmerTacheSimplePreemptive;
     ProgrammerTacheSimpleNonPreemptive* programmerTacheSimpleNonPreemptive;
+protected :
+    // récupération du projet et gestion du cas d'erreur
+    Projet& getProjet(QList<QString> chemin);
+    std::string* recupCheminDepuisProjet(QList<QString> chemin, unsigned int * taille);
 public:
     explicit FenetreGestionProjet(QWidget *parent = 0);
     void afficherTreeWidget(unsigned int profondeur, ProjetManager& projetManager, QTreeWidget* arbre, QTreeWidgetItem * actuel=0, Element * element=0);
     QTreeWidget* getTree()const{
         return tree;
     }
+    QList<QString> getCheminement(QTreeWidgetItem * actuel);
 signals:
 
 public slots:
