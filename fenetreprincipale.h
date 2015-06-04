@@ -72,6 +72,10 @@ public:
      */
     void updateEDT();
 
+    QAction* getCreerActionProjet(){
+        return actionCreerProjet;
+    }
+
 signals:
 
 public slots:

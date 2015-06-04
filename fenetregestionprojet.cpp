@@ -101,7 +101,7 @@ void FenetreGestionProjet::showContextMenu(const QPoint& pos){
     QMenu myMenu;
     myMenu.addAction("Supprimer une contrainte de précédence");
     myMenu.addAction("Ajouter une contrainte de précédence");
-    myMenu.addAction("Créer un projet");
+    myMenu.addAction(FenetrePrincipale::getInstance().getCreerActionProjet());
     myMenu.addAction(creationTacheComposite);
     myMenu.addAction(creationTacheSimplePreemptive);
     myMenu.addAction(creationTacheSimpleNonPreemptive);
