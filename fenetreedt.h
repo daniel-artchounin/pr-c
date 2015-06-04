@@ -7,9 +7,8 @@
 #include <QDate>
 #include "date.h"
 #include "tools.h"
-#include "creerprogrammationevenement.h"
-#include <QMouseEvent>
-#include <QList>
+#include "programmerreunion.h"
+#include "programmerrendezvous.h"
 
 /*!
  * \class FenetreEDT
@@ -21,8 +20,10 @@ class FenetreEDT : public QGraphicsView
 
 private:
     QGraphicsScene *scene; /*!< scene >*/
-    QAction *progEvt;
-    CreerProgrammationEvenement* creerProgEvt;
+    QAction *actionProgRendezVous;
+    QAction *actionProgReunion;
+    ProgrammerRendezVous* progRdv;
+    ProgrammerReunion* progReunion;
     int week;
 
     /*!
@@ -111,6 +112,11 @@ private:
      */
     void creerActions();
 
+    /*!
+     * \brief masquerFenetrePrincipal
+     * Permet de masquer la fenêtre principale
+     */
+    void masquerFenetrePrincipale();
 public:
     /*!
      * \brief Contructeur
@@ -161,7 +167,9 @@ public slots:
 
     void contextMenuEvent(QContextMenuEvent *event);
 
-    void creerProgrammationEvenement();
+    void programmerRendezVous();
+
+    void programmerReunion();
 };
 
 #endif // FENETREEDT_H

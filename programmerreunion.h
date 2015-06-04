@@ -2,8 +2,9 @@
 #define PROGRAMMERREUNION_H
 
 #include <QWidget>
+#include "programmerevenement.h"
 
-class ProgrammerReunion : public QWidget
+class ProgrammerReunion : public ProgrammerEvenement
 {
     Q_OBJECT
 public:
@@ -12,7 +13,7 @@ public:
 signals:
 
 public slots:
-
+    void programmer();
 };
 
 #endif // PROGRAMMERREUNION_H

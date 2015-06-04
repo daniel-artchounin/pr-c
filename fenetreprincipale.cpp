@@ -157,3 +157,7 @@ void FenetrePrincipale::goToPreviousWeek() {
 void FenetrePrincipale::goToNextWeek() {
     zoneCentrale->getFenetreEDT()->goToNextWeek();
 }
+
+void FenetrePrincipale::updateEDT() {
+    zoneCentrale->getFenetreEDT()->loadWeek();
+}

@@ -66,13 +66,27 @@ public:
     static void libererInstance();
     static FenetrePrincipale& getInstance();
 
+    /*!
+     * \brief updateEDT
+     * Permet de mettre à jour l'emploi du temps
+     */
+    void updateEDT();
+
 signals:
 
 public slots:
     void chargerFichier();
     void sauverFichier();
     void fenetreCreerProjet();
+    /*!
+     * \brief goToPreviousWeek
+     * Permet d'aller à la semaine précédente
+     */
     void goToPreviousWeek();
+    /*!
+     * \brief goToNextWeek
+     * Permet d'aller à la semaine suivante
+     */
     void goToNextWeek();
 };
 

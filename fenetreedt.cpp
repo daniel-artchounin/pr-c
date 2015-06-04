@@ -10,17 +10,18 @@ FenetreEDT::FenetreEDT(QWidget *parent) : QGraphicsView(parent) {
     scene = new QGraphicsScene;
     this->setScene(scene);
     creerActions();
-    creerProgEvt=0;
+    progRdv=0;
+    progReunion=0;
     week=0;
     this->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     scene->setSceneRect(0,0,width(),height());
 }
 
 void FenetreEDT::creerActions() {
-    progEvt = new QAction(tr("Programmer un évènement"), this);
-    progEvt->setShortcuts(QKeySequence::Cut);
-    progEvt->setStatusTip(tr("Permet de programmer un évènement"));
-    connect(progEvt, SIGNAL(triggered()), this, SLOT(creerProgrammationEvenement()));
+    actionProgRendezVous = new QAction("Programmer un rendez-vous", this);
+    connect(actionProgRendezVous, SIGNAL(triggered()), this, SLOT(programmerRendezVous()));
+    actionProgReunion = new QAction("Programmer une réunion", this);
+    connect(actionProgReunion, SIGNAL(triggered()), this, SLOT(programmerReunion()));
 }
 
 Date FenetreEDT::weekBegining() {
@@ -148,19 +149,35 @@ int FenetreEDT::toDay(const Date& date) {
     return QDate::fromString(toQString(date.toString()),toQString("dd/MM/yyyy")).day();
 }
 
-void FenetreEDT::creerProgrammationEvenement(){
-    if(creerProgEvt !=0){
-        delete creerProgEvt;
-        creerProgEvt = 0;
+void FenetreEDT::programmerRendezVous(){
+    if(progRdv !=0){
+        delete progRdv;
+        progRdv = 0;
     }
-    creerProgEvt = new CreerProgrammationEvenement;
-    creerProgEvt->show();
+    progRdv = new ProgrammerRendezVous;
+    progRdv->show();
+    masquerFenetrePrincipale();
+}
+
+void FenetreEDT::programmerReunion(){
+    if(progReunion !=0){
+        delete progReunion;
+        progReunion = 0;
+    }
+    progReunion = new ProgrammerReunion;
+    progReunion->show();
+    masquerFenetrePrincipale();
+}
+
+void FenetreEDT::masquerFenetrePrincipale() {
     FenetrePrincipale& fp = FenetrePrincipale::getInstance();
     fp.hide();
 }
 
 void FenetreEDT::contextMenuEvent(QContextMenuEvent *event) {
+    event->accept();
     QMenu menu(this);
-    menu.addAction(progEvt);
+    menu.addAction(actionProgRendezVous);
+    menu.addAction(actionProgReunion);
     menu.exec(event->globalPos());
 }
