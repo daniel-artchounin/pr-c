@@ -26,6 +26,8 @@ private:
     QAction* actionLoad;
     QAction* actionCreerProjet;
     QAction* actionQuitter;
+    QAction* actionPrevious;
+    QAction* actionNext;
     CreerProjet* creerProjet;
     bool dejaSauver;
 
@@ -70,6 +72,8 @@ public slots:
     void chargerFichier();
     void sauverFichier();
     void fenetreCreerProjet();
+    void goToPreviousWeek();
+    void goToNextWeek();
 };
 
 #endif // FENETREPRINCIPALE_H

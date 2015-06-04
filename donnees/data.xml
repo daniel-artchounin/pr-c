@@ -159,5 +159,41 @@
                 <motif>On va jouer au foot</motif>
             </Reunion>
         </ProgrammationEvenement>
+        <ProgrammationEvenement>
+            <dateProgrammation>03/06/2015</dateProgrammation>
+            <horaireProgrammation>12H30</horaireProgrammation>
+            <dateEcheance>03/06/2015</dateEcheance>
+            <horaireEcheance>14H45</horaireEcheance>
+            <duree>02H15</duree>
+            <RendezVous>
+                <nom>rdv</nom>
+                <lieu>bf</lieu>
+                <motif>validation</motif>
+            </RendezVous>
+        </ProgrammationEvenement>
+		<ProgrammationEvenement>
+            <dateProgrammation>05/06/2015</dateProgrammation>
+            <horaireProgrammation>12H30</horaireProgrammation>
+            <dateEcheance>05/06/2015</dateEcheance>
+            <horaireEcheance>14H45</horaireEcheance>
+            <duree>02H15</duree>
+            <RendezVous>
+                <nom>rdv</nom>
+                <lieu>bf</lieu>
+                <motif>validation</motif>
+            </RendezVous>
+        </ProgrammationEvenement>
+		<ProgrammationEvenement>
+            <dateProgrammation>11/06/2015</dateProgrammation>
+            <horaireProgrammation>12H30</horaireProgrammation>
+            <dateEcheance>10/06/2015</dateEcheance>
+            <horaireEcheance>14H45</horaireEcheance>
+            <duree>02H15</duree>
+            <RendezVous>
+                <nom>rdv</nom>
+                <lieu>bf</lieu>
+                <motif>validation</motif>
+            </RendezVous>
+        </ProgrammationEvenement>
     </ProgrammationManager>
 </root>

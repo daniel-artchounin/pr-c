@@ -1,10 +1,10 @@
 #include "fenetreedt.h"
 #include <QDate>
 #include <string>
-#include <QDebug>
-#include <QMouseEvent>
 #include <QMenu>
 #include "fenetreprincipale.h"
+#include <QGraphicsRectItem>
+#include <QDebug>
 
 FenetreEDT::FenetreEDT(QWidget *parent) : QGraphicsView(parent) {
     scene = new QGraphicsScene;
@@ -12,6 +12,8 @@ FenetreEDT::FenetreEDT(QWidget *parent) : QGraphicsView(parent) {
     creerActions();
     creerProgEvt=0;
     week=0;
+    this->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    scene->setSceneRect(0,0,width(),height());
 }
 
 void FenetreEDT::creerActions() {
@@ -33,7 +35,7 @@ Date FenetreEDT::weekEnd() {
     return Date(toString((date.addDays(7-day)).toString("dd/MM/yyyy")));
 }
 
-void FenetreEDT::drawForeground(QPainter* painter, const QRectF& rect)
+void FenetreEDT::drawBackground(QPainter* painter, const QRectF& rect)
 {
     painter->setWorldMatrixEnabled(true);
     painter->setPen(QPen(Qt::gray));
@@ -63,52 +65,51 @@ void FenetreEDT::drawForeground(QPainter* painter, const QRectF& rect)
 
     painter->drawLines(linesX.data(), linesX.size());
     painter->drawLines(linesY.data(), linesY.size());
-    loadWeek();
 }
 
 void FenetreEDT::loadWeek() {
+    scene->clear();
     ProgrammationManager& pgm = ProgrammationManager::getInstance();
 
     for(ProgrammationManager::iterator it = pgm.constraint_begin(weekBegining()); it!=pgm.constraint_end(weekEnd()); ++it) {
         drawProgrammation(it->second->getDateProgrammation(), it->second->getHoraireProgrammation(), it->second->getDateFin(), it->second->getHoraireFin(), it->second->getDuree(), QBrush(QColor(128, 128, 255, 128)));
     }
+    viewport()->update();
+    scene->update(rect());
 }
 
 void FenetreEDT::drawProgrammation(Date ddebut, Horaire hdebut, Date dfin, Horaire hfin, Duree duree, QBrush brush) {
     int x = toPositionX(ddebut);
     int y = toPositionY(hdebut);
-    int height = toHeight(duree);
-
-    QPainter painter(this->viewport());
-    painter.setWorldMatrixEnabled(true);
 
     if(ddebut==dfin) {
-        painter.fillRect(x,y,getWidthDay(),height,brush);
+        int height = toHeight(duree);
+        scene->addRect(x,y,getWidthDay(),height,QPen(Qt::blue),brush);
     }else {
-        painter.fillRect(x,y,getWidthDay(),maxY()-minY(),brush);
+        scene->addRect(x,y,getWidthDay(),maxY()-minY(),QPen(Qt::blue),brush);
         Date next = ddebut.demain();
         int day = toDay(next);
         while(day<=7 && !(next==dfin)) {
-            painter.fillRect(toPositionX(next),minY(),getWidthDay(),maxY(),brush);
+            scene->addRect(toPositionX(next),minY(),getWidthDay(),maxY(),QPen(Qt::blue),brush);
             next = next.demain();
             day++;
         }
         if(day<=7) {
-            painter.fillRect(toPositionX(next),minY(),getWidthDay(),(hfin.getHeure()+hfin.getMinute()/60.0)*getHeightHour(),brush);
+            scene->addRect(toPositionX(next),minY(),getWidthDay(),(hfin.getHeure()+hfin.getMinute()/60.0)*getHeightHour(),QPen(Qt::blue),brush);
         }
     }
 }
 
 void FenetreEDT::drawText(QPainter & painter, const QPointF & point, int flags, const QString & text, QRectF * boundingRect) {
-   const qreal size = 32767.0;
-   QPointF corner(point.x(), point.y() - size);
-   if (flags & Qt::AlignHCenter) corner.rx() -= size/2.0;
-   else if (flags & Qt::AlignRight) corner.rx() -= size;
-   if (flags & Qt::AlignVCenter) corner.ry() += size/2.0;
-   else if (flags & Qt::AlignTop) corner.ry() += size;
-   else flags |= Qt::AlignBottom;
-   QRectF rect(corner, QSizeF(size, size));
-   painter.drawText(rect, flags, text, boundingRect);
+    const qreal size = 32767.0;
+    QPointF corner(point.x(), point.y() - size);
+    if (flags & Qt::AlignHCenter) corner.rx() -= size/2.0;
+    else if (flags & Qt::AlignRight) corner.rx() -= size;
+    if (flags & Qt::AlignVCenter) corner.ry() += size/2.0;
+    else if (flags & Qt::AlignTop) corner.ry() += size;
+    else flags |= Qt::AlignBottom;
+    QRectF rect(corner, QSizeF(size, size));
+    painter.drawText(rect, flags, text, boundingRect);
 }
 
 int FenetreEDT::getWidthDay() {
@@ -120,7 +121,7 @@ int FenetreEDT::getHeightHour() {
 }
 
 int FenetreEDT::toPositionX(const Date& date) {
-    return rect().left()+(QDate::fromString(toQString(date.toString()),toQString("dd/MM/yyyy")).day()-1)*getWidthDay();
+    return rect().left()+(QDate::fromString(toQString(date.toString()),toQString("dd/MM/yyyy")).dayOfWeek()-1)*getWidthDay();
 }
 
 int FenetreEDT::toPositionY(const Horaire& horaire) {

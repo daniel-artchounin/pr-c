@@ -40,6 +40,8 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     actionLoad = new QAction("&Charger", this);
     actionCreerProjet = new QAction("Créer un &projet", this);
     actionQuitter = new QAction("&Quitter ProjectCalendar", this);
+    actionPrevious = new QAction("Semaine précédente", this);
+    actionNext = new QAction("Semaine suivante", this);
     // raccourcis des actions
     // actionSave->setShortcut(QKeySequence("Ctrl+S"));
     // actionLoad->setShortcut(QKeySequence("Ctrl+L"));
@@ -50,6 +52,8 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     actionLoad->setIcon(QIcon("../pr-c/images/charger.png"));
     actionCreerProjet->setIcon(QIcon("../pr-c/images/creer_projet.jpeg"));
     actionQuitter->setIcon(QIcon("../pr-c/images/quitter.png"));
+    actionPrevious->setIcon(QIcon("../pr-c/images/previous.png"));
+    actionNext->setIcon(QIcon("../pr-c/images/next.png"));
     // ajouts des actions à la barre de menus
     menuGestion->addAction(actionSave);
     menuGestion->addAction(actionLoad);
@@ -59,6 +63,8 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     barrreOutils->addAction(actionLoad);
     barrreOutils->addAction(actionSave);
     barrreOutils->addAction(actionCreerProjet);
+    barrreOutils->addAction(actionPrevious);
+    barrreOutils->addAction(actionNext);
     // instanciation et définition de la zone centrale
     zoneCentrale = new ZoneCentrale(this);
     setCentralWidget(zoneCentrale);
@@ -67,6 +73,8 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     connect(actionLoad, SIGNAL(triggered()), this, SLOT(chargerFichier()));
     connect(actionQuitter, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(actionCreerProjet, SIGNAL(triggered()), this, SLOT(fenetreCreerProjet()));
+    connect(actionPrevious, SIGNAL(triggered()), this, SLOT(goToPreviousWeek()));
+    connect(actionNext, SIGNAL(triggered()), this, SLOT(goToNextWeek()));
 }
 
 void FenetrePrincipale::chargerFichier(){
@@ -105,6 +113,7 @@ void FenetrePrincipale::chargerFichier(){
         QMessageBox::information(this, "Information", "Votre fichier de données "+fichier+" a bien été chargé");
         dejaSauver = false;
     }
+    zoneCentrale->getFenetreEDT()->loadWeek();
 }
 
 void FenetrePrincipale::sauverFichier(){
@@ -139,4 +148,12 @@ void FenetrePrincipale::closeEvent(QCloseEvent *event)
     libererInstance();
     event->accept();
 
+}
+
+void FenetrePrincipale::goToPreviousWeek() {
+    zoneCentrale->getFenetreEDT()->goToPreviousWeek();
+}
+
+void FenetrePrincipale::goToNextWeek() {
+    zoneCentrale->getFenetreEDT()->goToNextWeek();
 }

@@ -8,6 +8,8 @@
 #include "date.h"
 #include "tools.h"
 #include "creerprogrammationevenement.h"
+#include <QMouseEvent>
+#include <QList>
 
 /*!
  * \class FenetreEDT
@@ -136,6 +138,15 @@ public:
 
     void drawText(QPainter & painter, const QPointF & point, int flags, const QString & text, QRectF * boundingRect = 0);
 
+    void goToPreviousWeek() {
+        week--;
+        loadWeek();
+    }
+
+    void goToNextWeek() {
+        week++;
+        loadWeek();
+    }
 
 signals:
 
@@ -146,7 +157,7 @@ public slots:
      * \param painter
      * \param rect
      */
-    void drawForeground(QPainter* painter, const QRectF& rect);
+    void drawBackground(QPainter* painter, const QRectF& rect);
 
     void contextMenuEvent(QContextMenuEvent *event);
 
