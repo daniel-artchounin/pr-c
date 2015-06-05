@@ -162,7 +162,7 @@ public:
      * \param horaire Horaire
      * \return iterator au premiers date et horaire étant inférieur à ceux donnés en paramètre
      */
-    iterator constraint_end(const Date& date, const Horaire& horaire=Horaire(0,0)) {
+    iterator constraint_end(const Date& date, const Horaire& horaire=Horaire(23,59)) {
         return items.upper_bound(getKeyFrom(date,horaire));
     }
 
@@ -186,6 +186,8 @@ public:
      * \param xml
      */
     void loadListeProgrammations(QXmlStreamReader& xml, Tache& tache, bool preemptive);
+
+    void exportContraintes(QXmlStreamWriter& stream, const Date& dateDebut, const Date& dateFin, const Horaire &horaireDebut=Horaire(0,0), const Horaire& horaireFin=Horaire(23,59));
 };
 
 #endif // PROGRAMMATIONMANAGER_H

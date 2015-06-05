@@ -42,6 +42,7 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     actionQuitter = new QAction("&Quitter ProjectCalendar", this);
     actionPrevious = new QAction("Semaine précédente", this);
     actionNext = new QAction("Semaine suivante", this);
+    actionSauverSemaine = new QAction("Sauver la semaine actuelle", this);
     // raccourcis des actions
     // actionSave->setShortcut(QKeySequence("Ctrl+S"));
     // actionLoad->setShortcut(QKeySequence("Ctrl+L"));
@@ -54,17 +55,21 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     actionQuitter->setIcon(QIcon("../pr-c/images/quitter.png"));
     actionPrevious->setIcon(QIcon("../pr-c/images/previous.png"));
     actionNext->setIcon(QIcon("../pr-c/images/next.png"));
+    actionSauverSemaine->setIcon(QIcon("../pr-c/images/sauverSemaine.png"));
+
     // ajouts des actions à la barre de menus
     menuGestion->addAction(actionSave);
     menuGestion->addAction(actionLoad);
     menuGestion->addAction(actionCreerProjet);
     menuFenetre->addAction(actionQuitter);
+    menuFenetre->addAction(actionSauverSemaine);
     // ajouts des actions à la barre d'outils
     barrreOutils->addAction(actionLoad);
     barrreOutils->addAction(actionSave);
     barrreOutils->addAction(actionCreerProjet);
     barrreOutils->addAction(actionPrevious);
     barrreOutils->addAction(actionNext);
+    barrreOutils->addAction(actionSauverSemaine);
     // instanciation et définition de la zone centrale
     zoneCentrale = new ZoneCentrale(this);
     setCentralWidget(zoneCentrale);
@@ -75,6 +80,7 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     connect(actionCreerProjet, SIGNAL(triggered()), this, SLOT(fenetreCreerProjet()));
     connect(actionPrevious, SIGNAL(triggered()), this, SLOT(goToPreviousWeek()));
     connect(actionNext, SIGNAL(triggered()), this, SLOT(goToNextWeek()));
+    connect(actionSauverSemaine, SIGNAL(triggered()), this, SLOT(sauverSemaine()));
 }
 
 void FenetrePrincipale::chargerFichier(){
@@ -160,4 +166,9 @@ void FenetrePrincipale::goToNextWeek() {
 
 void FenetrePrincipale::updateEDT() {
     zoneCentrale->getFenetreEDT()->loadWeek();
+}
+
+void FenetrePrincipale::sauverSemaine(){
+    QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Fichier XML (*.xml)");
+    zoneCentrale->getFenetreEDT()->saveWeek(fichier);
 }

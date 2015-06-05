@@ -22,6 +22,18 @@ void save(const QString& file){
     newfile.close();
 }
 
+void saveContraintes(const QString& file, const Date& dateDebut, const Date& dateFin) {
+    QFile newfile(file);
+    if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
+        throw ToolsException("XmlParser erreur : impossible d'ouvrir le fichier !");
+    QXmlStreamWriter stream(&newfile);
+    stream.setAutoFormatting(true);
+    stream.writeStartDocument();
+    ProgrammationManager::getInstance().exportContraintes(stream,dateDebut,dateFin);
+    stream.writeEndDocument();
+    newfile.close();
+}
+
 void load(const QString &file) {
     QFile oldFile(file);
     if (!oldFile.open(QIODevice::ReadOnly | QIODevice::Text)) {

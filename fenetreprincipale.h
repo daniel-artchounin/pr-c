@@ -28,6 +28,7 @@ private:
     QAction* actionQuitter;
     QAction* actionPrevious;
     QAction* actionNext;
+    QAction* actionSauverSemaine;
     CreerProjet* creerProjet;
     bool dejaSauver;
 
@@ -92,6 +93,12 @@ public slots:
      * Permet d'aller à la semaine suivante
      */
     void goToNextWeek();
+
+    /*!
+     * \brief sauverSemaine
+     * Permet d'exporter la semaine afficher actuellement
+     */
+    void sauverSemaine();
 };
 
 #endif // FENETREPRINCIPALE_H

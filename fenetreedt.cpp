@@ -5,6 +5,7 @@
 #include "fenetreprincipale.h"
 #include <QGraphicsRectItem>
 #include <QDebug>
+#include "tools.h"
 
 FenetreEDT::FenetreEDT(QWidget *parent) : QGraphicsView(parent) {
     scene = new QGraphicsScene;
@@ -180,4 +181,8 @@ void FenetreEDT::contextMenuEvent(QContextMenuEvent *event) {
     menu.addAction(actionProgRendezVous);
     menu.addAction(actionProgReunion);
     menu.exec(event->globalPos());
+}
+
+void FenetreEDT::saveWeek(const QString& file) {
+    saveContraintes(file,weekBegining(),weekEnd());
 }

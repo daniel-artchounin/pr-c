@@ -194,3 +194,13 @@ void ProgrammationManager::loadListeProgrammations(QXmlStreamReader &xml, Tache&
         }
     }
 }
+
+void ProgrammationManager::exportContraintes(QXmlStreamWriter& stream, const Date& dateDebut, const Date& dateFin,const Horaire& horaireDebut, const Horaire& horaireFin) {
+    stream.writeStartElement("Programmation");
+    for(iterator it=constraint_begin(dateDebut,horaireDebut); it!=constraint_end(dateFin,horaireFin); ++it){
+        if(typeid(*it->second)==typeid(ProgrammationEvenement)) {
+            (*it->second).exportTo(stream);
+        }
+    }
+    stream.writeEndElement();
+}

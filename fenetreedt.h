@@ -170,6 +170,8 @@ public slots:
     void programmerRendezVous();
 
     void programmerReunion();
+
+    void saveWeek(const QString& file);
 };
 
 #endif // FENETREEDT_H

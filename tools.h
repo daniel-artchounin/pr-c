@@ -11,6 +11,8 @@
  * \param file
  */
 void save(const QString &file);
+
+void saveContraintes(const QString& file, const Date& dateDebut, const Date& dateFin);
 /*!
  * \brief load
  * Permet d'importer les données depuis le fichier spécifié
