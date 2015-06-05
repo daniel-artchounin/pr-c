@@ -13,10 +13,14 @@
 class ProgrammerTacheSimpleNonPreemptive : public QWidget
 {
     Q_OBJECT
+protected:
+    virtual void closeEvent(QCloseEvent *event);
+
 private:
     Projet& nomProjet;
     std::string * chemin;
     unsigned int* tailleChemin;
+    std::string titreTache;
     QVBoxLayout* vBox;
     QHBoxLayout* hBox;
     QDateEdit* dateProgrammation;
@@ -25,13 +29,12 @@ private:
     QPushButton* annuler;  /*!< bouton annuler */
     QPushButton* sauver;  /*!< bouton sauver */
 public:
-    explicit ProgrammerTacheSimpleNonPreemptive(Projet& projet, std::string * chaine, unsigned int* taille, QWidget *parent = 0);
-
+    explicit ProgrammerTacheSimpleNonPreemptive(Projet& projet, std::string * chaine, unsigned int* taille, const std::string& titreT, QWidget *parent = 0);
 signals:
 
 public slots:
-    void retourFenetrePrincipale();
-    void closeEvent(QCloseEvent *event);
+    void retourFenetrePrincipaleAnnuler();
+    void retourFenetrePrincipaleSauver();
 };
 
 #endif // PROGRAMMERTACHESIMPLENONPREEMPTIVE_H

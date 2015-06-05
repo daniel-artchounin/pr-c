@@ -72,7 +72,7 @@ void Projet::supprimerTache(const std::string& titre){
 
 Tache& Projet::accederTache(const std::string * nomsTachesComposites , unsigned int nbTaches,
                             const std::string& nomTache, unsigned int profondeur, const TacheComposite* tacheCourante)const{
-    const TacheComposite* newTache = 0;
+     const TacheComposite* newTache = 0;
     if (nbTaches == 0){
         // la tâche recherchée se trouve directement à la racine du projet
         return const_cast<Projet*>(this)->getTache(nomTache);

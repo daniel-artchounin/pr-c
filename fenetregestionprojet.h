@@ -46,6 +46,10 @@ public:
         return tree;
     }
     QList<QString> getCheminement(QTreeWidgetItem * actuel);
+    void removeTache(QList<QString>* chemin);
+    std::string getNomTacheStd(QList<QString> chemin);
+    std::string getNomTacheAndRemoveTache(QList<QString>* chemin);
+
 signals:
 
 public slots:

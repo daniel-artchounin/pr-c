@@ -108,8 +108,6 @@ void FenetreGestionProjet::showContextMenu(const QPoint& pos){
     myMenu.addAction(programmationTacheSimplePreemptive);
     myMenu.addAction(programmationTacheSimpleNonPreemptive);
     // myMenu.addAction(monAction);
-    // myMenu.addAction("Programmer une tâche simple non préemptive");
-    // myMenu.addAction("Programmer une tâche simple préemptive");
     myMenu.exec(globalPos);
     // QAction* selectedItem = ;
     // if (selectedItem)
@@ -226,9 +224,11 @@ void FenetreGestionProjet::fenetreProgrammerTacheSimplePreemptive(){
         cheminement = getCheminement(actuel);
         try{
             Projet& projet = getProjet(cheminement);
+            std::string titreTache = getNomTacheAndRemoveTache(&cheminement);
             unsigned int* taille = new unsigned int;
+            std::cout << "depuis la fenetre ;-) titre ; " << titreTache << std::endl;
             std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
-            programmerTacheSimplePreemptive = new ProgrammerTacheSimplePreemptive(projet, chaine, taille);
+            programmerTacheSimplePreemptive = new ProgrammerTacheSimplePreemptive(projet, chaine, taille, titreTache);
             programmerTacheSimplePreemptive->show();
             FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
             fenetrePrincipale.hide();
@@ -254,10 +254,13 @@ void FenetreGestionProjet::fenetreProgrammerTacheSimpleNonPreemptive(){
     else{
         cheminement = getCheminement(actuel);
         try{
+            std::cout << "************************" << std::endl;
             Projet& projet = getProjet(cheminement);
+            std::string titreTache = getNomTacheAndRemoveTache(&cheminement);
             unsigned int* taille = new unsigned int;
+            std::cout << "depuis la fenetre ;-) titre ; " << titreTache << std::endl ;
             std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
-            programmerTacheSimpleNonPreemptive = new ProgrammerTacheSimpleNonPreemptive(projet, chaine, taille);
+            programmerTacheSimpleNonPreemptive = new ProgrammerTacheSimpleNonPreemptive(projet, chaine, taille, titreTache);
             programmerTacheSimpleNonPreemptive->show();
             FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
             fenetrePrincipale.hide();
@@ -270,9 +273,48 @@ void FenetreGestionProjet::fenetreProgrammerTacheSimpleNonPreemptive(){
 
 // récupération du projet et gestion du cas d'erreur
 Projet& FenetreGestionProjet::getProjet(QList<QString> chemin){
-    ProjetManager& projetManager = ProjetManager::getInstance();
-    QString& titreProjet = chemin.first();
-    return projetManager.getProjet(titreProjet.toStdString());
+    if(chemin.isEmpty()){
+        QMessageBox::warning(this, "Echec d'action", "Veuillez sélectionner un élément et réitérer");
+    }
+    else{
+        ProjetManager& projetManager = ProjetManager::getInstance();
+        QString& titreProjet = chemin.first();
+        return projetManager.getProjet(titreProjet.toStdString());
+    }
+}
+// récupération du projet et gestion du cas d'erreur
+void FenetreGestionProjet::removeTache(QList<QString>* chemin){
+    if(chemin->isEmpty()){
+        QMessageBox::warning(this, "Echec d'action", "Veuillez sélectionner une tâche et réitérer");
+    }
+    else{
+        chemin->removeLast();
+    }
+}
+
+// récupération du projet et gestion du cas d'erreur
+std::string FenetreGestionProjet::getNomTacheStd(QList<QString> chemin){
+    if(chemin.isEmpty()){
+        QMessageBox::warning(this, "Echec d'action", "Veuillez sélectionner une tâche et réitérer");
+    }
+    else{
+        QString& titreTache = chemin.last();
+        std::string titreTacheStd = titreTache.toStdString();
+        std::cout << "Mon titre : " << titreTacheStd << std::endl;
+        return titreTacheStd;
+    }
+}
+
+// récupération du projet et gestion du cas d'erreur
+std::string FenetreGestionProjet::getNomTacheAndRemoveTache(QList<QString>* chemin){
+    if(chemin->isEmpty()){
+        QMessageBox::warning(this, "Echec d'action", "Veuillez sélectionner une tâche et réitérer");
+    }
+    else{
+        std::string titreProjetStd = getNomTacheStd(*chemin);
+        removeTache(chemin);
+        return titreProjetStd;
+    }
 }
 
 std::string* FenetreGestionProjet::recupCheminDepuisProjet(QList<QString> chemin, unsigned int* taille){
