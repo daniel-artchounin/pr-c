@@ -12,7 +12,22 @@
  */
 void save(const QString &file);
 
+/*!
+ * \brief saveContraintes
+ * Permet d'exporter les programmations comprises entre dateDebut et dateFin
+ * \param file
+ * \param dateDebut
+ * \param dateFin
+ */
 void saveContraintes(const QString& file, const Date& dateDebut, const Date& dateFin);
+
+/*!
+ * \brief saveProjet
+ * Permet d'exporter le projet donné
+ * \param file
+ * \param projet
+ */
+void saveProjet(const QString& file, const Projet& projet);
 /*!
  * \brief load
  * Permet d'importer les données depuis le fichier spécifié

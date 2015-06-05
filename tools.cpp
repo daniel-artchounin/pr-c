@@ -34,6 +34,18 @@ void saveContraintes(const QString& file, const Date& dateDebut, const Date& dat
     newfile.close();
 }
 
+void saveProjet(const QString& file, const Projet& projet) {
+    QFile newfile(file);
+    if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
+        throw ToolsException("XmlParser erreur : impossible d'ouvrir le fichier !");
+    QXmlStreamWriter stream(&newfile);
+    stream.setAutoFormatting(true);
+    stream.writeStartDocument();
+    projet.exportTo(stream);
+    stream.writeEndDocument();
+    newfile.close();
+}
+
 void load(const QString &file) {
     QFile oldFile(file);
     if (!oldFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
