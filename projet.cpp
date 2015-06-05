@@ -9,7 +9,6 @@
 #include "tools.h"
 #include "programmationmanager.h"
 #include <algorithm>
-# include <QDebug>
 
 Projet::Projet(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                const Horaire& heureEcheance,const std::string & titre):
@@ -327,8 +326,7 @@ void Projet::loadFrom(QXmlStreamReader &xml, std::vector<std::string>& vect) {
                         xml.readNext();
                         std::string arr[(int)(vect.size())];
                         std::copy(vect.begin(), vect.end(), arr);
-                        //
-                        //
+
                         ProgrammationManager::getInstance().loadListeProgrammations(xml, accederTache(arr,(int)vect.size(),titre),preemptive);
                     }else if(xml.name() == "ListePrecedents") {
                         xml.readNext();

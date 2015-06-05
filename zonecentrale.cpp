@@ -1,7 +1,6 @@
 #include "zonecentrale.h"
-# include <QDebug>
-# include <QDate>
-# include "tools.h"
+#include <QDate>
+#include "tools.h"
 #include <QHBoxLayout>
 
 ZoneCentrale::ZoneCentrale(QWidget *parent) :

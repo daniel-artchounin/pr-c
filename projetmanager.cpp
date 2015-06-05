@@ -1,6 +1,5 @@
 #include "projetmanager.h"
 #include "projetmanagerexception.h"
-# include <QDebug>
 #include "tools.h"
 
 

@@ -4,7 +4,6 @@
 #include <QMenu>
 #include "fenetreprincipale.h"
 #include <QGraphicsRectItem>
-#include <QDebug>
 #include "tools.h"
 
 FenetreEDT::FenetreEDT(QWidget *parent) : QGraphicsView(parent) {

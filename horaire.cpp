@@ -1,6 +1,5 @@
 #include "horaire.h"
 #include "sstream"
-#include <QDebug>
 #include "tools.h"
 
 void Horaire::setHoraire(std::string horaire) {
@@ -46,12 +45,9 @@ std::string Horaire::toString() const {
 }
 
 Horaire Horaire::addDuree(const Duree duree) const{
-    qDebug()<<"Duree "<<toQString(duree.toString());
-    qDebug()<<"Heure avant "<<heure;
     Horaire horaire = *this;
     horaire.minute += duree.getMinute();
     horaire.heure = (horaire.heure + duree.getHeure() + horaire.minute/60)%24;
-    qDebug()<<"Heure après ajout "<<horaire.heure;
     horaire.minute %=60;
     return horaire;
 }
