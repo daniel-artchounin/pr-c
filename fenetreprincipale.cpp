@@ -61,15 +61,17 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     menuGestion->addAction(actionSave);
     menuGestion->addAction(actionLoad);
     menuGestion->addAction(actionCreerProjet);
+    menuGestion->addAction(actionSauverSemaine);
     menuFenetre->addAction(actionQuitter);
-    menuFenetre->addAction(actionSauverSemaine);
+
     // ajouts des actions à la barre d'outils
     barrreOutils->addAction(actionLoad);
     barrreOutils->addAction(actionSave);
     barrreOutils->addAction(actionCreerProjet);
+    barrreOutils->addAction(actionSauverSemaine);
     barrreOutils->addAction(actionPrevious);
     barrreOutils->addAction(actionNext);
-    barrreOutils->addAction(actionSauverSemaine);
+
     // instanciation et définition de la zone centrale
     zoneCentrale = new ZoneCentrale(this);
     setCentralWidget(zoneCentrale);
