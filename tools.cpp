@@ -34,7 +34,7 @@ void saveContraintes(const QString& file, const Date& dateDebut, const Date& dat
     newfile.close();
 }
 
-void saveProjet(const QString& file, const Projet& projet) {
+void saveProjet(const QString& file, Projet& projet) {
     QFile newfile(file);
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
         throw ToolsException("XmlParser erreur : impossible d'ouvrir le fichier !");

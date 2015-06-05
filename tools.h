@@ -27,7 +27,7 @@ void saveContraintes(const QString& file, const Date& dateDebut, const Date& dat
  * \param file
  * \param projet
  */
-void saveProjet(const QString& file, const Projet& projet);
+void saveProjet(const QString& file, Projet &projet);
 /*!
  * \brief load
  * Permet d'importer les données depuis le fichier spécifié
