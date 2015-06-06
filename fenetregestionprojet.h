@@ -11,6 +11,8 @@
 # include "creertachesimplenonpreemptive.h"
 # include "programmertachesimplenonpreemptive.h"
 # include "programmertachesimplepreemptive.h"
+# include "ajouterprecedence.h"
+# include "supprimerprecedence.h"
 # include <string>
 # include <stdexcept>
 
@@ -30,26 +32,29 @@ private:
     QAction * creationTacheSimpleNonPreemptive;
     QAction * programmationTacheSimplePreemptive;
     QAction * programmationTacheSimpleNonPreemptive;
+    QAction * ajouterPrecedence;
+    QAction * supprimerPrecedence;
     CreerTacheComposite* creerTacheComposite;
     CreerTacheSimplePreemptive* creerTacheSimplePreemptive;
     CreerTacheSimpleNonPreemptive* creerTacheSimpleNonPreemptive;
     ProgrammerTacheSimplePreemptive* programmerTacheSimplePreemptive;
     ProgrammerTacheSimpleNonPreemptive* programmerTacheSimpleNonPreemptive;
+    AjouterPrecedence* ajoutPrecedence;
+    SupprimerPrecedence* suppressionPrecedence;
 protected :
     // récupération du projet et gestion du cas d'erreur
-    Projet& getProjet(QList<QString> chemin);
-    std::string* recupCheminDepuisProjet(QList<QString> chemin, unsigned int * taille);
+    Projet& getAndRemoveProjet(QList<QString>* chemin);
 public:
     explicit FenetreGestionProjet(QWidget *parent = 0);
     void afficherTreeWidget(unsigned int profondeur, ProjetManager& projetManager, QTreeWidget* arbre, QTreeWidgetItem * actuel=0, Element * element=0);
     QTreeWidget* getTree()const{
         return tree;
     }
-    QList<QString> getCheminement(QTreeWidgetItem * actuel);
-    void removeTache(QList<QString>* chemin);
-    std::string getNomTacheStd(QList<QString> chemin);
-    std::string getNomTacheAndRemoveTache(QList<QString>* chemin);
-
+    static QList<QString> getCheminement(QTreeWidgetItem * actuel);
+    static void removeTache(QList<QString>* chemin);
+    static std::string getNomTacheStd(QList<QString> chemin);
+    static std::string getNomTacheAndRemoveTache(QList<QString>* chemin);
+    static std::string* recupCheminDepuisProjet(QList<QString> chemin, unsigned int * taille);
 signals:
 
 public slots:
@@ -60,6 +65,8 @@ public slots:
     void fenetreCreerTacheSimpleNonPreemptive();
     void fenetreProgrammerTacheSimplePreemptive();
     void fenetreProgrammerTacheSimpleNonPreemptive();
+    void fenetreAjouterPrecedence();
+    void fenetreSupprimerPrecedence();
 };
 
 #endif // FENETREGESTIONPROJET_H
