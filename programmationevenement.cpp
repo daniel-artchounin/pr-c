@@ -57,3 +57,11 @@ void ProgrammationEvenement::loadFrom(QXmlStreamReader &xml) {
         programmerRendezVous(nom,lieu,motif);
     }
 }
+
+Duree ProgrammationEvenement::getDuree() const{
+    return duree;
+}
+
+std::string ProgrammationEvenement::getNom() const{
+    return evenement->getNom();
+}

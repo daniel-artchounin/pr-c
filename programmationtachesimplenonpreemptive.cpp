@@ -15,6 +15,10 @@ Duree ProgrammationTacheSimpleNonPreemptive::getDuree()const{
     return tacheSimpleNonPreemptive->getDuree();
 }
 
+std::string ProgrammationTacheSimpleNonPreemptive::getNom() const {
+    return tacheSimpleNonPreemptive->getTitre();
+}
+
 ProgrammationTacheSimpleNonPreemptive::~ProgrammationTacheSimpleNonPreemptive(){}
 
 void ProgrammationTacheSimpleNonPreemptive::exportTo(QXmlStreamWriter& stream) {

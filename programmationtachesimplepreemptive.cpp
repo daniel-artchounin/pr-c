@@ -6,6 +6,10 @@ Duree ProgrammationTacheSimplePreemptive::getDuree()const{
     return tacheSimplePreemtive->getDureeProgrammationViaPourcentage(pourcentage);
 }
 
+std::string ProgrammationTacheSimplePreemptive::getNom() const {
+    return tacheSimplePreemtive->getTitre();
+}
+
 const TacheSimplePreemptive& ProgrammationTacheSimplePreemptive::getTacheSimple() const{
     return *tacheSimplePreemtive;
 }

@@ -66,6 +66,12 @@ public:
     }
 
     /*!
+     * \brief getNom
+     * Permet de récupérer le nom de l'évènement
+     */
+    virtual std::string getNom() const=0;
+
+    /*!
      * \brief exportTo
      * Permet d'exporter les données dans un fichier XML via le streamwriter
      * \param stream

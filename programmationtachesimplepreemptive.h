@@ -31,6 +31,8 @@ public:
      */
     virtual Duree getDuree()const;
 
+    virtual std::string getNom() const;
+
     /*!
      * \brief ~ProgrammationTacheSimplePreemptive destructeur
      */

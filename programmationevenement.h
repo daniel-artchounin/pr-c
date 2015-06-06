@@ -27,9 +27,9 @@ public:
      * \brief getDuree
      * \return duree de la programmation
      */
-    virtual Duree getDuree() const{
-        return duree;
-    }
+    virtual Duree getDuree() const;
+
+    virtual std::string getNom() const;
 
     /*!
      * \brief ~ProgrammationEvenement destructeur
