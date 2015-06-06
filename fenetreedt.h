@@ -117,18 +117,6 @@ private:
      * Permet de masquer la fenêtre principale
      */
     void masquerFenetrePrincipale();
-public:
-    /*!
-     * \brief Contructeur
-     * \param parent
-     */
-    explicit FenetreEDT(QWidget *parent = 0);
-
-    /*!
-     * \brief loadWeek
-     * Permet d'afficher une semaine
-     */
-    void loadWeek();
 
     /*!
      * \brief drawProgrammation
@@ -144,6 +132,20 @@ public:
 
     void drawText(QPainter & painter, const QPointF & point, int flags, const QString & text, QRectF * boundingRect = 0);
 
+    void drawDates();
+public:
+    /*!
+     * \brief Contructeur
+     * \param parent
+     */
+    explicit FenetreEDT(QWidget *parent = 0);
+
+    /*!
+     * \brief loadWeek
+     * Permet d'afficher une semaine
+     */
+    void loadWeek();
+
     void goToPreviousWeek() {
         week--;
         loadWeek();
@@ -153,7 +155,6 @@ public:
         week++;
         loadWeek();
     }
-
 signals:
 
 public slots:

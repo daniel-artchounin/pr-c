@@ -66,6 +66,7 @@ void FenetreEDT::drawBackground(QPainter* painter, const QRectF& rect)
 
     painter->drawLines(linesX.data(), linesX.size());
     painter->drawLines(linesY.data(), linesY.size());
+    drawDates();
 }
 
 void FenetreEDT::loadWeek() {
@@ -77,6 +78,7 @@ void FenetreEDT::loadWeek() {
     }
     viewport()->update();
     scene->update(rect());
+    drawDates();
 }
 
 void FenetreEDT::drawProgrammation(Date ddebut, Horaire hdebut, Date dfin, Horaire hfin, Duree duree, QBrush brush) {
@@ -98,6 +100,18 @@ void FenetreEDT::drawProgrammation(Date ddebut, Horaire hdebut, Date dfin, Horai
         if(day<=7) {
             scene->addRect(toPositionX(next),minY(),getWidthDay(),(hfin.getHeure()+hfin.getMinute()/60.0)*getHeightHour(),QPen(Qt::blue),brush);
         }
+    }
+}
+
+void FenetreEDT::drawDates() {
+    QGraphicsTextItem * io;
+    Date date = weekBegining().toString();
+    for(int i=0; i<7; i++) {
+        io = new QGraphicsTextItem;
+        io->setPos(toPositionX(date),-5);
+        io->setPlainText(toQString(date.toString()));
+        date=date.demain();
+        scene->addItem(io);
     }
 }
 
