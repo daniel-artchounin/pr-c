@@ -6,6 +6,8 @@
 
 ProgrammerReunion::ProgrammerReunion(QWidget *parent) : ProgrammerEvenement(parent) {}
 
+ProgrammerReunion::ProgrammerReunion(ProgrammationEvenement* prog, QWidget *parent) : ProgrammerEvenement(prog,parent){}
+
 void ProgrammerReunion::retourFenetrePrincipaleValider() {
     try {
         ProgrammationEvenement evt = ProgrammationManager::getInstance().addProgrammationEvenement(Date(toString(dateDebut->date().toString("dd/MM/yyyy"))), Horaire(horaireDebut->time().hour(),horaireDebut->time().minute()), Duree(dureeHeure->value(), dureeMinute->value()));

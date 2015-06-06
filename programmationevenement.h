@@ -31,6 +31,10 @@ public:
 
     virtual std::string getNom() const;
 
+    Evenement* getEvenement() {
+        return evenement;
+    }
+
     /*!
      * \brief ~ProgrammationEvenement destructeur
      */

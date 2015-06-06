@@ -11,6 +11,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 # include "fenetreannulervalider.h"
+#include "programmationevenement.h"
 
 class ProgrammerEvenement: public FenetreAnnulerValider
 {
@@ -25,10 +26,14 @@ protected :
     QSpinBox* dureeHeure; /*!< duree heure*/
     QSpinBox* dureeMinute; /*!< duree heure*/
     QHBoxLayout* duree;
+    ProgrammationEvenement* progEvt;
+
+    void initialiserFormulaire();
     virtual void closeEvent(QCloseEvent *event);
 
 public:
     explicit ProgrammerEvenement(QWidget *parent = 0);
+    explicit ProgrammerEvenement(ProgrammationEvenement* prog, QWidget *parent = 0);
 signals:
 };
 

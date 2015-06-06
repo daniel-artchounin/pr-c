@@ -6,6 +6,9 @@
 
 ProgrammerRendezVous::ProgrammerRendezVous(QWidget *parent) : ProgrammerEvenement(parent){}
 
+ProgrammerRendezVous::ProgrammerRendezVous(ProgrammationEvenement* prog, QWidget *parent) : ProgrammerEvenement(prog,parent){}
+
+
 void ProgrammerRendezVous::retourFenetrePrincipaleValider() {
     try {
         ProgrammationEvenement evt = ProgrammationManager::getInstance().addProgrammationEvenement(Date(toString(dateDebut->date().toString("dd/MM/yyyy"))), Horaire(horaireDebut->time().hour(),horaireDebut->time().minute()), Duree(dureeHeure->value(), dureeMinute->value()));

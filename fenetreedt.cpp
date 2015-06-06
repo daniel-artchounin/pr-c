@@ -12,6 +12,7 @@ FenetreEDT::FenetreEDT(QWidget *parent) : QGraphicsView(parent) {
     creerActions();
     progRdv=0;
     progReunion=0;
+    modifProg=0;
     week=0;
     this->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     scene->setSceneRect(0,0,width(),height());
@@ -22,6 +23,8 @@ void FenetreEDT::creerActions() {
     connect(actionProgRendezVous, SIGNAL(triggered()), this, SLOT(programmerRendezVous()));
     actionProgReunion = new QAction("Programmer une réunion", this);
     connect(actionProgReunion, SIGNAL(triggered()), this, SLOT(programmerReunion()));
+    actionModifierProg = new QAction("Modifier une programmation", this);
+    connect(actionModifierProg, SIGNAL(triggered()), this, SLOT(modifierProgrammation()));
 }
 
 Date FenetreEDT::weekBegining() {
@@ -193,6 +196,16 @@ void FenetreEDT::programmerReunion(){
     masquerFenetrePrincipale();
 }
 
+void FenetreEDT::modifierProgrammation(){
+    if(modifProg !=0){
+        delete modifProg;
+        modifProg = 0;
+    }
+    modifProg = new ModifierProgrammationEvenement;
+    modifProg->show();
+    masquerFenetrePrincipale();
+}
+
 void FenetreEDT::masquerFenetrePrincipale() {
     FenetrePrincipale& fp = FenetrePrincipale::getInstance();
     fp.hide();
@@ -203,6 +216,7 @@ void FenetreEDT::contextMenuEvent(QContextMenuEvent *event) {
     QMenu menu(this);
     menu.addAction(actionProgRendezVous);
     menu.addAction(actionProgReunion);
+    menu.addAction(actionModifierProg);
     menu.exec(event->globalPos());
 }
 

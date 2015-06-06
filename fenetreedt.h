@@ -9,6 +9,7 @@
 #include "tools.h"
 #include "programmerreunion.h"
 #include "programmerrendezvous.h"
+#include "modifierprogrammationevenement.h"
 
 /*!
  * \class FenetreEDT
@@ -22,8 +23,10 @@ private:
     QGraphicsScene *scene; /*!< scene >*/
     QAction *actionProgRendezVous;
     QAction *actionProgReunion;
+    QAction *actionModifierProg;
     ProgrammerRendezVous* progRdv;
     ProgrammerReunion* progReunion;
+    ModifierProgrammationEvenement* modifProg;
     int week;
 
     /*!
@@ -173,6 +176,8 @@ public slots:
     void programmerRendezVous();
 
     void programmerReunion();
+
+    void modifierProgrammation();
 
     void saveWeek(const QString& file);
 };

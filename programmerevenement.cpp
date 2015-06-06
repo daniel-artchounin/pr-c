@@ -3,6 +3,23 @@
 
 ProgrammerEvenement::ProgrammerEvenement(QWidget *parent) :
     FenetreAnnulerValider(parent) {
+    progEvt=0;
+    initialiserFormulaire();
+}
+
+ProgrammerEvenement::ProgrammerEvenement(ProgrammationEvenement* prog, QWidget *parent) : FenetreAnnulerValider(parent) {
+    progEvt=prog;
+    initialiserFormulaire();
+    nom->setText(toQString(progEvt->getNom()));
+    lieu->setText(toQString(progEvt->getEvenement()->getLieu()));
+    motif->setText(toQString(progEvt->getEvenement()->getMotif()));
+    dateDebut->setDate(QDate::fromString(toQString(progEvt->getDateProgrammation().toString()), "dd/MM/yyyy"));
+    horaireDebut->setTime(QTime(progEvt->getHoraireProgrammation().getHeure(),progEvt->getHoraireProgrammation().getMinute()));
+    dureeHeure->setValue(progEvt->getDuree().getHeure());
+    dureeMinute->setValue(progEvt->getDuree().getMinute());
+}
+
+void ProgrammerEvenement::initialiserFormulaire() {
     nom = new QLineEdit;
     motif = new QLineEdit;
     lieu = new QLineEdit;

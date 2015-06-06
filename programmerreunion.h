@@ -10,10 +10,11 @@ class ProgrammerReunion : public ProgrammerEvenement
 public:
     explicit ProgrammerReunion(QWidget *parent = 0);
 
+    explicit ProgrammerReunion(ProgrammationEvenement* prog, QWidget *parent = 0);
 signals:
 
 public slots:
-    virtual void retourFenetrePrincipaleValider();
+    void retourFenetrePrincipaleValider();
 };
 
 #endif // PROGRAMMERREUNION_H

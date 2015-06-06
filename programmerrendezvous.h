@@ -9,11 +9,12 @@ class ProgrammerRendezVous : public ProgrammerEvenement
     Q_OBJECT
 public:
     explicit ProgrammerRendezVous(QWidget *parent = 0);
+    explicit ProgrammerRendezVous(ProgrammationEvenement* prog, QWidget *parent = 0);
 
 signals:
 
 public slots:
-    virtual void retourFenetrePrincipaleValider();
+    void retourFenetrePrincipaleValider();
 };
 
 #endif // PROGRAMMERRENDEZVOUS_H
