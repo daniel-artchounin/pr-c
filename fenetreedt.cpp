@@ -69,7 +69,6 @@ void FenetreEDT::drawBackground(QPainter* painter, const QRectF& rect)
 
     painter->drawLines(linesX.data(), linesX.size());
     painter->drawLines(linesY.data(), linesY.size());
-    drawDates();
 }
 
 void FenetreEDT::loadWeek() {

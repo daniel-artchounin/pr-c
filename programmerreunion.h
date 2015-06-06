@@ -14,7 +14,7 @@ public:
 signals:
 
 public slots:
-    void retourFenetrePrincipaleValider();
+    virtual void retourFenetrePrincipaleValider();
 };
 
 #endif // PROGRAMMERREUNION_H
