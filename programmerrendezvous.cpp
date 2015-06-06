@@ -11,7 +11,8 @@ ProgrammerRendezVous::ProgrammerRendezVous(ProgrammationEvenement* prog, QWidget
 
 void ProgrammerRendezVous::retourFenetrePrincipaleValider() {
     try {
-        ProgrammationEvenement evt = ProgrammationManager::getInstance().addProgrammationEvenement(Date(toString(dateDebut->date().toString("dd/MM/yyyy"))), Horaire(horaireDebut->time().hour(),horaireDebut->time().minute()), Duree(dureeHeure->value(), dureeMinute->value()));
+        ProgrammationManager& pgm = ProgrammationManager::getInstance();
+        ProgrammationEvenement& evt = ProgrammationManager::getInstance().addProgrammationEvenement(Date(toString(dateDebut->date().toString("dd/MM/yyyy"))), Horaire(horaireDebut->time().hour(),horaireDebut->time().minute()), Duree(dureeHeure->value(), dureeMinute->value()));
         evt.programmerRendezVous(toString(nom->text()),toString(motif->text()),toString(motif->text()));
         QMessageBox::information(this, "Information", "Votre rendez-vous a bien été programmé.");
     }catch(ProgrammationManagerException e) {

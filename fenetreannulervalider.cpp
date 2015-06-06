@@ -12,7 +12,7 @@ FenetreAnnulerValider::FenetreAnnulerValider(QWidget *parent) :
     hBoxAnnulerValider->addWidget(valider);
     vBox = new QVBoxLayout(this);
     connect(annuler,SIGNAL(clicked()),this,SLOT(retourFenetrePrincipaleAnnuler()));
-    connect(valider,SIGNAL(clicked()),this,SLOT(retourFenetrePrincipaleSauver()));
+    connect(valider,SIGNAL(clicked()),this,SLOT(retourFenetrePrincipaleValider()));
 }
 
 void FenetreAnnulerValider::retourFenetrePrincipaleAnnuler(){

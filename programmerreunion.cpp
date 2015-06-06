@@ -10,7 +10,7 @@ ProgrammerReunion::ProgrammerReunion(ProgrammationEvenement* prog, QWidget *pare
 
 void ProgrammerReunion::retourFenetrePrincipaleValider() {
     try {
-        ProgrammationEvenement evt = ProgrammationManager::getInstance().addProgrammationEvenement(Date(toString(dateDebut->date().toString("dd/MM/yyyy"))), Horaire(horaireDebut->time().hour(),horaireDebut->time().minute()), Duree(dureeHeure->value(), dureeMinute->value()));
+        ProgrammationEvenement& evt = ProgrammationManager::getInstance().addProgrammationEvenement(Date(toString(dateDebut->date().toString("dd/MM/yyyy"))), Horaire(horaireDebut->time().hour(),horaireDebut->time().minute()), Duree(dureeHeure->value(), dureeMinute->value()));
         evt.programmerReunion(toString(nom->text()),toString(motif->text()),toString(motif->text()));
         QMessageBox::information(this, "Information", "Votre réunion a bien été programmé.");
     }catch(ProgrammationManagerException e) {
