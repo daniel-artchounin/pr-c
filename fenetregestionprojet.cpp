@@ -306,7 +306,32 @@ void FenetreGestionProjet::fenetreAjouterPrecedence(){
 }
 
 void FenetreGestionProjet::fenetreSupprimerPrecedence(){
-
+    if(suppressionPrecedence !=0){
+        delete suppressionPrecedence;
+        suppressionPrecedence = 0;
+    }
+    QTreeWidgetItem * actuel = tree->currentItem();
+    QList<QString> cheminement;
+    if(actuel == 0){
+        QMessageBox::warning(this, "Suppression de contrainte de précédence", "Veuillez d'abord sélectionner la tâche à laquelle vous souhaiter supprimer une contrainte de précédence");
+    }
+    else{
+        cheminement = getCheminement(actuel);
+        try{
+            Projet& projet = getAndRemoveProjet(&cheminement);
+            std::string titreTache = getNomTacheAndRemoveTache(&cheminement);
+            unsigned int* taille = new unsigned int;
+            std::cout << "depuis la fenetre ;-) titre ; " << titreTache << std::endl; // -> test
+            std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
+            suppressionPrecedence = new SupprimerPrecedence(projet, chaine, taille, titreTache);
+            suppressionPrecedence->show();
+            FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+            fenetrePrincipale.hide();
+        }
+        catch (std::logic_error& e){
+            QMessageBox::warning(this, "Suppression de contrainte de précédence", e.what());
+        }
+    }
 
 }
 
