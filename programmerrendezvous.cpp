@@ -6,7 +6,7 @@
 
 ProgrammerRendezVous::ProgrammerRendezVous(QWidget *parent) : ProgrammerEvenement(parent){}
 
-void ProgrammerRendezVous::programmer() {
+void ProgrammerRendezVous::retourFenetrePrincipaleValider() {
     try {
         ProgrammationEvenement evt = ProgrammationManager::getInstance().addProgrammationEvenement(Date(toString(dateDebut->date().toString("dd/MM/yyyy"))), Horaire(horaireDebut->time().hour(),horaireDebut->time().minute()), Duree(dureeHeure->value(), dureeMinute->value()));
         evt.programmerRendezVous(toString(nom->text()),toString(motif->text()),toString(motif->text()));
@@ -14,6 +14,6 @@ void ProgrammerRendezVous::programmer() {
     }catch(ProgrammationManagerException e) {
         QMessageBox::information(this, "Information", "Votre réunion n'a pas pu être programmé. Vérifier que vous n'ayez pas déjà un évènement prévu à ce moment là.");
     }
-    quitter();
+    retourFenetrePrincipaleAnnuler();
 }
 

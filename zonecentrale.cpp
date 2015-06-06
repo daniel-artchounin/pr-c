@@ -7,7 +7,6 @@ ZoneCentrale::ZoneCentrale(QWidget *parent) :
     QWidget(parent)
 {
     hBox = new QHBoxLayout(this);
-    // onglets = new QTabWidget(this);
     fenetreGestionProjet = new FenetreGestionProjet(this);
     QSizePolicy spLeft(QSizePolicy::Preferred, QSizePolicy::Preferred);
     spLeft.setHorizontalStretch(1);

@@ -8,31 +8,20 @@
 # include <QTimeEdit>
 # include <QFormLayout>
 # include <QLineEdit>
+# include "creerprojettache.h"
 
-class CreerProjet : public QWidget
+class CreerProjet : public CreerProjetTache
 {
     Q_OBJECT
 protected :
-    virtual void closeEvent(QCloseEvent *event);
-private :
-    QVBoxLayout* vBox;
-    QHBoxLayout* hBox;
-    QFormLayout* formlayout;
-    QLineEdit* titre; /*!< titre de l'élément */
-    QDateEdit* dateDebut;/*!< date de début */
-    QTimeEdit* horaireDebut; /*!< horaire de début */
-    QDateEdit* dateFin; /*!< date de fin */
-    QTimeEdit* horaireFin; /*!< horaire de fin */
-    QPushButton* annuler;  /*!< bouton annuler */
-    QPushButton* sauver;  /*!< bouton sauver */
+
 public:
     explicit CreerProjet(QWidget *parent = 0);
 
 signals:
 
 public slots:
-    void retourFenetrePrincipaleAnnuler();
-    void retourFenetrePrincipaleSauver();
+    void retourFenetrePrincipaleValider();
 };
 
 #endif // CREERPROJET_H

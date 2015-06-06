@@ -10,8 +10,9 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+# include "fenetreannulervalider.h"
 
-class ProgrammerEvenement: public QWidget
+class ProgrammerEvenement: public FenetreAnnulerValider
 {
     Q_OBJECT
 protected :
@@ -24,20 +25,11 @@ protected :
     QSpinBox* dureeHeure; /*!< duree heure*/
     QSpinBox* dureeMinute; /*!< duree heure*/
     QHBoxLayout* duree;
-    QPushButton* valider;  /*!< bouton valider */
-    QPushButton* annuler;  /*!< bouton annuler */
-    QHBoxLayout* hBox;
-    QVBoxLayout* vBox;
+    virtual void closeEvent(QCloseEvent *event);
 
 public:
     explicit ProgrammerEvenement(QWidget *parent = 0);
-
 signals:
-
-public slots:
-    void closeEvent(QCloseEvent *event);
-    virtual void programmer()=0;
-    void quitter();
 };
 
 #endif // PROGRAMMEREVENEMENT

@@ -1,7 +1,8 @@
 #include "programmerevenement.h"
 #include "fenetreprincipale.h"
 
-ProgrammerEvenement::ProgrammerEvenement(QWidget *parent) : QWidget(parent) {
+ProgrammerEvenement::ProgrammerEvenement(QWidget *parent) :
+    FenetreAnnulerValider(parent) {
     nom = new QLineEdit;
     motif = new QLineEdit;
     lieu = new QLineEdit;
@@ -27,21 +28,8 @@ ProgrammerEvenement::ProgrammerEvenement(QWidget *parent) : QWidget(parent) {
     formlayout->addRow("Horaire : ", horaireDebut);
     formlayout->addRow("Duree : ", duree);
 
-    annuler = new QPushButton("Annuler");
-    valider = new QPushButton("Valider");
-
-    hBox = new QHBoxLayout;
-    hBox->addWidget(annuler);
-    hBox->addWidget(valider);
-    vBox = new QVBoxLayout(this);
     vBox->addLayout(formlayout);
-    vBox->addLayout(hBox);
-    connect(annuler,SIGNAL(clicked()),this,SLOT(quitter()));
-    connect(valider,SIGNAL(clicked()),this,SLOT(programmer()));
-}
-
-void ProgrammerEvenement::quitter() {
-    this->close();
+    vBox->addLayout(hBoxAnnulerValider);
 }
 
 void ProgrammerEvenement::closeEvent(QCloseEvent *event) {

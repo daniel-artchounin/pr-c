@@ -13,7 +13,7 @@ public:
 signals:
 
 public slots:
-    void programmer();
+    virtual void retourFenetrePrincipaleValider();
 };
 
 #endif // PROGRAMMERREUNION_H

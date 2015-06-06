@@ -6,6 +6,7 @@
 # include <QFileDialog>
 # include <QCloseEvent>
 # include <QApplication>
+# include <QString>
 
 FenetrePrincipale * FenetrePrincipale::instance=0; //initialisation à null, pour la première vérification
 
@@ -92,25 +93,22 @@ void FenetrePrincipale::chargerFichier(){
     }
     QString fichier;
     if(!dejaSauver){
-            int reponse = QMessageBox::question(this, "Confirmation de chargement", "N'oubliez pas de sauvegarder votre travail en cours sinon les modifications en cours serons définitivement perdues. Etes-vous sur de vouloir charger un fichier de données ?", QMessageBox ::Yes | QMessageBox::No);
+            int reponse = QMessageBox::question(this, "Confirmation de chargement", "N'oubliez pas de sauvegarder votre travail en cours sinon les modifications en cours seront définitivement perdues. Etes-vous sur de vouloir charger un fichier de données ?", QMessageBox ::Yes | QMessageBox::No);
             if (reponse == QMessageBox::Yes)
-
-            {
-                    fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", QString(), "Fichiers XML (*.xml)");
-                    ProjetManager::libererInstance();
-                    ProgrammationManager::libererInstance();
-                    load(fichier);
-                    zoneCentrale->getFenetreGestionProjet()->afficherTreeWidget(0,ProjetManager::getInstance(),zoneCentrale->getFenetreGestionProjet()->getTree());
-                    QMessageBox::information(this, "Information", "Votre fichier de données "+fichier+" a bien été chargé");
+            {                    
+                QMessageBox::information(this, "Fichier", "Vous avez sélectionné"); // -> test
+                fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", QString(), "Fichiers XML (*.xml)");                
+                QMessageBox::information(this, "Fichier", "Vous avez sélectionné :\n" + fichier);  // -> test
+                ProjetManager::libererInstance();
+                ProgrammationManager::libererInstance();
+                load(fichier);
+                zoneCentrale->getFenetreGestionProjet()->afficherTreeWidget(0,ProjetManager::getInstance(),zoneCentrale->getFenetreGestionProjet()->getTree());
+                QMessageBox::information(this, "Information", "Votre fichier de données "+fichier+" a bien été chargé");
 
             }
-
             else if (reponse == QMessageBox::No)
-
             {
-
                 QMessageBox::information(this, "Information", "Aucun fichier n'a été chargé");
-
             }
     }else{
         fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", QString(), "Fichiers XML (*.xml)");

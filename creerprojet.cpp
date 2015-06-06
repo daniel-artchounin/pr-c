@@ -8,38 +8,13 @@
 # include <QMessageBox>
 
 CreerProjet::CreerProjet(QWidget *parent) :
-    QWidget(parent)
+    CreerProjetTache(parent)
 {
-    titre = new QLineEdit;
-    dateDebut = new QDateEdit();
-    horaireDebut = new QTimeEdit();
-    dateFin = new QDateEdit();
-    horaireFin = new QTimeEdit();
-    formlayout = new QFormLayout;
-    formlayout->addRow("Titre du projet : ", titre);
-    formlayout->addRow("Date de disponibilité du projet : ", dateDebut);
-    formlayout->addRow("Horaire de disponibilité du projet : ", horaireDebut);
-    formlayout->addRow("Date d'échéance du projet : ", dateFin);
-    formlayout->addRow("Horaire d'échéance du projet : ", horaireFin);
-    annuler = new QPushButton("Annuler");
-    sauver = new QPushButton("Sauver");
-    hBox = new QHBoxLayout;
-    hBox->addWidget(annuler);
-    hBox->addWidget(sauver);
-    vBox = new QVBoxLayout(this);
     vBox->addLayout(formlayout);
-    vBox->addLayout(hBox);
-    connect(annuler,SIGNAL(clicked()),this,SLOT(retourFenetrePrincipaleAnnuler()));
-    connect(sauver,SIGNAL(clicked()),this,SLOT(retourFenetrePrincipaleSauver()));
+    vBox->addLayout(hBoxAnnulerValider);
 }
 
-void CreerProjet::retourFenetrePrincipaleAnnuler(){
-    FenetrePrincipale& fenetrePrincipal = FenetrePrincipale::getInstance();
-    fenetrePrincipal.show();
-    this->close();
-}
-
-void CreerProjet::retourFenetrePrincipaleSauver(){
+void CreerProjet::retourFenetrePrincipaleValider(){
     ProjetManager& projetMangager = ProjetManager::getInstance();
     try{
         projetMangager.addProjet(
@@ -54,12 +29,4 @@ void CreerProjet::retourFenetrePrincipaleSauver(){
         QMessageBox::warning(this, "Création de projet", e.what());
     }
     this->close();
-}
-
-void CreerProjet::closeEvent(QCloseEvent *event)
-{
-    FenetrePrincipale& fenetrePrincipal = FenetrePrincipale::getInstance();
-    fenetrePrincipal.show();
-    event->accept();
-
 }

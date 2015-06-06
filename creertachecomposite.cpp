@@ -5,44 +5,13 @@
 # include <QMessageBox>
 
 CreerTacheComposite::CreerTacheComposite(Projet& projet, std::string * chaine, unsigned int* taille, QWidget *parent) :
-    QWidget(parent), nomProjet(projet)
+    CreerTache(projet, chaine, taille, parent)
 {
-    chemin = chaine;
-    tailleChemin = taille;
-    titre = new QLineEdit;
-    dateDebut = new QDateEdit();
-    horaireDebut = new QTimeEdit();
-    dateFin = new QDateEdit();
-    horaireFin = new QTimeEdit();
-    formlayout = new QFormLayout;
-    formlayout->addRow("Titre de la tâche composite :", titre);
-    formlayout->addRow("Date de disponibilité : ", dateDebut);
-    formlayout->addRow("Horaire de disponibilité : ", horaireDebut);
-    formlayout->addRow("Date d'échéance : ", dateFin);
-    formlayout->addRow("Horaire d'échéance : ", horaireFin);
-    annuler = new QPushButton("Annuler");
-    sauver = new QPushButton("Sauver");
-    hBox = new QHBoxLayout;
-    hBox->addWidget(annuler);
-    hBox->addWidget(sauver);
-    vBox = new QVBoxLayout(this);
     vBox->addLayout(formlayout);
-    vBox->addLayout(hBox);
-    connect(annuler,SIGNAL(clicked()),this,SLOT(retourFenetrePrincipaleAnnuler()));
-    connect(sauver,SIGNAL(clicked()),this,SLOT(retourFenetrePrincipaleSauver()));
+    vBox->addLayout(hBoxAnnulerValider);
 }
 
-void CreerTacheComposite::retourFenetrePrincipaleAnnuler(){
-    delete[] chemin;
-    chemin = 0;
-    delete tailleChemin;
-    tailleChemin = 0;
-    FenetrePrincipale& fenetrePrincipal = FenetrePrincipale::getInstance();
-    fenetrePrincipal.show();
-    this->close();
-}
-
-void CreerTacheComposite::retourFenetrePrincipaleSauver(){
+void CreerTacheComposite::retourFenetrePrincipaleValider(){
     try{
         nomProjet.creerAjouterTache(
                     chemin,
@@ -62,18 +31,3 @@ void CreerTacheComposite::retourFenetrePrincipaleSauver(){
     this->close();
 }
 
-void CreerTacheComposite::closeEvent(QCloseEvent *event)
-{
-    if(chemin!=0){
-        delete[] chemin;
-        chemin = 0;
-    }
-    if(tailleChemin!=0){
-        delete tailleChemin;
-        tailleChemin = 0;
-    }
-    FenetrePrincipale& fenetrePrincipal = FenetrePrincipale::getInstance();
-    fenetrePrincipal.show();
-    event->accept();
-
-}
