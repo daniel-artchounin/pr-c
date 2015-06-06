@@ -128,11 +128,13 @@ private:
      * \param duree Durée
      * \param brush Brush
      */
-    void drawProgrammation(Date ddebut, Horaire hdebut, Date dfin, Horaire hfin, Duree duree, QBrush brush);
+    void drawProgrammation(std::string titre, Date ddebut, Horaire hdebut, Date dfin, Horaire hfin, Duree duree, QBrush brush);
 
     void drawText(QPainter & painter, const QPointF & point, int flags, const QString & text, QRectF * boundingRect = 0);
 
     void drawDates();
+
+    void drawNames(std::string titre, int x, int y);
 public:
     /*!
      * \brief Contructeur

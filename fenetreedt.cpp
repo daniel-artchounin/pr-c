@@ -74,33 +74,43 @@ void FenetreEDT::loadWeek() {
     ProgrammationManager& pgm = ProgrammationManager::getInstance();
 
     for(ProgrammationManager::iterator it = pgm.constraint_begin(weekBegining()); it!=pgm.constraint_end(weekEnd()); ++it) {
-        drawProgrammation(it->second->getDateProgrammation(), it->second->getHoraireProgrammation(), it->second->getDateFin(), it->second->getHoraireFin(), it->second->getDuree(), QBrush(QColor(128, 128, 255, 128)));
+        drawProgrammation(it->second->getNom(), it->second->getDateProgrammation(), it->second->getHoraireProgrammation(), it->second->getDateFin(), it->second->getHoraireFin(), it->second->getDuree(), QBrush(QColor(128, 128, 255, 128)));
     }
+    drawDates();
     viewport()->update();
     scene->update(rect());
-    drawDates();
 }
 
-void FenetreEDT::drawProgrammation(Date ddebut, Horaire hdebut, Date dfin, Horaire hfin, Duree duree, QBrush brush) {
+void FenetreEDT::drawProgrammation(std::string titre, Date ddebut, Horaire hdebut, Date dfin, Horaire hfin, Duree duree, QBrush brush) {
     int x = toPositionX(ddebut);
     int y = toPositionY(hdebut);
-
     if(ddebut==dfin) {
         int height = toHeight(duree);
         scene->addRect(x,y,getWidthDay(),height,QPen(Qt::blue),brush);
+        drawNames(titre,x,y);
     }else {
         scene->addRect(x,y,getWidthDay(),maxY()-minY(),QPen(Qt::blue),brush);
+        drawNames(titre,x,y);
         Date next = ddebut.demain();
         int day = toDay(next);
         while(day<=7 && !(next==dfin)) {
             scene->addRect(toPositionX(next),minY(),getWidthDay(),maxY(),QPen(Qt::blue),brush);
+            drawNames(titre,toPositionX(next),minY());
             next = next.demain();
             day++;
         }
         if(day<=7) {
             scene->addRect(toPositionX(next),minY(),getWidthDay(),(hfin.getHeure()+hfin.getMinute()/60.0)*getHeightHour(),QPen(Qt::blue),brush);
+            drawNames(titre,toPositionX(next),minY());
         }
     }
+}
+
+void FenetreEDT::drawNames(std::string titre, int x, int y) {
+    QGraphicsTextItem * io = new QGraphicsTextItem;
+    io->setPos(x,y);
+    io->setPlainText(toQString(titre));
+    scene->addItem(io);
 }
 
 void FenetreEDT::drawDates() {
