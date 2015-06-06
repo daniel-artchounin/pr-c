@@ -96,14 +96,14 @@ void FenetrePrincipale::chargerFichier(){
             int reponse = QMessageBox::question(this, "Confirmation de chargement", "N'oubliez pas de sauvegarder votre travail en cours sinon les modifications en cours seront définitivement perdues. Etes-vous sur de vouloir charger un fichier de données ?", QMessageBox ::Yes | QMessageBox::No);
             if (reponse == QMessageBox::Yes)
             {                    
-                QMessageBox::information(this, "Fichier", "Vous avez sélectionné"); // -> test
                 fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", QString(), "Fichiers XML (*.xml)");                
-                QMessageBox::information(this, "Fichier", "Vous avez sélectionné :\n" + fichier);  // -> test
-                ProjetManager::libererInstance();
-                ProgrammationManager::libererInstance();
-                load(fichier);
-                zoneCentrale->getFenetreGestionProjet()->afficherTreeWidget(0,ProjetManager::getInstance(),zoneCentrale->getFenetreGestionProjet()->getTree());
-                QMessageBox::information(this, "Information", "Votre fichier de données "+fichier+" a bien été chargé");
+                if(!fichier.isEmpty()){
+                    ProjetManager::libererInstance();
+                    ProgrammationManager::libererInstance();
+                    load(fichier);
+                    zoneCentrale->getFenetreGestionProjet()->afficherTreeWidget(0,ProjetManager::getInstance(),zoneCentrale->getFenetreGestionProjet()->getTree());
+                    QMessageBox::information(this, "Information", "Votre fichier de données "+fichier+" a bien été chargé");
+                }
 
             }
             else if (reponse == QMessageBox::No)
@@ -112,12 +112,14 @@ void FenetrePrincipale::chargerFichier(){
             }
     }else{
         fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", QString(), "Fichiers XML (*.xml)");
-        ProjetManager::libererInstance();
-        ProgrammationManager::libererInstance();
-        load(fichier);
-        zoneCentrale->getFenetreGestionProjet()->afficherTreeWidget(0,ProjetManager::getInstance(),zoneCentrale->getFenetreGestionProjet()->getTree());
-        QMessageBox::information(this, "Information", "Votre fichier de données "+fichier+" a bien été chargé");
-        dejaSauver = false;
+        if(!fichier.isEmpty()){
+            ProjetManager::libererInstance();
+            ProgrammationManager::libererInstance();
+            load(fichier);
+            zoneCentrale->getFenetreGestionProjet()->afficherTreeWidget(0,ProjetManager::getInstance(),zoneCentrale->getFenetreGestionProjet()->getTree());
+            QMessageBox::information(this, "Information", "Votre fichier de données "+fichier+" a bien été chargé");
+            dejaSauver = false;
+        }
     }
     zoneCentrale->getFenetreEDT()->loadWeek();
 }
@@ -128,8 +130,10 @@ void FenetrePrincipale::sauverFichier(){
         creerProjet = 0;
     }
     QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Fichier XML (*.xml)");
-    save(fichier);
-    dejaSauver = true;
+    if(!fichier.isEmpty()){
+        save(fichier);
+        dejaSauver = true;
+    }
 }
 
 void FenetrePrincipale::fenetreCreerProjet(){
@@ -170,5 +174,7 @@ void FenetrePrincipale::updateEDT() {
 
 void FenetrePrincipale::sauverSemaine(){
     QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Fichier XML (*.xml)");
-    zoneCentrale->getFenetreEDT()->saveWeek(fichier);
+    if(!fichier.isEmpty()){
+        zoneCentrale->getFenetreEDT()->saveWeek(fichier);
+    }
 }

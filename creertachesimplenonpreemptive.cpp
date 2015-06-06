@@ -6,6 +6,7 @@ CreerTacheSimpleNonPreemptive::CreerTacheSimpleNonPreemptive(Projet& projet, std
     heures = new QSpinBox;
     labelH = new QLabel("heure(s)");
     minutes =  new QSpinBox;
+    minutes->setRange(0,59);
     labelM = new QLabel("minute(s)");
     hBox1 = new QHBoxLayout;
     hBox1->addWidget(heures);
@@ -13,7 +14,6 @@ CreerTacheSimpleNonPreemptive::CreerTacheSimpleNonPreemptive(Projet& projet, std
     hBox1->addWidget(minutes);
     hBox1->addWidget(labelM);
     formlayout->addRow("Durée : ", hBox1);
-    vBox = new QVBoxLayout(this);
     vBox->addLayout(formlayout);
     vBox->addLayout(hBoxAnnulerValider);
 }

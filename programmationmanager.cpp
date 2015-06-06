@@ -28,7 +28,7 @@ void ProgrammationManager::libererInstance() {
 
 
 bool ProgrammationManager::inclus(const Date& dateProg, const Horaire& horaireProg, const Date& dateFin, const Horaire& horaireFin, const Date& date, const Horaire& horaire) const {
-    return (dateProg<date || (dateProg==date && horaireProg<=horaire)) && (date<dateFin || (date==dateFin && horaire<=horaireFin));
+    return (dateProg<date || (dateProg==date && horaireProg<horaire)) && (date<dateFin || (date==dateFin && horaire<horaireFin));
 }
 
 bool ProgrammationManager::hasIntersection(const Date& dateProg, const Horaire& horaireProg, const Date& dateFin, const Horaire& horaireFin, const Date& newDate, const Horaire& newHoraire, const Duree& newDuree) const{

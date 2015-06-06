@@ -7,6 +7,7 @@ CreerTacheSimplePreemptive::CreerTacheSimplePreemptive(Projet& projet, std::stri
     heures = new QSpinBox;
     labelH = new QLabel("heure(s)");
     minutes =  new QSpinBox;
+    minutes->setRange(0,59);
     labelM = new QLabel("minute(s)");
     hBox1 = new QHBoxLayout;
     hBox1->addWidget(heures);

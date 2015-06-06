@@ -8,8 +8,8 @@ ProgrammerTacheSimple::ProgrammerTacheSimple(Projet& projet, std::string * chain
     std::cout << titreTache << std::endl ;
     chemin = chaine;
     tailleChemin = taille;
-    dateProgrammation = new QDateEdit;
-    horaireProgrammation = new QTimeEdit();
+    dateProgrammation = new QDateEdit(QDate::currentDate());
+    horaireProgrammation = new QTimeEdit(QTime::currentTime());
     formlayout = new QFormLayout;
     formlayout->addRow("Date de début de programmation",dateProgrammation);
     formlayout->addRow("Horaire de début de programmation",horaireProgrammation);

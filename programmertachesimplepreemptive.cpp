@@ -5,6 +5,7 @@ ProgrammerTacheSimplePreemptive::ProgrammerTacheSimplePreemptive(Projet& projet,
     ProgrammerTacheSimple(projet, chaine, taille, titreT, parent)
 {
     pourcentage = new QSpinBox;
+    pourcentage->setRange(1,100);
     formlayout->addRow("Pourcentage de programmation",pourcentage);
 }
 

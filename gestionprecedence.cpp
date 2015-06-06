@@ -22,7 +22,6 @@ GestionPrecedence::GestionPrecedence(Projet& projet, std::string * chaine, unsig
     label = new QLabel();
     hBox2 = new QHBoxLayout;
     hBox2->addWidget(tree);
-    vBox = new QVBoxLayout(this);
     vBox->addLayout(hBox1);
     vBox->addLayout(hBox2);
     vBox->addLayout(hBoxAnnulerValider);
