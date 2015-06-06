@@ -18,9 +18,9 @@ protected :
     QPushButton* select;
     ProgrammerEvenement* form;
 
-    void initialiseListe();
 public:
     explicit ModifierProgrammationEvenement(QWidget *parent = 0);
+    void updateListe();
 
 signals:
 

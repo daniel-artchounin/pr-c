@@ -35,14 +35,16 @@ bool ProgrammationManager::hasIntersection(const Date& dateProg, const Horaire& 
     return inclus(dateProg, horaireProg, dateFin, horaireFin, newDate, newHoraire) || inclus(newDate, newHoraire, newDate.addDuree(newDuree), newHoraire.addDuree(newDuree), dateProg, horaireProg);
 }
 
-bool ProgrammationManager::isValid(const Date& date, const Horaire& horaire, const Duree& duree) {
-    if(items.find(getKeyFrom(date, horaire))!=end()) {
+bool ProgrammationManager::isValid(const Date& date, const Horaire& horaire, const Duree& duree, Programmation *old) {
+    if(old==0 && items.find(getKeyFrom(date, horaire))!=end()) {
         return false;
     }
     for(iterator it=begin(); it!=end(); it++) {
         Programmation& prog = *it->second;
-        if(hasIntersection(prog.getDateProgrammation(), prog.getHoraireProgrammation(), prog.getDateFin(), prog.getHoraireFin(), date, horaire, duree)) {
-            return false;
+        if(&prog!=old) {
+            if(hasIntersection(prog.getDateProgrammation(), prog.getHoraireProgrammation(), prog.getDateFin(), prog.getHoraireFin(), date, horaire, duree)) {
+                return false;
+            }
         }
     }
     return true;
@@ -59,6 +61,15 @@ ProgrammationEvenement& ProgrammationManager::addProgrammationEvenement(const Da
     ProgrammationEvenement* programmation = new ProgrammationEvenement(dateProg, horaireProg, duree);
     Manager::addItem(getKeyFrom(dateProg, horaireProg), programmation);
     return *programmation;
+}
+
+void ProgrammationManager::updateProgrammationEvenement(ProgrammationEvenement *programmation, const Date& newDate, const Horaire& newHoraire, const Duree& newDuree) {
+    if(!isValid(newDate, newHoraire, newDuree, programmation)) {
+        throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationEvenement, Programmation incompatible avec une programmation existante");
+    }
+    items.erase(getKeyFrom(programmation->getDateProgrammation(),programmation->getHoraireProgrammation()));
+    programmation->updateProgrammationEvenement(newDate, newHoraire, newDuree);
+    Manager::addItem(getKeyFrom(newDate, newHoraire), programmation);
 }
 
 Programmation& ProgrammationManager::getProgrammation(const Date& dateProg, const Horaire& horaireProg) {

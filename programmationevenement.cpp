@@ -4,7 +4,9 @@
 #include "rendezvous.h"
 #include "tools.h"
 
-ProgrammationEvenement::~ProgrammationEvenement(){}
+ProgrammationEvenement::~ProgrammationEvenement(){
+    delete evenement;
+}
 
 Evenement& ProgrammationEvenement::programmerReunion(const std::string nom, const std::string lieu, const std::string motif) {
     if(evenement) {

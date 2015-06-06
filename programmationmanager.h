@@ -73,7 +73,7 @@ private:
      * \param duree duree de la programmation à ajouter
      * \return true si la nouvelle programmation n'a pas d'intersection avec celles existantes, false sinon
      */
-    bool isValid(const Date& date, const Horaire& horaire, const Duree& duree);
+    bool isValid(const Date& date, const Horaire& horaire, const Duree& duree, Programmation* old=0);
 
     /*!
      * \brief getKeyFrom
@@ -106,6 +106,8 @@ public:
      * \return Programmation ajoutée si elle est valide
      */
     ProgrammationEvenement& addProgrammationEvenement(const Date& dateProg, const Horaire& horaireProg, const Duree& duree);
+
+    void updateProgrammationEvenement(ProgrammationEvenement *programmation, const Date& newDate, const Horaire& newHoraire, const Duree& newDuree);
 
     /*!
      * \brief addProgrammationTacheSimpleNonPreemptive
