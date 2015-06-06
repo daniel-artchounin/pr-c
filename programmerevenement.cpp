@@ -52,6 +52,10 @@ void ProgrammerEvenement::initialiserFormulaire() {
 void ProgrammerEvenement::closeEvent(QCloseEvent *event) {
     event->accept();
     FenetrePrincipale& fp = FenetrePrincipale::getInstance();
-    fp.show();
+    if(progEvt==0) {
+        fp.show();
+    }else {
+        this->close();
+    }
     fp.updateEDT();
 }

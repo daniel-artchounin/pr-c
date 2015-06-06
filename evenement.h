@@ -48,6 +48,12 @@ public:
         return motif;
     }
 
+    virtual void updateEvenement(std::string n, std::string l, std::string m){
+        nom=n;
+        lieu=l;
+        motif=m;
+    }
+
     /*!
      * \brief exportTo
      * Permet d'exporter les données dans un fichier XML via le streamwriter

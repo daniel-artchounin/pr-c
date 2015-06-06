@@ -16,11 +16,12 @@ ModifierProgrammationEvenement::ModifierProgrammationEvenement(QWidget *parent) 
     hBox=new QHBoxLayout;
     hBox->addLayout(vBox);
     this->setLayout(hBox);
-    initialiseListe();
+    updateListe();
     connect(select,SIGNAL(clicked()),this,SLOT(selectionner()));
 }
 
-void ModifierProgrammationEvenement::initialiseListe() {
+void ModifierProgrammationEvenement::updateListe() {
+    list->clear();
     ProgrammationManager& pgm=ProgrammationManager::getInstance();
     for(ProgrammationManager::iterator it=pgm.begin(); it!=pgm.end(); ++it) {
         if(typeid(*it->second)==typeid(ProgrammationEvenement)) {
@@ -51,10 +52,10 @@ void ModifierProgrammationEvenement::selectionner() {
     }
     ProgrammationEvenement &prog=dynamic_cast<ProgrammationEvenement&>(ProgrammationManager::getInstance().getProgrammation(Date(toString(it->data(101).toString())),Horaire(toString(it->data(102).toString()))));
     if(typeid(*prog.getEvenement())==typeid(RendezVous)) {
-        form = new ProgrammerRendezVous(&prog);
+        form = new ProgrammerRendezVous(&prog,this);
         hBox->addWidget(form);
     }else if(typeid(*prog.getEvenement())==typeid(Reunion)) {
-        form = new ProgrammerReunion(&prog);
+        form = new ProgrammerReunion(&prog,this);
         hBox->addWidget(form);
     }
 }
