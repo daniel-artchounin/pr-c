@@ -7,6 +7,7 @@
 # include <QCloseEvent>
 # include <QApplication>
 # include <QString>
+# include <QDebug>
 
 FenetrePrincipale * FenetrePrincipale::instance=0; //initialisation à null, pour la première vérification
 
@@ -97,6 +98,7 @@ void FenetrePrincipale::chargerFichier(){
             if (reponse == QMessageBox::Yes)
             {                    
                 fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", QString(), "Fichiers XML (*.xml)");                
+                qDebug() << fichier;
                 if(!fichier.isEmpty()){
                     ProjetManager::libererInstance();
                     ProgrammationManager::libererInstance();

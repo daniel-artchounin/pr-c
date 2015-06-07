@@ -148,6 +148,15 @@ public:
     void supprimerPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
                              const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2);
 
+    void supprimerTacheChemin(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache){
+        if(nbTaches == 0){
+            supprimerTache(nomTache);
+        }else{
+            TacheComposite& tacheComposite = accederTacheComposite(nomsTachesComposites, nbTaches-1, nomsTachesComposites[nbTaches-1]);
+            tacheComposite.supprimerSsTache(nomTache);
+        }
+    }
+
     /**
      * \brief accederTache
      * permet d'accéder à une tache
@@ -166,6 +175,17 @@ public:
      */
     Tache& accederTache(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache,
                               unsigned int profondeur = 0, const TacheComposite* tacheCourante = 0)const;
+
+    TacheComposite& accederTacheComposite(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache)const{
+        Tache& maTache = accederTache(nomsTachesComposites, nbTaches, nomTache);
+        try{
+            dynamic_cast <TacheComposite&>(maTache);
+        }
+        catch(std::bad_cast e){
+            throw ProjetException("La tache "+maTache.getTitre()+" n'est pas une tache composite.");
+        }
+        return dynamic_cast <TacheComposite&>(maTache);
+    }
 
     TacheSimplePreemptive& accederTacheSimplePreemptive(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache)const{
         Tache& maTache = accederTache(nomsTachesComposites, nbTaches, nomTache);
@@ -224,7 +244,7 @@ public:
      */
     void loadFrom(QXmlStreamReader& xml, std::vector<std::string>& vect);
 
-    std::string genererChemin(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1);
+    static std::string genererChemin(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1);
 
     /*!
      *\brief Destructeur

@@ -235,13 +235,18 @@ void Projet::ajouterPrecedence(const std::string * nomsTachesComposites1, unsign
     std::string chemin1 = genererChemin(nomsTachesComposites1, nbTaches1, nomTache1);
     std::string chemin2 = genererChemin(nomsTachesComposites2, nbTaches2, nomTache2);
     tache2.ajouterTachePrecedente(tache1, chemin1, chemin2);
+    tache1.ajouterTacheSuivante(tache2, chemin1, chemin2);
+
 }
 
 void Projet::supprimerPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
                                  const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2){
-    std::string chemin1 = genererChemin(nomsTachesComposites1, nbTaches1, nomTache1);
+    Tache& tache1 = accederTache(nomsTachesComposites1, nbTaches1, nomTache1);
     Tache& tache2 = accederTache(nomsTachesComposites2, nbTaches2, nomTache2);
-    tache2.supprimerTachesPrecedente(chemin1);
+    std::string chemin1 = genererChemin(nomsTachesComposites1, nbTaches1, nomTache1);
+    std::string chemin2 = genererChemin(nomsTachesComposites2, nbTaches2, nomTache2);
+    tache2.supprimerTachePrecedente(chemin1);
+    tache1.supprimerTacheSuivante(chemin2);
 
 }
 

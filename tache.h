@@ -12,6 +12,7 @@ class Tache : public Element {
 protected:
     typedef std::map<std::string, Tache*> TPMap;
     TPMap tachesPrecedentes; /*!< map de taches */
+    TPMap tachesSuivantes; /*!< map de taches */
 
     /*!
      * \brief trouverTachePrecedente
@@ -22,6 +23,8 @@ protected:
      * ou 0 sinon
      */
     Tache* trouverTachePrecedente(const std::string& titre) const;
+    Tache* trouverTacheSuivante(const std::string & titre)const;
+
 
 public:
     /*!
@@ -77,16 +80,21 @@ public:
      * \param cheminementSuivant chemin de la tache suivante
      */
     void ajouterTachePrecedente(Tache & tachePrecedente, const std::string& cheminementPrecedent, const std::string& cheminementSuivant);
+    void ajouterTacheSuivante(Tache & tacheSuivante, const std::string& cheminementPrecedent, const std::string& cheminementSuivant);
+
 
     /*!
      * \brief supprimerTachesPrecedente
      * supprime une contrainte de précedence
      * \param tachePrecedente référence sur une tache à supprimer
      */
-    void supprimerTachesPrecedente(const std::string& tachePrecedente);
+    void supprimerTachePrecedente(const std::string& tachePrecedente);
+    void supprimerTacheSuivante(const std::string & tacheSuivante);
 
     typedef typename TPMap::iterator tp_iterator;
     typedef typename TPMap::const_iterator tp_const_iterator;
+    typedef typename TPMap::iterator ts_iterator;
+    typedef typename TPMap::const_iterator ts_const_iterator;
 
     /*!
      * \brief tPBegin
@@ -113,6 +121,30 @@ public:
     tp_const_iterator tPEnd() const{ return const_cast<Tache *>(this)->tPEnd(); }
 
     /*!
+     * \brief tPBegin
+     * \return iterator sur le début de la map
+     */
+    ts_iterator tSBegin() { return tachesSuivantes.begin(); }
+
+    /*!
+     * \brief tPEnd
+     * \return iterator sur la fin de la map
+     */
+    ts_iterator tSEnd() { return tachesSuivantes.end(); }
+
+    /*!
+     * \brief tPBegin
+     * \return const_iterator sur le début de la map
+     */
+    ts_const_iterator tSBegin() const{ return const_cast<Tache *>(this)->tSBegin(); }
+
+    /*!
+     * \brief tPEnd
+     * \return const_iterator sur la fin de la map
+     */
+    ts_const_iterator tSEnd() const{ return const_cast<Tache *>(this)->tSEnd(); }
+
+    /*!
      * \brief checkProgrammationCoherente
      * permet de savoir si les tâches précédent ma tâche ont
      * toutes été programmés et si fin de la programmation est
@@ -131,6 +163,16 @@ public:
      * \param stream
      */
     virtual void exportTo(QXmlStreamWriter& stream);
+
+    virtual ~Tache(){
+        for(ts_iterator it = tSBegin(); it != tSEnd() ; ++it){
+            for(tp_iterator it2 = it->second->tPBegin() ; it2 != it->second->tPEnd() ; ++it2){
+                if(it2->second == this){
+                    it->second->tachesPrecedentes.erase(it2);
+                }
+            }
+        }
+    }
 };
 
 #endif // TACHE_H

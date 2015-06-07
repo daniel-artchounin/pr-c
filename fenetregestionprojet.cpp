@@ -25,7 +25,7 @@ FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     hBox->addWidget(tree);
     this->setLayout(hBox);
     this->setContextMenuPolicy(Qt::CustomContextMenu);
-    supprimerProjet = new QAction("Supprimer un projet",this);
+    supprimerElement = new QAction("Supprimer un élément",this);
     creationTacheComposite = new QAction("Creer une tâche composite",this);
     creationTacheSimplePreemptive = new QAction("Creer une tâche simple préemptive",this);
     creationTacheSimpleNonPreemptive = new QAction("Créer une tâche simple non préemptive",this);
@@ -41,7 +41,7 @@ FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     connect(programmationTacheSimpleNonPreemptive, SIGNAL(triggered()),this, SLOT(fenetreProgrammerTacheSimpleNonPreemptive()));
     connect(ajouterPrecedence, SIGNAL(triggered()),this, SLOT(fenetreAjouterPrecedence()));
     connect(supprimerPrecedence, SIGNAL(triggered()),this, SLOT(fenetreSupprimerPrecedence()));
-    connect(supprimerProjet, SIGNAL(triggered()),this, SLOT(supprimerUnProjet()));
+    connect(supprimerElement, SIGNAL(triggered()),this, SLOT(supprimerUnElemment()));
 
 }
 
@@ -113,7 +113,7 @@ void FenetreGestionProjet::showContextMenu(const QPoint& pos){
     myMenu.addAction(creationTacheSimpleNonPreemptive);
     myMenu.addAction(programmationTacheSimplePreemptive);
     myMenu.addAction(programmationTacheSimpleNonPreemptive);
-    myMenu.addAction(supprimerProjet);
+    myMenu.addAction(supprimerElement);
     // myMenu.addAction(monAction);
     myMenu.exec(globalPos);
     // QAction* selectedItem = ;
@@ -338,7 +338,7 @@ void FenetreGestionProjet::fenetreSupprimerPrecedence(){
 }
 
 
-void FenetreGestionProjet::supprimerUnProjet(){
+/* void FenetreGestionProjet::supprimerUnProjet(){
     QTreeWidgetItem * actuel = tree->currentItem();
     QList<QString> cheminement;
     if(actuel == 0){
@@ -358,7 +358,43 @@ void FenetreGestionProjet::supprimerUnProjet(){
             QMessageBox::warning(this, "Suppression un projet", e.what());
         }
     }
+} */
 
+void FenetreGestionProjet::supprimerUnElemment(){
+    QTreeWidgetItem * actuel = tree->currentItem();
+    QList<QString> cheminement;
+    if(actuel == 0){
+        QMessageBox::warning(this, "Supprimer un élément", "Veuillez d'abord sélectionner un élément pour le supprimer.");
+    }
+    else{
+        try{
+            ProjetManager& projetManager = ProjetManager::getInstance();
+            cheminement = getCheminement(actuel);
+            Projet& projet = getAndRemoveProjet(&cheminement);
+            if(cheminement.size() == 0){
+                projetManager.eraseItem(projet.getTitre());
+            }
+            else{
+                std::string titreTache = getNomTacheAndRemoveTache(&cheminement);
+                if(cheminement.size() == 0){
+                    projet.supprimerTache(titreTache);
+                }
+                else{
+                    unsigned int* taille = new unsigned int;
+                    std::cout << "depuis la fenetre ;-) titre ; " << titreTache << std::endl; // -> test
+                    std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
+                    projet.supprimerTacheChemin(chaine, *taille, titreTache);
+
+                }
+            }
+            FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+            fenetrePrincipale.getZoneCentrale()->getFenetreEDT()->loadWeek();
+            afficherTreeWidget(0, projetManager, tree);
+        }
+        catch (std::logic_error& e){
+            QMessageBox::warning(this, "Suppression d'un élément", e.what());
+        }
+    }
 }
 
 // J'ai besoin d'avoir dejà récupéré une tâche

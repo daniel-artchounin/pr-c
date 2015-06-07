@@ -29,11 +29,19 @@ Tache* Tache::trouverTachePrecedente(const std::string & titre)const{
     return result->second;
 }
 
+Tache* Tache::trouverTacheSuivante(const std::string & titre)const{
+    ts_const_iterator result = tachesSuivantes.find(titre);
+    if(result == tSEnd() ) {
+        return 0;
+    }
+    return result->second;
+}
+
 void Tache::ajouterTachePrecedente(Tache & tachePrecedente, const std::string& cheminementPrecedent, const std::string& cheminementSuivant){
-    if(trouverTachePrecedente(cheminementPrecedent)){
+    if(trouverTachePrecedente(cheminementPrecedent)!=0){
         throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " envoyée en paramètre précède déjà la tâche courante "+ this->getTitre());
     }
-    if(tachePrecedente.trouverTachePrecedente(cheminementSuivant)){
+    if(tachePrecedente.trouverTachePrecedente(cheminementSuivant)!=0){
         throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " envoyée en paramètre a pour tâche precedente la tâche courante "+ this->getTitre());
     }
     if( ((this->getDateFin()-tachePrecedente.getDateDebut())*24*60+(this->getHoraireFin()-tachePrecedente.getHoraireDebut()))
@@ -43,11 +51,32 @@ void Tache::ajouterTachePrecedente(Tache & tachePrecedente, const std::string& c
     tachesPrecedentes.insert(std::pair<std::string, Tache*>(cheminementPrecedent, &tachePrecedente));
 }
 
-void Tache::supprimerTachesPrecedente(const std::string & tachePrecedente){
+void Tache::ajouterTacheSuivante(Tache & tacheSuivante, const std::string& cheminementPrecedent, const std::string& cheminementSuivant){
+    if(trouverTacheSuivante(cheminementSuivant)!=0){
+        throw TacheException("Erreur : la tâche " + this->getTitre() + " précède déjà la tâche "+ tacheSuivante.getTitre());
+    }
+    if(tacheSuivante.trouverTacheSuivante(cheminementPrecedent)){
+        throw TacheException("Erreur : la tâche " + tacheSuivante.getTitre() + " a pour tâche suivante la tâche courante "+ this->getTitre());
+    }
+    if( ((tacheSuivante.getDateFin()-this->getDateDebut())*24*60+(tacheSuivante.getHoraireFin()-this->getHoraireDebut()))
+            -this->getDuree().getDureeEnMinutes()< tacheSuivante.getDuree().getDureeEnMinutes()){
+        throw TacheException("Erreur : la tâche " + tacheSuivante.getTitre() + " ne sera pas programmable");
+    }
+    tachesSuivantes.insert(std::pair<std::string, Tache*>(cheminementSuivant, &tacheSuivante));
+}
+
+void Tache::supprimerTachePrecedente(const std::string & tachePrecedente){
     if(!trouverTachePrecedente(tachePrecedente)){
         throw TacheException("Erreur : la tâche " + tachePrecedente + " envoyée en paramètre ne précède pas la tâche courante "+ this->getTitre());
     }
     tachesPrecedentes.erase(tachePrecedente);
+}
+
+void Tache::supprimerTacheSuivante(const std::string & tacheSuivante){
+    if(!trouverTacheSuivante(tacheSuivante)){
+        throw TacheException("Erreur : la tâche " + this->getTitre() + " ne précède pas la tâche "+ tacheSuivante);
+    }
+    tachesSuivantes.erase(tacheSuivante);
 }
 
 bool Tache::checkProgrammationCoherente(const Date& dateProg, const Horaire& horaireProg, const Tache* tacheActuelle)const{

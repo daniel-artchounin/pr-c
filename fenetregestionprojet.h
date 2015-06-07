@@ -31,7 +31,7 @@ private:
     QAction * creationTacheSimpleNonPreemptive;
     QAction * programmationTacheSimplePreemptive;
     QAction * programmationTacheSimpleNonPreemptive;
-    QAction * supprimerProjet;
+    QAction * supprimerElement;
     QAction * ajouterPrecedence;
     QAction * supprimerPrecedence;
     CreerTacheComposite* creerTacheComposite;
@@ -67,7 +67,9 @@ public slots:
     void fenetreProgrammerTacheSimpleNonPreemptive();
     void fenetreAjouterPrecedence();
     void fenetreSupprimerPrecedence();
-    void supprimerUnProjet();
+    // void supprimerUnProjet();
+    void supprimerUnElemment();
+
 };
 
 #endif // FENETREGESTIONPROJET_H
