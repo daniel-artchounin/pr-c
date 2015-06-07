@@ -1,14 +1,15 @@
 #ifndef PROGRAMMATIONMANAGER_H
 #define PROGRAMMATIONMANAGER_H
+#include "manager.h"
 #include "programmation.h"
 #include "tachesimplenonpreemptive.h"
 #include "tachesimplepreemptive.h"
-#include "manager.h"
 # include "programmationevenement.h"
 
 /*! \class ProgrammationManager
  * \brief Classe permettant de manipuler des Programmations. Hérite de la classe Manager. Utilise le design pattern singleton
  */
+
 class ProgrammationManager : public Manager<Programmation> {
 private:
     //design pattern singleton
@@ -74,14 +75,6 @@ private:
      * \return true si la nouvelle programmation n'a pas d'intersection avec celles existantes, false sinon
      */
     bool isValid(const Date& date, const Horaire& horaire, const Duree& duree, Programmation* old=0);
-
-    /*!
-     * \brief getKeyFrom
-     * \param date date de la programmation
-     * \param horaire horaire de la programmation
-     * \return clé de la forme aaaammjjhhmm
-     */
-    std::string getKeyFrom(const Date& date, const Horaire& horaire);
 
 public:
     //design pattern singleton
@@ -190,6 +183,13 @@ public:
     void loadListeProgrammations(QXmlStreamReader& xml, Tache& tache, bool preemptive);
 
     void exportContraintes(QXmlStreamWriter& stream, const Date& dateDebut, const Date& dateFin, const Horaire &horaireDebut=Horaire(0,0), const Horaire& horaireFin=Horaire(23,59));
+    /*!
+     * \brief getKeyFrom
+     * \param date date de la programmation
+     * \param horaire horaire de la programmation
+     * \return clé de la forme aaaammjjhhmm
+     */
+    static std::string getKeyFrom(const Date& date, const Horaire& horaire);
 };
 
 #endif // PROGRAMMATIONMANAGER_H

@@ -76,6 +76,9 @@ public:
     QAction* getCreerActionProjet(){
         return actionCreerProjet;
     }
+    ZoneCentrale* getZoneCentrale()const{
+        return zoneCentrale;
+    }
 
 signals:
 

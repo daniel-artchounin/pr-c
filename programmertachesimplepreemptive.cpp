@@ -24,6 +24,8 @@ void ProgrammerTacheSimplePreemptive::retourFenetrePrincipaleValider(){
                     pourcentage->value(),
                     myTacheSimplePreemptive
                     );
+        FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+        fenetrePrincipale.getZoneCentrale()->getFenetreEDT()->loadWeek();
     }
     catch(std::logic_error& e){
         QMessageBox::warning(this, "Création de tâche tâche simple préemptive", e.what());

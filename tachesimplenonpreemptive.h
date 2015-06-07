@@ -68,6 +68,8 @@ public:
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream);
+
+    virtual ~TacheSimpleNonPreemptive();
 };
 
 #endif // TACHESIMPLENONPREEMPTIVE_H

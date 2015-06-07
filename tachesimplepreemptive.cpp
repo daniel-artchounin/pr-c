@@ -1,6 +1,7 @@
 #include "tachesimplepreemptive.h"
 #include "tachesimplepreemptiveexception.h"
 #include "programmationtachesimplepreemptive.h"
+# include "programmationmanager.h"
 
 TacheSimplePreemptive::TacheSimplePreemptive(const Date& dateD,
                       const Horaire& heureD,
@@ -63,4 +64,17 @@ void TacheSimplePreemptive::exportTo(QXmlStreamWriter& stream) {
     }
     stream.writeEndElement();
     stream.writeEndElement();
+}
+
+TacheSimplePreemptive::~TacheSimplePreemptive(){
+    ProgrammationManager& programmationManager = ProgrammationManager::getInstance();
+    while (!programmationsTachesSimplesPreemptives.empty())
+    {
+        programmationManager.eraseItem(programmationManager.getKeyFrom(
+                                           programmationsTachesSimplesPreemptives.back()->getDateProgrammation(),
+                                           programmationsTachesSimplesPreemptives.back()->getHoraireProgrammation()
+                                           )
+                                       );
+        programmationsTachesSimplesPreemptives.pop_back();
+    }
 }

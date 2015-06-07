@@ -25,16 +25,15 @@ FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     hBox->addWidget(tree);
     this->setLayout(hBox);
     this->setContextMenuPolicy(Qt::CustomContextMenu);
-    monAction = new QAction("Test",this); // -> test
-    creationTacheComposite = new QAction("Creer une tâche composite",this);;
-    creationTacheSimplePreemptive = new QAction("Creer une tâche simple préemptive",this);;
+    supprimerProjet = new QAction("Supprimer un projet",this);
+    creationTacheComposite = new QAction("Creer une tâche composite",this);
+    creationTacheSimplePreemptive = new QAction("Creer une tâche simple préemptive",this);
     creationTacheSimpleNonPreemptive = new QAction("Créer une tâche simple non préemptive",this);
     programmationTacheSimplePreemptive = new QAction("Programmer une tâche simple préemptive",this);
     programmationTacheSimpleNonPreemptive = new QAction("Programmer une tâche simple non préemptive",this);
     ajouterPrecedence = new QAction("Ajouter une contrainte de précédence",this);
     supprimerPrecedence = new QAction("Supprimer une contrainte de précédence",this);
     connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),this, SLOT(showContextMenu(const QPoint&)));
-    connect(monAction, SIGNAL(triggered()),this, SLOT(test())); // -> test
     connect(creationTacheComposite, SIGNAL(triggered()),this, SLOT(fenetreCreerTacheComposite()));
     connect(creationTacheSimplePreemptive, SIGNAL(triggered()),this, SLOT(fenetreCreerTacheSimplePreemptive()));
     connect(creationTacheSimpleNonPreemptive, SIGNAL(triggered()),this, SLOT(fenetreCreerTacheSimpleNonPreemptive()));
@@ -42,6 +41,8 @@ FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     connect(programmationTacheSimpleNonPreemptive, SIGNAL(triggered()),this, SLOT(fenetreProgrammerTacheSimpleNonPreemptive()));
     connect(ajouterPrecedence, SIGNAL(triggered()),this, SLOT(fenetreAjouterPrecedence()));
     connect(supprimerPrecedence, SIGNAL(triggered()),this, SLOT(fenetreSupprimerPrecedence()));
+    connect(supprimerProjet, SIGNAL(triggered()),this, SLOT(supprimerUnProjet()));
+
 }
 
 void FenetreGestionProjet::afficherTreeWidget(unsigned int profondeur, ProjetManager& projetManager, QTreeWidget* arbre, QTreeWidgetItem * actuel, Element* element){
@@ -112,6 +113,7 @@ void FenetreGestionProjet::showContextMenu(const QPoint& pos){
     myMenu.addAction(creationTacheSimpleNonPreemptive);
     myMenu.addAction(programmationTacheSimplePreemptive);
     myMenu.addAction(programmationTacheSimpleNonPreemptive);
+    myMenu.addAction(supprimerProjet);
     // myMenu.addAction(monAction);
     myMenu.exec(globalPos);
     // QAction* selectedItem = ;
@@ -335,6 +337,29 @@ void FenetreGestionProjet::fenetreSupprimerPrecedence(){
 
 }
 
+
+void FenetreGestionProjet::supprimerUnProjet(){
+    QTreeWidgetItem * actuel = tree->currentItem();
+    QList<QString> cheminement;
+    if(actuel == 0){
+        QMessageBox::warning(this, "Supprimer un projet", "Veuillez d'abord sélectionner un projet ou une tâche appartenant au projet pour le supprimer.");
+    }
+    else{
+        cheminement = getCheminement(actuel);
+        try{
+            ProjetManager& projetManager = ProjetManager::getInstance();
+            Projet& projet = getAndRemoveProjet(&cheminement);
+            projetManager.eraseItem(projet.getTitre());
+            FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+            fenetrePrincipale.getZoneCentrale()->getFenetreEDT()->loadWeek();
+            afficherTreeWidget(0, projetManager, tree);
+        }
+        catch (std::logic_error& e){
+            QMessageBox::warning(this, "Suppression un projet", e.what());
+        }
+    }
+
+}
 
 // J'ai besoin d'avoir dejà récupéré une tâche
 // j'envoie cela pour construire un nouvel objet

@@ -6,7 +6,7 @@
 #include "element.h"
 # include "tachesimplepreemptive.h"
 # include "tachesimplenonpreemptive.h"
-# include "typeinfo"
+# include <typeinfo>
 # include "projetexception.h"
 
 /*! \class Projet

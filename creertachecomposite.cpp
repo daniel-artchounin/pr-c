@@ -24,6 +24,7 @@ void CreerTacheComposite::retourFenetrePrincipaleValider(){
                     false,
                     true
                     );
+        QMessageBox::information(this, "Création de tâche composite", "Votre tâche composite " + titre->text() +" a bien été créée.");
     }
     catch(std::logic_error& e){
         QMessageBox::warning(this, "Création de tâche composite", e.what());

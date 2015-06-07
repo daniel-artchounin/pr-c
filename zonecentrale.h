@@ -3,7 +3,7 @@
 #include <QTabWidget>
 # include "fenetregestionprojet.h"
 # include "fenetreedt.h"
-#include <QWidget>
+# include <QWidget>
 
 class FenetreGestionProjet;
 class ZoneCentrale : public QWidget

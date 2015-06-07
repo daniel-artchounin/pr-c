@@ -3,7 +3,6 @@
 #include "tachesimplenonpreemptive.h"
 #include "tachesimplenonpreemptiveexception.h"
 #include "tachecompositeexception.h"
-#include <typeinfo>
 # include <string>
 #include "projetexception.h"
 #include "tools.h"

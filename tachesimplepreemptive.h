@@ -134,6 +134,8 @@ public:
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream);
+
+    virtual ~TacheSimplePreemptive();
 };
 
 #endif // TACHESIMPLEPREEMPTIVE_H

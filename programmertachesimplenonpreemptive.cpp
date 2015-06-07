@@ -28,6 +28,8 @@ void ProgrammerTacheSimpleNonPreemptive::retourFenetrePrincipaleValider(){
                     Horaire(horaireProgrammation->time().hour(), horaireProgrammation->time().minute()),
                     myTacheSimpleNonPreemptive
                     );
+        FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+        fenetrePrincipale.getZoneCentrale()->getFenetreEDT()->loadWeek();
     }
     catch(std::logic_error& e){
         QMessageBox::warning(this, "Création de tâche tâche simple non préemptive", e.what());

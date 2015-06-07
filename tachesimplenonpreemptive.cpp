@@ -2,6 +2,7 @@
 #include "tachesimplenonpreemptiveexception.h"
 #include "programmationtachesimplenonpreemptive.h"
 #include "tools.h"
+# include "programmationmanager.h"
 
 TacheSimpleNonPreemptive::TacheSimpleNonPreemptive(const Date& dateD, const Horaire& heureD,
                                                    const Date& dateEcheance,
@@ -58,4 +59,12 @@ void TacheSimpleNonPreemptive::exportTo(QXmlStreamWriter& stream) {
     }
     stream.writeEndElement();
     stream.writeEndElement();
+}
+
+TacheSimpleNonPreemptive::~TacheSimpleNonPreemptive(){
+    ProgrammationManager& programmationManager = ProgrammationManager::getInstance();
+    if(programmationTacheSimpleNonPreemptive!=0){
+        programmationManager.eraseItem(programmationManager.getKeyFrom(programmationTacheSimpleNonPreemptive->getDateProgrammation(), programmationTacheSimpleNonPreemptive->getHoraireProgrammation()));
+        programmationTacheSimpleNonPreemptive = 0;
+    }
 }

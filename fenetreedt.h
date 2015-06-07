@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QGraphicsView>
+# include "manager.h"
 #include "programmationmanager.h"
 #include <QDate>
 #include "date.h"

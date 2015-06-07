@@ -26,12 +26,12 @@ class FenetreGestionProjet : public QWidget
 private:
     QTreeWidget * tree;
     QHBoxLayout* hBox;
-    QAction * monAction;
     QAction * creationTacheComposite;
     QAction * creationTacheSimplePreemptive;
     QAction * creationTacheSimpleNonPreemptive;
     QAction * programmationTacheSimplePreemptive;
     QAction * programmationTacheSimpleNonPreemptive;
+    QAction * supprimerProjet;
     QAction * ajouterPrecedence;
     QAction * supprimerPrecedence;
     CreerTacheComposite* creerTacheComposite;
@@ -67,6 +67,7 @@ public slots:
     void fenetreProgrammerTacheSimpleNonPreemptive();
     void fenetreAjouterPrecedence();
     void fenetreSupprimerPrecedence();
+    void supprimerUnProjet();
 };
 
 #endif // FENETREGESTIONPROJET_H

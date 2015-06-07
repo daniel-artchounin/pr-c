@@ -32,6 +32,7 @@ void CreerTacheSimplePreemptive::retourFenetrePrincipaleValider(){
                     true,
                     false,
                     Duree(heures->value(), minutes->value()));
+        QMessageBox::information(this, "Création de tâche simple préemptive", "Votre tâche simple préemptive " + titre->text() +" a bien été créée.");
     }
     catch(std::logic_error& e){
         QMessageBox::warning(this, "Création de tâche simple préemptive", e.what());

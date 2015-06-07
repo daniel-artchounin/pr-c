@@ -23,7 +23,7 @@ void AjouterPrecedence::retourFenetrePrincipaleValider(){
             tailleChemin2 = new unsigned int;
             chemin2 = FenetreGestionProjet::recupCheminDepuisProjet(cheminement, tailleChemin2);
             nomProjet.ajouterPrecedence(chemin, *tailleChemin, titreTache, chemin2, *tailleChemin2, titreTache2);
-            QMessageBox::information(this, "Ajout de contrainte de précédence", "Votre modification a bien été prise en compte");
+            QMessageBox::information(this, "Ajout de contrainte de précédence", "Votre ajout de contrainte de précédence entre les tâches " + QString::fromStdString(titreTache) + " et " + QString::fromStdString(titreTache2) +" a bien été prise en compte.");
         }
         catch (std::logic_error& e){
             QMessageBox::warning(this, "Création de projet", e.what());

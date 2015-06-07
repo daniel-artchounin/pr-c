@@ -24,6 +24,7 @@ void CreerProjet::retourFenetrePrincipaleValider(){
             Date(dateFin->date().day(), dateFin->date().month(), dateFin->date().year()),
             Horaire(horaireFin->time().hour(), horaireFin->time().minute())
         );
+        QMessageBox::information(this, "Création de projet", "Votre projet " + titre->text() +" a bien été créé.");
     }
     catch(ProjetManagerException& e){
         QMessageBox::warning(this, "Création de projet", e.what());

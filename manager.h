@@ -3,11 +3,13 @@
 #include <map>
 #include <string>
 #include <QXmlStreamWriter>
-
 /*! \class Manager
  * \brief Patron de classe permettant de manipuler une map d'item.
  */
 template <class T> class Manager {
+    friend class TacheSimplePreemptive;
+    friend class TacheSimpleNonPreemptive;
+    friend class FenetreGestionProjet;
 protected:
     typedef std::map<std::string, T*> Map;
     Map items; /*!< map d'item */
@@ -21,6 +23,10 @@ protected:
     bool addItem(std::string key, T* item) {
         std::pair<iterator,bool> retour = items.insert(std::pair<std::string, T*>(key, item));
         return retour.second;
+    }
+
+    int eraseItem(const std::string& key){
+        return int(items.erase(key));
     }
 
     /*!
