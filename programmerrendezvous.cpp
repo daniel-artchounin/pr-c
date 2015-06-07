@@ -20,10 +20,15 @@ void ProgrammerRendezVous::retourFenetrePrincipaleValider() {
             QMessageBox::information(this, "Information", "Votre réunion n'a pas pu être programmé. Vérifier que vous n'ayez pas déjà un évènement prévu à ce moment là.");
         }
     }else {
-        ProgrammationManager::getInstance().updateProgrammationEvenement(progEvt,Date(toString(dateDebut->date().toString("dd/MM/yyyy"))), Horaire(horaireDebut->time().hour(),horaireDebut->time().minute()),Duree(dureeHeure->value(),dureeMinute->value()));
-        progEvt->getEvenement()->updateEvenement(toString(nom->text()),toString(lieu->text()),toString(motif->text()));
-        ModifierProgrammationEvenement *mod=dynamic_cast<ModifierProgrammationEvenement*>(parentWidget());
-        mod->updateListe();
+        try {
+            ProgrammationManager::getInstance().updateProgrammationEvenement(progEvt,Date(toString(dateDebut->date().toString("dd/MM/yyyy"))), Horaire(horaireDebut->time().hour(),horaireDebut->time().minute()),Duree(dureeHeure->value(),dureeMinute->value()));
+            progEvt->getEvenement()->updateEvenement(toString(nom->text()),toString(lieu->text()),toString(motif->text()));
+            ModifierProgrammationEvenement *mod=dynamic_cast<ModifierProgrammationEvenement*>(parentWidget());
+            mod->updateListe();
+            QMessageBox::information(this, "Information", "Votre rendez-vous a bien été modifiée.");
+        }catch(ProgrammationManagerException e) {
+            QMessageBox::information(this, "Information", "Votre rendez-vous n'a pas pu être modifiée. Vérifier que vous n'ayez pas déjà un évènement prévu à ce moment là.");
+        }
     }
     retourFenetrePrincipaleAnnuler();
 }
