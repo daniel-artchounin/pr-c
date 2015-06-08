@@ -25,6 +25,7 @@ FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     informationsProjet = 0;
     ProjetManager& projetManager = ProjetManager::getInstance();
     tree = new QTreeWidget(this);
+    tree->setHeaderLabel("Mes projets");
     hBox = new QHBoxLayout;
     afficherTreeWidget(0, projetManager, tree);
     tree->show();

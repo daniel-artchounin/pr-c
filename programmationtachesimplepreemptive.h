@@ -44,6 +44,10 @@ public:
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream);
+
+    unsigned int getPourcentage()const{
+        return pourcentage;
+    }
 };
 #endif // PROGRAMMATIONTACHESIMPLEPREEMPTIVE_H
 

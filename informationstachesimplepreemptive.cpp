@@ -3,6 +3,7 @@
 # include "informationstache.h"
 # include <QDesktopWidget>
 # include <QApplication>
+# include <sstream>
 
 InformationsTacheSimplePreemptive::InformationsTacheSimplePreemptive(const TacheSimplePreemptive& tacheSimplePreemptive, QWidget *parent):
     InformationsTacheSimple(tacheSimplePreemptive, parent)
@@ -12,8 +13,8 @@ InformationsTacheSimplePreemptive::InformationsTacheSimplePreemptive(const Tache
         programmationsTableWidget = new QTableWidget();
         QStringList programmationsTableHeader;
         programmationsTableWidget->setRowCount(tacheSimplePreemptive.pSize());
-        programmationsTableWidget->setColumnCount(4);
-        programmationsTableHeader << "Date de début" << "Horaire de début" << "Date de fin" << "Horaire de Fin";
+        programmationsTableWidget->setColumnCount(5);
+        programmationsTableHeader << "Date de début" << "Horaire de début" << "Date de fin" << "Horaire de Fin" << "Pourcentage";
         programmationsTableWidget->setHorizontalHeaderLabels(programmationsTableHeader);
         programmationsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
         programmationsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -25,6 +26,9 @@ InformationsTacheSimplePreemptive::InformationsTacheSimplePreemptive(const Tache
              programmationsTableWidget->setItem(i, 1, new QTableWidgetItem(QString::fromStdString((*it)->getHoraireProgrammation().toString())));
              programmationsTableWidget->setItem(i, 2, new QTableWidgetItem(QString::fromStdString((*it)->getDateFin().toString())));
              programmationsTableWidget->setItem(i, 3, new QTableWidgetItem(QString::fromStdString((*it)->getHoraireFin().toString())));
+             std::stringstream str;
+             str << (*it)->getPourcentage();
+             programmationsTableWidget->setItem(i, 4, new QTableWidgetItem(QString::fromStdString(str.str())));
              i++;
         }
     }

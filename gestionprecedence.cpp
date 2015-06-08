@@ -15,6 +15,7 @@ GestionPrecedence::GestionPrecedence(Projet& projet, std::string * chaine, unsig
     tailleChemin2 = 0;
     titreTache2 = "";
     tree = new QTreeWidget(this);
+    tree->setHeaderLabel("Mes projets");
     afficherTreeWidget(tree, &nomProjet);
     tree->show();
     hBox1 = new QHBoxLayout;

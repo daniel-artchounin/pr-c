@@ -21,7 +21,7 @@ InformationsElement::InformationsElement(const Element &element, QWidget *parent
     formlayout->addRow("Horaire de disponibilité : ", horaireDebut);
     formlayout->addRow("Date d'échéance : ", dateEcheance);
     formlayout->addRow("Horaire d'échéance : ", heureEcheance);
-    formlayout->addRow("Duree: ", duree);
+    formlayout->addRow("Duree : ", duree);
     connect(ok,SIGNAL(clicked()),this,SLOT(retourFenetrePrincipale()));
 }
 
