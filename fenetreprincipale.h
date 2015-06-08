@@ -28,7 +28,9 @@ private:
     QAction* actionQuitter;
     QAction* actionPrevious;
     QAction* actionNext;
-    QAction* actionSauverSemaine;
+    QAction* actionExportSemaine;
+    QAction* actionExportProjet;
+    QAction* actionEnregistrerProjet;
     CreerProjet* creerProjet;
     bool dejaSauver;
 
@@ -98,10 +100,13 @@ public slots:
     void goToNextWeek();
 
     /*!
-     * \brief sauverSemaine
+     * \brief exporterUneSemaine
      * Permet d'exporter la semaine afficher actuellement
      */
-    void sauverSemaine();
+    void exporterUneSemaine();
+
+    void exporterUnProjet();
+    void enregistrerUnProjet();
 };
 
 #endif // FENETREPRINCIPALE_H

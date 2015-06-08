@@ -57,7 +57,6 @@ private:
 
 protected :
     // récupération du projet et gestion du cas d'erreur
-    Projet& getAndRemoveProjet(QList<QString>* chemin);
 public:
     explicit FenetreGestionProjet(QWidget *parent = 0);
     void afficherTreeWidget(unsigned int profondeur, ProjetManager& projetManager, QTreeWidget* arbre, QTreeWidgetItem * actuel=0, Element * element=0);
@@ -69,6 +68,7 @@ public:
     static std::string getNomTacheStd(QList<QString> chemin);
     static std::string getNomTacheAndRemoveTache(QList<QString>* chemin);
     static std::string* recupCheminDepuisProjet(QList<QString> chemin, unsigned int * taille);
+    static Projet& getAndRemoveProjet(QList<QString>* chemin);
 signals:
 
 public slots:

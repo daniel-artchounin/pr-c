@@ -8,6 +8,8 @@
 # include <QApplication>
 # include <QString>
 # include <QDebug>
+# include "fenetregestionprojet.h"
+# include "fenetregestionprojetexception.h"
 
 FenetrePrincipale * FenetrePrincipale::instance=0; //initialisation à null, pour la première vérification
 
@@ -44,7 +46,9 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     actionQuitter = new QAction("&Quitter ProjectCalendar", this);
     actionPrevious = new QAction("Semaine précédente", this);
     actionNext = new QAction("Semaine suivante", this);
-    actionSauverSemaine = new QAction("Export de la semaine actuelle", this);
+    actionExportSemaine = new QAction("Exporter la semaine actuelle", this);
+    actionExportProjet = new QAction("Exporter le projet sélectionné", this);
+    actionEnregistrerProjet = new QAction("Enregistrer le projet sélectionné", this);
     // raccourcis des actions
     // actionSave->setShortcut(QKeySequence("Ctrl+S"));
     // actionLoad->setShortcut(QKeySequence("Ctrl+L"));
@@ -57,20 +61,27 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     actionQuitter->setIcon(QIcon("../pr-c/images/quitter.png"));
     actionPrevious->setIcon(QIcon("../pr-c/images/previous.png"));
     actionNext->setIcon(QIcon("../pr-c/images/next.png"));
-    actionSauverSemaine->setIcon(QIcon("../pr-c/images/sauverSemaine.png"));
+    actionExportSemaine->setIcon(QIcon("../pr-c/images/export_semaine.png"));
+    actionExportProjet->setIcon(QIcon("../pr-c/images/export_projet.png"));
+    actionEnregistrerProjet->setIcon(QIcon("../pr-c/images/enregistrer_projet.png"));
 
     // ajouts des actions à la barre de menus
     menuGestion->addAction(actionSave);
     menuGestion->addAction(actionLoad);
     menuGestion->addAction(actionCreerProjet);
-    menuGestion->addAction(actionSauverSemaine);
+    menuGestion->addAction(actionExportSemaine);
+    menuGestion->addAction(actionExportProjet);
+    menuGestion->addAction(actionEnregistrerProjet);
     menuFenetre->addAction(actionQuitter);
+
 
     // ajouts des actions à la barre d'outils
     barrreOutils->addAction(actionLoad);
     barrreOutils->addAction(actionSave);
     barrreOutils->addAction(actionCreerProjet);
-    barrreOutils->addAction(actionSauverSemaine);
+    barrreOutils->addAction(actionExportSemaine);
+    barrreOutils->addAction(actionExportProjet);
+    barrreOutils->addAction(actionEnregistrerProjet);
     barrreOutils->addAction(actionPrevious);
     barrreOutils->addAction(actionNext);
 
@@ -84,8 +95,11 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     connect(actionCreerProjet, SIGNAL(triggered()), this, SLOT(fenetreCreerProjet()));
     connect(actionPrevious, SIGNAL(triggered()), this, SLOT(goToPreviousWeek()));
     connect(actionNext, SIGNAL(triggered()), this, SLOT(goToNextWeek()));
-    connect(actionSauverSemaine, SIGNAL(triggered()), this, SLOT(sauverSemaine()));
+    connect(actionExportProjet, SIGNAL(triggered()), this, SLOT(exporterUnProjet()));
+    connect(actionEnregistrerProjet, SIGNAL(triggered()), this, SLOT(enregistrerUnProjet()));
+    connect(actionExportSemaine, SIGNAL(triggered()), this, SLOT(exporterUneSemaine()));
 }
+
 
 void FenetrePrincipale::chargerFichier(){
     if(creerProjet !=0){
@@ -174,9 +188,46 @@ void FenetrePrincipale::updateEDT() {
     zoneCentrale->getFenetreEDT()->loadWeek();
 }
 
-void FenetrePrincipale::sauverSemaine(){
+void FenetrePrincipale::exporterUneSemaine(){
     QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Fichier XML (*.xml)");
     if(!fichier.isEmpty()){
         zoneCentrale->getFenetreEDT()->saveWeek(fichier);
     }
 }
+
+void FenetrePrincipale::exporterUnProjet(){
+    QTreeWidgetItem * actuel = zoneCentrale->getFenetreGestionProjet()->getTree()->currentItem();
+    QList<QString> cheminement;
+    if(actuel == 0){
+        QMessageBox::warning(this, "Exporter un projet", "Veuillez d'abord sélectionner un élément pour exporter un projet.");
+    }
+    else{
+        try{
+            cheminement = zoneCentrale->getFenetreGestionProjet()->getCheminement(actuel);
+            const std::string& titreProjet = zoneCentrale->getFenetreGestionProjet()->getAndRemoveProjet(&cheminement).getTitre();
+            QMessageBox::information(this, "Exporter un projet", "Votre export du projet " + QString::fromStdString(titreProjet) + " a bien été réalisé.");
+        }
+        catch (FenetreGestionProjetException& e){
+            QMessageBox::warning(this, "Exporter un projet", e.what());
+        }
+    }
+}
+
+void FenetrePrincipale::enregistrerUnProjet(){
+    QTreeWidgetItem * actuel = zoneCentrale->getFenetreGestionProjet()->getTree()->currentItem();
+    QList<QString> cheminement;
+    if(actuel == 0){
+        QMessageBox::warning(this, "Enregistrer un projet", "Veuillez d'abord sélectionner un élément pour enregistrer un projet.");
+    }
+    else{
+        try{
+            cheminement = zoneCentrale->getFenetreGestionProjet()->getCheminement(actuel);
+            const std::string& titreProjet = zoneCentrale->getFenetreGestionProjet()->getAndRemoveProjet(&cheminement).getTitre();
+            QMessageBox::information(this, "Enregistrer un projet", "Votre enregistrement du projet " + QString::fromStdString(titreProjet) + " a bien été réalisé.");
+        }
+        catch (FenetreGestionProjetException& e){
+            QMessageBox::warning(this, "Enregistrer un projet", e.what());
+        }
+    }
+}
+
