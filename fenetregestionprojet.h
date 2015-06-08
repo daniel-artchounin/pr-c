@@ -13,6 +13,13 @@
 # include "programmertachesimplepreemptive.h"
 # include "ajouterprecedence.h"
 # include "supprimerprecedence.h"
+# include "informationselement.h"
+# include "informationstache.h"
+# include "informationstachesimple.h"
+# include "informationstachesimplenonpreemptive.h"
+# include "informationstachesimplepreemptive.h"
+# include "informationstachecomposite.h"
+# include "informationsprojet.h"
 # include <string>
 # include <stdexcept>
 
@@ -31,6 +38,7 @@ private:
     QAction * creationTacheSimpleNonPreemptive;
     QAction * programmationTacheSimplePreemptive;
     QAction * programmationTacheSimpleNonPreemptive;
+    QAction * consulterElement;
     QAction * supprimerElement;
     QAction * ajouterPrecedence;
     QAction * supprimerPrecedence;
@@ -41,6 +49,12 @@ private:
     ProgrammerTacheSimpleNonPreemptive* programmerTacheSimpleNonPreemptive;
     AjouterPrecedence* ajoutPrecedence;
     SupprimerPrecedence* suppressionPrecedence;
+    InformationsTacheSimplePreemptive *informationsTacheSimplePreemptive;
+    InformationsTacheSimpleNonPreemptive *informationsTacheSimpleNonPreemptive;
+    InformationsTacheComposite *informationsTacheComposite;
+    InformationsProjet *informationsProjet;
+
+
 protected :
     // récupération du projet et gestion du cas d'erreur
     Projet& getAndRemoveProjet(QList<QString>* chemin);
@@ -67,9 +81,8 @@ public slots:
     void fenetreProgrammerTacheSimpleNonPreemptive();
     void fenetreAjouterPrecedence();
     void fenetreSupprimerPrecedence();
-    // void supprimerUnProjet();
     void supprimerUnElemment();
-
+    void consulterUnElemment();
 };
 
 #endif // FENETREGESTIONPROJET_H

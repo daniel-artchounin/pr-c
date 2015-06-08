@@ -1,11 +1,13 @@
-#include "fenetregestionprojet.h"
-# include "tachecomposite.h"
+# include "fenetregestionprojet.h"
 # include "projet.h"
 # include "tachecomposite.h"
 # include <QDate>
 # include <QDebug>
 # include <QMessageBox>
 # include "fenetregestionprojetexception.h"
+# include "tachesimplenonpreemptive.h"
+# include "tachesimplepreemptive.h"
+
 
 FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     QWidget(parent)
@@ -17,6 +19,10 @@ FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     programmerTacheSimpleNonPreemptive = 0;
     ajoutPrecedence = 0;
     suppressionPrecedence = 0;
+    informationsTacheSimplePreemptive = 0;
+    informationsTacheSimpleNonPreemptive = 0;
+    informationsTacheComposite = 0;
+    informationsProjet = 0;
     ProjetManager& projetManager = ProjetManager::getInstance();
     tree = new QTreeWidget(this);
     hBox = new QHBoxLayout;
@@ -26,6 +32,7 @@ FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     this->setLayout(hBox);
     this->setContextMenuPolicy(Qt::CustomContextMenu);
     supprimerElement = new QAction("Supprimer un élément",this);
+    consulterElement = new QAction("Consulter un élément",this);
     creationTacheComposite = new QAction("Creer une tâche composite",this);
     creationTacheSimplePreemptive = new QAction("Creer une tâche simple préemptive",this);
     creationTacheSimpleNonPreemptive = new QAction("Créer une tâche simple non préemptive",this);
@@ -42,6 +49,8 @@ FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     connect(ajouterPrecedence, SIGNAL(triggered()),this, SLOT(fenetreAjouterPrecedence()));
     connect(supprimerPrecedence, SIGNAL(triggered()),this, SLOT(fenetreSupprimerPrecedence()));
     connect(supprimerElement, SIGNAL(triggered()),this, SLOT(supprimerUnElemment()));
+    connect(consulterElement, SIGNAL(triggered()),this, SLOT(consulterUnElemment()));
+
 
 }
 
@@ -114,7 +123,7 @@ void FenetreGestionProjet::showContextMenu(const QPoint& pos){
     myMenu.addAction(programmationTacheSimplePreemptive);
     myMenu.addAction(programmationTacheSimpleNonPreemptive);
     myMenu.addAction(supprimerElement);
-    // myMenu.addAction(monAction);
+    myMenu.addAction(consulterElement);
     myMenu.exec(globalPos);
     // QAction* selectedItem = ;
     // if (selectedItem)
@@ -360,6 +369,7 @@ void FenetreGestionProjet::fenetreSupprimerPrecedence(){
     }
 } */
 
+
 void FenetreGestionProjet::supprimerUnElemment(){
     QTreeWidgetItem * actuel = tree->currentItem();
     QList<QString> cheminement;
@@ -396,6 +406,83 @@ void FenetreGestionProjet::supprimerUnElemment(){
         }
     }
 }
+
+void FenetreGestionProjet::consulterUnElemment(){
+    QTreeWidgetItem * actuel = tree->currentItem();
+    QList<QString> cheminement;
+    FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+    if(actuel == 0){
+        QMessageBox::warning(this, "Consulter un élément", "Veuillez d'abord sélectionner un élément pour le consulter.");
+    }
+    else{
+        try{
+            ProjetManager& projetManager = ProjetManager::getInstance();
+            cheminement = getCheminement(actuel);
+            Projet& projet = getAndRemoveProjet(&cheminement);
+            if(cheminement.size() == 0){
+                // il s'agit d'un projet
+                // il faut afficher le projet
+                if(informationsProjet !=0){
+                    delete informationsProjet;
+                    informationsProjet = 0;
+                }
+                std::cout << "Coucou !!" << std::endl;
+                informationsProjet = new InformationsProjet(projet);
+                informationsProjet->show();
+                fenetrePrincipale.hide();
+            }
+            else{
+                // il s'agit d'une tache
+                std::string titreTache = getNomTacheAndRemoveTache(&cheminement);
+                unsigned int* taille = new unsigned int;
+                std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
+                try{
+                    TacheComposite& tacheComposite = projet.accederTacheComposite(chaine, *taille, titreTache);
+                    if(informationsTacheComposite !=0){
+                        delete informationsTacheComposite;
+                        informationsTacheComposite = 0;
+                    }
+                    informationsTacheComposite = new InformationsTacheComposite(tacheComposite);
+                    informationsTacheComposite->show();
+                    fenetrePrincipale.hide();
+                }
+                catch(ProjetException& e){
+                    try{
+                        TacheSimplePreemptive& tacheSimplePreemptive = projet.accederTacheSimplePreemptive(chaine, *taille, titreTache);
+                        if(informationsTacheSimplePreemptive!=0){
+                            delete informationsTacheSimplePreemptive;
+                            informationsTacheSimplePreemptive = 0;
+                        }
+                        informationsTacheSimplePreemptive = new InformationsTacheSimplePreemptive(tacheSimplePreemptive);
+                        informationsTacheSimplePreemptive->show();
+                        fenetrePrincipale.hide();
+                    }
+                    catch(ProjetException& e){
+                        try{
+                            TacheSimpleNonPreemptive& tacheSimpleNonPreemptive = projet.accederTacheSimpleNonPreemptive(chaine, *taille, titreTache);
+                            if(informationsTacheSimpleNonPreemptive!=0){
+                                delete informationsTacheSimpleNonPreemptive;
+                                informationsTacheSimpleNonPreemptive = 0;
+                            }
+                            informationsTacheSimpleNonPreemptive = new InformationsTacheSimpleNonPreemptive(tacheSimpleNonPreemptive);
+                            informationsTacheSimpleNonPreemptive->show();
+                            fenetrePrincipale.hide();
+                        }catch(ProjetException& e){
+                            QMessageBox::warning(this, "Consulter un élément", "Veuillez réitérer.");
+                        }
+                    }
+                }
+            }
+            // FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
+            // fenetrePrincipale.getZoneCentrale()->getFenetreEDT()->loadWeek();
+            // afficherTreeWidget(0, projetManager, tree);
+        }
+        catch (std::logic_error& e){
+            QMessageBox::warning(this, "Suppression d'un élément", e.what());
+        }
+    }
+}
+
 
 // J'ai besoin d'avoir dejà récupéré une tâche
 // j'envoie cela pour construire un nouvel objet
