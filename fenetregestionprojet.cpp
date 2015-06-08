@@ -416,7 +416,6 @@ void FenetreGestionProjet::consulterUnElemment(){
     }
     else{
         try{
-            ProjetManager& projetManager = ProjetManager::getInstance();
             cheminement = getCheminement(actuel);
             Projet& projet = getAndRemoveProjet(&cheminement);
             if(cheminement.size() == 0){

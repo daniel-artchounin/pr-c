@@ -96,6 +96,10 @@ public:
     typedef typename PVector::iterator p_iterator;
     typedef typename PVector::const_iterator p_const_iterator;
 
+    int pSize()const{
+        return int(programmationsTachesSimplesPreemptives.size());
+    }
+
     /*!
      * \brief pBegin
      * \return iterator sur le début du vector

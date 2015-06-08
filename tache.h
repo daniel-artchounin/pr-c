@@ -108,6 +108,10 @@ public:
      */
     tp_iterator tPEnd() { return tachesPrecedentes.end(); }
 
+    int tPSize()const{
+        return int(tachesPrecedentes.size());
+    }
+
     /*!
      * \brief tPBegin
      * \return const_iterator sur le début de la map
@@ -143,7 +147,9 @@ public:
      * \return const_iterator sur la fin de la map
      */
     ts_const_iterator tSEnd() const{ return const_cast<Tache *>(this)->tSEnd(); }
-
+    int tSSize()const{
+        return int(tachesSuivantes.size());
+    }
     /*!
      * \brief checkProgrammationCoherente
      * permet de savoir si les tâches précédent ma tâche ont
