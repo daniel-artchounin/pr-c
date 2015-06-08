@@ -28,7 +28,7 @@ void ProgrammationManager::libererInstance() {
 
 
 bool ProgrammationManager::inclus(const Date& dateProg, const Horaire& horaireProg, const Date& dateFin, const Horaire& horaireFin, const Date& date, const Horaire& horaire) const {
-    return (dateProg<date || (dateProg==date && horaireProg<horaire)) && (date<dateFin || (date==dateFin && horaire<horaireFin));
+    return (dateProg<date || (dateProg==date && horaireProg<=horaire)) && (date<dateFin || (date==dateFin && horaire<horaireFin));
 }
 
 bool ProgrammationManager::hasIntersection(const Date& dateProg, const Horaire& horaireProg, const Date& dateFin, const Horaire& horaireFin, const Date& newDate, const Horaire& newHoraire, const Duree& newDuree) const{
@@ -209,9 +209,7 @@ void ProgrammationManager::loadListeProgrammations(QXmlStreamReader &xml, Tache&
 void ProgrammationManager::exportContraintes(QXmlStreamWriter& stream, const Date& dateDebut, const Date& dateFin,const Horaire& horaireDebut, const Horaire& horaireFin) {
     stream.writeStartElement("Programmation");
     for(iterator it=constraint_begin(dateDebut,horaireDebut); it!=constraint_end(dateFin,horaireFin); ++it){
-        if(typeid(*it->second)==typeid(ProgrammationEvenement)) {
-            (*it->second).exportTo(stream);
-        }
+        (*it->second).exportTo(stream);
     }
     stream.writeEndElement();
 }
