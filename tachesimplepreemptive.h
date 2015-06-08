@@ -2,6 +2,7 @@
 #define TACHESIMPLEPREEMPTIVE_H
 #include "tachesimple.h"
 #include <vector>
+# include <programmationmanager.h>
 
 class ProgrammationTacheSimplePreemptive;
 /*! \class TacheSimplePreemptive
@@ -10,6 +11,7 @@ class ProgrammationTacheSimplePreemptive;
 class TacheSimplePreemptive : public TacheSimple
 {
     friend class ProgrammationTacheSimplePreemptive;
+
 
 protected:
     unsigned int pourcentageDejaProgramme;/*!< le pourcentage déjà programmé de la tâche*/
@@ -49,6 +51,7 @@ protected:
         programmationsTachesSimplesPreemptives.push_back(pgrm);
     }
 
+    void eraseProgrammation(const Date& dateProgrammation, const Horaire& horaireProgrammation);
 public:
     /**
      * \brief TacheSimpleNonPreemptive Constructeur

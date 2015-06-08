@@ -4,6 +4,12 @@
 #include "tools.h"
 # include "programmationmanager.h"
 
+void TacheSimpleNonPreemptive::eraseProgrammation(){
+    if (programmationTacheSimpleNonPreemptive !=0){
+        programmationTacheSimpleNonPreemptive = 0;
+    }
+}
+
 TacheSimpleNonPreemptive::TacheSimpleNonPreemptive(const Date& dateD, const Horaire& heureD,
                                                    const Date& dateEcheance,
                                                    const Horaire& heureEcheance,

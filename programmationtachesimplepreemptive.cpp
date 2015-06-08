@@ -21,7 +21,11 @@ ProgrammationTacheSimplePreemptive::ProgrammationTacheSimplePreemptive(const Dat
     tacheSimplePreemtive->addPourcentageDejaProgramme(pourc);
 }
 
-ProgrammationTacheSimplePreemptive::~ProgrammationTacheSimplePreemptive(){}
+ProgrammationTacheSimplePreemptive::~ProgrammationTacheSimplePreemptive(){
+    if(tacheSimplePreemtive != 0){
+        tacheSimplePreemtive->eraseProgrammation(getDateProgrammation(), getHoraireProgrammation());
+    }
+}
 
 void ProgrammationTacheSimplePreemptive::exportTo(QXmlStreamWriter& stream) {
     stream.writeStartElement("ProgrammationTacheSimplePreemptive");

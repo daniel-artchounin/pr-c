@@ -3,6 +3,15 @@
 #include "programmationtachesimplepreemptive.h"
 # include "programmationmanager.h"
 
+void TacheSimplePreemptive::eraseProgrammation(const Date& dateProgrammation, const Horaire& horaireProgrammation){
+    std::string cleProgrammationASupprimer = ProgrammationManager::getKeyFrom(dateProgrammation, horaireProgrammation);
+    for(p_iterator it = pBegin() ; it != pEnd() ; ++it) {
+        if(cleProgrammationASupprimer == ProgrammationManager::getKeyFrom((*it)->getDateProgrammation(), (*it)->getHoraireProgrammation())){
+            programmationsTachesSimplesPreemptives.erase(it);
+        }
+    }
+}
+
 TacheSimplePreemptive::TacheSimplePreemptive(const Date& dateD,
                       const Horaire& heureD,
                       const Date& dateEcheance,

@@ -10,6 +10,9 @@
  * \brief Classe permettant de manipuler des Programmations. Hérite de la classe Manager. Utilise le design pattern singleton
  */
 
+class ProgrammationTacheSimplePreemptive;
+class ProgrammationTacheSimpleNonPreemptive;
+
 class ProgrammationManager : public Manager<Programmation> {
 private:
     //design pattern singleton

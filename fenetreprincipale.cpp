@@ -44,7 +44,7 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     actionQuitter = new QAction("&Quitter ProjectCalendar", this);
     actionPrevious = new QAction("Semaine précédente", this);
     actionNext = new QAction("Semaine suivante", this);
-    actionSauverSemaine = new QAction("Sauver la semaine actuelle", this);
+    actionSauverSemaine = new QAction("Export de la semaine actuelle", this);
     // raccourcis des actions
     // actionSave->setShortcut(QKeySequence("Ctrl+S"));
     // actionLoad->setShortcut(QKeySequence("Ctrl+L"));

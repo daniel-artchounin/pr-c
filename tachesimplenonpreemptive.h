@@ -31,6 +31,7 @@ protected :
      */
     void setProgrammation(ProgrammationTacheSimpleNonPreemptive* programmationTacheSimpleNonP);
 
+    void eraseProgrammation();
 public:
     /**
      * \brief TacheSimpleNonPreemptive Constructeur

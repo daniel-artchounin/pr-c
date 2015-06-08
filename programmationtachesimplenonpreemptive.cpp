@@ -19,7 +19,11 @@ std::string ProgrammationTacheSimpleNonPreemptive::getNom() const {
     return tacheSimpleNonPreemptive->getTitre();
 }
 
-ProgrammationTacheSimpleNonPreemptive::~ProgrammationTacheSimpleNonPreemptive(){}
+ProgrammationTacheSimpleNonPreemptive::~ProgrammationTacheSimpleNonPreemptive(){
+    if(tacheSimpleNonPreemptive !=0 ){
+        tacheSimpleNonPreemptive->eraseProgrammation();
+    }
+}
 
 void ProgrammationTacheSimpleNonPreemptive::exportTo(QXmlStreamWriter& stream) {
     stream.writeStartElement("ProgrammationTacheSimpleNonPreemptive");
