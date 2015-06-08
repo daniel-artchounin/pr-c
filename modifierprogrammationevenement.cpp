@@ -47,16 +47,18 @@ void ModifierProgrammationEvenement::closeEvent(QCloseEvent *event) {
 
 void ModifierProgrammationEvenement::selectionner() {
     QListWidgetItem* it= list->currentItem();
-    if(form!=0) {
-        delete form;
-    }
-    ProgrammationEvenement &prog=dynamic_cast<ProgrammationEvenement&>(ProgrammationManager::getInstance().getProgrammation(Date(toString(it->data(101).toString())),Horaire(toString(it->data(102).toString()))));
-    if(typeid(*prog.getEvenement())==typeid(RendezVous)) {
-        form = new ProgrammerRendezVous(&prog,this);
-        hBox->addWidget(form);
-    }else if(typeid(*prog.getEvenement())==typeid(Reunion)) {
-        form = new ProgrammerReunion(&prog,this);
-        hBox->addWidget(form);
+    if(it) {
+        if(form!=0) {
+            delete form;
+        }
+        ProgrammationEvenement &prog=dynamic_cast<ProgrammationEvenement&>(ProgrammationManager::getInstance().getProgrammation(Date(toString(it->data(101).toString())),Horaire(toString(it->data(102).toString()))));
+        if(typeid(*prog.getEvenement())==typeid(RendezVous)) {
+            form = new ProgrammerRendezVous(&prog,this);
+            hBox->addWidget(form);
+        }else if(typeid(*prog.getEvenement())==typeid(Reunion)) {
+            form = new ProgrammerReunion(&prog,this);
+            hBox->addWidget(form);
+        }
     }
 }
 
