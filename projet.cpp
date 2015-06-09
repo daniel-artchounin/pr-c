@@ -234,6 +234,10 @@ void Projet::ajouterPrecedence(const std::string * nomsTachesComposites1, unsign
     Tache& tache2 = accederTache(nomsTachesComposites2, nbTaches2, nomTache2);
     std::string chemin1 = genererChemin(nomsTachesComposites1, nbTaches1, nomTache1);
     std::string chemin2 = genererChemin(nomsTachesComposites2, nbTaches2, nomTache2);
+    std::cout << "affichage des précédences : " << std::endl;
+    std::cout << nbTaches1 << chemin1 << std::endl;
+    std::cout << nbTaches2 << chemin2<< std::endl;
+
     tache2.ajouterTachePrecedente(tache1, chemin1, chemin2);
     tache1.ajouterTacheSuivante(tache2, chemin1, chemin2);
 
@@ -365,6 +369,6 @@ std::string Projet::genererChemin(const std::string * nomsTachesComposites, unsi
         chemin += (nomsTachesComposites[i]+'/');
     }
     chemin += nomTache;
-    // std::cout << chemin << std::endl; -> test
+    // std::cout << chemin << std::endl; //-> test
     return chemin;
 }

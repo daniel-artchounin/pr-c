@@ -304,7 +304,7 @@ void FenetreGestionProjet::fenetreAjouterPrecedence(){
             Projet& projet = getAndRemoveProjet(&cheminement);
             std::string titreTache = getNomTacheAndRemoveTache(&cheminement);
             unsigned int* taille = new unsigned int;
-            std::cout << "depuis la fenetre ;-) titre ; " << titreTache << std::endl; // -> test
+            // std::cout << "depuis la fenetre ;-) titre ; " << titreTache << std::endl; // -> test
             std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
             ajoutPrecedence = new AjouterPrecedence(projet, chaine, taille, titreTache);
             ajoutPrecedence->show();
@@ -518,7 +518,7 @@ std::string FenetreGestionProjet::getNomTacheStd(QList<QString> chemin){
     }
     QString& titreTache = chemin.last();
     std::string titreTacheStd = titreTache.toStdString();
-    std::cout << "Mon titre : " << titreTacheStd << std::endl;
+    // std::cout << "Mon titre : " << titreTacheStd << std::endl;
     return titreTacheStd;
 }
 
@@ -539,9 +539,10 @@ std::string* FenetreGestionProjet::recupCheminDepuisProjet(QList<QString> chemin
     qDebug() << "result"; // -> test
     std::string* cheminFinal = new std::string[*taille];
     unsigned int i = 0;
+    qDebug() << "affichage du cheminement du projet depuis recupCheminDepuisProjet";
     for(QList<QString>::iterator it = chemin.begin() ; it != chemin.end() ; ++it){
         cheminFinal[i] = (*it).toStdString();
-        qDebug() << QString::fromStdString(cheminFinal[i]); // -> test
+        qDebug() << QString::fromStdString(cheminFinal[i]) << "je suis dans la boucle"; // -> test
         i++;
     }
     return cheminFinal;

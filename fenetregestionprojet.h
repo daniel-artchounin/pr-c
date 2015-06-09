@@ -30,7 +30,7 @@ class CreerTacheSimpleNonPreemptive;
 class FenetreGestionProjet : public QWidget
 {
     Q_OBJECT
-private:
+protected:
     QTreeWidget * tree;
     QHBoxLayout* hBox;
     QAction * creationTacheComposite;
@@ -53,10 +53,6 @@ private:
     InformationsTacheSimpleNonPreemptive *informationsTacheSimpleNonPreemptive;
     InformationsTacheComposite *informationsTacheComposite;
     InformationsProjet *informationsProjet;
-
-
-protected :
-    // récupération du projet et gestion du cas d'erreur
 public:
     explicit FenetreGestionProjet(QWidget *parent = 0);
     void afficherTreeWidget(unsigned int profondeur, ProjetManager& projetManager, QTreeWidget* arbre, QTreeWidgetItem * actuel=0, Element * element=0);

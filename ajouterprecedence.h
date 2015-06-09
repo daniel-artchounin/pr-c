@@ -18,7 +18,11 @@
 class AjouterPrecedence : public GestionPrecedence
 {
     Q_OBJECT
+protected:
+    QTreeWidget * tree; // le tree-view
+    void afficherTreeWidget(QTreeWidget* arbre, Element* element, QTreeWidgetItem * actuel=0);
 public:
+    static void removeProjet(QList<QString>* chemin);
     explicit AjouterPrecedence(Projet& projet, std::string * chaine, unsigned int* taille, const std::string& titreT, QWidget *parent = 0);
 signals:
 public slots:

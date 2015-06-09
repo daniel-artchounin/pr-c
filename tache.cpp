@@ -38,6 +38,7 @@ Tache* Tache::trouverTacheSuivante(const std::string & titre)const{
 }
 
 void Tache::ajouterTachePrecedente(Tache & tachePrecedente, const std::string& cheminementPrecedent, const std::string& cheminementSuivant){
+    std::cout << "cheminement précédent" << cheminementPrecedent << std::endl;
     if(trouverTachePrecedente(cheminementPrecedent)!=0){
         throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " envoyée en paramètre précède déjà la tâche courante "+ this->getTitre());
     }
