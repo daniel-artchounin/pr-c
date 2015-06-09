@@ -221,17 +221,17 @@ void Projet::creerAjouterTache(const std::string * nomsTaches, unsigned int nbTa
 
 void Projet::ajouterPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
                                const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2){
-    std::cout<<"affichage :"<<std::endl;
+    /*std::cout<<"affichage :"<<std::endl;
     std::cout<<nbTaches1<<std::endl;
     std::cout<<nbTaches2<<std::endl;
     std::cout<<nomTache1<<std::endl;
-    std::cout<<nomTache2<<std::endl;
+    std::cout<<nomTache2<<std::endl;*/
     Tache& tache1 = accederTache(nomsTachesComposites1, nbTaches1, nomTache1);
     Tache& tache2 = accederTache(nomsTachesComposites2, nbTaches2, nomTache2);
     std::string chemin1 = genererChemin(nomsTachesComposites1, nbTaches1, nomTache1);
     std::string chemin2 = genererChemin(nomsTachesComposites2, nbTaches2, nomTache2);
-    std::cout << chemin1<<std::endl;
-    std::cout << chemin2<<std::endl;
+    // std::cout << chemin1<<std::endl;
+    // std::cout << chemin2<<std::endl;
     tache2.ajouterTachePrecedente(tache1, chemin1, chemin2);
     tache1.ajouterTacheSuivante(tache2, chemin1, chemin2);
 
