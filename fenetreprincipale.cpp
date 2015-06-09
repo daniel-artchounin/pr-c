@@ -74,7 +74,6 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     menuGestion->addAction(actionEnregistrerProjet);
     menuFenetre->addAction(actionQuitter);
 
-
     // ajouts des actions à la barre d'outils
     barrreOutils->addAction(actionLoad);
     barrreOutils->addAction(actionSave);

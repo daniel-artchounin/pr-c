@@ -20,7 +20,7 @@ Tache* Projet::trouverTache(const std::string& nomTache)const{
 void Projet::ajouterTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                           const Horaire& heureEcheance,const std::string & titre,bool preemptive, bool composite, const Duree & dur){
     if(preemptive && composite){
-        throw ProjetException("erreur : On ne peut pas créer de tâche composite et preemptive");
+        throw ProjetException("Erreur : on ne peut pas créer de tâche composite et preemptive");
     }
     Tache* newTache = 0;
     if(preemptive){
@@ -33,7 +33,7 @@ void Projet::ajouterTache(const Date& dateD, const Horaire& heureD, const Date& 
                                                     titre,dur);
         }catch (TacheSimpleNonPreemptiveException& e){
             delete newTache;
-            throw ProjetException("La tache possède une durée supérieur à 12 heures");
+            throw ProjetException("Erreur : la tache possède une durée supérieur à 12 heures");
         }
         newTache = new TacheSimpleNonPreemptive(dateD,heureD, dateEcheance, heureEcheance,
                                                 titre,dur);
@@ -44,14 +44,14 @@ void Projet::ajouterTache(const Date& dateD, const Horaire& heureD, const Date& 
     }
     if(!addItem(titre,newTache)){
         delete newTache;
-        throw TacheCompositeException("erreur : Nous n'avons pas réussi à ajouter la tâche au projet");
+        throw TacheCompositeException("Erreur : nous n'avons pas réussi à ajouter la tâche au projet");
     }
 }
 
 Tache& Projet::getTache(const std::string& titre){
     Tache* t=trouverTache(titre);
     if (!t) {
-        throw ProjetException("erreur : tache inexistante");
+        throw ProjetException("Erreur : tache inexistante");
     }
     return *t;
 }
@@ -63,7 +63,7 @@ const Tache& Projet::getTache(const std::string& titre)const{
 void Projet::supprimerTache(const std::string& titre){
 
     if(!trouverTache(titre)){
-        throw TacheCompositeException("erreur : tache inexistante");
+        throw TacheCompositeException("Erreur : tache inexistante");
     }
     items.erase(titre);
 }
@@ -125,7 +125,7 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
     }
     if(nbTaches == 0){
         if (trouverTache(titre)){
-            throw ProjetException("erreur : Tache deja existante");
+            throw ProjetException("Erreur : tache deja existante");
             return false;
         }
     }
@@ -135,27 +135,20 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
             ||( (dateF == dateFin) && (heureF > horaireFin) )  ){
         return false;
     }
-    // std::cout << "bonjour" ;
-    // std::cout << ((getDateFin()-getDateDebut())*24*60 + (getHoraireFin()-getHoraireDebut()) ) - int(getDuree().getDureeEnMinutes())  ;
-    // std::cout << int(dur.getDureeEnMinutes());
     if(  ( ( (getDateFin()-getDateDebut())*24*60 + (getHoraireFin()-getHoraireDebut()) ) - int(getDuree().getDureeEnMinutes()) ) < int(dur.getDureeEnMinutes())  ) {
         return false; // la duree de la tâche est supérieur à la durée libre du projet
     }
     Tache* tacheActuelle = 0;
     TacheComposite* tacheCompositeActuelle = 0;
     for(unsigned int i = 0; i < nbTaches; i++){
-        // std::cout<<"bonjour"<<std::endl;
         if(i==0){
             tacheActuelle = trouverTache(nomsTaches[i]);
         }
         else{
-            // std::cout<< (tacheCompositeActuelle->getHoraireFin()-tacheCompositeActuelle->getHoraireDebut() )<<std::endl ;
-            // std::cout<<i<<std::endl ;
-            // std::cout<< "coucou"<<std::endl ;
             tacheActuelle = tacheCompositeActuelle->trouverSsTache(nomsTaches[i]);
         }
         if(tacheActuelle == 0){
-            throw ProjetException("erreur : tache inexistante");
+            throw ProjetException("Erreur : tache inexistante");
         }
         try{
             tacheCompositeActuelle = dynamic_cast<TacheComposite*>(tacheActuelle);
@@ -163,10 +156,10 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
         catch(std::bad_cast& e){
             // on n'est normalement pas censé entrer ici car dynamic_cast ne génère pas d'exception pour les
             // conversions de pointeur
-            throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
+            throw ProjetException("Erreur : les titres de tâches données en paramètres ne sont pas des taches composites");
         }
         if(tacheCompositeActuelle == 0){
-            throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
+            throw ProjetException("Erreur : les titres de tâches données en paramètres ne sont pas des taches composites");
         }
         if( (dateD < tacheCompositeActuelle->getDateDebut()) || (dateF > tacheCompositeActuelle->getDateFin())
                 ||( (dateD == tacheCompositeActuelle->getDateDebut()) && (heureD < tacheCompositeActuelle->getHoraireDebut()) )
@@ -187,7 +180,7 @@ void Projet::creerAjouterTache(const std::string * nomsTaches, unsigned int nbTa
                                ,const Horaire& heureD,const Date& dateF, const Horaire& heureF,
                                const std::string& titre, bool preemptive, bool composite,const Duree & dur){
     if(!verifierContraintesRespectees(nomsTaches,nbTaches, dateD,heureD, dateF, heureF, dur)){
-        throw ProjetException("ProjetException, création de la tâche " + titre + " impossible : contraintes non respectées");
+        throw ProjetException("Erreur : création de la tâche " + titre + " impossible car les contraintes ne sont pas respectées");
     }
     Tache* tacheActuelle = 0;
     TacheComposite* tacheCompositeActuelle = 0;
@@ -206,7 +199,7 @@ void Projet::creerAjouterTache(const std::string * nomsTaches, unsigned int nbTa
                 tacheActuelle = tacheCompositeActuelle->trouverSsTache(nomsTaches[i]);
             }
             if(tacheActuelle == 0){
-                throw ProjetException("erreur : tache inexistante");
+                throw ProjetException("Erreur : tache inexistante");
             }
             try{
                 tacheCompositeActuelle = dynamic_cast<TacheComposite*>(tacheActuelle);
@@ -214,15 +207,13 @@ void Projet::creerAjouterTache(const std::string * nomsTaches, unsigned int nbTa
             catch(std::bad_cast& e){
                 // on n'est normalement pas censé entrer ici car dynamic_cast ne génère pas d'exception pour les
                 // conversions de pointeur
-                throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
+                throw ProjetException("Erreur : les titres de tâches données en paramètres ne sont pas des taches composites");
             }
             if(tacheCompositeActuelle == 0){
-                throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
+                throw ProjetException("Erreur : les titres de tâches données en paramètres ne sont pas des taches composites");
             }
             tacheCompositeActuelle->addDuree(dur);
         }
-        // std::cout<< (tacheCompositeActuelle->getHoraireFin()-tacheCompositeActuelle->getHoraireDebut() )<<std::endl ;
-        // std::cout<< (tacheCompositeActuelle->getDuree())<<std::endl ;
         tacheCompositeActuelle->ajouterSsTache(dateD,heureD,dateF, heureF, titre, preemptive, composite, dur);
 
     }
@@ -230,14 +221,17 @@ void Projet::creerAjouterTache(const std::string * nomsTaches, unsigned int nbTa
 
 void Projet::ajouterPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
                                const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2){
+    std::cout<<"affichage :"<<std::endl;
+    std::cout<<nbTaches1<<std::endl;
+    std::cout<<nbTaches2<<std::endl;
+    std::cout<<nomTache1<<std::endl;
+    std::cout<<nomTache2<<std::endl;
     Tache& tache1 = accederTache(nomsTachesComposites1, nbTaches1, nomTache1);
     Tache& tache2 = accederTache(nomsTachesComposites2, nbTaches2, nomTache2);
     std::string chemin1 = genererChemin(nomsTachesComposites1, nbTaches1, nomTache1);
     std::string chemin2 = genererChemin(nomsTachesComposites2, nbTaches2, nomTache2);
-    std::cout << "affichage des précédences : " << std::endl;
-    std::cout << nbTaches1 << chemin1 << std::endl;
-    std::cout << nbTaches2 << chemin2<< std::endl;
-
+    std::cout << chemin1<<std::endl;
+    std::cout << chemin2<<std::endl;
     tache2.ajouterTachePrecedente(tache1, chemin1, chemin2);
     tache1.ajouterTacheSuivante(tache2, chemin1, chemin2);
 
@@ -369,6 +363,5 @@ std::string Projet::genererChemin(const std::string * nomsTachesComposites, unsi
         chemin += (nomsTachesComposites[i]+'/');
     }
     chemin += nomTache;
-    // std::cout << chemin << std::endl; //-> test
     return chemin;
 }

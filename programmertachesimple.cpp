@@ -6,7 +6,6 @@ ProgrammerTacheSimple::ProgrammerTacheSimple(Projet& projet, std::string * chain
 {
 
     try{
-        // for(unsigned int i = 0 ; i)
         Tache& myTache = nomProjet.accederTache(
                     chaine,
                     *taille,

@@ -12,6 +12,8 @@ public:
     InformationsTache(const Tache& tache, QWidget *parent = 0);
     QTableWidget* precendentTableWidget;
     QTableWidget* suivantTableWidget;
+    QHBoxLayout* hBoxPrecedent;
+    QHBoxLayout* hBoxSuivant;
     QVBoxLayout* vBoxPrecedence;
 };
 

@@ -8,7 +8,6 @@ ProjetManager * ProjetManager::instance= 0; //initialisation à null, pour la pr
 
 ProjetManager& ProjetManager::getInstance() {
     //si l'instance interne n'est pas encore créé, on doit le faire
-    // std::cout << "instance :" << instance << std::endl; // -> test
     if(instance == 0){
         instance = new ProjetManager();
     }
@@ -16,7 +15,6 @@ ProjetManager& ProjetManager::getInstance() {
 }
 
 void ProjetManager::libererInstance() {
-    // std::cout << "liberation :" << instance << std::endl; // -> test
     if(instance != 0){
         delete instance;
         instance = 0;

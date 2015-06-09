@@ -11,7 +11,6 @@ ProgrammerTacheSimplePreemptive::ProgrammerTacheSimplePreemptive(Projet& projet,
 
 void ProgrammerTacheSimplePreemptive::retourFenetrePrincipaleValider(){
     ProgrammationManager& programmationManager = ProgrammationManager::getInstance();
-    std::cout << "titre de tâche depuis interface : " << titreTache << std::endl;
     try{
         TacheSimplePreemptive& myTacheSimplePreemptive = nomProjet.accederTacheSimplePreemptive(
                     chemin,

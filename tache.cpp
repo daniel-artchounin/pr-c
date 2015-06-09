@@ -40,28 +40,27 @@ Tache* Tache::trouverTacheSuivante(const std::string & titre)const{
 void Tache::ajouterTachePrecedente(Tache & tachePrecedente, const std::string& cheminementPrecedent, const std::string& cheminementSuivant){
     std::cout << "cheminement précédent" << cheminementPrecedent << std::endl;
     if(trouverTachePrecedente(cheminementPrecedent)!=0){
-        throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " envoyée en paramètre précède déjà la tâche courante "+ this->getTitre());
+        throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " précède déjà la tâche  "+ this->getTitre()+".");
     }
     if(tachePrecedente.trouverTachePrecedente(cheminementSuivant)!=0){
-        throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " envoyée en paramètre a pour tâche precedente la tâche courante "+ this->getTitre());
+        throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " a pour tâche precedente la tâche "+ this->getTitre()+".");
     }
-    bool arreter = true;
     if(cheminementPrecedent.compare(cheminementSuivant)==0){
-        throw TacheException("La tache "+cheminementSuivant+" ne peut pas se précéder elle meme.");
+        throw TacheException("Erreur : la tache "+cheminementSuivant+" ne peut pas se précéder elle meme.");
     }
     std::size_t found = cheminementPrecedent.find(cheminementSuivant);
     if (found!=std::string::npos){
-        throw TacheException("La tache mère "+cheminementSuivant+"ne peut pas débuter après la fin de sa tache descendante " + cheminementPrecedent+".");
+        throw TacheException("Erreur : la tache mère "+cheminementSuivant+"ne peut pas débuter après la fin de sa tache descendante " + cheminementPrecedent+".");
 
     }
     found = cheminementSuivant.find(cheminementPrecedent);
     if (found!=std::string::npos){
-        throw TacheException("La tache fille "+cheminementSuivant+" ne peut pas débuter après la fin de sa tache ascendante " + cheminementPrecedent+".");
+        throw TacheException("Erreur : la tache fille "+cheminementSuivant+" ne peut pas débuter après la fin de sa tache ascendante " + cheminementPrecedent+".");
 
     }
     if( ((this->getDateFin()-tachePrecedente.getDateDebut())*24*60+(this->getHoraireFin()-tachePrecedente.getHoraireDebut()))
             -tachePrecedente.getDuree().getDureeEnMinutes()< this->getDuree().getDureeEnMinutes()){
-        throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " envoyée en paramètre ne sera pas programmable");
+        throw TacheException("Erreur : la tâche " + this->getTitre() + " ne sera pas programmable");
     }
     tachesPrecedentes.insert(std::pair<std::string, Tache*>(cheminementPrecedent, &tachePrecedente));
 }

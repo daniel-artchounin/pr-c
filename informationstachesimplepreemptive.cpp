@@ -35,14 +35,18 @@ InformationsTacheSimplePreemptive::InformationsTacheSimplePreemptive(const Tache
     vBox->addLayout(formlayout);
     if(vBoxPrecedence!=0){
         if(programmationsTableWidget != 0){
-            vBoxPrecedence->addWidget(programmationsTableWidget);
+            hBoxProgrammations = new QHBoxLayout();
+            hBoxProgrammations->addWidget(programmationsTableWidget);
+            vBoxPrecedence->addLayout(hBoxProgrammations);
         }
         vBox->addLayout(vBoxPrecedence);
     }
     else{
         if(programmationsTableWidget != 0){
             vBoxPrecedence = new QVBoxLayout();
-            vBoxPrecedence->addWidget(programmationsTableWidget);
+            hBoxProgrammations = new QHBoxLayout();
+            hBoxProgrammations->addWidget(programmationsTableWidget);
+            vBoxPrecedence->addLayout(hBoxProgrammations);
             vBox->addLayout(vBoxPrecedence);
         }
     }

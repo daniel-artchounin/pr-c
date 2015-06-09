@@ -26,15 +26,9 @@ void SupprimerPrecedence::retourFenetrePrincipaleValider(){
         std::cout << "cheminement (SupprimerPrecedence::retourFenetrePrincipaleValider) :" << cheminement.toStdString() << std::endl;
         QStringList liste = cheminement.split("/");
         try{
-            std::cout << "depuis la fenetre ;-) titre ; " << titreTache2 << std::endl; // -> test
             tailleChemin2 = new unsigned int;
             chemin2 = fromQStringListToStdStringArray(liste, tailleChemin2);
-            std::cout << "cheminement (SupprimerPrecedence::retourFenetrePrincipaleValider) :" << cheminement.toStdString() << std::endl;
-            for (int i = 0 ; i < *tailleChemin2 ; i++){
-                std::cout << chemin2[i] << std::endl;
-            }
             titreTache2 = chemin2[*tailleChemin2-1];
-            std::cout << "depuis la fenetre ;-) titre ; " << titreTache2 << std::endl; // -> test
             nomProjet.supprimerPrecedence(chemin2, (*tailleChemin2)-1, titreTache2, chemin, *tailleChemin, titreTache);
             QMessageBox::information(this, "Suppression de contrainte de précédence", "Votre suppression de contrainte de précédence entre les tâches " + QString::fromStdString(titreTache) + " et " + QString::fromStdString(titreTache2) + " a bien été prise en compte.");
         }
@@ -47,14 +41,10 @@ void SupprimerPrecedence::retourFenetrePrincipaleValider(){
 
 std::string* SupprimerPrecedence::fromQStringListToStdStringArray(QStringList chemin, unsigned int* taille){
     *taille = (unsigned int)chemin.size();
-    qDebug() << "taille :"; // -> test
-    qDebug() << *taille; // -> test
-    qDebug() << "result"; // -> test
     std::string* cheminFinal = new std::string[*taille];
     for(int i = 0; i < chemin.size(); ++i){
         cheminFinal[i] = chemin.at(i).toStdString();
     }
-    // qDebug() << QString::fromStdString(cheminFinal[i]); // -> test
     return cheminFinal;
 }
 
@@ -62,7 +52,6 @@ void SupprimerPrecedence::afficherListeTacheWidget(){
     try{
         Tache& tache = nomProjet.accederTache(chemin, *tailleChemin, titreTache);
         for(Tache::tp_iterator it = tache.tPBegin(); it!= tache.tPEnd() ; ++it){
-            std::cout << "coucou les amis : " << it->first << std::endl;
             new QListWidgetItem(QString::fromStdString(it->first), listeDeTaches);
         }
     }

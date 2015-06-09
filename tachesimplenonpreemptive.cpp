@@ -17,7 +17,7 @@ TacheSimpleNonPreemptive::TacheSimpleNonPreemptive(const Date& dateD, const Hora
     :TacheSimple(dateD, heureD, dateEcheance,
                   heureEcheance, titre, dur),programmationTacheSimpleNonPreemptive(0){
     if(!dureeValide(dur)){
-        throw TacheSimpleNonPreemptiveException("La durée tansmise en paramètres n'est pas valide");
+        throw TacheSimpleNonPreemptiveException("Erreur : la durée tansmise en paramètres n'est pas valide");
     }
 }
 
@@ -37,9 +37,7 @@ bool TacheSimpleNonPreemptive::isEndProgrammationOk(const Date& dateProg, const 
         }
         // la programmation ne sera pas terminée avant le début de notre prévision de programmation
         return false;
-
     }
-
 }
 
 void TacheSimpleNonPreemptive::setProgrammation(ProgrammationTacheSimpleNonPreemptive* programmationTacheSimpleNonP){

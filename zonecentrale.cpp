@@ -15,9 +15,6 @@ ZoneCentrale::ZoneCentrale(QWidget *parent) :
     QSizePolicy spRight(QSizePolicy::Preferred, QSizePolicy::Preferred);
     spRight.setHorizontalStretch(3);
     fenetreEDT->setSizePolicy(spRight);
-    // onglets->setGeometry(30, 20,1000 ,700);
-    // onglets->addTab(fenetreGestionProjet,"Gestion de Projet");
-    //onglets->addTab(fenetreEDT,"Agenda");
     hBox->addWidget(fenetreGestionProjet);
     hBox->addWidget(fenetreEDT);
     this->setLayout(hBox);

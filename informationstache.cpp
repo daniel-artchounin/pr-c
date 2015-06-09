@@ -31,7 +31,7 @@ InformationsTache::InformationsTache(const Tache& tache, QWidget *parent):
         suivantTableWidget->setRowCount(tache.tSSize());
         suivantTableWidget->setColumnCount(1);
         suivantTableHeader << "Tâche(s) suivante(s)";
-        // suivantTableWidget->verticalHeader()->setVisible(false);
+        suivantTableWidget->setHorizontalHeaderLabels(suivantTableHeader);
         suivantTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
         suivantTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
         suivantTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -41,15 +41,19 @@ InformationsTache::InformationsTache(const Tache& tache, QWidget *parent):
              suivantTableWidget->setItem(i, 0, new QTableWidgetItem(QString::fromStdString(it->first)));
              i++;
         }
-    }
+    }    
     vBoxPrecedence = 0;
     if(precendentTableWidget !=0 || suivantTableWidget!=0){
         vBoxPrecedence = new QVBoxLayout();
     }
     if(precendentTableWidget !=0){
-        vBoxPrecedence->addWidget(precendentTableWidget);
+        hBoxPrecedent = new QHBoxLayout();
+        hBoxPrecedent->addWidget(precendentTableWidget);
+        vBoxPrecedence->addLayout(hBoxPrecedent);
     }
     if(suivantTableWidget!=0){
-        vBoxPrecedence->addWidget(suivantTableWidget);
+        hBoxSuivant = new QHBoxLayout();
+        hBoxSuivant->addWidget(suivantTableWidget);
+        vBoxPrecedence->addLayout(hBoxSuivant);
     }
 }

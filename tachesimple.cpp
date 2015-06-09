@@ -1,4 +1,3 @@
-
 #include "tachesimple.h"
 
 TacheSimple::TacheSimple(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,

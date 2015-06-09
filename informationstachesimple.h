@@ -6,6 +6,7 @@
 
 class InformationsTacheSimple : public InformationsTache
 {
+protected:
 public:
     InformationsTacheSimple(const TacheSimple& tacheSimple, QWidget *parent = 0);
 };

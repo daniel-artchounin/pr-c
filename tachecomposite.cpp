@@ -17,10 +17,10 @@ Tache* TacheComposite::trouverSsTache(const std::string& nomTache)const{
 void TacheComposite::ajouterSsTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                     const Horaire& heureEcheance,const std::string & titre,bool preemptive, bool composite, const Duree & dur){
     if(preemptive && composite){
-        throw TacheCompositeException("erreur : On ne peut pas créer de tâche composite et preemptive");
+        throw TacheCompositeException("Erreur : on ne peut pas créer de tâche composite et preemptive");
     }
     if (trouverSsTache(titre))
-        throw TacheCompositeException("erreur : TacheSimple deja existante");
+        throw TacheCompositeException("Erreur : TacheSimple deja existante");
     Tache* newTache = 0;
     if(preemptive && !composite){
         newTache = new TacheSimplePreemptive(dateD,heureD, dateEcheance, heureEcheance,
@@ -33,7 +33,7 @@ void TacheComposite::ajouterSsTache(const Date& dateD, const Horaire& heureD, co
                                              titre,dur);
         }catch (TacheSimpleNonPreemptiveException& e){
             delete newTache;
-            throw TacheCompositeException("La tache possède une durée supérieur à 12 heures");
+            throw TacheCompositeException("Erreur : la tache possède une durée supérieur à 12 heures");
         }
     }
     else{
@@ -42,14 +42,14 @@ void TacheComposite::ajouterSsTache(const Date& dateD, const Horaire& heureD, co
     }
     if(!addItem(titre,newTache)){
         delete newTache;
-        throw TacheCompositeException("erreur : Nous n'avons pas réussi à ajouter la tâche à tâche composite");
+        throw TacheCompositeException("Erreur : nous n'avons pas réussi à ajouter la tâche à tâche composite");
     }
 }
 
 Tache& TacheComposite::getSsTache(const std::string& titre){
     Tache* t=trouverSsTache(titre);
     if (!t) {
-        throw TacheCompositeException("erreur : tache inexistante");
+        throw TacheCompositeException("Erreur : tache inexistante");
     }
     return *t;
 }

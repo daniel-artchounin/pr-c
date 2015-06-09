@@ -117,9 +117,6 @@ ProgrammationTacheSimplePreemptive& ProgrammationManager::addProgrammationTacheS
     }
     for(Tache::tp_const_iterator it = tache.tPBegin(); it != tache.tPEnd(); ++it){
         // on parcourt toutes les tâches précédentes de la tâche que l'on souhaite programmer
-        // (*it) pour accéder à la tâche *
-        // -> pour accéder à la méthoe
-        // std::cout << typeid(*(it->second)).name(); -> test
         if(!(it->second->checkProgrammationCoherente(dateProg, horaireProg))){
             throw ProgrammationManagerException("Désolé, votre programmation de tâche entre en conflit avec une de ses tâches précédentes ou ces dernières n'ont pas encore été programmées");
         }

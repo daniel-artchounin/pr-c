@@ -51,8 +51,6 @@ FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     connect(supprimerPrecedence, SIGNAL(triggered()),this, SLOT(fenetreSupprimerPrecedence()));
     connect(supprimerElement, SIGNAL(triggered()),this, SLOT(supprimerUnElemment()));
     connect(consulterElement, SIGNAL(triggered()),this, SLOT(consulterUnElemment()));
-
-
 }
 
 void FenetreGestionProjet::afficherTreeWidget(unsigned int profondeur, ProjetManager& projetManager, QTreeWidget* arbre, QTreeWidgetItem * actuel, Element* element){
@@ -60,14 +58,10 @@ void FenetreGestionProjet::afficherTreeWidget(unsigned int profondeur, ProjetMan
         arbre->clear();
         for(ProjetManager::iterator it= projetManager.begin(); it!=projetManager.end(); ++it){
             QTreeWidgetItem * topLevel = new QTreeWidgetItem();
-            topLevel->setText(profondeur, QString::fromStdString(it->first)); // QString::fromStdString(it->second->getTitre())
+            topLevel->setText(profondeur, QString::fromStdString(it->first));
             arbre->addTopLevelItem(topLevel);
             QString::fromStdString(it->second->getTitre());
-            // std::cout<<it->second->getTitre();
-            // std::cout << it->second->getTitre()<< std::endl; // -> test
             afficherTreeWidget(profondeur+1, projetManager, arbre, topLevel,it->second);
-
-
         }
 
     }
@@ -78,15 +72,12 @@ void FenetreGestionProjet::afficherTreeWidget(unsigned int profondeur, ProjetMan
                 QTreeWidgetItem * item = new QTreeWidgetItem();
                 item->setText(0,QString::fromStdString((it->first)));
                 actuel->addChild(item);
-                // std::cout << it->second->getTitre()<< std::endl; -> test
                 afficherTreeWidget(profondeur+1, projetManager, arbre, item,it->second);
             }
         }
         else{
             TacheComposite * tacheComposite = dynamic_cast<TacheComposite *>(element);
             if(tacheComposite!=0){
-                // qDebug() << typeid(tacheComposite).name()<< QDate::currentDate(); -> test
-                // qDebug() << typeid(*tacheComposite).name()<< QDate::currentDate(); -> test
                 tacheComposite->getTitre();
                 tacheComposite->begin();
                 tacheComposite->end();
@@ -100,7 +91,6 @@ void FenetreGestionProjet::afficherTreeWidget(unsigned int profondeur, ProjetMan
 
             }
             else{
-                // std::cout << "tache de fin" <<std::endl; // -> test
             }
 
         }
@@ -109,11 +99,7 @@ void FenetreGestionProjet::afficherTreeWidget(unsigned int profondeur, ProjetMan
 }
 
 void FenetreGestionProjet::showContextMenu(const QPoint& pos){
-    // for most widgets
     QPoint globalPos = this->mapToGlobal(pos);
-    // for QAbstractScrollArea and derived classes you would use:
-    // QPoint globalPos = myWidget->viewport()->mapToGlobal(pos);
-
     QMenu myMenu;
     myMenu.addAction(supprimerPrecedence);
     myMenu.addAction(ajouterPrecedence);
@@ -126,19 +112,9 @@ void FenetreGestionProjet::showContextMenu(const QPoint& pos){
     myMenu.addAction(supprimerElement);
     myMenu.addAction(consulterElement);
     myMenu.exec(globalPos);
-    // QAction* selectedItem = ;
-    // if (selectedItem)
-    // {
-        // something was chosen, do stuff
-    // }
-    // else
-    // {
-        // nothing was chosen
-    // }
 }
 
 void FenetreGestionProjet::test(){
-    qDebug() << "Le test semble fonctionner";
 }
 
 
@@ -224,7 +200,6 @@ void FenetreGestionProjet::fenetreCreerTacheSimpleNonPreemptive(){
             QMessageBox::warning(this, "Création de tache simple non préemptive", e.what());
         }
     }
-
 }
 
 void FenetreGestionProjet::fenetreProgrammerTacheSimplePreemptive(){
@@ -254,8 +229,6 @@ void FenetreGestionProjet::fenetreProgrammerTacheSimplePreemptive(){
             QMessageBox::warning(this, "Programmation de tâche simple préemptive", e.what());
         }
     }
-
-
 }
 
 void FenetreGestionProjet::fenetreProgrammerTacheSimpleNonPreemptive(){
@@ -271,11 +244,9 @@ void FenetreGestionProjet::fenetreProgrammerTacheSimpleNonPreemptive(){
     else{
         cheminement = getCheminement(actuel);
         try{
-            std::cout << "************************" << std::endl;
             Projet& projet = getAndRemoveProjet(&cheminement);
             std::string titreTache = getNomTacheAndRemoveTache(&cheminement);
             unsigned int* taille = new unsigned int;
-            std::cout << "depuis la fenetre ;-) titre ; " << titreTache << std::endl ;
             std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
             programmerTacheSimpleNonPreemptive = new ProgrammerTacheSimpleNonPreemptive(projet, chaine, taille, titreTache);
             programmerTacheSimpleNonPreemptive->show();
@@ -347,30 +318,6 @@ void FenetreGestionProjet::fenetreSupprimerPrecedence(){
 
 }
 
-
-/* void FenetreGestionProjet::supprimerUnProjet(){
-    QTreeWidgetItem * actuel = tree->currentItem();
-    QList<QString> cheminement;
-    if(actuel == 0){
-        QMessageBox::warning(this, "Supprimer un projet", "Veuillez d'abord sélectionner un projet ou une tâche appartenant au projet pour le supprimer.");
-    }
-    else{
-        cheminement = getCheminement(actuel);
-        try{
-            ProjetManager& projetManager = ProjetManager::getInstance();
-            Projet& projet = getAndRemoveProjet(&cheminement);
-            projetManager.eraseItem(projet.getTitre());
-            FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
-            fenetrePrincipale.getZoneCentrale()->getFenetreEDT()->loadWeek();
-            afficherTreeWidget(0, projetManager, tree);
-        }
-        catch (std::logic_error& e){
-            QMessageBox::warning(this, "Suppression un projet", e.what());
-        }
-    }
-} */
-
-
 void FenetreGestionProjet::supprimerUnElemment(){
     QTreeWidgetItem * actuel = tree->currentItem();
     QList<QString> cheminement;
@@ -426,7 +373,6 @@ void FenetreGestionProjet::consulterUnElemment(){
                     delete informationsProjet;
                     informationsProjet = 0;
                 }
-                std::cout << "Coucou !!" << std::endl;
                 informationsProjet = new InformationsProjet(projet);
                 informationsProjet->show();
                 fenetrePrincipale.hide();
@@ -483,14 +429,6 @@ void FenetreGestionProjet::consulterUnElemment(){
     }
 }
 
-
-// J'ai besoin d'avoir dejà récupéré une tâche
-// j'envoie cela pour construire un nouvel objet
-// dans le nouvel objet de base on lance l'ouverture d'une nouvelle fenêtre
-// par un signal ???
-// lancement puis récupération de l'autre tâches
-// appel de la méthode et tout ce fait tout seul normalement
-
 // récupération du projet et gestion du cas d'erreur
 Projet& FenetreGestionProjet::getAndRemoveProjet(QList<QString>* chemin){
     if(chemin->isEmpty()){
@@ -501,6 +439,7 @@ Projet& FenetreGestionProjet::getAndRemoveProjet(QList<QString>* chemin){
     chemin->removeFirst();
     return projetManager.getProjet(titreProjet.toStdString());
 }
+
 // récupération du projet et gestion du cas d'erreur
 void FenetreGestionProjet::removeTache(QList<QString>* chemin){
     if(chemin->isEmpty()){
@@ -534,20 +473,14 @@ std::string FenetreGestionProjet::getNomTacheAndRemoveTache(QList<QString>* chem
 
 std::string* FenetreGestionProjet::recupCheminDepuisProjet(QList<QString> chemin, unsigned int* taille){
     *taille = (unsigned int)chemin.size();
-    qDebug() << "taille :"; // -> test
-    qDebug() << *taille; // -> test
-    qDebug() << "result"; // -> test
     std::string* cheminFinal = new std::string[*taille];
     unsigned int i = 0;
-    qDebug() << "affichage du cheminement du projet depuis recupCheminDepuisProjet";
     for(QList<QString>::iterator it = chemin.begin() ; it != chemin.end() ; ++it){
         cheminFinal[i] = (*it).toStdString();
-        qDebug() << QString::fromStdString(cheminFinal[i]) << "je suis dans la boucle"; // -> test
         i++;
     }
     return cheminFinal;
 }
-
 
 // méthode permettant de générer le cheminement de la chaine à partir de la sélection du user
 QList<QString> FenetreGestionProjet::getCheminement(QTreeWidgetItem * actuel){
@@ -556,8 +489,5 @@ QList<QString> FenetreGestionProjet::getCheminement(QTreeWidgetItem * actuel){
         cheminement.prepend(actuel->data(0,0).toString());
         actuel = actuel->parent();
     }while(actuel != 0);
-    for(QList<QString>::iterator it = cheminement.begin() ; it != cheminement.end() ; ++it){
-        qDebug() << *it; // -> test
-    }
     return cheminement;
 }

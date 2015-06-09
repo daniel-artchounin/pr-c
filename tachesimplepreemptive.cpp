@@ -30,9 +30,9 @@ unsigned int TacheSimplePreemptive::getPourcentageDejaProgramme()const{
 }
 void TacheSimplePreemptive::setPourcentageDejaProgramme(int prt){
     if (prt>100){
-        throw TacheSimplePreemptiveException("setPourcentageDejaProgramme : Le pourcentage est supérieur à 100 !");
+        throw TacheSimplePreemptiveException("Erreur : Le pourcentage est supérieur à 100 !");
     }else if(prt <0){
-        throw TacheSimplePreemptiveException("setPourcentageDejaProgramme : Le pourcentage est inférieur à 100 !");
+        throw TacheSimplePreemptiveException("Erreur : Le pourcentage est inférieur à 100 !");
     }
     else
     pourcentageDejaProgramme = prt;

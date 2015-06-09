@@ -8,6 +8,7 @@ class InformationsTacheSimplePreemptive : public InformationsTacheSimple
 {
 protected :
     QTableWidget* programmationsTableWidget;
+    QHBoxLayout* hBoxProgrammations;
 public:
     InformationsTacheSimplePreemptive(const TacheSimplePreemptive& tacheSimplePreemptive, QWidget *parent = 0);
 };
