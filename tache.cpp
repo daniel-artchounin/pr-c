@@ -45,6 +45,20 @@ void Tache::ajouterTachePrecedente(Tache & tachePrecedente, const std::string& c
     if(tachePrecedente.trouverTachePrecedente(cheminementSuivant)!=0){
         throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " envoyée en paramètre a pour tâche precedente la tâche courante "+ this->getTitre());
     }
+    bool arreter = true;
+    if(cheminementPrecedent.compare(cheminementSuivant)==0){
+        throw TacheException("La tache "+cheminementSuivant+" ne peut pas se précéder elle meme.");
+    }
+    std::size_t found = cheminementPrecedent.find(cheminementSuivant);
+    if (found!=std::string::npos){
+        throw TacheException("La tache mère "+cheminementSuivant+"ne peut pas débuter après la fin de sa tache descendante " + cheminementPrecedent+".");
+
+    }
+    found = cheminementSuivant.find(cheminementPrecedent);
+    if (found!=std::string::npos){
+        throw TacheException("La tache fille "+cheminementSuivant+" ne peut pas débuter après la fin de sa tache ascendante " + cheminementPrecedent+".");
+
+    }
     if( ((this->getDateFin()-tachePrecedente.getDateDebut())*24*60+(this->getHoraireFin()-tachePrecedente.getHoraireDebut()))
             -tachePrecedente.getDuree().getDureeEnMinutes()< this->getDuree().getDureeEnMinutes()){
         throw TacheException("Erreur : la tâche " + tachePrecedente.getTitre() + " envoyée en paramètre ne sera pas programmable");
