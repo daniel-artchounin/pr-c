@@ -1,6 +1,7 @@
 #ifndef DATETIME_H
 #define DATETIME_H
 #include "duree.h"
+#include "horaire.h"
 
 /*! \class Date
  * \brief Classe permettant de manipuler des dates standards
@@ -152,10 +153,12 @@ public:
 
     /*!
      * \brief addDuree
+     * Retourne la nouvelle date après l'ajout de la durée depuis l'horaire indiqué
      * \param duree
-     * \return une date après ajout ou la même si durée inférieur à 24h
+     * \param horaire
+     * \return date
      */
-    Date addDuree(const Duree duree) const;
+    Date addDuree(const Duree duree, const Horaire horaire) const;
 };
 
 /*!

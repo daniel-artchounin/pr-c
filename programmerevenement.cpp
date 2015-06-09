@@ -7,8 +7,7 @@ ProgrammerEvenement::ProgrammerEvenement(QWidget *parent) :
     initialiserFormulaire();
 }
 
-ProgrammerEvenement::ProgrammerEvenement(ProgrammationEvenement* prog, QWidget *parent) : FenetreAnnulerValider(parent) {
-    progEvt=prog;
+ProgrammerEvenement::ProgrammerEvenement(ProgrammationEvenement* prog, QWidget *parent) : FenetreAnnulerValider(parent), progEvt(prog) {
     initialiserFormulaire();
     nom->setText(toQString(progEvt->getNom()));
     lieu->setText(toQString(progEvt->getEvenement()->getLieu()));

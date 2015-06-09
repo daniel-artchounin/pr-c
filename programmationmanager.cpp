@@ -32,7 +32,7 @@ bool ProgrammationManager::inclus(const Date& dateProg, const Horaire& horairePr
 }
 
 bool ProgrammationManager::hasIntersection(const Date& dateProg, const Horaire& horaireProg, const Date& dateFin, const Horaire& horaireFin, const Date& newDate, const Horaire& newHoraire, const Duree& newDuree) const{
-    return inclus(dateProg, horaireProg, dateFin, horaireFin, newDate, newHoraire) || inclus(newDate, newHoraire, newDate.addDuree(newDuree), newHoraire.addDuree(newDuree), dateProg, horaireProg);
+    return inclus(dateProg, horaireProg, dateFin, horaireFin, newDate, newHoraire) || inclus(newDate, newHoraire, newDate.addDuree(newDuree, newHoraire), newHoraire.addDuree(newDuree), dateProg, horaireProg);
 }
 
 bool ProgrammationManager::isValid(const Date& date, const Horaire& horaire, const Duree& duree, Programmation *old) {
@@ -65,7 +65,7 @@ ProgrammationEvenement& ProgrammationManager::addProgrammationEvenement(const Da
 
 void ProgrammationManager::updateProgrammationEvenement(ProgrammationEvenement *programmation, const Date& newDate, const Horaire& newHoraire, const Duree& newDuree) {
     if(!isValid(newDate, newHoraire, newDuree, programmation)) {
-        throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationEvenement, Programmation incompatible avec une programmation existante");
+        throw ProgrammationManagerException("Erreur, ProgrammationManager, updateProgrammationEvenement, Programmation incompatible avec une programmation existante");
     }
     items.erase(getKeyFrom(programmation->getDateProgrammation(),programmation->getHoraireProgrammation()));
     programmation->updateProgrammationEvenement(newDate, newHoraire, newDuree);
@@ -102,6 +102,28 @@ ProgrammationTacheSimpleNonPreemptive& ProgrammationManager::addProgrammationTac
     Manager::addItem(getKeyFrom(dateProg, horaireProg), programmation);
     return *programmation;
 }
+
+void ProgrammationManager::updateProgrammationTacheSimpleNonPreemptive(ProgrammationTacheSimpleNonPreemptive &programmation, const Date& newDate, const Horaire& newHoraire) {
+    if(!isValid(newDate, newHoraire, programmation.getTacheSimple().getDuree(), &programmation)) {
+        throw ProgrammationManagerException("Erreur, ProgrammationManager, updateProgrammationTacheSimpleNonPreemptive, Programmation incompatible avec une programmation existante");
+    }
+    if(!programmation.getTacheSimple().estDansIntervalle(newDate, newHoraire)){
+        throw ProgrammationManagerException("Erreur, ProgrammationManager, updateProgrammationTacheSimpleNonPreemptive, Programmation ne respectant pas la disponibilité ou l'échéance de la tâche");
+    }
+    for(Tache::tp_const_iterator it = programmation.getTacheSimple().tPBegin(); it != programmation.getTacheSimple().tPEnd(); ++it){
+        // on parcourt toutes les tâches précédentes de la tâche que l'on souhaite programmer
+        // (*it) pour accéder à la tâche *
+        // -> pour accéder à la méthode
+        if(!(it->second->checkProgrammationCoherente(newDate, newHoraire))){
+            throw ProgrammationManagerException("Désolé, votre programmation de tâche entre en conflit avec une de ses tâches précédentes");
+        }
+    }
+    items.erase(getKeyFrom(programmation.getDateProgrammation(),programmation.getHoraireProgrammation()));
+    programmation.updateProgrammationTacheSimpleNonPreemptive(newDate, newHoraire);
+    Manager::addItem(getKeyFrom(newDate, newHoraire), &programmation);
+}
+
+
 ProgrammationTacheSimplePreemptive& ProgrammationManager::addProgrammationTacheSimplePreemptive(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage, TacheSimplePreemptive& tache) {
     if(tache.getPourcentageDejaProgramme() == 100){
         throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimplePreemptive, la tâche a déjà été programmée");
@@ -124,6 +146,32 @@ ProgrammationTacheSimplePreemptive& ProgrammationManager::addProgrammationTacheS
     ProgrammationTacheSimplePreemptive* programmation = new ProgrammationTacheSimplePreemptive(dateProg, horaireProg, pourcentage,tache);
     Manager::addItem(getKeyFrom(dateProg, horaireProg), programmation);
     return *programmation;
+}
+
+void ProgrammationManager::updateProgrammationTacheSimplePreemptive(ProgrammationTacheSimplePreemptive &programmation, const Date& newDate, const Horaire& newHoraire, unsigned int pourcentage) {
+    if(programmation.getTacheSimple().getPourcentageDejaProgramme()-programmation.getPourcentage() == 100){
+        throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimplePreemptive, la tâche a déjà été programmée");
+    }
+    if(!isValid(newDate, newHoraire, programmation.getTacheSimple().getDureeProgrammationViaPourcentage(pourcentage), &programmation)) {
+        throw ProgrammationManagerException("Erreur, ProgrammationManager, updateProgrammationTacheSimplePreemptive, Programmation incompatible avec une programmation existante");
+    }
+    if(!programmation.getTacheSimple().estDansIntervalle(newDate, newHoraire)){
+        throw ProgrammationManagerException("Erreur, ProgrammationManager, updateProgrammationTacheSimplePreemptive, Programmation ne respectant pas la disponibilité ou l'échéance de la tâche");
+    }
+    if(programmation.getTacheSimple().getPourcentageDejaProgramme()-programmation.getPourcentage()+pourcentage>100){
+        throw ProgrammationManagerException("Erreur, ProgrammationManager, addProgrammationTacheSimplePreemptive, le pourcentage de la tâche a été sélectionné de telle manière qu'il dépasse les 100 %");
+    }
+    for(Tache::tp_const_iterator it = programmation.getTacheSimple().tPBegin(); it != programmation.getTacheSimple().tPEnd(); ++it){
+        // on parcourt toutes les tâches précédentes de la tâche que l'on souhaite programmer
+        // (*it) pour accéder à la tâche *
+        // -> pour accéder à la méthode
+        if(!(it->second->checkProgrammationCoherente(newDate, newHoraire))){
+            throw ProgrammationManagerException("Désolé, votre programmation de tâche entre en conflit avec une de ses tâches précédentes");
+        }
+    }
+    items.erase(getKeyFrom(programmation.getDateProgrammation(),programmation.getHoraireProgrammation()));
+    programmation.updateProgrammationTacheSimplePreemptive(newDate, newHoraire, pourcentage);
+    Manager::addItem(getKeyFrom(newDate, newHoraire), &programmation);
 }
 
 void ProgrammationManager::exportTo(QXmlStreamWriter& stream) {

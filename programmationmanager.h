@@ -5,6 +5,7 @@
 #include "tachesimplenonpreemptive.h"
 #include "tachesimplepreemptive.h"
 # include "programmationevenement.h"
+#include <QDebug>
 
 /*! \class ProgrammationManager
  * \brief Classe permettant de manipuler des Programmations. Hérite de la classe Manager. Utilise le design pattern singleton
@@ -115,6 +116,8 @@ public:
      */
     ProgrammationTacheSimpleNonPreemptive& addProgrammationTacheSimpleNonPreemptive(const Date& dateProg, const Horaire& horaireProg, TacheSimpleNonPreemptive& tache);
 
+    void updateProgrammationTacheSimpleNonPreemptive(ProgrammationTacheSimpleNonPreemptive& programmation, const Date& newDate, const Horaire& newHoraire);
+
     /*!
      * \brief addProgrammationTacheSimplePreemptive
      * Génère une exception ProgrammationManagerException si la nouvelle programmation n'est pas valide
@@ -125,6 +128,14 @@ public:
      * \return Programmation ajoutée si elle est valide
      */
     ProgrammationTacheSimplePreemptive& addProgrammationTacheSimplePreemptive(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage, TacheSimplePreemptive& tache);
+
+    void updateProgrammationTacheSimplePreemptive(ProgrammationTacheSimplePreemptive &programmation, const Date& newDate, const Horaire& newHoraire, unsigned int pourcentage);
+
+    void deleteProgrammation(Programmation* programmation) {
+        eraseItem(getKeyFrom(programmation->getDateProgrammation(),programmation->getHoraireProgrammation()));
+        delete programmation;
+        programmation=0;
+    }
 
     /*!
      * \brief getProgrammation

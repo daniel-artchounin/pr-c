@@ -12,7 +12,7 @@ FenetreEDT::FenetreEDT(QWidget *parent) : QGraphicsView(parent) {
     creerActions();
     progRdv=0;
     progReunion=0;
-    modifProg=0;
+    editProg=0;
     week=0;
     this->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     scene->setSceneRect(0,0,width(),height());
@@ -23,8 +23,8 @@ void FenetreEDT::creerActions() {
     connect(actionProgRendezVous, SIGNAL(triggered()), this, SLOT(programmerRendezVous()));
     actionProgReunion = new QAction("Programmer une réunion", this);
     connect(actionProgReunion, SIGNAL(triggered()), this, SLOT(programmerReunion()));
-    actionModifierProg = new QAction("Modifier une programmation", this);
-    connect(actionModifierProg, SIGNAL(triggered()), this, SLOT(modifierProgrammation()));
+    actionEditProg = new QAction("Editer une programmation", this);
+    connect(actionEditProg, SIGNAL(triggered()), this, SLOT(editerProgrammation()));
 }
 
 Date FenetreEDT::weekBegining() {
@@ -76,36 +76,40 @@ void FenetreEDT::loadWeek() {
     ProgrammationManager& pgm = ProgrammationManager::getInstance();
 
     for(ProgrammationManager::iterator it = pgm.constraint_begin(weekBegining()); it!=pgm.constraint_end(weekEnd()); ++it) {
-        drawProgrammation(it->second->getNom(), it->second->getDateProgrammation(), it->second->getHoraireProgrammation(), it->second->getDateFin(), it->second->getHoraireFin(), it->second->getDuree(), QBrush(QColor(128, 128, 255, 128)));
+        drawProgrammation(it->second->getNom(), it->second->getDateProgrammation(), it->second->getHoraireProgrammation(), it->second->getDateFin(), it->second->getHoraireFin(), it->second->getDuree());
     }
     drawDates();
-    viewport()->update();
-    scene->update(rect());
 }
 
-void FenetreEDT::drawProgrammation(std::string titre, Date ddebut, Horaire hdebut, Date dfin, Horaire hfin, Duree duree, QBrush brush) {
+void FenetreEDT::drawProgrammation(std::string titre, Date ddebut, Horaire hdebut, Date dfin, Horaire hfin, Duree duree) {
     int x = toPositionX(ddebut);
     int y = toPositionY(hdebut);
+    QBrush brush = QBrush(QColor(128, 128, 255, 128));
+    QGraphicsRectItem *item;
     if(ddebut==dfin) {
         int height = toHeight(duree);
-        scene->addRect(x,y,getWidthDay(),height,QPen(Qt::blue),brush);
+        item = scene->addRect(x,y,getWidthDay(),height,QPen(Qt::blue), brush);
         drawNames(titre,x,y);
     }else {
         scene->addRect(x,y,getWidthDay(),maxY()-minY(),QPen(Qt::blue),brush);
         drawNames(titre,x,y);
         Date next = ddebut.demain();
-        int day = toDay(next);
+        int day = dayOfWeek(next);
         while(day<=7 && !(next==dfin)) {
-            scene->addRect(toPositionX(next),minY(),getWidthDay(),maxY(),QPen(Qt::blue),brush);
+            QGraphicsRectItem *item = scene->addRect(toPositionX(next),minY(),getWidthDay(),maxY(),QPen(Qt::blue),brush);
+            item->setData(101, toQString(ddebut.toString()));
+            item->setData(102, toQString(hdebut.toString()));
             drawNames(titre,toPositionX(next),minY());
             next = next.demain();
             day++;
         }
-        if(day<=7) {
+        if(day<=7 && next==dfin && !(hfin==Horaire(0,0))) {
             scene->addRect(toPositionX(next),minY(),getWidthDay(),(hfin.getHeure()+hfin.getMinute()/60.0)*getHeightHour(),QPen(Qt::blue),brush);
             drawNames(titre,toPositionX(next),minY());
         }
     }
+    item->setData(101, toQString(ddebut.toString()));
+    item->setData(102, toQString(hdebut.toString()));
 }
 
 void FenetreEDT::drawNames(std::string titre, int x, int y) {
@@ -117,7 +121,7 @@ void FenetreEDT::drawNames(std::string titre, int x, int y) {
 
 void FenetreEDT::drawDates() {
     QGraphicsTextItem * io;
-    Date date = weekBegining().toString();
+    Date date = weekBegining();
     for(int i=0; i<7; i++) {
         io = new QGraphicsTextItem;
         io->setPos(toPositionX(date),-5);
@@ -171,8 +175,8 @@ int FenetreEDT::maxY() {
     return minY() + 25*getHeightHour();
 }
 
-int FenetreEDT::toDay(const Date& date) {
-    return QDate::fromString(toQString(date.toString()),toQString("dd/MM/yyyy")).day();
+int FenetreEDT::dayOfWeek(const Date& date) {
+    return QDate::fromString(toQString(date.toString()),toQString("dd/MM/yyyy")).dayOfWeek();
 }
 
 void FenetreEDT::programmerRendezVous(){
@@ -195,13 +199,13 @@ void FenetreEDT::programmerReunion(){
     masquerFenetrePrincipale();
 }
 
-void FenetreEDT::modifierProgrammation(){
-    if(modifProg !=0){
-        delete modifProg;
-        modifProg = 0;
+void FenetreEDT::editerProgrammation(){
+    if(editProg !=0){
+        delete editProg;
+        editProg = 0;
     }
-    modifProg = new ModifierProgrammationEvenement;
-    modifProg->show();
+    editProg = new EditerProgrammation;
+    editProg->show();
     masquerFenetrePrincipale();
 }
 
@@ -215,7 +219,7 @@ void FenetreEDT::contextMenuEvent(QContextMenuEvent *event) {
     QMenu menu(this);
     menu.addAction(actionProgRendezVous);
     menu.addAction(actionProgReunion);
-    menu.addAction(actionModifierProg);
+    menu.addAction(actionEditProg);
     menu.exec(event->globalPos());
 }
 

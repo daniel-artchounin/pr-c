@@ -26,7 +26,7 @@ public:
      * \param horaireProg horaire de programmation
      * \return vrai si la programmation se trouve dans l'intervalle ou faux sinon
      */
-    bool estDansIntervalle(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage = 100);
+    bool estDansIntervalle(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage = 100) const;
 
     /*!
      * \brief Constructeur

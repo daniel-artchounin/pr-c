@@ -7,7 +7,7 @@ const Duree & Element::getDuree()const{
     return duree;
 }
 
-bool Element::estDansIntervalle(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage){
+bool Element::estDansIntervalle(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage) const{
     if( ( dateProg>=dateDebut || (dateProg==dateDebut && horaireProg >= horaireDebut) )
           && ( ( (dateFin-dateProg)*24*60+(horaireFin-horaireProg)-( (int(pourcentage) * int(getDuree().getDureeEnMinutes()) )/100) ) >= 0) ){
         return true;

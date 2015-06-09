@@ -42,6 +42,8 @@ protected:
         setPourcentageDejaProgramme(getPourcentageDejaProgramme()+prt);
     }
 
+
+
     /*!
      * \brief addProgrammation
      * ajoute une nouvelle programmation à la tâche préemptive actuelle

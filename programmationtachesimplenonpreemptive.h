@@ -22,6 +22,11 @@ public:
      */
     ProgrammationTacheSimpleNonPreemptive(const Date& dateD, const Horaire& heureD, TacheSimpleNonPreemptive& tacheSimpleNonP);
 
+    void updateProgrammationTacheSimpleNonPreemptive(const Date& dateD, const Horaire& heureD) {
+        dateProg=dateD;
+        horaireProg=heureD;
+    }
+
     /*!
      * \brief getTacheSimple accesseur
      * \return référence vers la tâche simple non préemptive que l'on programme

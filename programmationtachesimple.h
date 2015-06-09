@@ -14,8 +14,9 @@ public:
      * \param dateDebut date de début de le programmation
      * \param horaireDebut horaire de début de la programmation
      */
-    ProgrammationTacheSimple(const Date&  dateDebut, const Horaire& horaireDebut):Programmation(dateDebut, horaireDebut){
-    }
+    ProgrammationTacheSimple(const Date&  dateDebut, const Horaire& horaireDebut):Programmation(dateDebut, horaireDebut){}
+
+
 
     /*!
      * \brief getTacheSimple accesseur vers la tâche simple que l'on programme

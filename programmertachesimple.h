@@ -5,11 +5,12 @@
 # include <QDateEdit>
 # include <QFormLayout>
 # include <QLabel>
+#include "programmationtachesimple.h"
 
 class ProgrammerTacheSimple : public FenetreAnnulerValider
 {
 protected:
-    Projet& nomProjet;
+    Projet* nomProjet;
     std::string * chemin;
     unsigned int* tailleChemin;
     std::string titreTache;
@@ -22,9 +23,12 @@ protected:
     QLabel *heureEcheance;
     QLabel *duree;
     QFormLayout* formlayout;
+    ProgrammationTacheSimple* progTache;
     virtual void closeEvent(QCloseEvent *event);
 public:
-    ProgrammerTacheSimple(Projet& projet, std::string * chaine, unsigned int* taille, const std::string& titreT, QWidget *parent = 0);
+    ProgrammerTacheSimple(Projet *projet, std::string * chaine, unsigned int* taille, const std::string &titreT, QWidget *parent = 0);
+    ProgrammerTacheSimple(ProgrammationTacheSimple* prog, QWidget *parent = 0);
+
 };
 
 #endif // PROGRAMMERTACHESIMPLE_H

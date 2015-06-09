@@ -1,6 +1,7 @@
 #ifndef PROGRAMMATIONTACHESIMPLEPREEMPTIVE_H
 #define PROGRAMMATIONTACHESIMPLEPREEMPTIVE_H
 #include "programmationtachesimple.h"
+#include "tachesimplepreemptive.h"
 
 class TacheSimplePreemptive;
 
@@ -18,6 +19,16 @@ public:
      * \param tacheSimpleP référence vers la tache simple préemptive que l'on programme
      */
     ProgrammationTacheSimplePreemptive(const Date& dateD, const Horaire& heureD, unsigned int pourc, TacheSimplePreemptive& tacheSimpleP);
+
+    void updateProgrammationTacheSimplePreemptive(const Date& dateD, const Horaire& heureD, unsigned int pourc) {
+        dateProg=dateD;
+        horaireProg=heureD;
+        //on retire l'ancienne valeur de pourcentage
+        tacheSimplePreemtive->addPourcentageDejaProgramme(-pourcentage);
+        //puis on ajoute la nouvelle valeur
+        pourcentage=pourc;
+        tacheSimplePreemtive->addPourcentageDejaProgramme(pourcentage);
+    }
 
     /*!
      * \brief getTacheSimple accesseur

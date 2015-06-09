@@ -159,9 +159,9 @@ std::string Date::toString() const {
     return ss.str();
 }
 
-Date Date::addDuree(const Duree duree) const{
+Date Date::addDuree(const Duree duree, const Horaire horaire) const{
     Date date = *this;
-    return date+(duree.getHeure()/24);
+    return date+(duree.getHeure()+horaire.getHeure())/24;
 }
 
 std::ostream& operator<<(std::ostream& f, const Date& x) {

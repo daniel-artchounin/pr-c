@@ -220,7 +220,7 @@ void FenetreGestionProjet::fenetreProgrammerTacheSimplePreemptive(){
             unsigned int* taille = new unsigned int;
             std::cout << "depuis la fenetre ;-) titre ; " << titreTache << std::endl;
             std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
-            programmerTacheSimplePreemptive = new ProgrammerTacheSimplePreemptive(projet, chaine, taille, titreTache);
+            programmerTacheSimplePreemptive = new ProgrammerTacheSimplePreemptive(&projet, chaine, taille, titreTache);
             programmerTacheSimplePreemptive->show();
             FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
             fenetrePrincipale.hide();
@@ -248,7 +248,7 @@ void FenetreGestionProjet::fenetreProgrammerTacheSimpleNonPreemptive(){
             std::string titreTache = getNomTacheAndRemoveTache(&cheminement);
             unsigned int* taille = new unsigned int;
             std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
-            programmerTacheSimpleNonPreemptive = new ProgrammerTacheSimpleNonPreemptive(projet, chaine, taille, titreTache);
+            programmerTacheSimpleNonPreemptive = new ProgrammerTacheSimpleNonPreemptive(&projet, chaine, taille, titreTache);
             programmerTacheSimpleNonPreemptive->show();
             FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();
             fenetrePrincipale.hide();

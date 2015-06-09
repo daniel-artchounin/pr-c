@@ -3,14 +3,19 @@
 
 #include <QWidget>
 #include <QGraphicsView>
-# include "manager.h"
+#include "manager.h"
 #include "programmationmanager.h"
 #include <QDate>
 #include "date.h"
 #include "tools.h"
+#include "horaire.h"
 #include "programmerreunion.h"
 #include "programmerrendezvous.h"
-#include "modifierprogrammationevenement.h"
+#include "editerprogrammation.h"
+#include <QMouseEvent>
+#include <QGraphicsItem>
+#include <QDebug>
+#include <iostream>
 
 /*!
  * \class FenetreEDT
@@ -24,10 +29,10 @@ private:
     QGraphicsScene *scene; /*!< scene >*/
     QAction *actionProgRendezVous;
     QAction *actionProgReunion;
-    QAction *actionModifierProg;
+    QAction *actionEditProg;
     ProgrammerRendezVous* progRdv;
     ProgrammerReunion* progReunion;
-    ModifierProgrammationEvenement* modifProg;
+    EditerProgrammation* editProg;
     int week;
 
     /*!
@@ -102,13 +107,13 @@ private:
     int maxY();
 
     /*!
-     * \brief toDay
+     * \brief dayOfWeek
      * Retourne le jour de la semaine correspondant à la date de donnée
      * Lundi = 1, ..., Dimance = 7
      * \param date Date
      * \return int
      */
-    int toDay(const Date& date);
+    int dayOfWeek(const Date& date);
 
     /*!
      * \brief creerActions
@@ -132,7 +137,7 @@ private:
      * \param duree Durée
      * \param brush Brush
      */
-    void drawProgrammation(std::string titre, Date ddebut, Horaire hdebut, Date dfin, Horaire hfin, Duree duree, QBrush brush);
+    void drawProgrammation(std::string titre, Date ddebut, Horaire hdebut, Date dfin, Horaire hfin, Duree duree);
 
     void drawText(QPainter & painter, const QPointF & point, int flags, const QString & text, QRectF * boundingRect = 0);
 
@@ -178,7 +183,7 @@ public slots:
 
     void programmerReunion();
 
-    void modifierProgrammation();
+    void editerProgrammation();
 
     void saveWeek(const QString& file);
 };

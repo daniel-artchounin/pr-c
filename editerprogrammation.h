@@ -3,23 +3,24 @@
 
 #include <QListWidget>
 #include <QHBoxLayout>
-#include "programmationevenement.h"
 #include <QMouseEvent>
 #include <QVBoxLayout>
 #include <QPushButton>
-#include "programmerevenement.h"
+#include "fenetreannulervalider.h"
 
-class ModifierProgrammationEvenement : public QWidget {
+class EditerProgrammation : public QWidget {
     Q_OBJECT
 protected :
     QListWidget* list;
     QHBoxLayout* hBox;
+    QHBoxLayout* hBoxButton;
     QVBoxLayout* vBox;
     QPushButton* select;
-    ProgrammerEvenement* form;
+    QPushButton* suppr;
+    FenetreAnnulerValider* form;
 
 public:
-    explicit ModifierProgrammationEvenement(QWidget *parent = 0);
+    explicit EditerProgrammation(QWidget *parent = 0);
     void updateListe();
 
 signals:
@@ -27,9 +28,9 @@ signals:
 public slots:
     void closeEvent(QCloseEvent *event);
 
-    void quitter();
-
     void selectionner();
+
+    void supprimer();
 };
 
 #endif // MODIFIERPROGRAMMATIONEVENEMENT_H

@@ -54,7 +54,7 @@ public:
      * \return date de fin de la programmation
      */
     Date getDateFin()const{
-        return dateProg.addDuree(getDuree());
+        return dateProg.addDuree(getDuree(), horaireProg);
     }
 
     /*!

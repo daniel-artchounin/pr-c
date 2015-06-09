@@ -23,7 +23,7 @@ public:
 
     Evenement& programmerRendezVous(const std::string nom, const std::string lieu, const std::string motif);
 
-    virtual void updateProgrammationEvenement(const Date date, const Horaire horaire, const Duree dur) {
+    virtual void updateProgrammationEvenement(const Date date, const Horaire horaire, const Duree dur){
         dateProg=date;
         horaireProg=horaire;
         duree=dur;

@@ -11,6 +11,7 @@
 # include <QPushButton>
 # include "projet.h"
 # include "programmertachesimple.h"
+#include "programmationtachesimplepreemptive.h"
 
 class ProgrammerTacheSimplePreemptive : public ProgrammerTacheSimple
 {
@@ -18,7 +19,8 @@ class ProgrammerTacheSimplePreemptive : public ProgrammerTacheSimple
 protected :
     QSpinBox * pourcentage;
 public:
-    explicit ProgrammerTacheSimplePreemptive(Projet& projet, std::string * chaine, unsigned int* taille, const std::string& titreT, QWidget *parent = 0);
+    explicit ProgrammerTacheSimplePreemptive(Projet* projet, std::string * chaine, unsigned int* taille, std::string &titreT, QWidget *parent = 0);
+    explicit ProgrammerTacheSimplePreemptive(ProgrammationTacheSimplePreemptive* prog, QWidget *parent = 0);
 signals:
 
 public slots:
