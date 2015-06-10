@@ -49,39 +49,43 @@ void ProjetManager::exportTo(QXmlStreamWriter& stream) {
 void ProjetManager::loadFrom(QXmlStreamReader& xml) {
     while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "ProjetManager")) {
         xml.readNextStartElement();
-        if(xml.name() == "Projet") {
-            std::string titre;
-            std::string dateDebut;
-            std::string horaireDebut;
-            std::string dateFin;
-            std::string horaireFin;
-            xml.readNext();
-            while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "Projet")) {
-                if(xml.tokenType() == QXmlStreamReader::StartElement) {
-                    if(xml.name() == "titre") {
-                        xml.readNext();
-                        titre=toString(xml.text().toString());
-                    }else if(xml.name() == "dateDebut") {
-                        xml.readNext();
-                        dateDebut=toString(xml.text().toString());
-                    }else if(xml.name() == "horaireDebut") {
-                        xml.readNext();
-                        horaireDebut=toString(xml.text().toString());
-                    }else if(xml.name() == "dateFin") {
-                        xml.readNext();
-                        dateFin=toString(xml.text().toString());
-                    }else if(xml.name() == "horaireFin") {
-                        xml.readNext();
-                        horaireFin=toString(xml.text().toString());
-                    }else if(xml.name() == "ListeTaches") {
-                        xml.readNext();
-                        Projet& projet = addProjet(titre,dateDebut,horaireDebut,dateFin,horaireFin);
-                        std::vector<std::string> vect=std::vector<std::string>();
-                        projet.loadFrom(xml,vect);
-                    }
+        loadProjet(xml);
+    }
+}
+
+void ProjetManager::loadProjet(QXmlStreamReader& xml) {
+    if(xml.name() == "Projet") {
+        std::string titre;
+        std::string dateDebut;
+        std::string horaireDebut;
+        std::string dateFin;
+        std::string horaireFin;
+        xml.readNext();
+        while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "Projet")) {
+            if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                if(xml.name() == "titre") {
+                    xml.readNext();
+                    titre=toString(xml.text().toString());
+                }else if(xml.name() == "dateDebut") {
+                    xml.readNext();
+                    dateDebut=toString(xml.text().toString());
+                }else if(xml.name() == "horaireDebut") {
+                    xml.readNext();
+                    horaireDebut=toString(xml.text().toString());
+                }else if(xml.name() == "dateFin") {
+                    xml.readNext();
+                    dateFin=toString(xml.text().toString());
+                }else if(xml.name() == "horaireFin") {
+                    xml.readNext();
+                    horaireFin=toString(xml.text().toString());
+                }else if(xml.name() == "ListeTaches") {
+                    xml.readNext();
+                    Projet& projet = addProjet(titre,dateDebut,horaireDebut,dateFin,horaireFin);
+                    std::vector<std::string> vect=std::vector<std::string>();
+                    projet.loadFrom(xml,vect);
                 }
-                xml.readNext();
             }
+            xml.readNext();
         }
     }
 }

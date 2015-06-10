@@ -170,6 +170,8 @@ public:
      */
     virtual void exportTo(QXmlStreamWriter& stream);
 
+    virtual void exportProgrammations(QXmlStreamWriter& stream)=0;
+
     virtual ~Tache(){
         for(ts_iterator it = tSBegin(); it != tSEnd() ; ++it){
             for(tp_iterator it2 = it->second->tPBegin() ; it2 != it->second->tPEnd() ; ++it2){

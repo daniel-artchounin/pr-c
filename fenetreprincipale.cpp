@@ -10,6 +10,7 @@
 # include <QDebug>
 # include "fenetregestionprojet.h"
 # include "fenetregestionprojetexception.h"
+#include "projetmanagerexception.h"
 
 FenetrePrincipale * FenetrePrincipale::instance=0; //initialisation à null, pour la première vérification
 
@@ -49,6 +50,8 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     actionExportSemaine = new QAction("Exporter la semaine actuelle", this);
     actionExportProjet = new QAction("Exporter le projet sélectionné", this);
     actionEnregistrerProjet = new QAction("Enregistrer le projet sélectionné", this);
+    actionImporterProjet = new QAction("Importer un projet", this);
+
     // raccourcis des actions
     // actionSave->setShortcut(QKeySequence("Ctrl+S"));
     // actionLoad->setShortcut(QKeySequence("Ctrl+L"));
@@ -64,6 +67,7 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     actionExportSemaine->setIcon(QIcon("../pr-c/images/export_semaine.png"));
     actionExportProjet->setIcon(QIcon("../pr-c/images/export_projet.png"));
     actionEnregistrerProjet->setIcon(QIcon("../pr-c/images/enregistrer_projet.png"));
+    actionImporterProjet->setIcon(QIcon("../pr-c/images/importer_projet.png"));
 
     // ajouts des actions à la barre de menus
     menuGestion->addAction(actionSave);
@@ -81,6 +85,7 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     barrreOutils->addAction(actionExportSemaine);
     barrreOutils->addAction(actionExportProjet);
     barrreOutils->addAction(actionEnregistrerProjet);
+    barrreOutils->addAction(actionImporterProjet);
     barrreOutils->addAction(actionPrevious);
     barrreOutils->addAction(actionNext);
 
@@ -97,6 +102,7 @@ FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     connect(actionExportProjet, SIGNAL(triggered()), this, SLOT(exporterUnProjet()));
     connect(actionEnregistrerProjet, SIGNAL(triggered()), this, SLOT(enregistrerUnProjet()));
     connect(actionExportSemaine, SIGNAL(triggered()), this, SLOT(exporterUneSemaine()));
+    connect(actionImporterProjet, SIGNAL(triggered()), this, SLOT(chargerProjet()));
 }
 
 
@@ -204,6 +210,11 @@ void FenetrePrincipale::exporterUnProjet(){
         try{
             cheminement = zoneCentrale->getFenetreGestionProjet()->getCheminement(actuel);
             const std::string& titreProjet = zoneCentrale->getFenetreGestionProjet()->getAndRemoveProjet(&cheminement).getTitre();
+            QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Fichier XML (*.xml)");
+            if(!fichier.isEmpty()){
+                zoneCentrale->getFenetreEDT()->saveWeek(fichier);
+            }
+            saveProjetProgrammations(fichier,ProjetManager::getInstance().getProjet(titreProjet));
             QMessageBox::information(this, "Exporter un projet", "Votre export du projet " + QString::fromStdString(titreProjet) + " a bien été réalisé.");
         }
         catch (FenetreGestionProjetException& e){
@@ -222,10 +233,28 @@ void FenetrePrincipale::enregistrerUnProjet(){
         try{
             cheminement = zoneCentrale->getFenetreGestionProjet()->getCheminement(actuel);
             const std::string& titreProjet = zoneCentrale->getFenetreGestionProjet()->getAndRemoveProjet(&cheminement).getTitre();
+            QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Fichier XML (*.xml)");
+            if(!fichier.isEmpty()){
+                zoneCentrale->getFenetreEDT()->saveWeek(fichier);
+            }
+            saveProjet(fichier,ProjetManager::getInstance().getProjet(titreProjet));
             QMessageBox::information(this, "Enregistrer un projet", "Votre enregistrement du projet " + QString::fromStdString(titreProjet) + " a bien été réalisé.");
         }
         catch (FenetreGestionProjetException& e){
             QMessageBox::warning(this, "Enregistrer un projet", e.what());
+        }
+    }
+}
+
+void FenetrePrincipale::chargerProjet() {
+    QString fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", QString(), "Fichiers XML (*.xml)");
+    if(!fichier.isEmpty()){
+        try {
+            loadProjet(fichier);
+            zoneCentrale->getFenetreGestionProjet()->afficherTreeWidget(0,ProjetManager::getInstance(),zoneCentrale->getFenetreGestionProjet()->getTree());
+            QMessageBox::information(this, "Information", "Votre fichier de données "+fichier+" a bien été chargé");
+        }catch(ProjetManagerException e) {
+            QMessageBox::warning(this, "Charger un projet", "Le projet n'a pas pu être chargé. Il se peut que celui-ci existe déjà où que le fichier ne soit pas correcte.");
         }
     }
 }

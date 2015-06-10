@@ -84,6 +84,8 @@ public:
      * \param xml
      */
     void loadFrom(QXmlStreamReader& xml);
+
+    void loadProjet(QXmlStreamReader& xml);
 };
 
 #endif // PROJETMANAGER_H

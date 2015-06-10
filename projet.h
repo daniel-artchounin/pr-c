@@ -237,6 +237,8 @@ public:
      */
     void exportTo(QXmlStreamWriter& stream);
 
+    void exportProgrammations(QXmlStreamWriter& stream);
+
     /*!
      * \brief loadFrom
      * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les différentes Taches

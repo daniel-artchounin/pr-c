@@ -46,6 +46,18 @@ void saveProjet(const QString& file, Projet& projet) {
     newfile.close();
 }
 
+void saveProjetProgrammations(const QString& file, Projet& projet) {
+    QFile newfile(file);
+    if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
+        throw ToolsException("XmlParser erreur : impossible d'ouvrir le fichier !");
+    QXmlStreamWriter stream(&newfile);
+    stream.setAutoFormatting(true);
+    stream.writeStartDocument();
+    projet.exportProgrammations(stream);
+    stream.writeEndDocument();
+    newfile.close();
+}
+
 void load(const QString &file) {
     QFile oldFile(file);
     if (!oldFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -66,8 +78,28 @@ void load(const QString &file) {
             }
         }
     }
-    ProgrammationManager& pgm = ProgrammationManager::getInstance();
-    ProjetManager& pm = ProjetManager::getInstance();
+    if(xml.hasError()) {
+        throw ToolsException("Erreur lecteur fichier taches, parser xml. " + toString(xml.errorString()));
+    }
+    xml.clear();
+}
+
+void loadProjet(const QString& file) {
+    QFile oldFile(file);
+    if (!oldFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        throw ToolsException("Erreur ouverture fichier");
+    }
+    QXmlStreamReader xml(&oldFile);
+
+    while(!xml.atEnd() && !xml.hasError()) {
+        QXmlStreamReader::TokenType token = xml.readNext();
+        if(token == QXmlStreamReader::StartDocument) continue;
+        if(token == QXmlStreamReader::StartElement) {
+            if(xml.name() == "Projet") {
+                ProjetManager::getInstance().loadProjet(xml);
+            }
+        }
+    }
     if(xml.hasError()) {
         throw ToolsException("Erreur lecteur fichier taches, parser xml. " + toString(xml.errorString()));
     }

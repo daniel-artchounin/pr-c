@@ -75,6 +75,12 @@ void TacheSimplePreemptive::exportTo(QXmlStreamWriter& stream) {
     stream.writeEndElement();
 }
 
+void TacheSimplePreemptive::exportProgrammations(QXmlStreamWriter& stream) {
+    for(p_iterator it=pBegin(); it!=pEnd(); ++it) {
+        (*it)->exportTo(stream);
+    }
+}
+
 TacheSimplePreemptive::~TacheSimplePreemptive(){
     ProgrammationManager& programmationManager = ProgrammationManager::getInstance();
     while (!programmationsTachesSimplesPreemptives.empty())

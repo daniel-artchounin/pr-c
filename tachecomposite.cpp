@@ -74,6 +74,12 @@ void TacheComposite::exportTo(QXmlStreamWriter& stream) {
     stream.writeEndElement();
 }
 
+void TacheComposite::exportProgrammations(QXmlStreamWriter& stream) {
+    for(iterator it=begin(); it!=end(); ++it){
+        (*it->second).exportProgrammations(stream);
+    }
+}
+
 
 
 

@@ -85,6 +85,8 @@ public:
      */
     void exportTo(QXmlStreamWriter& stream);
 
+    void exportProgrammations(QXmlStreamWriter& stream);
+
     /*!
      *\brief Destructeur
      */

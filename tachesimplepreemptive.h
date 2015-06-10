@@ -144,6 +144,8 @@ public:
      */
     void exportTo(QXmlStreamWriter& stream);
 
+    void exportProgrammations(QXmlStreamWriter& stream);
+
     virtual ~TacheSimplePreemptive();
 };
 

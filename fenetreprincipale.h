@@ -31,6 +31,7 @@ private:
     QAction* actionExportSemaine;
     QAction* actionExportProjet;
     QAction* actionEnregistrerProjet;
+    QAction* actionImporterProjet;
     CreerProjet* creerProjet;
     bool dejaSauver;
 
@@ -107,6 +108,8 @@ public slots:
 
     void exporterUnProjet();
     void enregistrerUnProjet();
+
+    void chargerProjet();
 };
 
 #endif // FENETREPRINCIPALE_H

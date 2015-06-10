@@ -257,6 +257,14 @@ void Projet::exportTo(QXmlStreamWriter& stream) {
     stream.writeEndElement();
 }
 
+void Projet::exportProgrammations(QXmlStreamWriter& stream) {
+    stream.writeStartElement("Programmations");
+    for(iterator it=begin(); it!=end(); ++it){
+        (*it->second).exportProgrammations(stream);
+    }
+    stream.writeEndElement();
+}
+
 void Projet::loadListePrecedents(QXmlStreamReader &xml, std::string * arr, int longueur, std::string titre) {
     while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "ListePrecedents")) {
         xml.readNextStartElement();

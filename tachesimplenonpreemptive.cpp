@@ -65,6 +65,12 @@ void TacheSimpleNonPreemptive::exportTo(QXmlStreamWriter& stream) {
     stream.writeEndElement();
 }
 
+void TacheSimpleNonPreemptive::exportProgrammations(QXmlStreamWriter& stream) {
+    if(programmationTacheSimpleNonPreemptive) {
+        programmationTacheSimpleNonPreemptive->exportTo(stream);
+    }
+}
+
 TacheSimpleNonPreemptive::~TacheSimpleNonPreemptive(){
     ProgrammationManager& programmationManager = ProgrammationManager::getInstance();
     if(programmationTacheSimpleNonPreemptive!=0){
