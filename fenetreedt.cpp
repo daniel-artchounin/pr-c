@@ -116,7 +116,9 @@ void FenetreEDT::drawProgrammation(std::string titre, Date ddebut, Horaire hdebu
 void FenetreEDT::drawNames(std::string titre, int x, int y) {
     QGraphicsTextItem * io = new QGraphicsTextItem;
     io->setPos(x,y);
-    io->font().setPointSize(getWidthDay()*8/168);
+    QFont font(io->font());
+    font.setPointSize(getWidthDay()*8/168);
+    io->setFont(font);
     io->setPlainText(toQString(titre));
     scene->addItem(io);
 }
@@ -127,7 +129,9 @@ void FenetreEDT::drawDates() {
     for(int i=0; i<7; i++) {
         io = new QGraphicsTextItem;
         io->setPos(toPositionX(date),-5);
-        io->font().setPointSize(getWidthDay()*8/168);
+        QFont font(io->font());
+        font.setPointSize(getWidthDay()*8/168);
+        io->setFont(font);
         io->setPlainText(toQString(date.toString()));
         date=date.demain();
         scene->addItem(io);
