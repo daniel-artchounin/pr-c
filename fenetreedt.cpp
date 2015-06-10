@@ -118,6 +118,9 @@ void FenetreEDT::drawNames(std::string titre, int x, int y) {
     io->setPos(x,y);
     QFont font(io->font());
     font.setPointSize(getWidthDay()*8/168);
+    if(titre.size()>25) {
+        titre=titre.substr(0,25)+"...";
+    }
     io->setFont(font);
     io->setPlainText(toQString(titre));
     scene->addItem(io);
