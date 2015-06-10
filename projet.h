@@ -67,8 +67,9 @@ protected :
      * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les contraintes de précédences des Taches
      * \param xml
      */
-    void loadListePrecedents(QXmlStreamReader &xml, std::string * arr, int longueur, std::string titre);
+    std::vector<std::vector<std::string> > loadListePrecedents(QXmlStreamReader &xml, std::string * arr, int longueur, std::string titre);
 
+    void ajouterListePrecedences(std::vector<std::vector<std::string> > contraintesPrecedences);
 public:
     /**
      * \brief Projet Constructeur

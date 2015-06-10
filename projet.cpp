@@ -70,7 +70,7 @@ void Projet::supprimerTache(const std::string& titre){
 
 Tache& Projet::accederTache(const std::string * nomsTachesComposites , unsigned int nbTaches,
                             const std::string& nomTache, unsigned int profondeur, const TacheComposite* tacheCourante)const{
-     const TacheComposite* newTache = 0;
+    const TacheComposite* newTache = 0;
     if (nbTaches == 0){
         // la tâche recherchée se trouve directement à la racine du projet
         return const_cast<Projet*>(this)->getTache(nomTache);
@@ -265,31 +265,57 @@ void Projet::exportProgrammations(QXmlStreamWriter& stream) {
     stream.writeEndElement();
 }
 
-void Projet::loadListePrecedents(QXmlStreamReader &xml, std::string * arr, int longueur, std::string titre) {
+std::vector<std::vector<std::string> > Projet::loadListePrecedents(QXmlStreamReader &xml, std::string * arr, int longueur, std::string titre) {
+    std::vector<std::vector<std::string> > contraintesPrecedences;
     while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "ListePrecedents")) {
         xml.readNextStartElement();
         if(xml.name() == "Precedent") {
             xml.readNext();
+            std::vector<std::string> contraintes;
             while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "Precedent")) {
-                std::string chemin= toString(xml.text().toString());
-                std::string delimiter = "/";
-                int nbPrecedents=std::count(chemin.begin(), chemin.end(), '/');
-                std::string precedents[nbPrecedents];
-                size_t pos = 0;
-                int i=0;
-                while ((pos = chemin.find(delimiter)) != std::string::npos) {
-                    precedents[i] = chemin.substr(0, pos);
-                    chemin.erase(0, pos + delimiter.length());
-                    i++;
+                contraintes.push_back(toString(xml.text().toString()));
+                std::string combine;
+                for(int i=0; i<longueur; i++) {
+                    combine.append(arr[i]+"/");
                 }
-                ajouterPrecedence(precedents,nbPrecedents,chemin,arr,longueur,titre);
+                combine.append(titre);
+                contraintes.push_back(combine);
+                contraintesPrecedences.push_back(contraintes);
                 xml.readNext();
             }
         }
     }
+    return contraintesPrecedences;
+}
+
+void Projet::ajouterListePrecedences(std::vector<std::vector<std::string> > contraintesPrecedences) {
+    for(std::vector<std::vector<std::string> >::iterator it=contraintesPrecedences.begin(); it!=contraintesPrecedences.end(); ++it) {
+        std::vector<std::string> vect= *it;
+        std::string cheminPredecesseur= vect[0];
+        std::string cheminSuccesseur= vect[1];
+        std::string delimiter = "/";
+        int tailleCheminPredecesseur=std::count(cheminPredecesseur.begin(), cheminPredecesseur.end(), '/');
+        int tailleCheminSuccesseur=std::count(cheminSuccesseur.begin(), cheminSuccesseur.end(), '/');
+        std::string parentsPredecesseur[tailleCheminPredecesseur];
+        std::string parentsSuccesseur[tailleCheminPredecesseur];
+        size_t pos = 0;
+        int i=0;
+        while ((pos = cheminPredecesseur.find(delimiter)) != std::string::npos) {
+            parentsPredecesseur[i] = cheminPredecesseur.substr(0, pos);
+            cheminPredecesseur.erase(0, pos + delimiter.length());
+            i++;
+        }
+        while ((pos = cheminSuccesseur.find(delimiter)) != std::string::npos) {
+            parentsSuccesseur[i] = cheminSuccesseur.substr(0, pos);
+            cheminSuccesseur.erase(0, pos + delimiter.length());
+            i++;
+        }
+        ajouterPrecedence(parentsPredecesseur,tailleCheminPredecesseur,cheminPredecesseur,parentsSuccesseur,tailleCheminSuccesseur,cheminSuccesseur);
+    }
 }
 
 void Projet::loadFrom(QXmlStreamReader &xml, std::vector<std::string>& vect) {
+    std::vector<std::vector<std::string> > contraintesPrecedences;
     while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "ListeTaches")) {
         xml.readNextStartElement();
         bool composite = false;
@@ -353,13 +379,15 @@ void Projet::loadFrom(QXmlStreamReader &xml, std::vector<std::string>& vect) {
                         }catch(ProjetException pe) {
 
                         }
-                        loadListePrecedents(xml,arr,(int)(vect.size()),titre);
+                        std::vector<std::vector<std::string> > contraintes = loadListePrecedents(xml,arr,(int)(vect.size()),titre);;
+                        contraintesPrecedences.insert(contraintesPrecedences.end(), contraintes.begin(), contraintes.end());
                     }
                 }
                 xml.readNext();
             }
         }
     }
+    ajouterListePrecedences(contraintesPrecedences);
     if(!vect.empty()) {
         vect.pop_back();
     }
