@@ -305,6 +305,8 @@ void Projet::ajouterListePrecedences(std::vector<std::vector<std::string> > cont
             cheminPredecesseur.erase(0, pos + delimiter.length());
             i++;
         }
+        pos=0;
+        i=0;
         while ((pos = cheminSuccesseur.find(delimiter)) != std::string::npos) {
             parentsSuccesseur[i] = cheminSuccesseur.substr(0, pos);
             cheminSuccesseur.erase(0, pos + delimiter.length());
