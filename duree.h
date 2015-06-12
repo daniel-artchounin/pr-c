@@ -6,6 +6,7 @@
 
 /*! \class Duree
  * \brief Classe permettant de manipuler des durees
+ *
  * L'utilisation de cette classe nécessite des dates valides au sens commun du terme.
  * Déclenchement d'exception dans le cas contraire
 */
@@ -16,6 +17,9 @@ private:
 public:
     /*!
      * \brief Constructeur
+     *
+     * Crée une durée à partir d'une heure et de minutes
+     *
      * \param h heure avec h>=0
      * \param m minute avec 0<=m<=59
      */
@@ -25,12 +29,18 @@ public:
 
     /*!
      * \brief Contructeur
+     *
+     * Crée une durée à partir de minutes
+     *
      * \param m minute avec m>=0
      */
     Duree(unsigned int m=0):nb_minutes(m) {}
 
     /*!
      * \brief Duree
+     *
+     * Crée une durée à partir d'un string au format hhHmm
+     *
      * \param duree string format hhHmm
      */
     Duree(std::string duree):nb_minutes(0) {
@@ -39,6 +49,9 @@ public:
 
     /*!
      * \brief setDuree
+     *
+     * Modifie la durée selon l'heure et les minutes données
+     *
      * \param heures heures>=
      * \param minutes 0<=minutes<=59
      */
@@ -49,6 +62,9 @@ public:
 
     /*!
      * \brief setDuree
+     *
+     * Modifie la durée selon un string au format hhHmm
+     *
      * \param duree string format hhHmm
      */
     void setDuree(std::string duree);
@@ -71,7 +87,9 @@ public:
 
     /*!
      * \brief afficher
+     *
      * Affiche la duree sous le format hhHmm
+     *
      * \param f ostream
      */
     void afficher(std::ostream& f=std::cout) const {
@@ -110,8 +128,10 @@ public:
     }
 
     /**
-     * \brief addition permet d'additionner une date à la date de notre objet et de retourner
-     * le résultat
+     * \brief addition
+     *
+     * permet d'additionner une date à la date de notre objet et de retourner le résultat
+     *
      * \param dureeBis la durée à ajouter
      * \return le résultat de l'addition
      */
@@ -130,8 +150,10 @@ std::ostream& operator<<(std::ostream& f, const Duree & d);
 
 /*!
  * \brief operator >>
+ *
  * Surcharge de l'opérateur >>
  * Lecture de la durée au format hhHmm
+ *
  * \param flot istream
  * \param duree Duree
  * \return istream

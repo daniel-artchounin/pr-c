@@ -16,6 +16,9 @@ protected:
 
     /*!
      * \brief addItem
+     *
+     * Ajout un objet à la map
+     *
      * \param key clé de l'item à ajouter
      * \param item item à ajouter
      * \return true si l'item à été ajouté, false sinon
@@ -25,6 +28,14 @@ protected:
         return retour.second;
     }
 
+    /*!
+     * \brief eraseItem
+     *
+     * Supprime un objet de la map
+     *
+     * \param key identifiant de l'objet dans la map
+     * \return la taille de l'élément supprimé, 0 si rien n'a été supprimé
+     */
     int eraseItem(const std::string& key){
         return int(items.erase(key));
     }
@@ -45,12 +56,14 @@ protected:
 public:
     /*!
      * \brief Constructeur
+     *
      * Initialise la map
      */
     Manager():items(){}
 
     /*!
      * \brief Destructeur
+     *
      * Destructeur virtual
      */
     virtual ~Manager() {
@@ -98,22 +111,28 @@ public:
     iterator end() { return items.end(); }
 
     /*!
-     * \brief begin (sera utilisé si on utilise une référence const ou
-     * un pointeur const vers un objet de type Element ou d'un type descendant d'Element)
+     * \brief begin
+     *
+     * sera utilisé si on utilise une référence const ou * un pointeur const vers un objet de type Element ou d'un type descendant d'Element
+     *
      * \return const_iterator sur le début de la map
      */
     const_iterator begin() const { return const_cast<Manager*>(this)->begin(); }
 
     /*!
-     * \brief end (sera utilisé si on utilise une référence const ou
-     * un pointeur const vers un objet de type Element ou d'un type descendant d'Element)
+     * \brief end
+     *
+     * sera utilisé si on utilise une référence const ou un pointeur const vers un objet de type Element ou d'un type descendant d'Element
+     *
      * \return const_iterator sur la fin de la map
      */
     const_iterator end() const { return const_cast<Manager*>(this)->end(); }
 
     /*!
      * \brief exportTo
+     *
      * Permet d'exporter les données dans un fichier XML via le streamwriter
+     *
      * \param stream
      */
     virtual void exportTo(QXmlStreamWriter& stream) {

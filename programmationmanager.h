@@ -21,33 +21,41 @@ private:
 
     /*!
      * \brief Constructeur
+     *
      * Constructeur privé afin d'empêcher la duplication
      */
     ProgrammationManager(): Manager<Programmation>(){}
 
     /*!
      *\brief Destructeur
+     *
      * Destructeur privé
      */
     ~ProgrammationManager() {}
 
     /*!
      * \brief Contructeur par recopie
+     *
      * Constructeur par recopie privé
+     *
      * \param pm ProgrammationManager
      */
     ProgrammationManager(const ProgrammationManager& pm);
 
     /*!
      * \brief Operateur d'affectation
+     *
      * Opérateur d'affectation privé
+     *
      * \param pm ProgrammationManager
      */
     ProgrammationManager& operator=(const ProgrammationManager& pm);
 
     /*!
      * \brief inclus
+     *
      * permet de savoir si une programmation potentielle est compris entre deux bornes
+     *
      * \param dateProg date de programmation
      * \param horaireProg horaire de programmation
      * \param dateFin date de fin de la programmation
@@ -90,13 +98,16 @@ public:
 
     /*!
      * \brief libererInstance
+     *
      * Détruit l'instance unique de ProgrammationManager
      */
     static void libererInstance();
 
     /*!
      * \brief addProgrammationEvenement
+     *
      * Génère une exception ProgrammationManagerException si la nouvelle programmation n'est pas valide
+     *
      * \param dateProg date de la programmation
      * \param horaireProg horaire de la programmation
      * \param duree duree de la programmation
@@ -104,11 +115,23 @@ public:
      */
     ProgrammationEvenement& addProgrammationEvenement(const Date& dateProg, const Horaire& horaireProg, const Duree& duree);
 
+    /*!
+     * \brief updateProgrammationEvenement
+     *
+     * Met à jour une programmation de type ProgrammationEvenement
+     *
+     * \param programmation
+     * \param newDate
+     * \param newHoraire
+     * \param newDuree
+     */
     void updateProgrammationEvenement(ProgrammationEvenement *programmation, const Date& newDate, const Horaire& newHoraire, const Duree& newDuree);
 
     /*!
      * \brief addProgrammationTacheSimpleNonPreemptive
+     *
      * Génère une exception ProgrammationManagerException si la nouvelle programmation n'est pas valide
+     *
      * \param dateProg date de la programmation
      * \param horaireProg horaire de la programmation
      * \param tache référence vers une TacheSimpleNonPreemptive
@@ -116,11 +139,22 @@ public:
      */
     ProgrammationTacheSimpleNonPreemptive& addProgrammationTacheSimpleNonPreemptive(const Date& dateProg, const Horaire& horaireProg, TacheSimpleNonPreemptive& tache);
 
+    /*!
+     * \brief updateProgrammationTacheSimpleNonPreemptive
+     *
+     * Met à jour une programmation de type ProgrammationTacheSimpleNonPreemptive
+     *
+     * \param programmation
+     * \param newDate
+     * \param newHoraire
+     */
     void updateProgrammationTacheSimpleNonPreemptive(ProgrammationTacheSimpleNonPreemptive& programmation, const Date& newDate, const Horaire& newHoraire);
 
     /*!
      * \brief addProgrammationTacheSimplePreemptive
+     *
      * Génère une exception ProgrammationManagerException si la nouvelle programmation n'est pas valide
+     *
      * \param dateProg date de la programmation
      * \param horaireProg horaire de la programmation
      * \param pourcentage pourcentage de la programmation que l'on souhaite programmer
@@ -129,8 +163,25 @@ public:
      */
     ProgrammationTacheSimplePreemptive& addProgrammationTacheSimplePreemptive(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage, TacheSimplePreemptive& tache);
 
+    /*!
+     * \brief updateProgrammationTacheSimplePreemptive
+     *
+     * Met à jour une programmation de type ProgrammationTacheSimplePreemptive
+     *
+     * \param programmation
+     * \param newDate
+     * \param newHoraire
+     * \param pourcentage
+     */
     void updateProgrammationTacheSimplePreemptive(ProgrammationTacheSimplePreemptive &programmation, const Date& newDate, const Horaire& newHoraire, unsigned int pourcentage);
 
+    /*!
+     * \brief deleteProgrammation
+     *
+     * Supprime la programmation donnée
+     *
+     * \param programmation
+     */
     void deleteProgrammation(Programmation* programmation) {
         eraseItem(getKeyFrom(programmation->getDateProgrammation(),programmation->getHoraireProgrammation()));
         delete programmation;
@@ -139,7 +190,9 @@ public:
 
     /*!
      * \brief getProgrammation
+     *
      * Génère une exception ProgrammationManagerException si la programmation n'existe pas
+     *
      * \param dateProg date de la programmation
      * \param horaireProg horaire de la programmation
      * \return programmation débutant à dateProg horaireProg
@@ -148,7 +201,9 @@ public:
 
     /*!
      * \brief getProgrammation
+     *
      * Génère une exception ProgrammationManagerException si la programmation n'existe pas
+     *
      * \param dateProg date de la programmation
      * \param horaireProg horaire de la programmation
      * \return const programmation débutant à dateProg horaireProg
@@ -177,26 +232,44 @@ public:
 
     /*!
      * \brief exportTo
+     *
      * Permet d'exporter les données dans un fichier XML via le streamwriter
+     *
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream);
 
     /*!
      * \brief loadFrom
+     *
      * Permet d'importer les données depuis un fichier XML via le streamreader. Charge uniquement les ProgrammationEvenement
+     *
      * \param xml
      */
     void loadFrom(QXmlStreamReader& xml);
 
     /*!
      * \brief loadListeProgrammations
+     *
      * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les programmations des Taches
+     *
      * \param xml
      */
     void loadListeProgrammations(QXmlStreamReader& xml, Tache& tache, bool preemptive);
 
+    /*!
+     * \brief exportContraintes
+     *
+     * Permet d'exporter les données compris dans l'intervalle de dates et horaires données vers un fichier XML
+     *
+     * \param stream
+     * \param dateDebut
+     * \param dateFin
+     * \param horaireDebut
+     * \param horaireFin
+     */
     void exportContraintes(QXmlStreamWriter& stream, const Date& dateDebut, const Date& dateFin, const Horaire &horaireDebut=Horaire(0,0), const Horaire& horaireFin=Horaire(23,59));
+
     /*!
      * \brief getKeyFrom
      * \param date date de la programmation
