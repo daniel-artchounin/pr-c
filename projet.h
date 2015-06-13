@@ -149,12 +149,59 @@ public:
     void supprimerPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
                              const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2);
 
-    void supprimerTacheChemin(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache){
+
+    Duree supprimerTacheChemin(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache,
+                              unsigned int profondeur = 0, const TacheComposite* tacheCourante = 0){
+        const TacheComposite* newTache = 0;
         if(nbTaches == 0){
+            // la tâche à supprimer se trouve à la racine du projet
+            Duree dureeTacheASupprimer = trouverTache(nomTache)->getDuree();
             supprimerTache(nomTache);
-        }else{
-            TacheComposite& tacheComposite = accederTacheComposite(nomsTachesComposites, nbTaches-1, nomsTachesComposites[nbTaches-1]);
-            tacheComposite.supprimerSsTache(nomTache);
+            return dureeTacheASupprimer;
+        }
+        else{
+            // la tâche recherchée ne se trouve pas directement à la racine du projet
+            if(profondeur == nbTaches){
+                // la tâche recherchée est une sous tâche de la tâche composite actuelle
+                Duree dureeTacheASupprimer = const_cast<TacheComposite*>(tacheCourante)->getSsTache(nomTache).getDuree();
+                const_cast<TacheComposite*>(tacheCourante)->supprimerSsTache(nomTache);
+                return dureeTacheASupprimer;
+            }
+            else if(profondeur == 0){
+                // on cherche une tâche composite à la racine du projet
+                try{
+                    newTache = dynamic_cast<TacheComposite*>(trouverTache(nomsTachesComposites[profondeur]));
+                }
+                catch(std::bad_cast& e){
+                    // on n'est normalement pas censé entrer ici car dynamic_cast ne génère pas d'exception pour les
+                    // conversions de pointeur
+                    throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
+                }
+                if(newTache == 0){
+                    throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
+                }
+                Duree dureeTacheASupprimer = supprimerTacheChemin(nomsTachesComposites, nbTaches, nomTache, profondeur+1,newTache);
+                this->setDuree(this->getDuree().getDureeEnMinutes()-dureeTacheASupprimer.getDureeEnMinutes()); // maj de la durée du projet
+                return dureeTacheASupprimer;
+
+            }
+            else{
+                // on cherche une tâche composite sous la tâche composite actuelle
+                try{
+                    newTache = dynamic_cast<TacheComposite *>(tacheCourante->trouverSsTache(nomsTachesComposites[profondeur]));
+                }
+                catch(std::bad_cast &e){
+                    // on n'est normalement pas censé entrer ici car dynamic_cast ne génère pas d'exception pour les
+                    // conversions de pointeur
+                    throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
+                }
+                if(newTache == 0){
+                    throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
+                }
+                Duree dureeTacheASupprimer = supprimerTacheChemin(nomsTachesComposites, nbTaches, nomTache, profondeur+1,newTache);
+                 const_cast<TacheComposite*>(tacheCourante)->setDuree(tacheCourante->getDuree().getDureeEnMinutes()-dureeTacheASupprimer.getDureeEnMinutes()); // maj de la durée de la TC
+                return dureeTacheASupprimer;
+            }
         }
     }
 

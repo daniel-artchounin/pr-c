@@ -173,10 +173,21 @@ public:
     virtual void exportProgrammations(QXmlStreamWriter& stream)=0;
 
     virtual ~Tache(){
+        std::cout << "Bye !!!" <<std::endl;
+        std::cout <<"titre actuel : "<< getTitre() <<std::endl;
         for(ts_iterator it = tSBegin(); it != tSEnd() ; ++it){
+            std::cout << "titre suivant : "<< it->second->getTitre() <<std::endl;
             for(tp_iterator it2 = it->second->tPBegin() ; it2 != it->second->tPEnd() ; ++it2){
                 if(it2->second == this){
                     it->second->tachesPrecedentes.erase(it2);
+                }
+            }
+        }
+        for(ts_iterator it = tPBegin(); it != tPEnd() ; ++it){
+            std::cout << "titre precedent"<< it->second->getTitre() <<std::endl;
+            for(tp_iterator it2 = it->second->tSBegin() ; it2 != it->second->tSEnd() ; ++it2){
+                if(it2->second == this){
+                    it->second->tachesSuivantes.erase(it2);
                 }
             }
         }

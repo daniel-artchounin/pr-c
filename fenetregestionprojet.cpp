@@ -330,16 +330,17 @@ void FenetreGestionProjet::supprimerUnElemment(){
             cheminement = getCheminement(actuel);
             Projet& projet = getAndRemoveProjet(&cheminement);
             if(cheminement.size() == 0){
+                // l'utilisateur souhaite supprimer un projet
                 projetManager.eraseItem(projet.getTitre());
             }
             else{
                 std::string titreTache = getNomTacheAndRemoveTache(&cheminement);
                 if(cheminement.size() == 0){
+                    // l'utilisateur souhaite supprimer une tâche à la racine du projet
                     projet.supprimerTache(titreTache);
                 }
                 else{
                     unsigned int* taille = new unsigned int;
-                    std::cout << "depuis la fenetre ;-) titre ; " << titreTache << std::endl; // -> test
                     std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
                     projet.supprimerTacheChemin(chaine, *taille, titreTache);
 

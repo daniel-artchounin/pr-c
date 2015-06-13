@@ -62,7 +62,9 @@ void TacheComposite::supprimerSsTache(const std::string& titre){
     if(!trouverSsTache(titre)){
         throw TacheCompositeException("Erreur : la tâche envoyée en paramètre ne précède pas la tâche actuelle");
     }
-    items.erase(titre);
+    Duree dureeTacheASupprimer = trouverSsTache(titre)->getDuree();
+    eraseItem(titre);
+    this->setDuree(this->getDuree().getDureeEnMinutes()-dureeTacheASupprimer.getDureeEnMinutes()); // mise à jour de la durée de la tâche composite
 }
 
 void TacheComposite::exportTo(QXmlStreamWriter& stream) {

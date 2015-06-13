@@ -61,11 +61,13 @@ const Tache& Projet::getTache(const std::string& titre)const{
 }
 
 void Projet::supprimerTache(const std::string& titre){
-
     if(!trouverTache(titre)){
         throw TacheCompositeException("Erreur : tache inexistante");
     }
-    items.erase(titre);
+    Duree dureeTacheASupprimer = trouverTache(titre)->getDuree(); // on conserve la durée de la tâche à supprimer
+    eraseItem(titre);
+    // items.erase(titre); // suppression
+    this->setDuree(this->getDuree().getDureeEnMinutes()-dureeTacheASupprimer.getDureeEnMinutes());
 }
 
 Tache& Projet::accederTache(const std::string * nomsTachesComposites , unsigned int nbTaches,

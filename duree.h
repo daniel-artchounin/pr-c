@@ -118,6 +118,10 @@ public:
     Duree addition(const Duree & dureeBis)const{
         return Duree(getDureeEnMinutes()+dureeBis.getDureeEnMinutes());
     }
+
+    Duree soustraction(const Duree & dureeBis)const{
+        return Duree(getDureeEnMinutes()-dureeBis.getDureeEnMinutes());
+    }
 };
 
 /*!
@@ -177,5 +181,7 @@ bool operator>=(const Duree& a, const Duree&b);
  * \return résultat (Duree)
  */
 Duree operator+(const Duree& duree1, const Duree& duree2);
+Duree operator-(const Duree& duree1, const Duree& duree2);
+
 
 #endif // DUREE_H

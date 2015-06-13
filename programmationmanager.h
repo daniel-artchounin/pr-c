@@ -133,9 +133,9 @@ public:
 
     void deleteProgrammation(Programmation* programmation) {
         eraseItem(getKeyFrom(programmation->getDateProgrammation(),programmation->getHoraireProgrammation()));
-        delete programmation;
-        programmation=0;
-    }
+        // delete programmation;
+        // programmation=0;
+     }
 
     /*!
      * \brief getProgrammation

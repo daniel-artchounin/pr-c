@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include <QXmlStreamWriter>
+# include <iostream>
 /*! \class Manager
  * \brief Patron de classe permettant de manipuler une map d'item.
  */
@@ -26,11 +27,17 @@ protected:
     }
 
     int eraseItem(const std::string& key){
+        T* element = getItem(key);
+        if(element!=0){
+            std::cout<<"coucou" << std::endl;
+            delete element;
+
+        }
         return int(items.erase(key));
     }
 
     /*!
-     * \brief getItem
+     * \brief getIte m
      * \param key clé de l'item à trouver
      * \return item si trouvé, 0 sinon
      */

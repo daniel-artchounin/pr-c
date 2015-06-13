@@ -4,6 +4,7 @@
 # include <QDesktopWidget>
 # include <QApplication>
 # include <sstream>
+# include <QHeaderView>
 
 InformationsTacheSimplePreemptive::InformationsTacheSimplePreemptive(const TacheSimplePreemptive& tacheSimplePreemptive, QWidget *parent):
     InformationsTacheSimple(tacheSimplePreemptive, parent)
@@ -16,6 +17,10 @@ InformationsTacheSimplePreemptive::InformationsTacheSimplePreemptive(const Tache
         programmationsTableWidget->setColumnCount(5);
         programmationsTableHeader << "Date de début" << "Horaire de début" << "Date de fin" << "Horaire de Fin" << "Pourcentage";
         programmationsTableWidget->setHorizontalHeaderLabels(programmationsTableHeader);
+        programmationsTableWidget->horizontalHeader()->setStretchLastSection(true);
+        programmationsTableWidget->horizontalHeader()->setDefaultAlignment(Qt::AlignCenter);
+        programmationsTableWidget->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
+
         programmationsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
         programmationsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
         programmationsTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);

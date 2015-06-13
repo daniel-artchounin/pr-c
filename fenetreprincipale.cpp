@@ -32,6 +32,7 @@ FenetrePrincipale& FenetrePrincipale::getInstance(){
 FenetrePrincipale::FenetrePrincipale(QWidget *parent) :
     QMainWindow(parent)
 {
+    setWindowTitle("ProjectCalendar");
     creerProjet = 0;
     dejaSauver = false;
     // creation de la barre de menus

@@ -14,6 +14,7 @@ InformationsTache::InformationsTache(const Tache& tache, QWidget *parent):
         precendentTableWidget->setColumnCount(1);
         precedentTableHeader << "Tâche(s) précédente(s)";
         precendentTableWidget->setHorizontalHeaderLabels(precedentTableHeader);
+        precendentTableWidget->horizontalHeader()->setStretchLastSection(true);
         precendentTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
         precendentTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
         precendentTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -32,6 +33,7 @@ InformationsTache::InformationsTache(const Tache& tache, QWidget *parent):
         suivantTableWidget->setColumnCount(1);
         suivantTableHeader << "Tâche(s) suivante(s)";
         suivantTableWidget->setHorizontalHeaderLabels(suivantTableHeader);
+        suivantTableWidget->horizontalHeader()->setStretchLastSection(true);
         suivantTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
         suivantTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
         suivantTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);

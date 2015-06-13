@@ -5,10 +5,16 @@
 
 void TacheSimplePreemptive::eraseProgrammation(const Date& dateProgrammation, const Horaire& horaireProgrammation){
     std::string cleProgrammationASupprimer = ProgrammationManager::getKeyFrom(dateProgrammation, horaireProgrammation);
-    for(p_iterator it = pBegin() ; it != pEnd() ; ++it) {
-        if(cleProgrammationASupprimer == ProgrammationManager::getKeyFrom((*it)->getDateProgrammation(), (*it)->getHoraireProgrammation())){
+    std::cout << "clé" << cleProgrammationASupprimer << std::endl;
+    std::cout << "taille : " << programmationsTachesSimplesPreemptives.size() << std::endl;
+    p_iterator it = pBegin();
+    for(unsigned int i = 0; i < programmationsTachesSimplesPreemptives.size() ; ++i) {
+        programmationsTachesSimplesPreemptives[i]->getDateProgrammation();
+        programmationsTachesSimplesPreemptives[i]->getHoraireProgrammation();
+        if(cleProgrammationASupprimer == ProgrammationManager::getKeyFrom(programmationsTachesSimplesPreemptives[i]->getDateProgrammation(), programmationsTachesSimplesPreemptives[i]->getHoraireProgrammation())){
             programmationsTachesSimplesPreemptives.erase(it);
         }
+        ++it;
     }
 }
 
@@ -83,13 +89,13 @@ void TacheSimplePreemptive::exportProgrammations(QXmlStreamWriter& stream) {
 
 TacheSimplePreemptive::~TacheSimplePreemptive(){
     ProgrammationManager& programmationManager = ProgrammationManager::getInstance();
-    while (!programmationsTachesSimplesPreemptives.empty())
+    std::cout<<"titreTacheEnSuprression" << getTitre()<< std::endl;
+    while (programmationsTachesSimplesPreemptives.size()!=0)
     {
         programmationManager.eraseItem(programmationManager.getKeyFrom(
                                            programmationsTachesSimplesPreemptives.back()->getDateProgrammation(),
                                            programmationsTachesSimplesPreemptives.back()->getHoraireProgrammation()
                                            )
                                        );
-        programmationsTachesSimplesPreemptives.pop_back();
     }
 }

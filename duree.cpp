@@ -58,3 +58,7 @@ Duree operator+(const Duree& duree1, const Duree& duree2){
     return duree1.addition(duree2);
 
 }
+
+Duree operator-(const Duree& duree1, const Duree& duree2){
+    return duree1.soustraction(duree2);
+}
