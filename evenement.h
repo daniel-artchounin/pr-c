@@ -48,6 +48,15 @@ public:
         return motif;
     }
 
+    /*!
+     * \brief updateEvenement
+     *
+     * Met à jour l'évènement selon le nom, le lieu et le motif donnés
+     *
+     * \param n nom
+     * \param l lieu
+     * \param m motif
+     */
     virtual void updateEvenement(std::string n, std::string l, std::string m){
         nom=n;
         lieu=l;
@@ -56,7 +65,9 @@ public:
 
     /*!
      * \brief exportTo
+     *
      * Permet d'exporter les données dans un fichier XML via le streamwriter
+     *
      * \param stream
      */
     virtual void exportTo(QXmlStreamWriter& stream);

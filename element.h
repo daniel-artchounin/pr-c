@@ -19,9 +19,10 @@ protected:
 
 public:
     /*!
-     * \brief estDansIntervalle permet de vérifier si une programmation se
-     * se situe bien dans l'intervalle autorisé (après la disponibilité et avant
-     * échéance)
+     * \brief estDansIntervalle
+     *
+     * permet de vérifier si une programmation se situe bien dans l'intervalle autorisé (après la disponibilité et avant échéance)
+     *
      * \param dateProg date de programmation
      * \param horaireProg horaire de programmation
      * \return vrai si la programmation se trouve dans l'intervalle ou faux sinon
@@ -43,8 +44,10 @@ public:
         }
 
     }
+
     /*!
      * \brief Desctructeur
+     *
      * Destructeur virtual pure.
      */
     virtual ~Element()=0;
@@ -71,6 +74,7 @@ public:
     const Horaire& getHoraireDebut() const {
         return horaireDebut;
     }
+
     /*!
      * \brief getDateFin
      * \return date de fin
@@ -78,6 +82,7 @@ public:
     const Date& getDateFin() const {
         return dateFin;
     }
+
     /*!
      * \brief getHoraireFin
      * \return horaire de fin
@@ -93,16 +98,21 @@ public:
     const Duree & getDuree()const;
 
     /*!
-     * \brief setDuree mutateur (permet de mettre à jour
-     * la durée de l'élément
+     * \brief setDuree
+     *
+     * mutateur - permet de mettre à jour la durée de l'élément
+     *
      * \param duree1 la nouvelle durée
      */
     void setDuree(const Duree& dur){
         duree = dur;
     }
+
     /*!
-     * \brief addDuree permet d'ajouter une durée à la
-     * durée de notre élément
+     * \brief addDuree
+     *
+     * permet d'ajouter une durée à la durée de notre élément
+     *
      * \param duree la durée ajoutée
      */
     void addDuree(const Duree& duree){
@@ -111,10 +121,12 @@ public:
 
     /*!
      * \brief exportTo
+     *
      * Permet d'exporter les données dans un fichier XML via le streamwriter
+     *
      * \param stream
      */
-    void exportTo(QXmlStreamWriter& stream);
+    virtual void exportTo(QXmlStreamWriter& stream);
 };
 
 #endif // ELEMENT_H

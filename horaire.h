@@ -17,6 +17,9 @@ private:
 public:
     /*!
      * \brief Constructeur
+     *
+     * Crée un horaire à partir d'une heure et de minutes
+     *
      * \param h heure avec 0<=h<=23
      * \param m minute avec 0<=m<=59
      */
@@ -26,6 +29,9 @@ public:
 
     /*!
      * \brief Horaire
+     *
+     * Crée un horaire à partir d'un string au format hhHmm
+     *
      * \param horaire format hhHmm
      */
     Horaire(std::string horaire):heure(0),minute(0) {
@@ -34,6 +40,9 @@ public:
 
     /*!
      * \brief setHoraire
+     *
+     * Modifie l'horaire selon l'heure et les minutes données
+     *
      * \param h heure avec 0<=h<=23
      * \param m minute avec 0<=m<=59
      */
@@ -45,13 +54,18 @@ public:
 
     /*!
      * \brief setHoraire
+     *
+     * Modifie l'horaire selon le string au format hhHmm
+     *
      * \param horaire string au format hhHmm
      */
     void setHoraire(std::string horaire);
 
     /*!
      * \brief afficher
+     *
      * Affiche l'horaire sous le format hhHmm
+     *
      * \param f ostream
      */
     void afficher(std::ostream& f=std::cout) const {
@@ -129,7 +143,10 @@ public:
     Horaire addDuree(const Duree duree) const;
 
     /*!
-     * \brief soustraction permet de calculer le nombre de minutes séparant deux horaires (le résultat peut-être négatif)
+     * \brief soustraction
+     *
+     * permet de calculer le nombre de minutes séparant deux horaires (le résultat peut-être négatif)
+     *
      * \param horaire l'horaire à déduire de l'horaire de notre objet
      * \return le nombre de minutes entre les deux horaires : ce nombre peut volontairement etre négatif
      */
@@ -140,7 +157,9 @@ public:
 
 /*!
  * \brief operator <<
+ *
  * Surcharge de l'opérateur <<
+ *
  * \param f ostream
  * \param h Horaire
  * \return ostream
@@ -149,7 +168,9 @@ std::ostream& operator<<(std::ostream& f, const Horaire & h);
 
 /*!
  * \brief operator >>
+ *
  * Surcharde de l'opératuer >>
+ *
  * \param flot istream
  * \param horaire Horaire
  * \return istream
@@ -157,7 +178,10 @@ std::ostream& operator<<(std::ostream& f, const Horaire & h);
 std::istream& operator>>(std::istream& flot, Horaire& horaire);
 
 /*!
- * \brief operator - permet le nombre de minutes séparant deux horaires (le résultat peut-être négatif)
+ * \brief operator
+ *
+ * permet d'obtenir le nombre de minutes séparant deux horaires (le résultat peut-être négatif)
+ *
  * \param horaire1 le premier horaire
  * \param horaire2 le deuxième horaire
  * \return le nombre de minutes entre les deux horaires : ce nombre peut volontairement etre négatif
