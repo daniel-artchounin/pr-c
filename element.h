@@ -6,9 +6,10 @@
 #include <QXmlStreamWriter>
 
 /*! \class Element
-   * \brief Classe possédant un titre ainsi que des dates et horaires de début et de fin.
-   */
+* \brief Classe possédant un titre ainsi que des dates et horaires de début et de fin.
+*/
 class Element {
+
 protected:
     std::string titre; /*!< titre de l'élément */
     Date dateDebut; /*!< date de début */
@@ -18,11 +19,10 @@ protected:
     Duree duree; /*!< la duree minimale du projet (en supposant que les tâches se succèdent sans espace)*/
 
 public:
+
     /*!
-     * \brief estDansIntervalle
-     *
+     * \brief estDansIntervalle     *
      * permet de vérifier si une programmation se situe bien dans l'intervalle autorisé (après la disponibilité et avant échéance)
-     *
      * \param dateProg date de programmation
      * \param horaireProg horaire de programmation
      * \return vrai si la programmation se trouve dans l'intervalle ou faux sinon
@@ -47,8 +47,7 @@ public:
 
     /*!
      * \brief Desctructeur
-     *
-     * Destructeur virtual pure.
+     * Destructeur virtuelle pure.
      */
     virtual ~Element()=0;
 
@@ -67,6 +66,7 @@ public:
     const Date& getDateDebut() const {
         return dateDebut;
     }
+
     /*!
      * \brief getHoraireDebut
      * \return horaire de début
@@ -99,9 +99,7 @@ public:
 
     /*!
      * \brief setDuree
-     *
      * mutateur - permet de mettre à jour la durée de l'élément
-     *
      * \param duree1 la nouvelle durée
      */
     void setDuree(const Duree& dur){
@@ -109,10 +107,8 @@ public:
     }
 
     /*!
-     * \brief addDuree
-     *
+     * \brief addDure
      * permet d'ajouter une durée à la durée de notre élément
-     *
      * \param duree la durée ajoutée
      */
     void addDuree(const Duree& duree){
@@ -121,9 +117,7 @@ public:
 
     /*!
      * \brief exportTo
-     *
      * Permet d'exporter les données dans un fichier XML via le streamwriter
-     *
      * \param stream
      */
     virtual void exportTo(QXmlStreamWriter& stream);

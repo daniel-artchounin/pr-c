@@ -144,7 +144,7 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
         return false;
     }
     if(  ( ( (getDateFin()-getDateDebut())*24*60 + (getHoraireFin()-getHoraireDebut()) ) - int(getDuree().getDureeEnMinutes()) ) < int(dur.getDureeEnMinutes())  ) {
-        return false; // la duree de la tâche est supérieur à la durée libre du projet
+        return false; // la duree de la tâche est supérieure à la durée libre du projet
     }
     Tache* tacheActuelle = 0;
     TacheComposite* tacheCompositeActuelle = 0;
@@ -460,7 +460,7 @@ Duree Projet::supprimerTacheChemin(const std::string * nomsTachesComposites, uns
                 throw ProjetException("Erreur : Les titres de tâches données en paramètres ne sont pas des taches composites");
             }
             Duree dureeTacheASupprimer = supprimerTacheChemin(nomsTachesComposites, nbTaches, nomTache, profondeur+1,newTache); // appel récursif
-             const_cast<TacheComposite*>(tacheCourante)->setDuree(tacheCourante->getDuree().getDureeEnMinutes()-dureeTacheASupprimer.getDureeEnMinutes()); // maj de la durée de la TC
+            const_cast<TacheComposite*>(tacheCourante)->setDuree(tacheCourante->getDuree().getDureeEnMinutes()-dureeTacheASupprimer.getDureeEnMinutes()); // maj de la durée de la TC
             return dureeTacheASupprimer;
         }
     }

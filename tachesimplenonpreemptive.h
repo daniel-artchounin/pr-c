@@ -1,6 +1,7 @@
 #ifndef TACHESIMPLENONPREEMPTIVE_H
 #define TACHESIMPLENONPREEMPTIVE_H
 #include "tachesimple.h"
+# include <programmationmanager.h>
 
 class ProgrammationTacheSimpleNonPreemptive;
 

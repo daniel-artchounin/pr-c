@@ -3,7 +3,6 @@
 
 /*!
  * \class ElementException
- *
  * Permet de générer des exceptions pour les éléments
  * Hérite de la classe Logic_error
  */

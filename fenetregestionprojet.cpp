@@ -114,11 +114,7 @@ void FenetreGestionProjet::showContextMenu(const QPoint& pos){
     myMenu.exec(globalPos);
 }
 
-void FenetreGestionProjet::test(){
-}
 
-
-// créer une méthode privé pour éviter les duplications de code !!!
 void FenetreGestionProjet::fenetreCreerTacheComposite(){
     if(creerTacheComposite !=0){
         delete creerTacheComposite;

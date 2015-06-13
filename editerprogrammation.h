@@ -26,6 +26,11 @@ public:
 signals:
 
 public slots:
+    /*!
+     * \brief closeEvent
+     * Permet de gérer la requête de fermeture du widget
+     * \param event évènement
+     */
     void closeEvent(QCloseEvent *event);
 
     void selectionner();

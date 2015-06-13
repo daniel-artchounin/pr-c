@@ -3,27 +3,27 @@
 #include "tools.h"
 
 Duree ProgrammationTacheSimplePreemptive::getDuree()const{
-    return tacheSimplePreemtive->getDureeProgrammationViaPourcentage(pourcentage);
+    return tacheSimplePreemptive->getDureeProgrammationViaPourcentage(pourcentage);
 }
 
 std::string ProgrammationTacheSimplePreemptive::getNom() const {
-    return tacheSimplePreemtive->getTitre();
+    return tacheSimplePreemptive->getTitre();
 }
 
-const TacheSimplePreemptive& ProgrammationTacheSimplePreemptive::getTacheSimple() const{
-    return *tacheSimplePreemtive;
+TacheSimplePreemptive& ProgrammationTacheSimplePreemptive::getTacheSimple() const{
+    return *tacheSimplePreemptive;
 }
 
 ProgrammationTacheSimplePreemptive::ProgrammationTacheSimplePreemptive(const Date& dateD, const Horaire& heureD, unsigned int pourc, TacheSimplePreemptive& tacheSimpleP):
     ProgrammationTacheSimple(dateD,heureD),
-    pourcentage(pourc), tacheSimplePreemtive(&tacheSimpleP){
-    tacheSimplePreemtive->addProgrammation(this);
-    tacheSimplePreemtive->addPourcentageDejaProgramme(pourc);
+    pourcentage(pourc), tacheSimplePreemptive(&tacheSimpleP){
+    tacheSimplePreemptive->addProgrammation(this);
+    tacheSimplePreemptive->addPourcentageDejaProgramme(pourc);
 }
 
 ProgrammationTacheSimplePreemptive::~ProgrammationTacheSimplePreemptive(){
-    if(tacheSimplePreemtive != 0){
-        tacheSimplePreemtive->eraseProgrammation(getDateProgrammation(), getHoraireProgrammation());
+    if(tacheSimplePreemptive != 0){
+        tacheSimplePreemptive->eraseProgrammation(getDateProgrammation(), getHoraireProgrammation());
     }
 }
 

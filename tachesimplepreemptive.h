@@ -1,10 +1,11 @@
 #ifndef TACHESIMPLEPREEMPTIVE_H
 #define TACHESIMPLEPREEMPTIVE_H
 #include "tachesimple.h"
-#include <vector>
+# include <vector>
 # include <programmationmanager.h>
 
 class ProgrammationTacheSimplePreemptive;
+
 /*! \class TacheSimplePreemptive
  * \brief Classe permettant de manipuler des tâches simples préemptives
  */

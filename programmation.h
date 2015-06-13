@@ -8,11 +8,14 @@
  * \brief Classe permettant de programmer à une date et un horaire.
  */
 class Programmation {
+
 protected:
+
     Date dateProg; /*!< date de programmation */
     Horaire horaireProg; /*!< horaire de programmation */
 
 public:
+
     /*!
      * \brief Constructeur
      * \param date date de programmation

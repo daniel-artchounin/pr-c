@@ -7,26 +7,47 @@
 # include <QWidget>
 # include <QFormLayout>
 
+/*!
+ * \class InformationsElement
+ * \brief Classe permettant d'afficher des informations sur un élément
+ */
 class InformationsElement : public QWidget
 {
     Q_OBJECT
 protected:
-    QFormLayout* formlayout;
+
+    QFormLayout* formlayout; /*!< formulaire ok */
     QPushButton* ok;  /*!< bouton ok */
-    QHBoxLayout* hBoxOK;
-    QVBoxLayout* vBox; // pour harmoniser le tout
-    QLabel *titre;
-    QLabel *dateDebut;
-    QLabel *horaireDebut;
-    QLabel *dateEcheance;
-    QLabel *heureEcheance;
-    QLabel *duree;
+    QHBoxLayout* hBoxOK; /*!< contient le bouton ok */
+    QVBoxLayout* vBox; /*!< pour harmoniser */
+    QLabel *titre; /*!< titre de la tâche */
+    QLabel *dateDebut; /*!< date de disponibilité */
+    QLabel *horaireDebut; /*!< horaire de disponibilité */
+    QLabel *dateEcheance; /*!< date d'échéance */
+    QLabel *heureEcheance; /*!< horaire d'échéance */
+    QLabel *duree; /*!< durée de l'élément */
+
+    /*!
+     * \brief closeEvent
+     * Permet de gérer la requête de fermeture du widget
+     * \param event évènement
+     */
     virtual void closeEvent(QCloseEvent *event);
+
 public:
+
+    /*!
+     * \brief InformationsElement
+     * Constructeur.
+     * \param element référence vers l'élément nous intéressant
+     * \param parent widget parent
+     */
     explicit InformationsElement(const Element& element, QWidget *parent = 0);
+
 signals:
 
 public slots:
+
     void retourFenetrePrincipale();
 
 };

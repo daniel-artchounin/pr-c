@@ -1,8 +1,9 @@
-#include "tachecomposite.h"
-#include "tachecompositeexception.h"
-#include "tachesimplepreemptive.h"
-#include "tachesimplenonpreemptiveexception.h"
-#include "tachesimplenonpreemptive.h"
+# include "tachecomposite.h"
+# include "tachecompositeexception.h"
+# include "tachesimplepreemptive.h"
+# include "tachesimplepreemptiveexception.h"
+# include "tachesimplenonpreemptiveexception.h"
+# include "tachesimplenonpreemptive.h"
 
 TacheComposite::TacheComposite(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
       const Horaire& heureEcheance,const std::string & titre):
@@ -17,15 +18,23 @@ Tache* TacheComposite::trouverSsTache(const std::string& nomTache)const{
 void TacheComposite::ajouterSsTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                     const Horaire& heureEcheance,const std::string & titre,bool preemptive, bool composite, const Duree & dur){
     if(preemptive && composite){
+        // ce cas n'est pas censé arriver
         throw TacheCompositeException("Erreur : on ne peut pas créer de tâche composite et preemptive");
     }
-    if (trouverSsTache(titre))
+    if (trouverSsTache(titre)){
+        // la tâche simple a ajouté existe déjà
         throw TacheCompositeException("Erreur : TacheSimple deja existante");
+    }
     Tache* newTache = 0;
     if(preemptive && !composite){
-        newTache = new TacheSimplePreemptive(dateD,heureD, dateEcheance, heureEcheance,
-                                             titre,dur);
-
+        // on doit créer une tâche simple préemptive
+        try{
+            newTache = new TacheSimplePreemptive(dateD,heureD, dateEcheance, heureEcheance,
+                                                 titre,dur);
+        }catch (TacheSimplePreemptiveException& e){
+            delete newTache;
+            throw TacheCompositeException("Erreur : la tache simple préemptive n'a pas pu etre crée.");
+        }
     }
     else if(!preemptive && !composite){
         try{
@@ -60,7 +69,7 @@ const Tache& TacheComposite::getSsTache(const std::string& titre)const{
 
 void TacheComposite::supprimerSsTache(const std::string& titre){
     if(!trouverSsTache(titre)){
-        throw TacheCompositeException("Erreur : la tâche envoyée en paramètre ne précède pas la tâche actuelle");
+        throw TacheCompositeException("Erreur : la tâche envoyée en paramètre n'est pas une sous tâche de la tâche composite actuelle");
     }
     Duree dureeTacheASupprimer = trouverSsTache(titre)->getDuree();
     eraseItem(titre);

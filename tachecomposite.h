@@ -10,7 +10,9 @@
 class TacheComposite : public Manager <Tache>, public Tache
 {
     friend class Projet;
+
 protected :
+
     /**
      * \brief ajouterSsTache
      * permet de créer et d'ajouter une sous-tâche à la tache actuelle
@@ -26,6 +28,7 @@ protected :
                         const Horaire& heureEcheance,const std::string & titre,
                         bool preemptive, bool composite, const Duree& dur=0);
 public:
+
     /**
      * \brief TacheComposite Constructeur
      * \param dateD date de disponiblité
@@ -46,7 +49,6 @@ public:
      */
     Tache* trouverSsTache(const std::string& nomTache)const;
 
-
     /**
      * \brief getSsTache
      * permet de trouver une sous tâche de la tâche courante
@@ -65,6 +67,7 @@ public:
      * \return retourne une référence sur la tâche
      */
     const Tache& getSsTache(const std::string& titre)const;
+
     /**
      * \brief supprimerSsTache
      * supprime la tâche dont le titre est renseigné en paramètre
@@ -72,11 +75,6 @@ public:
      * \param titre nom de la sous tâche
      */
     void supprimerSsTache(const std::string& titre);
-    /**
-     * \brief isTermine
-     * \return retourne true si la toutes les sous tâches sont terminées ou
-     * false sinon
-     */
 
     /*!
      * \brief exportTo

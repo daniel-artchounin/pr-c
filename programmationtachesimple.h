@@ -3,12 +3,15 @@
 #include "programmation.h"
 #include "date.h"
 #include "horaire.h"
+# include "tachesimple.h"
 
 /*! \class ProgrammationTacheSimple
  * \brief Classe permettant de manipuler de gérer des programmations de TacheSimple. Hérite de la classe Programmation.
  */
 class ProgrammationTacheSimple : public Programmation{
+
 public:
+
     /*!
      * \brief ProgrammationTacheSimple constructeur
      * \param dateDebut date de début de le programmation
@@ -16,14 +19,12 @@ public:
      */
     ProgrammationTacheSimple(const Date&  dateDebut, const Horaire& horaireDebut):Programmation(dateDebut, horaireDebut){}
 
-
-
     /*!
      * \brief getTacheSimple accesseur vers la tâche simple que l'on programme
      * méthode virtuelle pure
      * \return une tâche simple
      */
-    // virtual const TacheSimple& getTacheSimple() const=0;
+    virtual TacheSimple& getTacheSimple() const=0;
 
     /*!
      * \brief ~ProgrammationTacheSimple destructeur

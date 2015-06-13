@@ -2,7 +2,6 @@
 #define PROJETMANAGEREXCEPTION
 
 /*! \class ProjetManagerException
- *
  * Permet de générer des exception pour les ProjetManagers
  * Hérite de la classe Logic_error
  */

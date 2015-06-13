@@ -1,6 +1,7 @@
 #ifndef PROGRAMMATIONTACHESIMPLENONPREEMPTIVE_H
 #define PROGRAMMATIONTACHESIMPLENONPREEMPTIVE_H
-#include "programmationtachesimple.h"
+# include "programmationtachesimple.h"
+# include "tachesimplenonpreemptive.h"
 
 class TacheSimpleNonPreemptive;
 
@@ -10,9 +11,11 @@ class TacheSimpleNonPreemptive;
 class ProgrammationTacheSimpleNonPreemptive : public ProgrammationTacheSimple
 {
 protected :
+
     TacheSimpleNonPreemptive* tacheSimpleNonPreemptive; /*!< pointeur vers la tache simple non préemptive que l'on programme */
 
 public:
+
     /*!
      * \brief ProgrammationTacheSimpleNonPreemptive
      * Constructeur
@@ -22,6 +25,12 @@ public:
      */
     ProgrammationTacheSimpleNonPreemptive(const Date& dateD, const Horaire& heureD, TacheSimpleNonPreemptive& tacheSimpleNonP);
 
+    /*!
+     * \brief updateProgrammationTacheSimpleNonPreemptive
+     * permet de mettre à jour la date et l'horaire de la programmation
+     * \param dateD nouvelle date de programmation
+     * \param heureD nouvel horaire de programmation
+     */
     void updateProgrammationTacheSimpleNonPreemptive(const Date& dateD, const Horaire& heureD) {
         dateProg=dateD;
         horaireProg=heureD;
@@ -30,8 +39,8 @@ public:
     /*!
      * \brief getTacheSimple accesseur
      * \return référence vers la tâche simple non préemptive que l'on programme
-     */
-    virtual const TacheSimpleNonPreemptive& getTacheSimple() const;
+     */   
+    virtual TacheSimpleNonPreemptive& getTacheSimple() const;
 
     /*!
      * \brief getDuree accesseur
@@ -39,6 +48,10 @@ public:
      */
     virtual Duree getDuree()const;
 
+    /*!
+     * \brief getNom accesseur
+     * \return nom de la tache simple non préemptive
+     */
     virtual std::string getNom() const;
 
     /*!
@@ -48,9 +61,7 @@ public:
 
     /*!
      * \brief exportTo
-     *
      * Permet d'exporter les données dans un fichier XML via le streamwriter
-     *
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream);
