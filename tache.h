@@ -222,11 +222,20 @@ public:
 
     /*!
      * \brief exportTo
+     *
      * Permet d'exporter les données dans un fichier XML via le streamwriter, notamment les contraintes de précédences
+     *
      * \param stream
      */
     virtual void exportTo(QXmlStreamWriter& stream);
 
+    /*!
+     * \brief exportProgrammations
+     *
+     * Permet d'exporter les programmations de la tache
+     *
+     * \param stream
+     */
     virtual void exportProgrammations(QXmlStreamWriter& stream)=0;
 
     /*!

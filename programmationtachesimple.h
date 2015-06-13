@@ -9,6 +9,7 @@
  */
 class ProgrammationTacheSimple : public Programmation{
 public:
+
     /*!
      * \brief ProgrammationTacheSimple constructeur
      * \param dateDebut date de début de le programmation
@@ -16,11 +17,11 @@ public:
      */
     ProgrammationTacheSimple(const Date&  dateDebut, const Horaire& horaireDebut):Programmation(dateDebut, horaireDebut){}
 
-
-
     /*!
-     * \brief getTacheSimple accesseur vers la tâche simple que l'on programme
-     * méthode virtuelle pure
+     * \brief getTacheSimple
+     *
+     * accesseur vers la tâche simple que l'on programme méthode virtuelle pure
+     *
      * \return une tâche simple
      */
     // virtual const TacheSimple& getTacheSimple() const=0;

@@ -15,13 +15,23 @@ protected :
 public:
     /*!
      * \brief ProgrammationTacheSimpleNonPreemptive
+     *
      * Constructeur
+     *
      * \param dateD date de programmation
      * \param heureD horaire de programmation
      * \param tacheSimpleNonP référence vers une TacheSimpleNonPreemptive
      */
     ProgrammationTacheSimpleNonPreemptive(const Date& dateD, const Horaire& heureD, TacheSimpleNonPreemptive& tacheSimpleNonP);
 
+    /*!
+     * \brief updateProgrammationTacheSimpleNonPreemptive
+     *
+     * Met à jour la programmation actuelle avec la date, l'horaire et la durée donnés
+     *
+     * \param dateD
+     * \param heureD
+     */
     void updateProgrammationTacheSimpleNonPreemptive(const Date& dateD, const Horaire& heureD) {
         dateProg=dateD;
         horaireProg=heureD;
@@ -39,6 +49,10 @@ public:
      */
     virtual Duree getDuree()const;
 
+    /*!
+     * \brief getNom
+     * \return nom de l'évènement
+     */
     virtual std::string getNom() const;
 
     /*!

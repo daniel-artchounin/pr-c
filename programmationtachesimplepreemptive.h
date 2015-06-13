@@ -20,6 +20,15 @@ public:
      */
     ProgrammationTacheSimplePreemptive(const Date& dateD, const Horaire& heureD, unsigned int pourc, TacheSimplePreemptive& tacheSimpleP);
 
+    /*!
+     * \brief updateProgrammationTacheSimplePreemptive
+     *
+     * Met à jour la programmation actuelle avec la date, l'horaire et la durée donnés
+     *
+     * \param dateD
+     * \param heureD
+     * \param pourc
+     */
     void updateProgrammationTacheSimplePreemptive(const Date& dateD, const Horaire& heureD, unsigned int pourc) {
         dateProg=dateD;
         horaireProg=heureD;
@@ -42,6 +51,10 @@ public:
      */
     virtual Duree getDuree()const;
 
+    /*!
+     * \brief getNom
+     * \return nom de l'évènement
+     */
     virtual std::string getNom() const;
 
     /*!
@@ -58,6 +71,10 @@ public:
      */
     void exportTo(QXmlStreamWriter& stream);
 
+    /*!
+     * \brief getPourcentage
+     * \return pourcentage programmé
+     */
     unsigned int getPourcentage()const{
         return pourcentage;
     }
