@@ -9,7 +9,7 @@
 class ProgrammationEvenement : public Programmation {
 protected:
     Duree duree; /*!< duree de la programmation */
-    Evenement* evenement;
+    Evenement* evenement; /*!< evenement programmé */
 public:
     /*!
      * \brief ProgrammationEvenement

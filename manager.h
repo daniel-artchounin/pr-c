@@ -15,7 +15,7 @@ template <class T> class Manager {
 
 protected:
 
-    typedef std::map<std::string, T*> Map;
+    typedef std::map<std::string, T*> Map; /*!< définition du type Map */
     Map items; /*!< map d'item */
 
     /*!
@@ -97,7 +97,16 @@ public:
         return *this;
     }
 
+    /*!
+     * \brief iterator
+     * iterator permettant de parcourir la map
+     */
     typedef typename Map::iterator iterator;
+
+    /*!
+     * \brief const_iterator
+     * const_iterator permetttant de parcourir la map
+     */
     typedef typename Map::const_iterator const_iterator;
 
     /*!

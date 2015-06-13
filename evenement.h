@@ -19,6 +19,8 @@ public:
     /*!
      * \brief Constructeur
      * \param n nom de l'évènement
+     * \param l lieu de l'évènement
+     * \param m motif de l'évènement
      */
     Evenement(const std::string n, const std::string l, const std::string m):nom(n), lieu(l), motif(m){}
 

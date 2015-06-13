@@ -31,12 +31,13 @@ public:
     bool estDansIntervalle(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage = 100) const;
 
     /*!
-     * \brief Constructeur
+     * \brief Element
      * \param t titre
      * \param dateD date de début
      * \param horaireD horaire de début
      * \param dateF date de fin
      * \param horaireF horaire de fin
+     * \param dur durée
      */
     Element(const std::string& t, const Date& dateD, const Horaire& horaireD, const Date& dateF, const Horaire& horaireF,const Duree& dur=0):
         titre(t), dateDebut(dateD), horaireDebut(horaireD), dateFin(dateF), horaireFin(horaireF),duree(dur) {

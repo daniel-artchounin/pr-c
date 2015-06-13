@@ -23,7 +23,7 @@ class ProgrammerEvenement: public FenetreAnnulerValider
 
 protected :
 
-    QFormLayout* formlayout;
+    QFormLayout* formlayout; /*!< form */
     QLineEdit* nom; /*!< nom de l'évènement */
     QLineEdit* motif; /*!< motif de l'évènement */
     QLineEdit* lieu; /*!< lieu de l'évènement */
@@ -31,8 +31,8 @@ protected :
     QTimeEdit* horaireDebut; /*!< horaire de début */
     QSpinBox* dureeHeure; /*!< duree heure*/
     QSpinBox* dureeMinute; /*!< duree heure*/
-    QHBoxLayout* duree;
-    ProgrammationEvenement* progEvt;
+    QHBoxLayout* duree; /*! duree regroupant les spinbox */
+    ProgrammationEvenement* progEvt; /*! progEvt programmation à modifier */
 
     /*!
      * \brief initialiserFormulaire

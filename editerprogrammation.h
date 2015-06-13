@@ -8,6 +8,10 @@
 #include <QPushButton>
 #include "fenetreannulervalider.h"
 
+/*!
+ * \brief EditerProgrammation
+ * Classe permettant de modifier ou supprimer les programmations.
+ */
 class EditerProgrammation : public QWidget {
     Q_OBJECT
 
