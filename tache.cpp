@@ -21,6 +21,32 @@ bool Tache::isTachePrecedente(const std::string& titre) const{
     }
 }
 
+bool Tache::isTacheSuivante(const std::string& titre) const{
+    Tache* tacheSuivante = trouverTacheSuivante(titre);
+    if (tacheSuivante == 0){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+Tache& Tache::getTachePrecedente(const std::string& titre){
+    Tache* t=trouverTachePrecedente(titre);
+    if (!t) {
+        throw TacheException("Erreur : tache précédente inexistante");
+    }
+    return *t;
+}
+
+Tache& Tache::getTacheSuivante(const std::string& titre){
+    Tache* t=trouverTacheSuivante(titre);
+    if (!t) {
+        throw TacheException("Erreur : tache suivante inexistante");
+    }
+    return *t;
+}
+
 Tache* Tache::trouverTachePrecedente(const std::string & titre)const{
     tp_const_iterator result = tachesPrecedentes.find(titre);
     if(result == tPEnd()) {
@@ -49,7 +75,7 @@ void Tache::ajouterTachePrecedente(Tache & tachePrecedente, const std::string& c
     }
     std::size_t found = cheminementPrecedent.find(cheminementSuivant);
     if (found!=std::string::npos){
-        throw TacheException("Erreur : la tache mère "+cheminementSuivant+"ne peut pas débuter après la fin de sa tache descendante " + cheminementPrecedent+".");
+        throw TacheException("Erreur : la tache mère "+cheminementSuivant+ " ne peut pas débuter après la fin de sa tache descendante " + cheminementPrecedent+".");
     }
     found = cheminementSuivant.find(cheminementPrecedent);
     if (found!=std::string::npos){
@@ -59,7 +85,7 @@ void Tache::ajouterTachePrecedente(Tache & tachePrecedente, const std::string& c
             -int(tachePrecedente.getDuree().getDureeEnMinutes())< int(this->getDuree().getDureeEnMinutes())){
         throw TacheException("Erreur : la tâche " + this->getTitre() + " ne sera pas programmable.");
     }
-    tachesPrecedentes.insert(std::pair<std::string, Tache*>(cheminementPrecedent, &tachePrecedente));
+    tachesPrecedentes.insert(std::pair<std::string, Tache*>(cheminementPrecedent, &tachePrecedente)); // ajout de la contrainte de précédence si cela est cohérent
 }
 
 void Tache::ajouterTacheSuivante(Tache & tacheSuivante, const std::string& cheminementPrecedent, const std::string& cheminementSuivant){
@@ -84,21 +110,21 @@ void Tache::ajouterTacheSuivante(Tache & tacheSuivante, const std::string& chemi
             -int(this->getDuree().getDureeEnMinutes())< int(tacheSuivante.getDuree().getDureeEnMinutes())){
         throw TacheException("Erreur : la tâche " + tacheSuivante.getTitre() + " ne sera pas programmable.");
     }
-    tachesSuivantes.insert(std::pair<std::string, Tache*>(cheminementSuivant, &tacheSuivante));
+    tachesSuivantes.insert(std::pair<std::string, Tache*>(cheminementSuivant, &tacheSuivante)); // ajout de la contrainte de "suivance" si cela est cohérent
 }
 
 void Tache::supprimerTachePrecedente(const std::string & tachePrecedente){
     if(!trouverTachePrecedente(tachePrecedente)){
         throw TacheException("Erreur : la tâche " + tachePrecedente + " envoyée en paramètre ne précède pas la tâche courante "+ this->getTitre());
     }
-    tachesPrecedentes.erase(tachePrecedente);
+    tachesPrecedentes.erase(tachePrecedente); // on supprime la contrainte de précédence
 }
 
 void Tache::supprimerTacheSuivante(const std::string & tacheSuivante){
     if(!trouverTacheSuivante(tacheSuivante)){
         throw TacheException("Erreur : la tâche " + this->getTitre() + " ne précède pas la tâche "+ tacheSuivante);
     }
-    tachesSuivantes.erase(tacheSuivante);
+    tachesSuivantes.erase(tacheSuivante); // on supprime la contrainte de "suivance"
 }
 
 bool Tache::checkProgrammationCoherente(const Date& dateProg, const Horaire& horaireProg, const Tache* tacheActuelle)const{
@@ -146,8 +172,8 @@ bool Tache::checkProgrammationCoherente(const Date& dateProg, const Horaire& hor
         return tacheSimplePreemptiveActuelle->isEndProgrammationOk(dateProg,horaireProg);
     }
     else{
-        // ce cas n'est pas censé arrivé vu notre architecture
-        throw TacheException("checkProgrammationCoherente : un problème subsiste dans l'application");
+        // ce cas n'est pas censé arriver vu notre architecture
+        throw TacheException("Erreur : un problème subsiste dans l'application");
         return false; // pour faire plaisir au compilateur
     }
 }
@@ -161,4 +187,28 @@ void Tache::exportTo(QXmlStreamWriter& stream) {
     stream.writeEndElement();
 }
 
+Tache::~Tache(){
+    for(ts_iterator it = tSBegin(); it != tSEnd() ; ++it){
+        // parcours des taches suivantes
+        for(tp_iterator it2 = it->second->tPBegin() ; it2 != it->second->tPEnd() ; ++it2){
+            // parcours des taches précédentes de chacune des taches suivantes
+            if(it2->second == this){
+                // si la tache que l'on consulte est la meme que la tache courante,
+                // on supprime la contrainte
+                it->second->tachesPrecedentes.erase(it2);
+            }
+        }
+    }
+    for(ts_iterator it = tPBegin(); it != tPEnd() ; ++it){
+        // parcours des taches précédentes
+        for(tp_iterator it2 = it->second->tSBegin() ; it2 != it->second->tSEnd() ; ++it2){
+            // parcours des taches suivantes de chacune des taches précédentes
+            if(it2->second == this){
+                // si la tache que l'on consulte est la meme que la tache courante,
+                // on supprime la contrainte
+                it->second->tachesSuivantes.erase(it2);
+            }
+        }
+    }
+}
 

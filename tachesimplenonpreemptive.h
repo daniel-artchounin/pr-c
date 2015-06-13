@@ -12,13 +12,16 @@ class TacheSimpleNonPreemptive : public TacheSimple
     friend class ProgrammationTacheSimpleNonPreemptive;
 
 protected :
+
     ProgrammationTacheSimpleNonPreemptive* programmationTacheSimpleNonPreemptive; /*!< pointeur vers la programmation de la tâche simple non préemptive */
+
     /**
      * \brief dureeValide
      * \param duree duree d'une tache
-     * \return true si la duree est valide ou non sinon
+     * \return true si la duree est valide (si elle est inférieure à 12 h 00) ou non sinon
      */
     bool dureeValide(const Duree& duree)const;
+
     /*!
      * \brief hasProgrammation
      * \return vrai si la taĉhe a au moins une programmtion ou faux sinon
@@ -31,9 +34,13 @@ protected :
      */
     void setProgrammation(ProgrammationTacheSimpleNonPreemptive* programmationTacheSimpleNonP);
 
+    /*!
+     * \brief eraseProgrammation
+     * Permet de mettre le pointeur vers la programmation de tâche simple non préemptive (déjà supprimée) à 0
+     */
     void eraseProgrammation();
 public:
-    /**
+    /*!
      * \brief TacheSimpleNonPreemptive Constructeur
      * peut générer une exception
      * \param dateD date de disponiblité
@@ -72,6 +79,9 @@ public:
 
     void exportProgrammations(QXmlStreamWriter& stream);
 
+    /*!
+     * \brief ~TacheSimpleNonPreemptive destructeur
+     */
     virtual ~TacheSimpleNonPreemptive();
 };
 

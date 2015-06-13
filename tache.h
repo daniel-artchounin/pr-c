@@ -9,7 +9,9 @@
  * Cette classe est abstraite
  */
 class Tache : public Element {
+
 protected:
+
     typedef std::map<std::string, Tache*> TPMap;
     TPMap tachesPrecedentes; /*!< map de taches */
     TPMap tachesSuivantes; /*!< map de taches */
@@ -18,15 +20,24 @@ protected:
      * \brief trouverTachePrecedente
      * permet de trouver la tâche précédente envoyée en paramètre
      * parmi les contraintes de precedence de la tâche actuelle
-     * \param tachePotentPrecedente titre de la tache potentiellement précédente
+     * \param titre titre de la tache potentiellement précédente
      * \return retourne un pointeur vers la tâche précédente si elle l'est vraiment
      * ou 0 sinon
      */
     Tache* trouverTachePrecedente(const std::string& titre) const;
+
+    /*!
+     * \brief trouverTacheSuivante
+     * permet de trouver la tâche suivante envoyée en paramètre
+     * parmi les contraintes de "suivance" de la tâche actuelle
+     * \param titre titre de la tache potentiellement suivante
+     * \return retourne un pointeur vers la tâche suivante si elle l'est vraiment
+     * ou 0 sinon
+     */
     Tache* trouverTacheSuivante(const std::string & titre)const;
 
-
 public:
+
     /*!
      * \brief Constructeur
      * \param dateD date de disponiblité
@@ -41,36 +52,59 @@ public:
     /*!
      * \brief isTachePrecedente
      * permet de savoir si une tâche envoyée en paramètre précède la tâche courante
-     * \param tachePotentPrecedente titre d'une potentielle tache précédente
+     * \param titre titre d'une potentielle tache précédente
      * \return retourne un booléen (en fonction du statut de la tache par rapport à la tâche actuelle)
      */
     bool isTachePrecedente(const std::string& titre) const;
 
     /*!
+     * \brief isTacheSuivante
+     * permet de savoir si une tâche envoyée en paramètre succède la tâche courante
+     * \param titre titre d'une potentielle tache suivante
+     * \return retourne un booléen (en fonction du statut de la tache par rapport à la tâche actuelle)
+     */
+    bool isTacheSuivante(const std::string& titre) const;
+
+    /*!
      * \brief getTachePrecedente
      * permet de trouver une tâche précédente de la tâche courante
      * déclenche une exception si la tâche n'est pas trouvée
-     * \param titre nom de la sous tâche
-     * \return retourne une référence sur la tâche
+     * \param titre nom de la tâche
+     * \return retourne une référence sur la tâche précédente
      */
-    Tache& getTachePrecedente(const std::string& titre){
-        Tache* t=trouverTachePrecedente(titre);
-        if (!t) {
-            throw TacheException("erreur : tache inexistante");
-        }
-        return *t;
-    }
+    Tache& getTachePrecedente(const std::string& titre);
 
     /*!
-     * \brief getTachePrecedente méthode const (elle sera utilisé par les références
+     * \brief getTachePrecedente
+     * permet de trouver une tâche suivante de la tâche courante
+     * déclenche une exception si la tâche n'est pas trouvée
+     * \param titre nom de la tâche
+     * \return retourne une référence sur la tâche suivante
+     */
+    Tache& getTacheSuivante(const std::string& titre);
+
+    /*!
+     * \brief getTachePrecedente accesseur méthode const (elle sera utilisé par les références
      * const ou les pointeurs const)
      * permet de trouver une tâche précédente de la tâche courante
      * déclenche une exception si la tâche n'est pas trouvée
      * \param titre nom de la tâche
-     * \return retourne une référence sur la tâche
+     * \return retourne une référence sur la tâche précédente
      */
     const Tache& getTachePrecedente(const std::string& titre)const{
         return const_cast<Tache*>(this)->getTachePrecedente(titre);
+    }
+
+    /*!
+     * \brief getTacheSuivante accesseur méthode const (elle sera utilisé par les références
+     * const ou les pointeurs const)
+     * permet de trouver une tâche suivante de la tâche courante
+     * déclenche une exception si la tâche n'est pas trouvée
+     * \param titre nom de la tâche
+     * \return retourne une référence sur la tâche suivante
+     */
+    const Tache& getTacheSuivante(const std::string& titre)const{
+        return const_cast<Tache*>(this)->getTacheSuivante(titre);
     }
 
     /*!
@@ -80,6 +114,13 @@ public:
      * \param cheminementSuivant chemin de la tache suivante
      */
     void ajouterTachePrecedente(Tache & tachePrecedente, const std::string& cheminementPrecedent, const std::string& cheminementSuivant);
+
+    /*!
+     * \brief ajouterTacheSuivante
+     * ajoute une tâche suivante à la tâche courante
+     * \param cheminementPrecedent chemin de la tache précédente
+     * \param cheminementSuivant chemin de la tache suivante
+     */
     void ajouterTacheSuivante(Tache & tacheSuivante, const std::string& cheminementPrecedent, const std::string& cheminementSuivant);
 
 
@@ -89,6 +130,12 @@ public:
      * \param tachePrecedente référence sur une tache à supprimer
      */
     void supprimerTachePrecedente(const std::string& tachePrecedente);
+
+    /*!
+     * \brief supprimerTacheSuivante
+     * supprime une contrainte de "suivance"
+     * \param tacheSuivante référence sur une tache à supprimer
+     */
     void supprimerTacheSuivante(const std::string & tacheSuivante);
 
     typedef typename TPMap::iterator tp_iterator;
@@ -108,6 +155,10 @@ public:
      */
     tp_iterator tPEnd() { return tachesPrecedentes.end(); }
 
+    /*!
+     * \brief tPSize
+     * \return taille de la map des taches précédentes
+     */
     int tPSize()const{
         return int(tachesPrecedentes.size());
     }
@@ -147,9 +198,15 @@ public:
      * \return const_iterator sur la fin de la map
      */
     ts_const_iterator tSEnd() const{ return const_cast<Tache *>(this)->tSEnd(); }
+
+    /*!
+     * \brief tSSize
+     * \return taille de la map des taches suivantes
+     */
     int tSSize()const{
         return int(tachesSuivantes.size());
     }
+
     /*!
      * \brief checkProgrammationCoherente
      * permet de savoir si les tâches précédent ma tâche ont
@@ -172,26 +229,10 @@ public:
 
     virtual void exportProgrammations(QXmlStreamWriter& stream)=0;
 
-    virtual ~Tache(){
-        std::cout << "Bye !!!" <<std::endl;
-        std::cout <<"titre actuel : "<< getTitre() <<std::endl;
-        for(ts_iterator it = tSBegin(); it != tSEnd() ; ++it){
-            std::cout << "titre suivant : "<< it->second->getTitre() <<std::endl;
-            for(tp_iterator it2 = it->second->tPBegin() ; it2 != it->second->tPEnd() ; ++it2){
-                if(it2->second == this){
-                    it->second->tachesPrecedentes.erase(it2);
-                }
-            }
-        }
-        for(ts_iterator it = tPBegin(); it != tPEnd() ; ++it){
-            std::cout << "titre precedent"<< it->second->getTitre() <<std::endl;
-            for(tp_iterator it2 = it->second->tSBegin() ; it2 != it->second->tSEnd() ; ++it2){
-                if(it2->second == this){
-                    it->second->tachesSuivantes.erase(it2);
-                }
-            }
-        }
-    }
+    /*!
+     * \brief ~Tache destructeur
+     */
+    virtual ~Tache();
 };
 
 #endif // TACHE_H

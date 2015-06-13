@@ -6,12 +6,11 @@
 
 class ProgrammationTacheSimplePreemptive;
 /*! \class TacheSimplePreemptive
- * \brief Classe permettant de manipuler des tâches préemptives
+ * \brief Classe permettant de manipuler des tâches simples préemptives
  */
 class TacheSimplePreemptive : public TacheSimple
 {
     friend class ProgrammationTacheSimplePreemptive;
-
 
 protected:
     unsigned int pourcentageDejaProgramme;/*!< le pourcentage déjà programmé de la tâche*/
@@ -22,38 +21,31 @@ protected:
      * \brief hasProgrammation
      * \return vrai si la taĉhe a au moins une programmtion ou faux sinon
      */
-    virtual bool hasProgrammation()const{
-        return !programmationsTachesSimplesPreemptives.empty();
-    }
+    virtual bool hasProgrammation()const;
 
     /**
      * \brief setPourcentageDejaProgramme mutateur
-     * Soulève une exception en cas d'incohérence
+     * Soulève une TacheSimplePreemptiveException en cas d'incohérence
      * \param prt le nouveau pourcentage programmé
      */
     void setPourcentageDejaProgramme(int prt);
 
     /*!
      * \brief addPourcentageDejaProgramme
-     * augment le pourcentage déjà programmé de la tâche
+     * augmente le pourcentage déjà programmé de la tâche
      * \param prt
      */
-    void addPourcentageDejaProgramme(int prt){
-        setPourcentageDejaProgramme(getPourcentageDejaProgramme()+prt);
-    }
-
-
+    void addPourcentageDejaProgramme(int prt);
 
     /*!
      * \brief addProgrammation
      * ajoute une nouvelle programmation à la tâche préemptive actuelle
      * \param pgrm pointeur vers la programmtion de tâche simple préemptive
      */
-    void addProgrammation(ProgrammationTacheSimplePreemptive * pgrm){
-        programmationsTachesSimplesPreemptives.push_back(pgrm);
-    }
+    void addProgrammation(ProgrammationTacheSimplePreemptive * pgrm);
 
     void eraseProgrammation(const Date& dateProgrammation, const Horaire& horaireProgrammation);
+
 public:
     /**
      * \brief TacheSimpleNonPreemptive Constructeur
@@ -101,6 +93,10 @@ public:
     typedef typename PVector::iterator p_iterator;
     typedef typename PVector::const_iterator p_const_iterator;
 
+    /*!
+     * \brief pSize
+     * \return la taille du vector des programmations de tâche simple préemtive
+     */
     int pSize()const{
         return int(programmationsTachesSimplesPreemptives.size());
     }
@@ -119,12 +115,12 @@ public:
 
     /*!
      * \brief pBegin
-     * \return iterator sur le début du vector
+     * \return iterator const sur le début du vector
      */
     p_const_iterator pBegin() const{ return const_cast<TacheSimplePreemptive *>(this)->pBegin(); }
     /*!
      * \brief pEnd
-     * \return iterator sur la fin du vector
+     * \return iterator const sur la fin du vector
      */
     p_const_iterator pEnd() const{ return const_cast<TacheSimplePreemptive *>(this)->pEnd(); }
 
@@ -146,6 +142,9 @@ public:
 
     void exportProgrammations(QXmlStreamWriter& stream);
 
+    /*!
+     * \brief ~TacheSimplePreemptive destructeur
+     */
     virtual ~TacheSimplePreemptive();
 };
 

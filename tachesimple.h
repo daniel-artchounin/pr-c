@@ -6,7 +6,9 @@
  * \brief Classe permettant de manipuler des tâches simples
  */
 class TacheSimple : public Tache{
+
 protected:
+
     /*!
      * \brief hasProgrammation
      * \return vrai si la taĉhe a au moins une programmtion ou faux sinon
@@ -14,6 +16,7 @@ protected:
     virtual bool hasProgrammation()const=0;
 
 public:
+
     /*!
      * \brief TacheSimple Constructeur
      * \param dateD date de disponiblité

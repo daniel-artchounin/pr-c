@@ -118,15 +118,19 @@ Tache& Projet::accederTache(const std::string * nomsTachesComposites , unsigned 
 
 bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD
                                            ,const Horaire& heureD,const Date& dateF, const Horaire& heureF,const Duree & dur)const{
-    // vérification si la tâche n'est pas
     if(dateF< dateD || (dateF==dateD && heureF < heureD )){
+        // on vérifie si la disponibilité et l'échéance de la tâche en puissance sont déjà cohérentes
         return false;
     }
     if(((dateF-dateD)*24*60 + (heureF-heureD)) < int(dur.getDureeEnMinutes())){
+        // on vérifie que la durée de l'intervalle entre la disponibilité et l'échéance de la tâche en puissance est supérieure ou
+        // égale à sa durée
         return false;
     }
     if(nbTaches == 0){
+        // si la tâche doit-être ajoutée à la racine du projet
         if (trouverTache(titre)){
+            // on vérifie que la tâche n'existe pas déjà
             throw ProjetException("Erreur : tache deja existante");
             return false;
         }
@@ -135,6 +139,8 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
             || (dateF > dateFin)
             ||( (dateD == dateDebut) && (heureD < horaireDebut) )
             ||( (dateF == dateFin) && (heureF > horaireFin) )  ){
+        // on vérifie que l'intervalle de temps entre la disponibilité et l'échéance de la tâche en puissance
+        // est inclus dans celui du projet
         return false;
     }
     if(  ( ( (getDateFin()-getDateDebut())*24*60 + (getHoraireFin()-getHoraireDebut()) ) - int(getDuree().getDureeEnMinutes()) ) < int(dur.getDureeEnMinutes())  ) {
@@ -144,9 +150,13 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
     TacheComposite* tacheCompositeActuelle = 0;
     for(unsigned int i = 0; i < nbTaches; i++){
         if(i==0){
+            // on met à jour la tâche composite à laquelle on va s'intéresser
+            // cette dernière se trouve à la racine du projet
             tacheActuelle = trouverTache(nomsTaches[i]);
         }
         else{
+            // on met à jour la tâche composite à laquelle on va s'intéresser
+            // cette dernière ne se trouve pas à la racine du projet
             tacheActuelle = tacheCompositeActuelle->trouverSsTache(nomsTaches[i]);
         }
         if(tacheActuelle == 0){
@@ -166,11 +176,13 @@ bool Projet::verifierContraintesRespectees(const std::string * nomsTaches, unsig
         if( (dateD < tacheCompositeActuelle->getDateDebut()) || (dateF > tacheCompositeActuelle->getDateFin())
                 ||( (dateD == tacheCompositeActuelle->getDateDebut()) && (heureD < tacheCompositeActuelle->getHoraireDebut()) )
                 ||( (dateF == tacheCompositeActuelle->getDateFin()) && (heureF > tacheCompositeActuelle->getHoraireFin()) )   ){
+            // on vérifie que l'intervalle de temps entre la disponibilité et l'échéance de la tâche en puissance
+            // est inclus dans celui de la tâche composite actuelle
             return false;
         }
-        if( ( (nbTaches-1) == i) && ( ( ( (tacheCompositeActuelle->getDateFin()-tacheCompositeActuelle->getDateDebut())*24*60 +
+        if( ( ( (tacheCompositeActuelle->getDateFin()-tacheCompositeActuelle->getDateDebut())*24*60 +
                                           (tacheCompositeActuelle->getHoraireFin()-tacheCompositeActuelle->getHoraireDebut()) ) -
-                                        int(tacheCompositeActuelle->getDuree().getDureeEnMinutes()) ) < int(dur.getDureeEnMinutes()) ) ){
+                                        int(tacheCompositeActuelle->getDuree().getDureeEnMinutes()) ) < int(dur.getDureeEnMinutes()) ){
             return false; // la duree de la tâche est supérieur à la durée libre de la tâche composite
         }
     }
@@ -183,6 +195,9 @@ void Projet::creerAjouterTache(const std::string * nomsTaches, unsigned int nbTa
                                const std::string& titre, bool preemptive, bool composite,const Duree & dur){
     if(!verifierContraintesRespectees(nomsTaches,nbTaches, dateD,heureD, dateF, heureF, dur)){
         throw ProjetException("Erreur : création de la tâche " + titre + " impossible car les contraintes ne sont pas respectées");
+    }
+    if(!preemptive && !(dur <  Duree(12,00))){
+            throw ProjetException("Erreur : la durée tansmise en paramètres n'est pas valide (elle est supérieure ou égale à 12 h 00)");
     }
     Tache* tacheActuelle = 0;
     TacheComposite* tacheCompositeActuelle = 0;
@@ -223,20 +238,12 @@ void Projet::creerAjouterTache(const std::string * nomsTaches, unsigned int nbTa
 
 void Projet::ajouterPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
                                const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2){
-    /*std::cout<<"affichage :"<<std::endl;
-    std::cout<<nbTaches1<<std::endl;
-    std::cout<<nbTaches2<<std::endl;
-    std::cout<<nomTache1<<std::endl;
-    std::cout<<nomTache2<<std::endl;*/
     Tache& tache1 = accederTache(nomsTachesComposites1, nbTaches1, nomTache1);
     Tache& tache2 = accederTache(nomsTachesComposites2, nbTaches2, nomTache2);
     std::string chemin1 = genererChemin(nomsTachesComposites1, nbTaches1, nomTache1);
     std::string chemin2 = genererChemin(nomsTachesComposites2, nbTaches2, nomTache2);
-    // std::cout << chemin1<<std::endl;
-    // std::cout << chemin2<<std::endl;
     tache2.ajouterTachePrecedente(tache1, chemin1, chemin2);
     tache1.ajouterTacheSuivante(tache2, chemin1, chemin2);
-
 }
 
 void Projet::supprimerPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
@@ -247,7 +254,6 @@ void Projet::supprimerPrecedence(const std::string * nomsTachesComposites1, unsi
     std::string chemin2 = genererChemin(nomsTachesComposites2, nbTaches2, nomTache2);
     tache2.supprimerTachePrecedente(chemin1);
     tache1.supprimerTacheSuivante(chemin2);
-
 }
 
 void Projet::exportTo(QXmlStreamWriter& stream) {
@@ -404,4 +410,58 @@ std::string Projet::genererChemin(const std::string * nomsTachesComposites, unsi
     }
     chemin += nomTache;
     return chemin;
+}
+
+Duree Projet::supprimerTacheChemin(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache,
+                          unsigned int profondeur, const TacheComposite* tacheCourante){
+    const TacheComposite* newTache = 0;
+    if(nbTaches == 0){
+        // la tâche à supprimer se trouve à la racine du projet
+        Duree dureeTacheASupprimer = trouverTache(nomTache)->getDuree();
+        supprimerTache(nomTache);
+        return dureeTacheASupprimer;
+    }
+    else{
+        // la tâche recherchée ne se trouve pas directement à la racine du projet
+        if(profondeur == nbTaches){
+            // la tâche recherchée est une sous tâche de la tâche composite actuelle
+            Duree dureeTacheASupprimer = const_cast<TacheComposite*>(tacheCourante)->getSsTache(nomTache).getDuree();
+            const_cast<TacheComposite*>(tacheCourante)->supprimerSsTache(nomTache);
+            return dureeTacheASupprimer;
+        }
+        else if(profondeur == 0){
+            // on cherche une tâche composite à la racine du projet
+            try{
+                newTache = dynamic_cast<TacheComposite*>(trouverTache(nomsTachesComposites[profondeur]));
+            }
+            catch(std::bad_cast& e){
+                // on n'est normalement pas censé entrer ici car dynamic_cast ne génère pas d'exception pour les
+                // conversions de pointeur
+                throw ProjetException("Erreur : Les titres de tâches données en paramètres ne sont pas des taches composites");
+            }
+            if(newTache == 0){
+                throw ProjetException("Erreur : Les titres de tâches données en paramètres ne sont pas des taches composites");
+            }
+            Duree dureeTacheASupprimer = supprimerTacheChemin(nomsTachesComposites, nbTaches, nomTache, profondeur+1,newTache); // appel récursif
+            this->setDuree(this->getDuree().getDureeEnMinutes()-dureeTacheASupprimer.getDureeEnMinutes()); // maj de la durée du projet
+            return dureeTacheASupprimer;
+        }
+        else{
+            // on cherche une tâche composite sous la tâche composite actuelle
+            try{
+                newTache = dynamic_cast<TacheComposite *>(tacheCourante->trouverSsTache(nomsTachesComposites[profondeur]));
+            }
+            catch(std::bad_cast &e){
+                // on n'est normalement pas censé entrer ici car dynamic_cast ne génère pas d'exception pour les
+                // conversions de pointeur
+                throw ProjetException("Erreur : Les titres de tâches données en paramètres ne sont pas des taches composites");
+            }
+            if(newTache == 0){
+                throw ProjetException("Erreur : Les titres de tâches données en paramètres ne sont pas des taches composites");
+            }
+            Duree dureeTacheASupprimer = supprimerTacheChemin(nomsTachesComposites, nbTaches, nomTache, profondeur+1,newTache); // appel récursif
+             const_cast<TacheComposite*>(tacheCourante)->setDuree(tacheCourante->getDuree().getDureeEnMinutes()-dureeTacheASupprimer.getDureeEnMinutes()); // maj de la durée de la TC
+            return dureeTacheASupprimer;
+        }
+    }
 }

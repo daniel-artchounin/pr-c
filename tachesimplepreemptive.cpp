@@ -4,18 +4,32 @@
 # include "programmationmanager.h"
 
 void TacheSimplePreemptive::eraseProgrammation(const Date& dateProgrammation, const Horaire& horaireProgrammation){
-    std::string cleProgrammationASupprimer = ProgrammationManager::getKeyFrom(dateProgrammation, horaireProgrammation);
-    std::cout << "clé" << cleProgrammationASupprimer << std::endl;
-    std::cout << "taille : " << programmationsTachesSimplesPreemptives.size() << std::endl;
+    std::string cleProgrammationASupprimer = ProgrammationManager::getKeyFrom(dateProgrammation, horaireProgrammation); // on récupère la clé de la programmation à supprimer
     p_iterator it = pBegin();
     for(unsigned int i = 0; i < programmationsTachesSimplesPreemptives.size() ; ++i) {
-        programmationsTachesSimplesPreemptives[i]->getDateProgrammation();
-        programmationsTachesSimplesPreemptives[i]->getHoraireProgrammation();
         if(cleProgrammationASupprimer == ProgrammationManager::getKeyFrom(programmationsTachesSimplesPreemptives[i]->getDateProgrammation(), programmationsTachesSimplesPreemptives[i]->getHoraireProgrammation())){
+            // s'il s'agit de la tâche à supprimer, on l'efface
             programmationsTachesSimplesPreemptives.erase(it);
         }
         ++it;
     }
+}
+
+bool TacheSimplePreemptive::hasProgrammation()const{
+    return programmationsTachesSimplesPreemptives.size()!=0;
+}
+
+void TacheSimplePreemptive::addPourcentageDejaProgramme(int prt){
+    if (prt>100){
+        throw TacheSimplePreemptiveException("Erreur : Le pourcentage est supérieur à 100 !");
+    }else if(prt <0){
+        throw TacheSimplePreemptiveException("Erreur : Le pourcentage est inférieur à 100 !");
+    }
+    setPourcentageDejaProgramme(getPourcentageDejaProgramme() + (unsigned int)prt);
+}
+
+void TacheSimplePreemptive::addProgrammation(ProgrammationTacheSimplePreemptive * pgrm){
+    programmationsTachesSimplesPreemptives.push_back(pgrm);
 }
 
 TacheSimplePreemptive::TacheSimplePreemptive(const Date& dateD,
@@ -40,8 +54,9 @@ void TacheSimplePreemptive::setPourcentageDejaProgramme(int prt){
     }else if(prt <0){
         throw TacheSimplePreemptiveException("Erreur : Le pourcentage est inférieur à 100 !");
     }
-    else
-    pourcentageDejaProgramme = prt;
+    else{
+        pourcentageDejaProgramme = (unsigned int) prt;
+    }
 }
 
 bool TacheSimplePreemptive::isEndProgrammationOk(const Date& dateProg, const Horaire& horaireProg)const{
@@ -50,9 +65,8 @@ bool TacheSimplePreemptive::isEndProgrammationOk(const Date& dateProg, const Hor
         return false;
     }else{
         // la tache préemptive a été totalement programmée
-        // récupération de la dernière programmation
-        ProgrammationTacheSimplePreemptive * lastProgrammation = programmationsTachesSimplesPreemptives.back();
-        if(lastProgrammation->getDateFin()<= dateProg ||
+        ProgrammationTacheSimplePreemptive * lastProgrammation = programmationsTachesSimplesPreemptives.back(); // récupération de la dernière programmation
+        if(lastProgrammation->getDateFin()< dateProg ||
                 (lastProgrammation->getDateFin()== dateProg && lastProgrammation->getHoraireFin() <= horaireProg) ){
             return true;
         }
@@ -64,10 +78,10 @@ bool TacheSimplePreemptive::isEndProgrammationOk(const Date& dateProg, const Hor
 ProgrammationTacheSimplePreemptive* TacheSimplePreemptive::getProgrammation(const Date&  dateDebut, const Horaire& horaireDebut) const{
     for(p_const_iterator it = pBegin(); it != pEnd();++it){
         if( ( (*it)->getDateProgrammation() == dateDebut )  && ( (*it)->getHoraireProgrammation() == horaireDebut ) ){
-            return *it;
+            return *it; // on retourne un pointeur sur une ProgrammationTacheSimplePreemptive si on a trouvé la tâche cherchée
         }
     }
-    return 0;
+    return 0; // on retourne si on a pas trouvé la programmation recherchée
 }
 
 void TacheSimplePreemptive::exportTo(QXmlStreamWriter& stream) {
@@ -89,9 +103,9 @@ void TacheSimplePreemptive::exportProgrammations(QXmlStreamWriter& stream) {
 
 TacheSimplePreemptive::~TacheSimplePreemptive(){
     ProgrammationManager& programmationManager = ProgrammationManager::getInstance();
-    std::cout<<"titreTacheEnSuprression" << getTitre()<< std::endl;
     while (programmationsTachesSimplesPreemptives.size()!=0)
     {
+        // on supprime toutes les programmations de la tâche simple préemptive lors de sa destruction
         programmationManager.eraseItem(programmationManager.getKeyFrom(
                                            programmationsTachesSimplesPreemptives.back()->getDateProgrammation(),
                                            programmationsTachesSimplesPreemptives.back()->getHoraireProgrammation()

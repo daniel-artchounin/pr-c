@@ -14,7 +14,9 @@
  * elle est responsable du cycle de vie de ses tâches (tâches à la racine du projet)
  */
 class Projet : public Manager<Tache>, public Element {
+
 protected :
+
     /**
      * \brief trouverTache
      * permet de trouver une tâche à la racine du projet
@@ -70,6 +72,7 @@ protected :
     std::vector<std::vector<std::string> > loadListePrecedents(QXmlStreamReader &xml, std::string * arr, int longueur, std::string titre);
 
     void ajouterListePrecedences(std::vector<std::vector<std::string> > contraintesPrecedences);
+
 public:
     /**
      * \brief Projet Constructeur
@@ -90,6 +93,7 @@ public:
      * \return retourne une référence sur la tâche
      */
     Tache& getTache(const std::string& titre);
+
     /**
      * \brief getTache méthode const (elle sera utilisé par les références
      * const ou les pointeurs const)
@@ -99,6 +103,7 @@ public:
      * \return retourne une référence sur la tâche
      */
     const Tache& getTache(const std::string& titre)const;
+
     /**
      * \brief supprimerTache
      * supprime la tâche dont le titre est renseigné en paramètre
@@ -106,6 +111,7 @@ public:
      * \param titre nom de la sous tâche
      */
     void supprimerTache(const std::string& titre);
+
     /**
      * \brief isPrecedence
      * permet de vérifier si une tache est bien précédente d'une autre
@@ -149,61 +155,19 @@ public:
     void supprimerPrecedence(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1,
                              const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2);
 
-
+    /*!
+     * \brief supprimerTacheChemin méthode permettant de supprimer une tâche et de mettre à jour
+     * les durées du projet et des tâches composites constituant le cheminemenent pour accéder à cette dernière
+     * \param nomsTachesComposites tableau de chaines de caractères contenant les titres
+     * des taches composites (correspond au cheminement pour parvenir à la tache )
+     * \param nbTaches taille du tableau nomsTachesComposites
+     * \param nomTache nom de la tâche à supprimer
+     * \param profondeur la profondeur de l'alogirithme récurisif (ce paramètre est à négliger lors de l'appel de la méthode)
+     * \param tacheCourante la tâche composite à laquelle on s'intéresse dans l'alogirithme récurisif (ce paramètre est à négliger lors de l'appel de la méthode)
+     * \return
+     */
     Duree supprimerTacheChemin(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache,
-                              unsigned int profondeur = 0, const TacheComposite* tacheCourante = 0){
-        const TacheComposite* newTache = 0;
-        if(nbTaches == 0){
-            // la tâche à supprimer se trouve à la racine du projet
-            Duree dureeTacheASupprimer = trouverTache(nomTache)->getDuree();
-            supprimerTache(nomTache);
-            return dureeTacheASupprimer;
-        }
-        else{
-            // la tâche recherchée ne se trouve pas directement à la racine du projet
-            if(profondeur == nbTaches){
-                // la tâche recherchée est une sous tâche de la tâche composite actuelle
-                Duree dureeTacheASupprimer = const_cast<TacheComposite*>(tacheCourante)->getSsTache(nomTache).getDuree();
-                const_cast<TacheComposite*>(tacheCourante)->supprimerSsTache(nomTache);
-                return dureeTacheASupprimer;
-            }
-            else if(profondeur == 0){
-                // on cherche une tâche composite à la racine du projet
-                try{
-                    newTache = dynamic_cast<TacheComposite*>(trouverTache(nomsTachesComposites[profondeur]));
-                }
-                catch(std::bad_cast& e){
-                    // on n'est normalement pas censé entrer ici car dynamic_cast ne génère pas d'exception pour les
-                    // conversions de pointeur
-                    throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
-                }
-                if(newTache == 0){
-                    throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
-                }
-                Duree dureeTacheASupprimer = supprimerTacheChemin(nomsTachesComposites, nbTaches, nomTache, profondeur+1,newTache);
-                this->setDuree(this->getDuree().getDureeEnMinutes()-dureeTacheASupprimer.getDureeEnMinutes()); // maj de la durée du projet
-                return dureeTacheASupprimer;
-
-            }
-            else{
-                // on cherche une tâche composite sous la tâche composite actuelle
-                try{
-                    newTache = dynamic_cast<TacheComposite *>(tacheCourante->trouverSsTache(nomsTachesComposites[profondeur]));
-                }
-                catch(std::bad_cast &e){
-                    // on n'est normalement pas censé entrer ici car dynamic_cast ne génère pas d'exception pour les
-                    // conversions de pointeur
-                    throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
-                }
-                if(newTache == 0){
-                    throw ProjetException("Les titres de tâches données en paramètres ne sont pas des taches composites");
-                }
-                Duree dureeTacheASupprimer = supprimerTacheChemin(nomsTachesComposites, nbTaches, nomTache, profondeur+1,newTache);
-                 const_cast<TacheComposite*>(tacheCourante)->setDuree(tacheCourante->getDuree().getDureeEnMinutes()-dureeTacheASupprimer.getDureeEnMinutes()); // maj de la durée de la TC
-                return dureeTacheASupprimer;
-            }
-        }
-    }
+                              unsigned int profondeur = 0, const TacheComposite* tacheCourante = 0);
 
     /**
      * \brief accederTache
@@ -212,7 +176,7 @@ public:
      * \param nomsTachesComposites tableau de chaines de caractères contenant les titres
      * des taches composites (correspond au cheminement pour parvenir à la tache)
      * \param nbTaches taille du tableau nomsTachesComposites
-     * \param nomTache titre de la tache auquel on souhaite accéder
+     * \param nomTache titre de la tache à laquelle on souhaite accéder
      * \param profondeur à laquelle on se trouve dans la récursion (correspond à
      * l'indice dans le tableau nomsTachesComposites) -> à ne pas compléter à l'appel de la
      * méthode
@@ -224,6 +188,16 @@ public:
     Tache& accederTache(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache,
                               unsigned int profondeur = 0, const TacheComposite* tacheCourante = 0)const;
 
+
+    /*!
+     * \brief accederTacheComposite méthode permettant d'accéder à une tâche composite
+     * Soulève une ProjetException si cela n'est pas possible
+     * \param nomsTachesComposites tableau de chaines de caractères contenant les titres
+     * des taches composites (correspond au cheminement pour parvenir à la tache)
+     * \param nbTaches taille du tableau nomsTachesComposites
+     * \param nomTache titre de la tache composite à laquelle on souhaite accéder
+     * \return retourne une référence vers la tache composite à laquelle on souhaitait accéder
+     */
     TacheComposite& accederTacheComposite(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache)const{
         Tache& maTache = accederTache(nomsTachesComposites, nbTaches, nomTache);
         try{
@@ -235,6 +209,15 @@ public:
         return dynamic_cast <TacheComposite&>(maTache);
     }
 
+    /*!
+     * \brief accederTacheSimplePreemptive méthode permettant d'accéder à une tâche simple préemptive
+     * Soulève une ProjetException si cela n'est pas possible
+     * \param nomsTachesComposites tableau de chaines de caractères contenant les titres
+     * des taches composites (correspond au cheminement pour parvenir à la tache)
+     * \param nbTaches taille du tableau nomsTachesComposites
+     * \param nomTache titre de la tache simple préemptive à laquelle on souhaite accéder
+     * \return retourne une référence vers la tache simple préemptive à laquelle on souhaitait accéder
+     */
     TacheSimplePreemptive& accederTacheSimplePreemptive(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache)const{
         Tache& maTache = accederTache(nomsTachesComposites, nbTaches, nomTache);
         try{
@@ -243,19 +226,27 @@ public:
         catch(std::bad_cast e){
             throw ProjetException("La tache "+maTache.getTitre()+" n'est pas une tache simple préemptive");
         }
-        return dynamic_cast <TacheSimplePreemptive&>(maTache);;
-
+        return dynamic_cast <TacheSimplePreemptive&>(maTache);
     }
 
+    /*!
+     * \brief accederTacheSimpleNonPreemptive méthode permettant d'accéder à une tâche simple non préemptive
+     * Soulève une ProjetException si cela n'est pas possible
+     * \param nomsTachesComposites tableau de chaines de caractères contenant les titres
+     * des taches composites (correspond au cheminement pour parvenir à la tache)
+     * \param nbTaches taille du tableau nomsTachesComposites
+     * \param nomTache titre de la tache simple préemptive à laquelle on souhaite accéder
+     * \return retourne une référence vers la tache simple non préemptive à laquelle on souhaitait accéder
+     */
     TacheSimpleNonPreemptive& accederTacheSimpleNonPreemptive(const std::string * nomsTachesComposites, unsigned int nbTaches,const std::string& nomTache)const{
         Tache& maTache = accederTache(nomsTachesComposites, nbTaches, nomTache);
         try{
-            dynamic_cast <TacheSimpleNonPreemptive&>(maTache) ;
+            dynamic_cast <TacheSimpleNonPreemptive&>(maTache);
         }
         catch(std::bad_cast e){
             throw ProjetException("La tache "+maTache.getTitre()+" n'est pas une tache simple non préemptive");
         }
-        return dynamic_cast <TacheSimpleNonPreemptive&>(maTache) ;
+        return dynamic_cast <TacheSimpleNonPreemptive&>(maTache);
     }
 
 
