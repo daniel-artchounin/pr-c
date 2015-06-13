@@ -22,7 +22,7 @@ public:
 
     /*!
      * \brief updateProgrammationTacheSimplePreemptive
-     * permet de mettre à jour la date et l'horaire de la programmation
+     * Met à jour la programmation actuelle avec la date, l'horaire et la durée donnés
      * \param dateD
      * \param heureD
      * \param pourc
@@ -50,8 +50,9 @@ public:
     virtual Duree getDuree()const;
 
     /*!
-     * \brief getNom accesseur
-     * \return nome de la tache simple préemptive
+     * \brief getNom 
+	 * Accesseur.
+     * \return nom de la tache simple préemptive
      */
     virtual std::string getNom() const;
 
@@ -68,7 +69,8 @@ public:
     void exportTo(QXmlStreamWriter& stream);
 
     /*!
-     * \brief getPourcentage accesseur
+     * \brief getPourcentage 
+	 * Accesseur.
      * \return le pourcentage programmé de la tache
      */
     unsigned int getPourcentage()const{

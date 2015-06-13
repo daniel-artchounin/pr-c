@@ -5,22 +5,22 @@
 
 /*! \class Date
  * \brief Classe permettant de manipuler des dates standards
- *
  * L'utilisation de cette classe nécessite des dates valides au sens commun du terme.
  * Déclenchement d'exception dans le cas contraire.
  */
 class Date {
+
 private:
+
     unsigned short int jour; /*!< jour entre 1 et 31*/
     unsigned short int mois; /*!< mois entre 1 et */
     unsigned int annee; /*!< année */
 
 public:
+
     /*!
      * \brief Constructeur
-     *
-     * Crée une date à partir d'un jour, un mois et une année
-     *
+     * Crée une date à partir d'un jour, un mois et une année.
      * \param j jour avec 1<=j<=31
      * \param m mois avec 1<=m<=12
      * \param a année avec a>=0
@@ -31,9 +31,7 @@ public:
 
     /*!
      * \brief Constructeur
-     *
-     * Permet de créer une date depuis un string au format jj/mm/aaaa
-     *
+     * Permet de créer une date depuis un string au format jj/mm/aaaa.
      * \param date string au format jj/mm/aaaa
      */
     Date(std::string date):jour(1),mois(1),annee(0) {
@@ -41,7 +39,7 @@ public:
     }
 
     /*!
-     * \brief Constructeur de recopie
+     * \brief Constructeur de recopie.
      * \param date référence const vers une date
      */
     Date(const Date& date):jour(date.jour),mois(date.mois),annee(date.annee) {}
@@ -72,9 +70,7 @@ public:
 
     /*!
      * \brief setDate
-     *
-     * Modifie la date selon le jour, le mois et l'année donnés
-     *
+     * Modifie la date selon le jour, le mois et l'année donnés.
      * \param j jour avec 1<=j<=31
      * \param m mois avec 1<=m<=12
      * \param a année avec a>=0
@@ -83,25 +79,21 @@ public:
 
     /*!
      * \brief setDate
-     *
      * Modifie la date par celle représenté par le string donné.
      * Celui-ci doit être au format jj/mm/aaaa.
-     *
      * \param date string format jj/mm/aaaa
      */
     void setDate(std::string date);
 
     /*!
      * \brief setDateAujourdhui
-     * Initilisation de la date avec la date d'aujourd'hui
+     * Initilisation de la date avec la date d'aujourd'hui.
      */
     void setDateAujourdhui();
 
     /*!
      * \brief afficher
-     *
-     * Affiche la date sous le format jj/mm/aaaa
-     *
+     * Affiche la date sous le format jj/mm/aaaa.
      * \param f ostream
      */
     void afficher(std::ostream& f=std::cout) const;

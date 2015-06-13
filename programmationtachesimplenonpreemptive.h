@@ -18,7 +18,9 @@ public:
 
     /*!
      * \brief ProgrammationTacheSimpleNonPreemptive
+     *
      * Constructeur
+     *
      * \param dateD date de programmation
      * \param heureD horaire de programmation
      * \param tacheSimpleNonP référence vers une TacheSimpleNonPreemptive
@@ -27,7 +29,7 @@ public:
 
     /*!
      * \brief updateProgrammationTacheSimpleNonPreemptive
-     * permet de mettre à jour la date et l'horaire de la programmation
+     * Met à jour la programmation actuelle avec la date et l'horaire donnés
      * \param dateD nouvelle date de programmation
      * \param heureD nouvel horaire de programmation
      */
@@ -49,7 +51,8 @@ public:
     virtual Duree getDuree()const;
 
     /*!
-     * \brief getNom accesseur
+     * \brief getNom 
+	 * Accesseur.
      * \return nom de la tache simple non préemptive
      */
     virtual std::string getNom() const;

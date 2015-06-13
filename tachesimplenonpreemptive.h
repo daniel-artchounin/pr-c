@@ -73,11 +73,20 @@ public:
 
     /*!
      * \brief exportTo
+     *
      * Permet d'exporter les données dans un fichier XML via le streamwriter
+     *
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream);
 
+    /*!
+     * \brief exportProgrammations
+     *
+     * Permet d'exporter les programmations de la tache preemptive
+     *
+     * \param stream
+     */
     void exportProgrammations(QXmlStreamWriter& stream);
 
     /*!
