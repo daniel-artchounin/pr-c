@@ -38,6 +38,12 @@ public:
      */
     explicit ProgrammerTacheSimplePreemptive(Projet* projet, std::string * chaine, unsigned int* taille, std::string &titreT, QWidget *parent = 0);
 
+    /*!
+     * \brief Constructeur
+     * Crée un formulaire pré-rempli avec les données de la programmation
+     * \param prog programmation à modifier
+     * \param parent widget parent
+     */
     explicit ProgrammerTacheSimplePreemptive(ProgrammationTacheSimplePreemptive* prog, QWidget *parent = 0);
 
 signals:

@@ -276,6 +276,11 @@ public:
      */
     void exportTo(QXmlStreamWriter& stream);
 
+    /*!
+     * \brief exportProgrammations
+     * Permet d'exporter les programmations du projet
+     * \param stream
+     */
     void exportProgrammations(QXmlStreamWriter& stream);
 
     /*!

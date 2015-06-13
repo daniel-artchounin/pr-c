@@ -49,6 +49,12 @@ public:
      */
     ProgrammerTacheSimple(Projet *projet, std::string * chaine, unsigned int* taille, const std::string &titreT, QWidget *parent = 0);
 
+    /*!
+     * \brief Constructeur
+     * Crée un formulaire pré-rempli avec les données de la programmation
+     * \param prog programmation à modifier
+     * \param parent widget parent
+     */
     ProgrammerTacheSimple(ProgrammationTacheSimple* prog, QWidget *parent = 0);
 
 };

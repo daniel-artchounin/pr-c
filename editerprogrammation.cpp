@@ -15,9 +15,9 @@ EditerProgrammation::EditerProgrammation(QWidget *parent) : QWidget(parent) {
     suppr=new QPushButton("Supprimer");
     vBox=new QVBoxLayout;
     vBox->addWidget(list);
-    hBoxButton=new QHBoxLayout;
-    hBoxButton->addWidget(select);
-    hBoxButton->addWidget(suppr);
+    hBoxButon=new QHBoxLayout;
+    hBoxButon->addWidget(select);
+    hBoxButon->addWidget(suppr);
     vBox->addLayout(hBoxButton);
     hBox=new QHBoxLayout;
     hBox->addLayout(vBox);
