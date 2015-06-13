@@ -29,7 +29,7 @@ protected:
 
     /*!
      * \brief closeEvent
-     * Permet de gérer la requête de fermeture du widget
+     * Permet de gérer la requête de fermeture du widget.
      * \param event évènement
      */
     virtual void closeEvent(QCloseEvent *event);
@@ -48,6 +48,11 @@ signals:
 
 public slots:
 
+    /*!
+     * \brief retourFenetrePrincipale
+     * Slot se déclenchant suite à la validation de l'utilisateur.
+     * Permet revenir à la fenetre principale.
+     */
     void retourFenetrePrincipale();
 
 };

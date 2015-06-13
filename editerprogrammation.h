@@ -10,7 +10,9 @@
 
 class EditerProgrammation : public QWidget {
     Q_OBJECT
+
 protected :
+
     QListWidget* list;
     QHBoxLayout* hBox;
     QHBoxLayout* hBoxButton;
@@ -20,12 +22,14 @@ protected :
     FenetreAnnulerValider* form;
 
 public:
+
     explicit EditerProgrammation(QWidget *parent = 0);
     void updateListe();
 
 signals:
 
 public slots:
+
     /*!
      * \brief closeEvent
      * Permet de gérer la requête de fermeture du widget

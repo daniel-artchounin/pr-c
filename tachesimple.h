@@ -32,11 +32,11 @@ public:
     /*!
      * \brief isEndProgrammationOk permet de vérifier que
      * la tâche a été programmée intégralement et que la fin de la programmation
-     * précéde celle transmise en paramètre
+     * précéde celle transmise en paramètre.
      * \param dateProg date de début de la programmation
      * \param horaireProg horaire de début de la programmation
      * \return vrai si la tâche a été programmé intégralement et que la fin de la programmation
-     * précédè celle transmise en paramètre ou faux sinon
+     * précéde celle transmise en paramètre ou faux sinon
      */
     virtual bool isEndProgrammationOk(const Date& dateProg, const Horaire& horaireProg) const=0;
 };

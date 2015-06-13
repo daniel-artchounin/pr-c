@@ -14,7 +14,6 @@
 #include "editerprogrammation.h"
 #include <QMouseEvent>
 #include <QGraphicsItem>
-#include <QDebug>
 #include <iostream>
 
 /*!
@@ -26,6 +25,7 @@ class FenetreEDT : public QGraphicsView
     Q_OBJECT
 
 private:
+
     QGraphicsScene *scene; /*!< scene >*/
     QAction *actionProgRendezVous; /*!< actionProgRendezVous >*/
     QAction *actionProgReunion; /*!< actionProgReunion >*/
@@ -33,7 +33,7 @@ private:
     ProgrammerRendezVous* progRdv; /*!< progRdv >*/
     ProgrammerReunion* progReunion; /*!< progReunion >*/
     EditerProgrammation* editProg; /*!< editProg >*/
-    int week;
+    int week; /*!< week >*/
 
     /*!
      * \brief weekBegining
@@ -49,27 +49,21 @@ private:
 
     /*!
      * \brief getWidthDay
-     *
-     * Retourne la largeur d'un jour sur la grille
-     *
+     * Retourne la largeur d'un jour sur la grille.
      * \return int
      */
     int getWidthDay();
 
     /*!
      * \brief getHeightHour
-     *
-     * Retourne la hauteur d'une heure sur la grille
-     *
+     * Retourne la hauteur d'une heure sur la grille.
      * \return int
      */
     int getHeightHour();
 
     /*!
      * \brief toPositionX
-     *
-     * Retourne la coordonnée x correspondant à la date donnée
-     *
+     * Retourne la coordonnée x correspondant à la date donnée.
      * \param date Date
      * \return int
      */
@@ -77,9 +71,7 @@ private:
 
     /*!
      * \brief toPositionY
-     *
-     * Returne la coordonnée y  correspondant à l'horaire donnée
-     *
+     * Returne la coordonnée y  correspondant à l'horaire donnée.
      * \param horaire Horaire
      * \return int
      */
@@ -87,9 +79,7 @@ private:
 
     /*!
      * \brief toHeight
-     *
-     * Returne l'hauteur correspondant à la durée donnée
-     *
+     * Returne l'hauteur correspondant à la durée donnée.
      * \param duree
      * \return int
      */
@@ -97,37 +87,29 @@ private:
 
     /*!
      * \brief minX
-     *
-     * Retourne la coordonnée x minimal afin de prendre en compte la bordure
-     *
+     * Retourne la coordonnée x minimal afin de prendre en compte la bordure.
      * \return int
      */
     int minX();
 
     /*!
      * \brief minY
-     *
-     * Retourne la coordonée y minimal afin de prendre en compte l'entête
-     *
+     * Retourne la coordonée y minimal afin de prendre en compte l'entête.
      * \return int
      */
     int minY();
 
     /*!
      * \brief maxY
-     *
-     * Retourne la coordonée y maximal afin d'atteindre le bas de la grille
-     *
-     * \return
+     * Retourne la coordonée y maximal afin d'atteindre le bas de la grille.
+     * \return int
      */
     int maxY();
 
     /*!
      * \brief dayOfWeek
-     *
-     * Retourne le jour de la semaine correspondant à la date de donnée
-     * Lundi = 1, ..., Dimance = 7
-     *
+     * Retourne le jour de la semaine correspondant à la date de donnée.
+     * Lundi = 1, ..., Dimance = 7.
      * \param date Date
      * \return int
      */
@@ -135,23 +117,19 @@ private:
 
     /*!
      * \brief creerActions
-     *
-     * Permet d'initialiser les actions
+     * Permet d'initialiser les actions.
      */
     void creerActions();
 
     /*!
      * \brief masquerFenetrePrincipal
-     *
-     * Permet de masquer la fenêtre principale
+     * Permet de masquer la fenêtre principale.
      */
     void masquerFenetrePrincipale();
 
     /*!
      * \brief drawProgrammation
-     *
-     * Permet de représenter par un rectangle la programmation
-     *
+     * Permet de représenter par un rectangle la programmation.
      * \param ddebut Date de début
      * \param hdebut Horaire de début
      * \param dfin Date de fin
@@ -162,9 +140,7 @@ private:
 
     /*!
      * \brief drawText
-     *
-     * Permet d'afficher un text à une position donnée par un QPointF
-     *
+     * Permet d'afficher un text à une position donnée par un QPointF.
      * \param painter
      * \param point
      * \param flags
@@ -175,41 +151,37 @@ private:
 
     /*!
      * \brief drawDates
-     * Affiche les dates de la semaine
+     * Affiche les dates de la semaine.
      */
     void drawDates();
 
     /*!
      * \brief drawNames
-     *
-     * Affiche un titre à une position représentée par des coordonnées x et y
-     *
+     * Affiche un titre à une position représentée par des coordonnées x et y.
      * \param titre
      * \param x coordonnée x
      * \param y coordonnée y
      */
     void drawNames(std::string titre, int x, int y);
+
 public:
+
     /*!
      * \brief Contructeur
-     *
-     * Crée une FenetreEDT
-     *
+     * Crée une FenetreEDT.
      * \param parent
      */
     explicit FenetreEDT(QWidget *parent = 0);
 
     /*!
      * \brief loadWeek
-     *
-     * Permet d'afficher une semaine
+     * Permet d'afficher une semaine.
      */
     void loadWeek();
 
     /*!
      * \brief goToPreviousWeek
-     *
-     * Permet d'afficher la semaine précédente
+     * Permet d'afficher la semaine précédente.
      */
     void goToPreviousWeek() {
         week--;
@@ -218,21 +190,19 @@ public:
 
     /*!
      * \brief goToNextWeek
-     *
-     * Permet d'afficher la semaine suivante
+     * Permet d'afficher la semaine suivante.
      */
     void goToNextWeek() {
         week++;
         loadWeek();
     }
+
 signals:
 
 public slots:
     /*!
      * \brief drawForeground
-     *
      * Permet d'afficher le fond.
-     *
      * \param painter
      * \param rect
      */
@@ -240,39 +210,32 @@ public slots:
 
     /*!
      * \brief contextMenuEvent
-     *
-     * Affiche le menu contextuel sur un clique droit
-     *
+     * Affiche le menu contextuel sur un clique droit.
      * \param event
      */
     void contextMenuEvent(QContextMenuEvent *event);
 
     /*!
      * \brief programmerRendezVous
-     *
-     * Affiche l'interface permettant de programmer un rendez vous
+     * Affiche l'interface permettant de programmer un rendez vous.
      */
     void programmerRendezVous();
 
     /*!
      * \brief programmerReunion
-     *
-     * Affiche l'interface permettant de programmer une réunion
+     * Affiche l'interface permettant de programmer une réunion.
      */
     void programmerReunion();
 
     /*!
      * \brief editerProgrammation
-     *
-     * Affiche l'interface permettant d'éditer une programmation
+     * Affiche l'interface permettant d'éditer une programmation.
      */
     void editerProgrammation();
 
     /*!
      * \brief saveWeek
-     *
-     * Permet d'exporter au format xml la semaine actuelle dans le fichier donné
-     *
+     * Permet d'exporter au format xml la semaine actuelle dans le fichier donné.
      * \param file
      */
     void saveWeek(const QString& file);

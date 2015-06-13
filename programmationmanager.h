@@ -5,7 +5,6 @@
 #include "tachesimplenonpreemptive.h"
 #include "tachesimplepreemptive.h"
 # include "programmationevenement.h"
-#include <QDebug>
 
 /*! \class ProgrammationManager
  * \brief Classe permettant de manipuler des Programmations. Hérite de la classe Manager. Utilise le design pattern singleton
@@ -21,41 +20,33 @@ private:
 
     /*!
      * \brief Constructeur
-     *
-     * Constructeur privé afin d'empêcher la duplication
+     * Constructeur privé afin d'empêcher la duplication.
      */
     ProgrammationManager(): Manager<Programmation>(){}
 
     /*!
      *\brief Destructeur
-     *
-     * Destructeur privé
+     * Destructeur privé.
      */
     ~ProgrammationManager() {}
 
     /*!
      * \brief Contructeur par recopie
-     *
-     * Constructeur par recopie privé
-     *
+     * Constructeur par recopie privé.
      * \param pm ProgrammationManager
      */
     ProgrammationManager(const ProgrammationManager& pm);
 
     /*!
      * \brief Operateur d'affectation
-     *
-     * Opérateur d'affectation privé
-     *
+     * Opérateur d'affectation privé.
      * \param pm ProgrammationManager
      */
     ProgrammationManager& operator=(const ProgrammationManager& pm);
 
     /*!
      * \brief inclus
-     *
-     * permet de savoir si une programmation potentielle est compris entre deux bornes
-     *
+     * Permet de savoir si une programmation potentielle est compris entre deux bornes.
      * \param dateProg date de programmation
      * \param horaireProg horaire de programmation
      * \param dateFin date de fin de la programmation
@@ -89,25 +80,24 @@ private:
     bool isValid(const Date& date, const Horaire& horaire, const Duree& duree, Programmation* old=0);
 
 public:
-    //design pattern singleton
+
     /*!
      * \brief getInstance
+     * Design Pattern Singleton.
      * \return instance unique de ProgrammationManager
      */
     static ProgrammationManager& getInstance();
 
     /*!
      * \brief libererInstance
-     *
-     * Détruit l'instance unique de ProgrammationManager
+     * Design Pattern Singleton.
+     * Détruit l'instance unique de ProgrammationManager.
      */
     static void libererInstance();
 
     /*!
      * \brief addProgrammationEvenement
-     *
-     * Génère une exception ProgrammationManagerException si la nouvelle programmation n'est pas valide
-     *
+     * Génère une exception ProgrammationManagerException si la nouvelle programmation n'est pas valide.
      * \param dateProg date de la programmation
      * \param horaireProg horaire de la programmation
      * \param duree duree de la programmation
@@ -117,9 +107,7 @@ public:
 
     /*!
      * \brief updateProgrammationEvenement
-     *
-     * Met à jour une programmation de type ProgrammationEvenement
-     *
+     * Met à jour une programmation de type ProgrammationEvenement.
      * \param programmation
      * \param newDate
      * \param newHoraire
@@ -129,9 +117,7 @@ public:
 
     /*!
      * \brief addProgrammationTacheSimpleNonPreemptive
-     *
-     * Génère une exception ProgrammationManagerException si la nouvelle programmation n'est pas valide
-     *
+     * Génère une exception ProgrammationManagerException si la nouvelle programmation n'est pas valide.
      * \param dateProg date de la programmation
      * \param horaireProg horaire de la programmation
      * \param tache référence vers une TacheSimpleNonPreemptive
@@ -141,9 +127,7 @@ public:
 
     /*!
      * \brief updateProgrammationTacheSimpleNonPreemptive
-     *
-     * Met à jour une programmation de type ProgrammationTacheSimpleNonPreemptive
-     *
+     * Met à jour une programmation de type ProgrammationTacheSimpleNonPreemptive.
      * \param programmation
      * \param newDate
      * \param newHoraire
@@ -152,9 +136,7 @@ public:
 
     /*!
      * \brief addProgrammationTacheSimplePreemptive
-     *
-     * Génère une exception ProgrammationManagerException si la nouvelle programmation n'est pas valide
-     *
+     * Génère une exception ProgrammationManagerException si la nouvelle programmation n'est pas valide.
      * \param dateProg date de la programmation
      * \param horaireProg horaire de la programmation
      * \param pourcentage pourcentage de la programmation que l'on souhaite programmer
@@ -165,9 +147,7 @@ public:
 
     /*!
      * \brief updateProgrammationTacheSimplePreemptive
-     *
-     * Met à jour une programmation de type ProgrammationTacheSimplePreemptive
-     *
+     * Met à jour une programmation de type ProgrammationTacheSimplePreemptive.
      * \param programmation
      * \param newDate
      * \param newHoraire
@@ -177,22 +157,16 @@ public:
 
     /*!
      * \brief deleteProgrammation
-     *
-     * Supprime la programmation donnée
-     *
+     * Supprime la programmation donnée.
      * \param programmation
      */
     void deleteProgrammation(Programmation* programmation) {
         eraseItem(getKeyFrom(programmation->getDateProgrammation(),programmation->getHoraireProgrammation()));
-        // delete programmation;
-        // programmation=0;
      }
 
     /*!
      * \brief getProgrammation
-     *
-     * Génère une exception ProgrammationManagerException si la programmation n'existe pas
-     *
+     * Génère une exception ProgrammationManagerException si la programmation n'existe pas.
      * \param dateProg date de la programmation
      * \param horaireProg horaire de la programmation
      * \return programmation débutant à dateProg horaireProg
@@ -201,9 +175,7 @@ public:
 
     /*!
      * \brief getProgrammation
-     *
-     * Génère une exception ProgrammationManagerException si la programmation n'existe pas
-     *
+     * Génère une exception ProgrammationManagerException si la programmation n'existe pas.
      * \param dateProg date de la programmation
      * \param horaireProg horaire de la programmation
      * \return const programmation débutant à dateProg horaireProg
@@ -232,36 +204,28 @@ public:
 
     /*!
      * \brief exportTo
-     *
-     * Permet d'exporter les données dans un fichier XML via le streamwriter
-     *
+     * Permet d'exporter les données dans un fichier XML via le streamwriter.
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream);
 
     /*!
      * \brief loadFrom
-     *
-     * Permet d'importer les données depuis un fichier XML via le streamreader. Charge uniquement les ProgrammationEvenement
-     *
+     * Permet d'importer les données depuis un fichier XML via le streamreader. Charge uniquement les ProgrammationEvenement.
      * \param xml
      */
     void loadFrom(QXmlStreamReader& xml);
 
     /*!
      * \brief loadListeProgrammations
-     *
-     * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les programmations des Taches
-     *
+     * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les programmations des Taches.
      * \param xml
      */
     void loadListeProgrammations(QXmlStreamReader& xml, Tache& tache, bool preemptive);
 
     /*!
      * \brief exportContraintes
-     *
-     * Permet d'exporter les données compris dans l'intervalle de dates et horaires données vers un fichier XML
-     *
+     * Permet d'exporter les données compris dans l'intervalle de dates et horaires données vers un fichier XML.
      * \param stream
      * \param dateDebut
      * \param dateFin

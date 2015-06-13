@@ -7,13 +7,16 @@
  * Hérite de la classe Logic_error
  */
 class TacheCompositeException : public std::logic_error {
+
 public:
+
     /*!
      * \brief Constructeur
      * Crée une exception avec une information sur celle-ci.
      * \param m information sur l'exception
      */
     TacheCompositeException(const std::string& m):logic_error(m) {}
+
 };
 #endif // TACHECOMPOSITEEXCEPTION_H
 

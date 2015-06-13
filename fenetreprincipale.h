@@ -16,19 +16,23 @@ class FenetrePrincipale : public QMainWindow
 {
     Q_OBJECT
 protected :
+
     /*!
      * \brief closeEvent
-     * Permet de gérer la requête de fermeture du widget
+     * Permet de gérer la requête de fermeture du widget.
      * \param event évènement
      */
     virtual void closeEvent(QCloseEvent *event);
+
     /*!
      * \brief showEvent
-     * Permet de gérer la requête d'affichage du widget
+     * Permet de gérer la requête d'affichage du widget.
      * \param event évènement
      */
     void showEvent( QShowEvent* event );
+
 private:
+
     ZoneCentrale* zoneCentrale; /*!< zone contrale de la fenêtre principale*/
     QMenu* menuGestion; /*!< menu gestion de la barre de menus */
     QMenu* menuFenetre; /*!< menu fenêtre de la barre de menus */
@@ -51,27 +55,27 @@ private:
 
     /*!
      * \brief Constructeur
-     * Constructeur privé afin d'empêcher la duplication
+     * Constructeur privé afin d'empêcher la duplication.
      */
     explicit FenetrePrincipale(QWidget *parent = 0);
 
     /*!
      *\brief Destructeur
-     * Destructeur privé
+     * Destructeur privé.
      */
     ~FenetrePrincipale() {
     }
 
     /*!
      * \brief Contructeur par recopie
-     * Constructeur par recopie privé
+     * Constructeur par recopie privé.
      * \param fp FenetrePrincipale
      */
     FenetrePrincipale(const FenetrePrincipale& fp);
 
     /*!
      * \brief Operateur d'affectation
-     * Opérateur d'affectation privé
+     * Opérateur d'affectation privé.
      * \param fp FenetrePrincipale
      */
     FenetrePrincipale& operator=(const FenetrePrincipale& fp);
@@ -80,23 +84,23 @@ public:
 
     /*!
      * \brief libererInstance
-     * permet de libérer l'instance
-     * méthode statique
-     * design pattern singleton
+     * Permet de libérer l'instance.
+     * Méthode statique.
+     * Sesign pattern singleton.
      */
     static void libererInstance();
 
     /*!
      * \brief getInstance
-     * permet de récupérer l'instance ou de la construire
-     * méthode statique
-     * design pattern singleton
+     * Permet de récupérer l'instance ou de la construire.
+     * Méthode statique.
+     * Design pattern singleton.
      */
     static FenetrePrincipale& getInstance();
 
     /*!
      * \brief updateEDT
-     * Permet de mettre à jour l'emploi du temps
+     * Permet de mettre à jour l'emploi du temps.
      */
     void updateEDT();
 
@@ -122,55 +126,55 @@ public slots:
 
     /*!
      * \brief chargerFichier
-     * slot permettant de charger un fichier de données
+     * Slot permettant de charger un fichier de données.
      */
     void chargerFichier();
 
     /*!
      * \brief sauverFichier
-     * slot permettant de sauvegarder le travail en cours
+     * Slot permettant de sauvegarder le travail en cours.
      */
     void sauverFichier();
 
     /*!
      * \brief fenetreCreerProjet
-     * slot permettant de créer un projet
+     * Slot permettant de créer un projet.
      */
     void fenetreCreerProjet();
 
     /*!
      * \brief goToPreviousWeek
-     * Permet d'aller à la semaine précédente
+     * Permet d'aller à la semaine précédente.
      */
     void goToPreviousWeek();
 
     /*!
      * \brief goToNextWeek
-     * Permet d'aller à la semaine suivante
+     * Permet d'aller à la semaine suivante.
      */
     void goToNextWeek();
 
     /*!
      * \brief exporterUneSemaine
-     * Permet d'exporter la semaine afficher actuellement
+     * Permet d'exporter la semaine afficher actuellement.
      */
     void exporterUneSemaine();
 
     /*!
      * \brief exporterUnProjet
-     * slot permettant d'exporte un projet
+     * Slot permettant d'exporte un projet.
      */
     void exporterUnProjet();
 
     /*!
      * \brief enregistrerUnProjet
-     * slot permettant d'enregistrer un projet
+     * Slot permettant d'enregistrer un projet.
      */
     void enregistrerUnProjet();
 
     /*!
      * \brief chargerProjet
-     * slot permettant de charger un projet
+     * Slot permettant de charger un projet.
      */
     void chargerProjet();
 };

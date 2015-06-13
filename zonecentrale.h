@@ -22,13 +22,15 @@ private:
 public:
 
     /*!
-     * \brief ZoneCentrale constructeur
+     * \brief ZoneCentrale
+     * Constructeur.
      * \param parent widget parent
      */
     explicit ZoneCentrale(QWidget *parent = 0);
 
     /*!
-     * \brief getFenetreGestionProjet acesseur
+     * \brief getFenetreGestionProjet
+     * Accesseur.
      * \return pointeur vers l'interface de gestion de projet
      */
     FenetreGestionProjet* getFenetreGestionProjet()const{
@@ -36,7 +38,8 @@ public:
     }
 
     /*!
-     * \brief getFenetreEDT acesseur
+     * \brief getFenetreEDT
+     * Accesseur.
      * \return pointeur vers l'interface de l'emploi du temps
      */
     FenetreEDT* getFenetreEDT()const{

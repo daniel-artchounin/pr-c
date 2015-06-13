@@ -59,6 +59,7 @@ protected:
     InformationsProjet *informationsProjet;  /*!< pointeur vers l'interface de consultation d'informations sur un projet */
 
 public:
+
     /*!
      * \brief FenetreGestionProjet constructeur
      * \param parent widget parent
@@ -67,7 +68,7 @@ public:
 
     /*!
      * \brief afficherTreeWidget
-     * permet d'afficher le tree view
+     * Permet d'afficher le tree view.
      * \param profondeur de l'algorithme récursif
      * \param projetManager référence vers l'instance de ProjetManager
      * \param arbre pointeur vers le tree view
@@ -135,7 +136,7 @@ public slots:
 
     /*!
      * \brief showContextMenu
-     * Slot permettant d'afficher un menu contextuel
+     * Slot permettant d'afficher un menu contextuel.
      */
     void showContextMenu(const QPoint&);
 

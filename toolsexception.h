@@ -8,7 +8,9 @@
  * Hérite de la classe Logic_error
  */
 class ToolsException : public std::logic_error {
+
 public:
+
     /*!
      * \brief Constructeur
      * Crée une exception avec une information sur celle-ci.

@@ -7,18 +7,14 @@
 
 /*!
  * \brief save
- *
- * Permet d'exporter les données dans le fichier spécifié
- *
+ * Permet d'exporter les données dans le fichier spécifié.
  * \param file
  */
 void save(const QString &file);
 
 /*!
  * \brief saveContraintes
- *
- * Permet d'exporter les programmations comprises entre dateDebut et dateFin
- *
+ * Permet d'exporter les programmations comprises entre dateDebut et dateFin.
  * \param file
  * \param dateDebut
  * \param dateFin
@@ -27,9 +23,7 @@ void saveContraintes(const QString& file, const Date& dateDebut, const Date& dat
 
 /*!
  * \brief saveProjet
- *
- * Permet d'exporter le projet donné
- *
+ * Permet d'exporter le projet donné.
  * \param file
  * \param projet
  */
@@ -37,9 +31,7 @@ void saveProjet(const QString& file, Projet &projet);
 
 /*!
  * \brief saveProjetProgrammations
- *
- * Permet d'exporter les programmations d'un projet donné
- *
+ * Permet d'exporter les programmations d'un projet donné.
  * \param file
  * \param projet
  */
@@ -47,9 +39,7 @@ void saveProjetProgrammations(const QString& file, Projet& projet);
 
 /*!
  * \brief load
- *
- * Permet d'importer les données depuis le fichier spécifié
- *
+ * Permet d'importer les données depuis le fichier spécifié.
  * \param file
  */
 void load(const QString &file);
@@ -62,9 +52,7 @@ void loadProjet(const QString &file);
 
 /*!
  * \brief toQString
- *
- * Converti string en QString
- *
+ * Converti string en QString.
  * \param str string
  * \return QString
  */
@@ -72,9 +60,7 @@ QString toQString(const std::string &str);
 
 /*!
  * \brief toQString
- *
- * Converti int en QString
- *
+ * Converti int en QString.
  * \param entier int
  * \return QString
  */
@@ -82,9 +68,7 @@ QString toQString(const int entier);
 
 /*!
  * \brief toString
- *
- * Converti QString en string
- *
+ * Converti QString en string.
  * \param str Qtring
  * \return string
  */

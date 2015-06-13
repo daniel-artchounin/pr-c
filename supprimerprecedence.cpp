@@ -1,7 +1,6 @@
 # include "supprimerprecedence.h"
 # include "fenetreprincipale.h"
 # include "fenetregestionprojetexception.h"
-# include <QDebug>
 
 SupprimerPrecedence::SupprimerPrecedence(Projet& projet, std::string * chaine, unsigned int* taille, const std::string& titreT, QWidget *parent) :
     GestionPrecedence(projet, chaine, taille, titreT,parent)
@@ -23,7 +22,6 @@ void SupprimerPrecedence::retourFenetrePrincipaleValider(){
     }
     else{
         QString cheminement = listeDeTaches->currentItem()->text();
-        std::cout << "cheminement (SupprimerPrecedence::retourFenetrePrincipaleValider) :" << cheminement.toStdString() << std::endl;
         QStringList liste = cheminement.split("/");
         try{
             tailleChemin2 = new unsigned int;

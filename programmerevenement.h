@@ -15,13 +15,14 @@
 
 /*!
  * \brief ProgrammerEvenement
- *
  * Class permettant de créer un formulaire afin de créer ou modifier une programmation d'un évènement
  */
 class ProgrammerEvenement: public FenetreAnnulerValider
 {
     Q_OBJECT
+
 protected :
+
     QFormLayout* formlayout;
     QLineEdit* nom; /*!< nom de l'évènement */
     QLineEdit* motif; /*!< motif de l'évènement */
@@ -35,9 +36,7 @@ protected :
 
     /*!
      * \brief initialiserFormulaire
-     *
-     * Permet de créer le formulaire
-     *
+     * Permet de créer le formulaire.
      */
     void initialiserFormulaire();
 
@@ -52,23 +51,21 @@ public:
 
     /*!
      * \brief Constructeur
-     *
-     * Crée le formulaire ProgrammerEvenement
-     *
+     * Crée le formulaire ProgrammerEvenement.
      * \param parent
      */
     explicit ProgrammerEvenement(QWidget *parent = 0);
 
     /*!
      * \brief ProgrammerEvenement
-     *
-     * Crée le formulaire ProgrammerEvenement pré-rempli avec les données d'une programmation donnée
-     *
+     * Crée le formulaire ProgrammerEvenement pré-rempli avec les données d'une programmation donnée.
      * \param prog programmation
      * \param parent
      */
     explicit ProgrammerEvenement(ProgrammationEvenement* prog, QWidget *parent = 0);
+
 signals:
+
 };
 
 #endif // PROGRAMMEREVENEMENT

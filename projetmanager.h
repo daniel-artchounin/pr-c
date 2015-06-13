@@ -5,62 +5,60 @@
 
 /*! \class ProjetManager
  * \brief Classe permettant de manipuler des projets.
- *
- * Hérite de la classe Manager. Utilise le design pattern singleton
+ * Hérite de la classe Manager.
+ * Utilise le design pattern singleton.
  */
 class ProjetManager : public Manager<Projet> {
+
 private:
+
     //design pattern singleton
     static ProjetManager * instance; /*!< instance unique de ProjetManager */
 
     /*!
      * \brief Constructeur
-     *
-     * Constructeur privé afin d'empêcher la duplication
+     * Constructeur privé afin d'empêcher la duplication.
      */
     ProjetManager(): Manager<Projet>(){}
 
     /*!
      *\brief Destructeur
-     *
-     * Destructeur privé
+     * Destructeur privé.
      */
     ~ProjetManager() {}
+
     /*!
      * \brief Contructeur par recopie
-     *
-     * Constructeur par recopie privé
-     *
+     * Constructeur par recopie privé.
      * \param pm ProjetManager
      */
     ProjetManager(const ProjetManager& pm);
 
     /*!
      * \brief Operateur d'affectation
-     *
-     * Opérateur d'affectation privé
-     *
+     * Opérateur d'affectation privé.
      * \param pm ProjetManager
      */
     ProjetManager& operator=(const ProjetManager& pm);
+
 public:
+
     //design pattern singleton
     /*!
      * \brief getInstance
      * \return instance unique de ProjetManager
      */
     static ProjetManager& getInstance();
+
     /*!
      * \brief libererInstance
-     *
-     * Détruit l'instance unique de ProjetManager
+     * Détruit l'instance unique de ProjetManager.
      */
     static void libererInstance();
+
     /*!
      * \brief addProjet
-     *
-     * Génère une exception ProjetManagerException si un projet ayant le même titre existe déjà
-     *
+     * Génère une exception ProjetManagerException si un projet ayant le même titre existe déjà.
      * \param titre titre du projet
      * \param dateDebut date de début du projet
      * \param horaireDebut horaire de début du projet
@@ -71,9 +69,7 @@ public:
     Projet& addProjet(const std::string& titre, const Date& dateDebut, const Horaire& horaireDebut, const Date& dateFin, const Horaire& horaireFin);
     /*!
      * \brief getProjet
-     *
-     * Génère une exception ProjetManagerException si le projet n'a pas été trouvé
-     *
+     * Génère une exception ProjetManagerException si le projet n'a pas été trouvé.
      * \param titre titre du projet à trouver
      * \return Projet si le projet existe
      */
@@ -81,9 +77,7 @@ public:
 
     /*!
      * \brief getProjet
-     *
-     * Génère une exception ProjetManagerException si le projet n'a pas été trouvé
-     *
+     * Génère une exception ProjetManagerException si le projet n'a pas été trouvé.
      * \param titre titre du projet à trouver
      * \return const Projet si le projet existe
      */
@@ -91,27 +85,22 @@ public:
 
     /*!
      * \brief exportTo
-     *
-     * Permet d'exporter les données dans un fichier XML via le streamwriter
-     *
+     * Permet d'exporter les données dans un fichier XML via le streamwriter.
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream);
 
     /*!
      * \brief loadFrom
-     *
-     * Permet d'importer les données depuis un fichier XML via le streamreader. Charge uniquement les ProgrammationEvenement
-     *
+     * Permet d'importer les données depuis un fichier XML via le streamreader.
+     * Charge uniquement les ProgrammationEvenement.
      * \param xml
      */
     void loadFrom(QXmlStreamReader& xml);
 
     /*!
      * \brief loadProjet
-     *
      * Permet de charger un projet dans le ProjetManager depuis un fichier XML
-     *
      * \param xml
      */
     void loadProjet(QXmlStreamReader& xml);

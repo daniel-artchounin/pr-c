@@ -5,7 +5,6 @@
 #include "fenetreprincipale.h"
 #include <QGraphicsRectItem>
 #include "tools.h"
-#include <QDebug>
 
 FenetreEDT::FenetreEDT(QWidget *parent) : QGraphicsView(parent) {
     scene = new QGraphicsScene;

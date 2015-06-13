@@ -25,11 +25,12 @@ class SupprimerPrecedence : public GestionPrecedence
     Q_OBJECT
 
 protected :
+
     QListWidget* listeDeTaches; /*!< contiendra la liste des tâches précédentes */
 
     /*!
      * \brief fromQStringListToStdStringArray
-     * Méthode permettant de générer un tableau de string à partir d'un QStringList
+     * Méthode permettant de générer un tableau de string à partir d'un QStringList.
      * \param chemin la QStringList
      * \param taille la taille du tableau qui sera généré
      * \return tableau de string
@@ -38,7 +39,7 @@ protected :
 
     /*!
      * \brief afficherListeTacheWidget
-     * Méthode permettant d'afficher la liste des tâches précédentes
+     * Méthode permettant d'afficher la liste des tâches précédentes.
      */
     void afficherListeTacheWidget();
 
@@ -59,9 +60,8 @@ public slots:
 
     /*!
      * \brief retourFenetrePrincipaleValider
-     * slot se déclenchant suite à la validation de l'utilisateur
-     * permet d'enregistrer les données
-     * et de revenir à la fenetre principale
+     * Slot se déclenchant suite à la validation de l'utilisateur.
+     * Permet d'enregistrer les données et de revenir à la fenetre principale.
      */
     void retourFenetrePrincipaleValider();
 

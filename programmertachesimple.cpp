@@ -22,8 +22,6 @@ ProgrammerTacheSimple::ProgrammerTacheSimple(Projet* projet, std::string * chain
         this->close();
     }
     titreTache = titreT;
-    std::cout << "titre byzarre" << std::endl ;
-    std::cout << titreTache << std::endl ;
     chemin = chaine;
     tailleChemin = taille;
     dateProgrammation = new QDateEdit(QDate::currentDate());

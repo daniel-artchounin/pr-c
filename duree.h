@@ -17,9 +17,7 @@ private:
 public:
     /*!
      * \brief Constructeur
-     *
-     * Crée une durée à partir d'une heure et de minutes
-     *
+     * Crée une durée à partir d'une heure et de minutes.
      * \param h heure avec h>=0
      * \param m minute avec 0<=m<=59
      */
@@ -29,18 +27,14 @@ public:
 
     /*!
      * \brief Contructeur
-     *
-     * Crée une durée à partir de minutes
-     *
+     * Crée une durée à partir de minutes.
      * \param m minute avec m>=0
      */
     Duree(unsigned int m=0):nb_minutes(m) {}
 
     /*!
      * \brief Duree
-     *
-     * Crée une durée à partir d'un string au format hhHmm
-     *
+     * Crée une durée à partir d'un string au format hhHmm.
      * \param duree string format hhHmm
      */
     Duree(std::string duree):nb_minutes(0) {
@@ -49,9 +43,7 @@ public:
 
     /*!
      * \brief setDuree
-     *
-     * Modifie la durée selon l'heure et les minutes données
-     *
+     * Modifie la durée selon l'heure et les minutes données.
      * \param heures heures>=
      * \param minutes 0<=minutes<=59
      */
@@ -62,9 +54,7 @@ public:
 
     /*!
      * \brief setDuree
-     *
-     * Modifie la durée selon un string au format hhHmm
-     *
+     * Modifie la durée selon un string au format hhHmm.
      * \param duree string format hhHmm
      */
     void setDuree(std::string duree);
@@ -87,9 +77,7 @@ public:
 
     /*!
      * \brief afficher
-     *
-     * Affiche la duree sous le format hhHmm
-     *
+     * Affiche la duree sous le format hhHmm.
      * \param f ostream
      */
     void afficher(std::ostream& f=std::cout) const {
@@ -129,9 +117,7 @@ public:
 
     /**
      * \brief addition
-     *
-     * permet d'additionner une date à la date de notre objet et de retourner le résultat
-     *
+     * Permet d'additionner une date à la date de notre objet et de retourner le résultat.
      * \param dureeBis la durée à ajouter
      * \return le résultat de l'addition
      */
@@ -139,6 +125,12 @@ public:
         return Duree(getDureeEnMinutes()+dureeBis.getDureeEnMinutes());
     }
 
+    /*!
+     * \brief soustraction
+     * Permet de soustraire une date à la date de notre objet et de retourner le résultat.
+     * \param dureeBis la durée à soustraire
+     * \return  le résultat de la soustraction
+     */
     Duree soustraction(const Duree & dureeBis)const{
         return Duree(getDureeEnMinutes()-dureeBis.getDureeEnMinutes());
     }
@@ -154,10 +146,8 @@ std::ostream& operator<<(std::ostream& f, const Duree & d);
 
 /*!
  * \brief operator >>
- *
- * Surcharge de l'opérateur >>
- * Lecture de la durée au format hhHmm
- *
+ * Surcharge de l'opérateur >>.
+ * Lecture de la durée au format hhHmm.
  * \param flot istream
  * \param duree Duree
  * \return istream
@@ -203,6 +193,13 @@ bool operator>=(const Duree& a, const Duree&b);
  * \return résultat (Duree)
  */
 Duree operator+(const Duree& duree1, const Duree& duree2);
+
+/*!
+ * \brief operator -
+ * \param duree1 duree
+ * \param duree2 duree
+ * \return résultat (Duree)
+ */
 Duree operator-(const Duree& duree1, const Duree& duree2);
 
 

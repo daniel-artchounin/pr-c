@@ -21,11 +21,9 @@ public:
 
     /*!
      * \brief programmerReunion
-     *
      * Permet de créer une réunion avec un nom, un lieu et un motif.
      * La réunion sera programmé à la programmation actuelle.
-     * Si un évènement avait déjà été programmé alors déclenchera une exception.
-     *
+     * Si un évènement avait déjà été programmé, alors une exception sera soulevée.
      * \param nom
      * \param lieu
      * \param motif
@@ -35,11 +33,9 @@ public:
 
     /*!
      * \brief programmerRendezVous
-     *
      * Permet de créer une réunion avec un nom, un lieu et un motif.
      * La réunion sera programmé à la programmation actuelle.
      * Si un évènement avait déjà été programmé alors déclenchera une exception.
-     *
      * \param nom
      * \param lieu
      * \param motif
@@ -49,9 +45,7 @@ public:
 
     /*!
      * \brief updateProgrammationEvenement
-     *
      * Met à jour la programmation actuelle avec la date, l'horaire et la durée donnés
-     *
      * \param date
      * \param horaire
      * \param dur
@@ -89,18 +83,14 @@ public:
 
     /*!
      * \brief exportTo
-     *
      * Permet d'exporter les données dans un fichier XML via le streamwriter
-     *
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream);
 
     /*!
      * \brief loadFrom
-     *
      * Permet d'importer les données depuis un fichier XML via le streamreader
-     *
      * \param xml
      */
     void loadFrom(QXmlStreamReader &xml);

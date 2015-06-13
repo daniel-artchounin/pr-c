@@ -6,7 +6,7 @@
 
 /*! \class Tache
  * \brief Classe permettant de manipuler des taches
- * Cette classe est abstraite
+ * Cette classe est abstraite.
  */
 class Tache : public Element {
 
@@ -18,8 +18,7 @@ protected:
 
     /*!
      * \brief trouverTachePrecedente
-     * permet de trouver la tâche précédente envoyée en paramètre
-     * parmi les contraintes de precedence de la tâche actuelle
+     * Permet de trouver la tâche précédente envoyée en paramètre parmi les contraintes de precedence de la tâche actuelle.
      * \param titre titre de la tache potentiellement précédente
      * \return retourne un pointeur vers la tâche précédente si elle l'est vraiment
      * ou 0 sinon
@@ -28,8 +27,7 @@ protected:
 
     /*!
      * \brief trouverTacheSuivante
-     * permet de trouver la tâche suivante envoyée en paramètre
-     * parmi les contraintes de "suivance" de la tâche actuelle
+     * Permet de trouver la tâche suivante envoyée en paramètre parmi les contraintes de "suivance" de la tâche actuelle.
      * \param titre titre de la tache potentiellement suivante
      * \return retourne un pointeur vers la tâche suivante si elle l'est vraiment
      * ou 0 sinon
@@ -51,7 +49,7 @@ public:
 
     /*!
      * \brief isTachePrecedente
-     * permet de savoir si une tâche envoyée en paramètre précède la tâche courante
+     * Permet de savoir si une tâche envoyée en paramètre précède la tâche courante.
      * \param titre titre d'une potentielle tache précédente
      * \return retourne un booléen (en fonction du statut de la tache par rapport à la tâche actuelle)
      */
@@ -59,7 +57,7 @@ public:
 
     /*!
      * \brief isTacheSuivante
-     * permet de savoir si une tâche envoyée en paramètre succède la tâche courante
+     * Permet de savoir si une tâche envoyée en paramètre succède la tâche courante.
      * \param titre titre d'une potentielle tache suivante
      * \return retourne un booléen (en fonction du statut de la tache par rapport à la tâche actuelle)
      */
@@ -67,8 +65,8 @@ public:
 
     /*!
      * \brief getTachePrecedente
-     * permet de trouver une tâche précédente de la tâche courante
-     * déclenche une exception si la tâche n'est pas trouvée
+     * Permet de trouver une tâche précédente de la tâche courante.
+     * Déclenche une exception si la tâche n'est pas trouvée.
      * \param titre nom de la tâche
      * \return retourne une référence sur la tâche précédente
      */
@@ -76,18 +74,17 @@ public:
 
     /*!
      * \brief getTachePrecedente
-     * permet de trouver une tâche suivante de la tâche courante
-     * déclenche une exception si la tâche n'est pas trouvée
+     * Permet de trouver une tâche succédant de la tâche courante.
+     * Déclenche une exception si la tâche n'est pas trouvée.
      * \param titre nom de la tâche
      * \return retourne une référence sur la tâche suivante
      */
     Tache& getTacheSuivante(const std::string& titre);
 
     /*!
-     * \brief getTachePrecedente accesseur méthode const (elle sera utilisé par les références
-     * const ou les pointeurs const)
-     * permet de trouver une tâche précédente de la tâche courante
-     * déclenche une exception si la tâche n'est pas trouvée
+     * \brief getTachePrecedente accesseur méthode const (elle sera utilisé par les références const ou les pointeurs const)
+     * Permet de trouver une tâche précédente de la tâche courante.
+     * Déclenche une exception si la tâche n'est pas trouvée.
      * \param titre nom de la tâche
      * \return retourne une référence sur la tâche précédente
      */
@@ -96,10 +93,9 @@ public:
     }
 
     /*!
-     * \brief getTacheSuivante accesseur méthode const (elle sera utilisé par les références
-     * const ou les pointeurs const)
-     * permet de trouver une tâche suivante de la tâche courante
-     * déclenche une exception si la tâche n'est pas trouvée
+     * \brief getTacheSuivante accesseur méthode const (elle sera utilisé par les références const ou les pointeurs const)
+     * Permet de trouver une tâche suivante de la tâche courante.
+     * Déclenche une exception si la tâche n'est pas trouvée.
      * \param titre nom de la tâche
      * \return retourne une référence sur la tâche suivante
      */
@@ -109,7 +105,7 @@ public:
 
     /*!
      * \brief ajouterTachePrecedente
-     * ajoute une tâche précédente à la tâche courante
+     * Ajoute une tâche précédente à la tâche courante.
      * \param cheminementPrecedent chemin de la tache précédente
      * \param cheminementSuivant chemin de la tache suivante
      */
@@ -117,23 +113,22 @@ public:
 
     /*!
      * \brief ajouterTacheSuivante
-     * ajoute une tâche suivante à la tâche courante
+     * Ajoute une tâche suivante à la tâche courante.
      * \param cheminementPrecedent chemin de la tache précédente
      * \param cheminementSuivant chemin de la tache suivante
      */
     void ajouterTacheSuivante(Tache & tacheSuivante, const std::string& cheminementPrecedent, const std::string& cheminementSuivant);
 
-
     /*!
      * \brief supprimerTachesPrecedente
-     * supprime une contrainte de précedence
+     * Supprime une contrainte de précedence.
      * \param tachePrecedente référence sur une tache à supprimer
      */
     void supprimerTachePrecedente(const std::string& tachePrecedente);
 
     /*!
      * \brief supprimerTacheSuivante
-     * supprime une contrainte de "suivance"
+     * Supprime une contrainte de "suivance".
      * \param tacheSuivante référence sur une tache à supprimer
      */
     void supprimerTacheSuivante(const std::string & tacheSuivante);
@@ -209,9 +204,8 @@ public:
 
     /*!
      * \brief checkProgrammationCoherente
-     * permet de savoir si les tâches précédent ma tâche ont
-     * toutes été programmés et si fin de la programmation est
-     * antérieure à la programmation de ma tâche
+     * Permet de savoir si les tâches précédant ma tâche ont toutes été programmés et si
+     * fin de la programmation est antérieure à la programmation de ma tâche
      * \param dateProg date de programmation
      * \param horaireProg horaire de programmation
      * \param tacheActuelle pointeur sur la tâche actuelle dans la boucle récursive
@@ -222,24 +216,21 @@ public:
 
     /*!
      * \brief exportTo
-     *
-     * Permet d'exporter les données dans un fichier XML via le streamwriter, notamment les contraintes de précédences
-     *
+     * Permet d'exporter les données dans un fichier XML via le streamwriter, notamment les contraintes de précédences.
      * \param stream
      */
     virtual void exportTo(QXmlStreamWriter& stream);
 
     /*!
      * \brief exportProgrammations
-     *
-     * Permet d'exporter les programmations de la tache
-     *
+     * Permet d'exporter les programmations de la tache.
      * \param stream
      */
     virtual void exportProgrammations(QXmlStreamWriter& stream)=0;
 
     /*!
-     * \brief ~Tache destructeur
+     * \brief ~Tache
+     * Destructeur.
      */
     virtual ~Tache();
 };

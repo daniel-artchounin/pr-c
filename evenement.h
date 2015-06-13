@@ -7,11 +7,15 @@
  * \brief Classe possédant un nom. Correspond à un évènement traditionnel.
  */
 class Evenement {
+
 protected:
+
     std::string nom; /*!< nom de l'évènement */
     std::string lieu; /*!< lieu de l'évenement */
     std::string motif; /*!< motif de l'évenement */
+
 public:
+
     /*!
      * \brief Constructeur
      * \param n nom de l'évènement
@@ -50,9 +54,7 @@ public:
 
     /*!
      * \brief updateEvenement
-     *
-     * Met à jour l'évènement selon le nom, le lieu et le motif donnés
-     *
+     * Met à jour l'évènement selon le nom, le lieu et le motif donnés.
      * \param n nom
      * \param l lieu
      * \param m motif
@@ -65,9 +67,7 @@ public:
 
     /*!
      * \brief exportTo
-     *
      * Permet d'exporter les données dans un fichier XML via le streamwriter
-     *
      * \param stream
      */
     virtual void exportTo(QXmlStreamWriter& stream);

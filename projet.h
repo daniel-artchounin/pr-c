@@ -11,7 +11,7 @@
 
 /*! \class Projet
  * \brief Classe permettant de manipuler des projets
- * elle est responsable du cycle de vie de ses tâches (tâches à la racine du projet)
+ * Elle est responsable du cycle de vie de ses tâches (tâches à la racine du projet).
  */
 class Projet : public Manager<Tache>, public Element {
 
@@ -19,7 +19,7 @@ protected :
 
     /**
      * \brief trouverTache
-     * permet de trouver une tâche à la racine du projet
+     * Permet de trouver une tâche à la racine du projet.
      * \param nomTache nom de la tâche
      * \return retourne un pointeur vers la tâche trouvée ou 0
      * sinon
@@ -28,9 +28,9 @@ protected :
 
     /**
      * \brief verifierContraintesRespectees
-     * permet de vérifier si la date de début, l'heure de début, la date de fin et l'heure de fin
+     * Permet de vérifier si la date de début, l'heure de début, la date de fin et l'heure de fin
      * de la tache qui peut etre ultérieurement créée sont cohérentes avec ses potentielles taches composites
-     * mères et son potentiel projet père
+     * mères et son potentiel projet père.
      * \param nomsTaches tableau de chaines de caractères contenant les titres
      * des taches composites (correspond au cheminement pour parvenir à la tache qui va probablement
      * etre créée)
@@ -46,8 +46,8 @@ protected :
 
     /**
      * \brief ajouterTache
-     * permet de créer et d'ajouter une tâche à la racine du projet
-     * génère une exception si le titre de cette tâche est déjà une tâche
+     * Permet de créer et d'ajouter une tâche à la racine du projet.
+     * Génère une exception si le titre de cette tâche est déjà une tâche.
      * \param dateD date de disponiblité
      * \param heureD heure de disponiblité
      * \param dateEcheance date d'échéance
@@ -66,7 +66,7 @@ protected :
 
     /*!
      * \brief loadListePrecedents
-     * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les contraintes de précédences des Taches
+     * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les contraintes de précédences des Taches.
      * \param xml
      */
     std::vector<std::vector<std::string> > loadListePrecedents(QXmlStreamReader &xml, std::string * arr, int longueur, std::string titre);
@@ -87,18 +87,17 @@ public:
 
     /**
      * \brief getTache
-     * permet de trouver une tâche du projet actuel
-     * déclenche une exception si la tache n'est pas trouvée
+     * Permet de trouver une tâche du projet actuel.
+     * Déclenche une exception si la tache n'est pas trouvée.
      * \param titre nom de la tâche
      * \return retourne une référence sur la tâche
      */
     Tache& getTache(const std::string& titre);
 
     /**
-     * \brief getTache méthode const (elle sera utilisé par les références
-     * const ou les pointeurs const)
-     * permet de trouver une tâche du projet actuel
-     * déclenche une exception si la tâche n'est pas trouvée
+     * \brief getTache méthode const (elle sera utilisé par les références const ou les pointeurs const)
+     * Permet de trouver une tâche du projet actuel.
+     * Déclenche une exception si la tâche n'est pas trouvée.
      * \param titre nom de la tâche
      * \return retourne une référence sur la tâche
      */
@@ -106,15 +105,15 @@ public:
 
     /**
      * \brief supprimerTache
-     * supprime la tâche dont le titre est renseigné en paramètre
-     * déclenche une exception si la tâche n'est pas trouvée
+     * Supprime la tâche dont le titre est renseigné en paramètre.
+     * Déclenche une exception si la tâche n'est pas trouvée.
      * \param titre nom de la sous tâche
      */
     void supprimerTache(const std::string& titre);
 
     /**
      * \brief isPrecedence
-     * permet de vérifier si une tache est bien précédente d'une autre
+     * Permet de vérifier si une tache est bien précédente d'une autre.
      * \param tachePrecedente référence sur la tache potentiellement précédente
      * \param tacheSuivante référence sur la tache potentiellement suivante
      * \return retourne un booléen
@@ -125,8 +124,8 @@ public:
 
     /*!
      * \brief ajouterPrecedence
-     * permet d'ajouter une contrainte de précénde entre deux tâches
-     * soulève une exception si cet ajout n'est pas possible
+     * Permet d'ajouter une contrainte de précénde entre deux tâches.
+     * Soulève une exception si cet ajout n'est pas possible.
      * \param nomsTachesComposites1 tableau de chaines de caractères contenant les titres
      * des taches composites (correspond au cheminement pour parvenir à la tache 1)
      * \param nbTaches1 taille du tableau nomsTachesComposites1
@@ -141,8 +140,8 @@ public:
 
     /*!
      * \brief supprimerPrecedence
-     * permet de supprimer une contrainte de précénde entre deux tâches
-     * soulève une exception si cette suppression n'est pas possible
+     * Permet de supprimer une contrainte de précénde entre deux tâches.
+     * Soulève une exception si cette suppression n'est pas possible.
      * \param nomsTachesComposites1 tableau de chaines de caractères contenant les titres
      * des taches composites (correspond au cheminement pour parvenir à la tache 1)
      * \param nbTaches1 taille du tableau nomsTachesComposites1
@@ -156,8 +155,9 @@ public:
                              const std::string * nomsTachesComposites2, unsigned int nbTaches2,const std::string& nomTache2);
 
     /*!
-     * \brief supprimerTacheChemin méthode permettant de supprimer une tâche et de mettre à jour
-     * les durées du projet et des tâches composites constituant le cheminemenent pour accéder à cette dernière
+     * \brief supprimerTacheChemin
+     * Méthode permettant de supprimer une tâche et de mettre à jour les durées du projet et des tâches composites
+     * constituant le cheminemenent pour accéder à cette dernière.
      * \param nomsTachesComposites tableau de chaines de caractères contenant les titres
      * des taches composites (correspond au cheminement pour parvenir à la tache )
      * \param nbTaches taille du tableau nomsTachesComposites
@@ -171,8 +171,8 @@ public:
 
     /**
      * \brief accederTache
-     * permet d'accéder à une tache
-     * déclenche une exception si la tentative d'accès n'abouti pas
+     * Permet d'accéder à une tache.
+     * Déclenche une exception si la tentative d'accès n'abouti pas.
      * \param nomsTachesComposites tableau de chaines de caractères contenant les titres
      * des taches composites (correspond au cheminement pour parvenir à la tache)
      * \param nbTaches taille du tableau nomsTachesComposites
@@ -191,7 +191,7 @@ public:
 
     /*!
      * \brief accederTacheComposite méthode permettant d'accéder à une tâche composite
-     * Soulève une ProjetException si cela n'est pas possible
+     * Soulève une ProjetException si cela n'est pas possible.
      * \param nomsTachesComposites tableau de chaines de caractères contenant les titres
      * des taches composites (correspond au cheminement pour parvenir à la tache)
      * \param nbTaches taille du tableau nomsTachesComposites
@@ -211,7 +211,7 @@ public:
 
     /*!
      * \brief accederTacheSimplePreemptive méthode permettant d'accéder à une tâche simple préemptive
-     * Soulève une ProjetException si cela n'est pas possible
+     * Soulève une ProjetException si cela n'est pas possible.
      * \param nomsTachesComposites tableau de chaines de caractères contenant les titres
      * des taches composites (correspond au cheminement pour parvenir à la tache)
      * \param nbTaches taille du tableau nomsTachesComposites
@@ -231,7 +231,7 @@ public:
 
     /*!
      * \brief accederTacheSimpleNonPreemptive méthode permettant d'accéder à une tâche simple non préemptive
-     * Soulève une ProjetException si cela n'est pas possible
+     * Soulève une ProjetException si cela n'est pas possible.
      * \param nomsTachesComposites tableau de chaines de caractères contenant les titres
      * des taches composites (correspond au cheminement pour parvenir à la tache)
      * \param nbTaches taille du tableau nomsTachesComposites
@@ -271,7 +271,7 @@ public:
 
     /*!
      * \brief exportTo
-     * Permet d'exporter les données dans un fichier XML via le streamwriter
+     * Permet d'exporter les données dans un fichier XML via le streamwriter.
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream);
@@ -280,7 +280,7 @@ public:
 
     /*!
      * \brief loadFrom
-     * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les différentes Taches
+     * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les différentes Taches.
      * \param xml
      */
     void loadFrom(QXmlStreamReader& xml, std::vector<std::string>& vect);

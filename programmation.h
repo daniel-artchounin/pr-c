@@ -25,8 +25,7 @@ public:
 
     /*!
      * \brief Destructeur
-     *
-     * Desctructeur abstrait
+     * Desctructeur abstrait.
      */
     virtual ~Programmation();
 
@@ -48,9 +47,7 @@ public:
 
     /*!
      * \brief getDuree
-     *
-     * Devra être défini par les classes héritant de Programmation
-     *
+     * Devra être défini par les classes héritant de Programmation.
      * \return duree de la programmation
      */
     virtual Duree getDuree()const=0;
@@ -73,16 +70,13 @@ public:
 
     /*!
      * \brief getNom
-     *
-     * Permet de récupérer le nom de l'évènement
+     * Permet de récupérer le nom de l'évènement.
      */
     virtual std::string getNom() const=0;
 
     /*!
      * \brief exportTo
-     *
-     * Permet d'exporter les données dans un fichier XML via le streamwriter
-     *
+     * Permet d'exporter les données dans un fichier XML via le streamwriter.
      * \param stream
      */
     virtual void exportTo(QXmlStreamWriter& stream);

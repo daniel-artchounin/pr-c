@@ -20,14 +20,6 @@ void ProgrammerTacheSimpleNonPreemptive::retourFenetrePrincipaleValider(){
     ProgrammationManager& programmationManager = ProgrammationManager::getInstance();
     if(progTache==0) {
         try{
-            std::cout << "description : " << nomProjet->getTitre() << std::endl;
-            std::cout << "description : " << *tailleChemin << std::endl;
-            for(unsigned int i =0; i < *tailleChemin; i++){
-                std::cout << "TC" << chemin[i]<<std::endl;
-            }
-            std::cout << "titreTache depuis fenetre sauver :" << std::endl ;
-            std::cout << titreTache << std::endl ;
-
             TacheSimpleNonPreemptive& myTacheSimpleNonPreemptive = nomProjet->accederTacheSimpleNonPreemptive(
                         chemin,
                         *tailleChemin,

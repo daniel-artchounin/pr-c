@@ -31,10 +31,12 @@ public:
      * \param parent widget parent
      */
     explicit ProgrammerTacheSimpleNonPreemptive(Projet* projet, std::string * chaine, unsigned int* taille, std::string& titreT, QWidget *parent = 0);
+
     explicit ProgrammerTacheSimpleNonPreemptive(ProgrammationTacheSimpleNonPreemptive* prog, QWidget *parent = 0);
 signals:
 
 public slots:
+
     /*!
      * \brief retourFenetrePrincipaleValider
      * slot se déclenchant suite à la validation de l'utilisateur

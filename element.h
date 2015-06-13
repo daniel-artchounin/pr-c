@@ -11,6 +11,7 @@
 class Element {
 
 protected:
+
     std::string titre; /*!< titre de l'élément */
     Date dateDebut; /*!< date de début */
     Horaire horaireDebut; /*!< horaire de début */
@@ -22,7 +23,7 @@ public:
 
     /*!
      * \brief estDansIntervalle     *
-     * permet de vérifier si une programmation se situe bien dans l'intervalle autorisé (après la disponibilité et avant échéance)
+     * Permet de vérifier si une programmation se situe bien dans l'intervalle autorisé (après la disponibilité et avant échéance).
      * \param dateProg date de programmation
      * \param horaireProg horaire de programmation
      * \return vrai si la programmation se trouve dans l'intervalle ou faux sinon
@@ -42,17 +43,17 @@ public:
         if( (dateF-dateD)*24*60+(horaireF-horaireD) < (int)(dur.getDureeEnMinutes()) ){
             throw ElementException("ElementException, la durée est supérieure à l'intervalle entre la disponibilité et l'échéance");
         }
-
     }
 
     /*!
      * \brief Desctructeur
-     * Destructeur virtuelle pure.
+     * Destructeur virtuel pure.
      */
     virtual ~Element()=0;
 
     /*!
      * \brief getTitre
+     * Accesseur.
      * \return titre de l'élément
      */
     const std::string& getTitre() const {
@@ -61,6 +62,7 @@ public:
 
     /*!
      * \brief getDateDebut
+     * Accesseur.
      * \return date de début
      */
     const Date& getDateDebut() const {
@@ -69,6 +71,7 @@ public:
 
     /*!
      * \brief getHoraireDebut
+     * Accesseur.
      * \return horaire de début
      */
     const Horaire& getHoraireDebut() const {
@@ -77,6 +80,7 @@ public:
 
     /*!
      * \brief getDateFin
+     * Accesseur.
      * \return date de fin
      */
     const Date& getDateFin() const {
@@ -85,6 +89,7 @@ public:
 
     /*!
      * \brief getHoraireFin
+     * Accesseur.
      * \return horaire de fin
      */
     const Horaire& getHoraireFin() const {
@@ -92,14 +97,15 @@ public:
     }
 
     /*!
-     * \brief getDuree accesseur
+     * \brief getDuree
+     * Accesseur.
      * \return retourne un pointeur vers la tâche trouvée ou 0
      */
     const Duree & getDuree()const;
 
     /*!
      * \brief setDuree
-     * mutateur - permet de mettre à jour la durée de l'élément
+     * Mutateur : permet de mettre à jour la durée de l'élément.
      * \param duree1 la nouvelle durée
      */
     void setDuree(const Duree& dur){
@@ -108,7 +114,7 @@ public:
 
     /*!
      * \brief addDure
-     * permet d'ajouter une durée à la durée de notre élément
+     * Permet d'ajouter une durée à la durée de notre élément.
      * \param duree la durée ajoutée
      */
     void addDuree(const Duree& duree){
@@ -117,7 +123,7 @@ public:
 
     /*!
      * \brief exportTo
-     * Permet d'exporter les données dans un fichier XML via le streamwriter
+     * Permet d'exporter les données dans un fichier XML via le streamwriter.
      * \param stream
      */
     virtual void exportTo(QXmlStreamWriter& stream);

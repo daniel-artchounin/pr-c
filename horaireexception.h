@@ -6,7 +6,9 @@
  * Hérite de la classe Logic_error
  */
 class HoraireException : public std::logic_error {
+
 public:
+
     /*!
      * \brief Constructeur
      * Crée une exception avec une information sur celle-ci.

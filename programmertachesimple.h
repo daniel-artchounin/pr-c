@@ -32,7 +32,7 @@ protected:
 
     /*!
      * \brief closeEvent
-     * Permet de gérer la requête de fermeture du widget
+     * Permet de gérer la requête de fermeture du widget.
      * \param event évènement
      */
     virtual void closeEvent(QCloseEvent *event);

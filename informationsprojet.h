@@ -9,6 +9,7 @@
  */
 class InformationsProjet : public InformationsElement
 {
+
 public:
 
     /*!

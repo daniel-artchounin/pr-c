@@ -2,7 +2,6 @@
 # include "projet.h"
 # include "tachecomposite.h"
 # include <QDate>
-# include <QDebug>
 # include <QMessageBox>
 # include "fenetregestionprojetexception.h"
 # include "tachesimplenonpreemptive.h"
@@ -85,7 +84,6 @@ void FenetreGestionProjet::afficherTreeWidget(unsigned int profondeur, ProjetMan
                     QTreeWidgetItem * item = new QTreeWidgetItem();
                     item->setText(0, QString::fromStdString((it->first)));
                     actuel->addChild(item);
-                    // std::cout << it->second->getTitre()<< std::endl; -> test
                     afficherTreeWidget(profondeur+1, projetManager, arbre, item,it->second);
                 }
 
@@ -214,7 +212,6 @@ void FenetreGestionProjet::fenetreProgrammerTacheSimplePreemptive(){
             Projet& projet = getAndRemoveProjet(&cheminement);
             std::string titreTache = getNomTacheAndRemoveTache(&cheminement);
             unsigned int* taille = new unsigned int;
-            std::cout << "depuis la fenetre ;-) titre ; " << titreTache << std::endl;
             std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
             programmerTacheSimplePreemptive = new ProgrammerTacheSimplePreemptive(&projet, chaine, taille, titreTache);
             programmerTacheSimplePreemptive->show();
@@ -271,7 +268,6 @@ void FenetreGestionProjet::fenetreAjouterPrecedence(){
             Projet& projet = getAndRemoveProjet(&cheminement);
             std::string titreTache = getNomTacheAndRemoveTache(&cheminement);
             unsigned int* taille = new unsigned int;
-            // std::cout << "depuis la fenetre ;-) titre ; " << titreTache << std::endl; // -> test
             std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
             ajoutPrecedence = new AjouterPrecedence(projet, chaine, taille, titreTache);
             ajoutPrecedence->show();
@@ -300,7 +296,6 @@ void FenetreGestionProjet::fenetreSupprimerPrecedence(){
             Projet& projet = getAndRemoveProjet(&cheminement);
             std::string titreTache = getNomTacheAndRemoveTache(&cheminement);
             unsigned int* taille = new unsigned int;
-            std::cout << "depuis la fenetre ;-) titre ; " << titreTache << std::endl; // -> test
             std::string * chaine = recupCheminDepuisProjet(cheminement, taille);
             suppressionPrecedence = new SupprimerPrecedence(projet, chaine, taille, titreTache);
             suppressionPrecedence->show();
@@ -454,7 +449,6 @@ std::string FenetreGestionProjet::getNomTacheStd(QList<QString> chemin){
     }
     QString& titreTache = chemin.last();
     std::string titreTacheStd = titreTache.toStdString();
-    // std::cout << "Mon titre : " << titreTacheStd << std::endl;
     return titreTacheStd;
 }
 

@@ -13,7 +13,8 @@ class ProgrammationTacheSimple : public Programmation{
 public:
 
     /*!
-     * \brief ProgrammationTacheSimple constructeur
+     * \brief ProgrammationTacheSimple
+     * Constructeur.
      * \param dateDebut date de début de le programmation
      * \param horaireDebut horaire de début de la programmation
      */
@@ -21,15 +22,15 @@ public:
 
     /*!
      * \brief getTacheSimple
-     *
-     * accesseur vers la tâche simple que l'on programme méthode virtuelle pure
-     *
+     * Accesseur vers la tâche simple que l'on programme
+     * Méthode virtuelle pure.
      * \return une tâche simple
      */
     virtual TacheSimple& getTacheSimple() const=0;
 
     /*!
-     * \brief ~ProgrammationTacheSimple destructeur
+     * \brief ~ProgrammationTacheSimple
+     * Destructeur
      */
     virtual ~ProgrammationTacheSimple();
 };

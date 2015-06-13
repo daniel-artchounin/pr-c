@@ -160,9 +160,7 @@ public:
 
     /*!
      * \brief addDuree
-     *
      * Retourne la date obtenu après ajout de la durée à la date actuelle à partir de l'horaire donné.
-     *
      * \param duree
      * \param horaire
      * \return date
@@ -172,9 +170,7 @@ public:
 
 /*!
  * \brief operator <<
- *
- * Surcharge de l'opérateur <<
- *
+ * Surcharge de l'opérateur <<.
  * \param f ostream
  * \param x Date
  * \return ostream
@@ -183,10 +179,8 @@ std::ostream& operator<<(std::ostream& f, const Date& x);
 
 /*!
  * \brief operator >>
- *
- * Surcharge de l'opérateur >>
- * Lecture de la date au format jj/mm/aaaa
- *
+ * Surcharge de l'opérateur >>.
+ * Lecture de la date au format jj/mm/aaaa.
  * \param flot istream
  * \param date Date
  * \return istream

@@ -10,6 +10,7 @@ class TacheSimpleNonPreemptive;
  */
 class ProgrammationTacheSimpleNonPreemptive : public ProgrammationTacheSimple
 {
+
 protected :
 
     TacheSimpleNonPreemptive* tacheSimpleNonPreemptive; /*!< pointeur vers la tache simple non préemptive que l'on programme */
@@ -18,9 +19,7 @@ public:
 
     /*!
      * \brief ProgrammationTacheSimpleNonPreemptive
-     *
-     * Constructeur
-     *
+     * Constructeur.
      * \param dateD date de programmation
      * \param heureD horaire de programmation
      * \param tacheSimpleNonP référence vers une TacheSimpleNonPreemptive
@@ -29,7 +28,7 @@ public:
 
     /*!
      * \brief updateProgrammationTacheSimpleNonPreemptive
-     * Met à jour la programmation actuelle avec la date et l'horaire donnés
+     * Met à jour la programmation actuelle avec la date et l'horaire donnés.
      * \param dateD nouvelle date de programmation
      * \param heureD nouvel horaire de programmation
      */
@@ -64,7 +63,7 @@ public:
 
     /*!
      * \brief exportTo
-     * Permet d'exporter les données dans un fichier XML via le streamwriter
+     * Permet d'exporter les données dans un fichier XML via le streamwriter.
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream);

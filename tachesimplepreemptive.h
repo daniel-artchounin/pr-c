@@ -7,7 +7,7 @@
 class ProgrammationTacheSimplePreemptive;
 
 /*! \class TacheSimplePreemptive
- * \brief Classe permettant de manipuler des tâches simples préemptives
+ * \brief Classe permettant de manipuler des tâches simples préemptives.
  */
 class TacheSimplePreemptive : public TacheSimple
 {
@@ -26,25 +26,31 @@ protected:
 
     /**
      * \brief setPourcentageDejaProgramme mutateur
-     * Soulève une TacheSimplePreemptiveException en cas d'incohérence
+     * Soulève une TacheSimplePreemptiveException en cas d'incohérence.
      * \param prt le nouveau pourcentage programmé
      */
     void setPourcentageDejaProgramme(int prt);
 
     /*!
      * \brief addPourcentageDejaProgramme
-     * augmente le pourcentage déjà programmé de la tâche
+     * Augmente le pourcentage déjà programmé de la tâche.
      * \param prt
      */
     void addPourcentageDejaProgramme(int prt);
 
     /*!
      * \brief addProgrammation
-     * ajoute une nouvelle programmation à la tâche préemptive actuelle
+     * Ajoute une nouvelle programmation à la tâche préemptive actuelle.
      * \param pgrm pointeur vers la programmtion de tâche simple préemptive
      */
     void addProgrammation(ProgrammationTacheSimplePreemptive * pgrm);
 
+    /*!
+     * \brief eraseProgrammation
+     * Permet d'effacer le lien entre la tâche simple préemptive et une de ses programmations.
+     * \param dateProgrammation date de programmation
+     * \param horaireProgrammation horaire de programmation
+     */
     void eraseProgrammation(const Date& dateProgrammation, const Horaire& horaireProgrammation);
 
 public:
@@ -82,8 +88,9 @@ public:
     virtual bool isEndProgrammationOk(const Date& dateProg, const Horaire& horaireProg)const;
 
     /*!
-     * \brief getDureeProgrammationViaPourcentage accesseur
-     * calcule la durée de la tâche correspondant au pourcentage transmis en paramètre
+     * \brief getDureeProgrammationViaPourcentage
+     * Accesseur.
+     * Calcule la durée de la tâche correspondant au pourcentage transmis en paramètre.
      * \param pourcentage pourcentage dont on souhaite connaitre la durée correspondante
      * \return la durée de la tâche correspondant au pourcentage transmis en paramètre
      */
@@ -119,6 +126,7 @@ public:
      * \return iterator const sur le début du vector
      */
     p_const_iterator pBegin() const{ return const_cast<TacheSimplePreemptive *>(this)->pBegin(); }
+
     /*!
      * \brief pEnd
      * \return iterator const sur la fin du vector
@@ -126,8 +134,9 @@ public:
     p_const_iterator pEnd() const{ return const_cast<TacheSimplePreemptive *>(this)->pEnd(); }
 
     /*!
-     * \brief getProgrammation permet de trouver une programmation de notre
-     * tâche simple préemptive à partir d'une date et d'un horaire
+     * \brief getProgrammation
+     * Permet de trouver une programmation de notre
+     * tâche simple préemptive à partir d'une date et d'un horaire.
      * \param dateDebut date de la programmation à trouver
      * \param horaireDebut horaire de la programmation à trouver
      * \return pointeur vers un objet de type ProgrammationTacheSimplePreemptive si trouvé, 0 sinon
@@ -136,7 +145,7 @@ public:
 
     /*!
      * \brief exportTo
-     * Permet d'exporter les données dans un fichier XML via le streamwriter
+     * Permet d'exporter les données dans un fichier XML via le streamwriter.
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream);
@@ -144,7 +153,8 @@ public:
     void exportProgrammations(QXmlStreamWriter& stream);
 
     /*!
-     * \brief ~TacheSimplePreemptive destructeur
+     * \brief ~TacheSimplePreemptive
+     * Destructeur.
      */
     virtual ~TacheSimplePreemptive();
 };

@@ -3,10 +3,13 @@
 #include "evenement.h"
 
 /*! \class Reunion
- * \brief Classe permettant de manipuler une réunion en définissant un lieu et un motif. Hérite de la classe Evenement.
+ * \brief Classe permettant de manipuler une réunion en définissant un lieu et un motif.
+ * Hérite de la classe Evenement.
  */
 class Reunion : public Evenement {
+
 public:
+
     /*!
      * \brief Constructeur
      * \param n nom de la réunion
@@ -17,9 +20,7 @@ public:
 
     /*!
      * \brief exportTo
-     *
-     * Permet d'exporter les données dans un fichier XML via le streamwriter
-     *
+     * Permet d'exporter les données dans un fichier XML via le streamwriter.
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream) {

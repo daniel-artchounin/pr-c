@@ -37,13 +37,14 @@ protected :
 
     /*!
      * \brief eraseProgrammation
-     * Permet de mettre le pointeur vers la programmation de tâche simple non préemptive (déjà supprimée) à 0
+     * Permet de mettre le pointeur vers la programmation de tâche simple non préemptive (déjà supprimée) à 0.
      */
     void eraseProgrammation();
 public:
     /*!
-     * \brief TacheSimpleNonPreemptive Constructeur
-     * peut générer une exception
+     * \brief TacheSimpleNonPreemptive
+     * Constructeur.
+     * Peut générer une exception.
      * \param dateD date de disponiblité
      * \param heureD heure de disponiblité
      * \param dateEcheance date d'échéance
@@ -57,7 +58,7 @@ public:
     /*!
      * \brief isEndProgrammationOk permet de vérifier que
      * la tâche a été programmée intégralement et que la fin de la programmation
-     * précéde celle transmise en paramètre
+     * précéde celle transmise en paramètre.
      * \param dateProg date de début de la programmation
      * \param horaireProg horaire de début de la programmation
      * \return vrai si la tâche a été programmé intégralement et que la fin de la programmation
@@ -73,24 +74,21 @@ public:
 
     /*!
      * \brief exportTo
-     *
-     * Permet d'exporter les données dans un fichier XML via le streamwriter
-     *
+     * Permet d'exporter les données dans un fichier XML via le streamwriter.
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream);
 
     /*!
      * \brief exportProgrammations
-     *
-     * Permet d'exporter les programmations de la tache preemptive
-     *
+     * Permet d'exporter les programmations de la tache preemptive.
      * \param stream
      */
     void exportProgrammations(QXmlStreamWriter& stream);
 
     /*!
-     * \brief ~TacheSimpleNonPreemptive destructeur
+     * \brief ~TacheSimpleNonPreemptive
+     * Destructeur
      */
     virtual ~TacheSimpleNonPreemptive();
 };

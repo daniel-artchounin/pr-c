@@ -5,14 +5,21 @@
 
 class TacheSimplePreemptive;
 
+/*! \class ProgrammationTacheSimplePreemptive
+ *  \brief Permet de gérer la programmation des tâches simples préemptives
+ */
 class ProgrammationTacheSimplePreemptive : public ProgrammationTacheSimple {
+
 protected :
+
     unsigned int pourcentage; /*!< pourcentage de la durée que l'on va programmer */
     TacheSimplePreemptive* tacheSimplePreemptive; /*!< pointeur vers la tache simple préemptive que l'on programme */
 
 public:
+
     /*!
-     * \brief ProgrammationTacheSimplePreemptive constructeur
+     * \brief ProgrammationTacheSimplePreemptive
+     * Constructeur.
      * \param dateD date de programmation
      * \param heureD horaire de programmation
      * \param pourc pourcentage de la durée que l'on va programmer
@@ -22,7 +29,7 @@ public:
 
     /*!
      * \brief updateProgrammationTacheSimplePreemptive
-     * Met à jour la programmation actuelle avec la date, l'horaire et la durée donnés
+     * Met à jour la programmation actuelle avec la date, l'horaire et la durée donnés.
      * \param dateD
      * \param heureD
      * \param pourc
@@ -57,13 +64,14 @@ public:
     virtual std::string getNom() const;
 
     /*!
-     * \brief ~ProgrammationTacheSimplePreemptive destructeur
+     * \brief ~ProgrammationTacheSimplePreemptive
+     * Destructeur.
      */
     virtual ~ProgrammationTacheSimplePreemptive();
 
     /*!
      * \brief exportTo
-     * Permet d'exporter les données dans un fichier XML via le streamwriter
+     * Permet d'exporter les données dans un fichier XML via le streamwriter.
      * \param stream
      */
     void exportTo(QXmlStreamWriter& stream);
