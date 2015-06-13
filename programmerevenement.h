@@ -31,8 +31,8 @@ protected :
     QTimeEdit* horaireDebut; /*!< horaire de début */
     QSpinBox* dureeHeure; /*!< duree heure*/
     QSpinBox* dureeMinute; /*!< duree heure*/
-    QHBoxLayout* duree; /*! duree regroupant les spinbox */
-    ProgrammationEvenement* progEvt; /*! progEvt programmation à modifier */
+    QHBoxLayout* duree; /*!< duree regroupant les spinbox */
+    ProgrammationEvenement* progEvt; /*!< progEvt programmation à modifier */
 
     /*!
      * \brief initialiserFormulaire

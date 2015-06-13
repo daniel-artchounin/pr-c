@@ -220,6 +220,8 @@ public:
      * \brief loadListeProgrammations
      * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les programmations des Taches.
      * \param xml
+     * \param tache tache dont il faut charger les programmations
+     * \param preemptive true si preemptive, false sinon
      */
     void loadListeProgrammations(QXmlStreamReader& xml, Tache& tache, bool preemptive);
 

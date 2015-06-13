@@ -68,9 +68,18 @@ protected :
      * \brief loadListePrecedents
      * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les contraintes de précédences des Taches.
      * \param xml
+     * \param arr tableau contenant le chemin du successeur
+     * \param longueur longueur du chemin
+     * \param titre
+     * \return vector contenant le chemin du prédecesseur et du successeur
      */
     std::vector<std::vector<std::string> > loadListePrecedents(QXmlStreamReader &xml, std::string * arr, int longueur, std::string titre);
 
+    /*!
+     * \brief ajouterListePrecedences
+     * Permet d'ajouter une liste contraintes de précédence donnée
+     * \param contraintesPrecedences vector contenant des vector de taille deux contenant le chemin du prédecesseur et du successeur
+     */
     void ajouterListePrecedences(std::vector<std::vector<std::string> > contraintesPrecedences);
 
 public:
@@ -287,6 +296,7 @@ public:
      * \brief loadFrom
      * Permet d'importer les données depuis un fichier XML via le streamreader. Charge les différentes Taches.
      * \param xml
+     * \param vect vector contenant l'arborescence actuelle. Initialiser à vide au début
      */
     void loadFrom(QXmlStreamReader& xml, std::vector<std::string>& vect);
 
