@@ -15,7 +15,7 @@ class TacheSimplePreemptive : public TacheSimple
 
 protected:
     unsigned int pourcentageDejaProgramme;/*!< le pourcentage déjà programmé de la tâche*/
-    typedef std::vector <ProgrammationTacheSimplePreemptive*> PVector;
+    typedef std::vector <ProgrammationTacheSimplePreemptive*> PVector; /*!< définition du type PVector */
     PVector programmationsTachesSimplesPreemptives;  /*!< vector contenant des pointeurs vers les programmations de la tâche simple préemptive */
 
     /*!
@@ -54,6 +54,7 @@ protected:
     void eraseProgrammation(const Date& dateProgrammation, const Horaire& horaireProgrammation);
 
 public:
+
     /**
      * \brief TacheSimpleNonPreemptive Constructeur
      * \param dateD date de disponiblité
@@ -98,7 +99,16 @@ public:
         return Duree((pourcentage * getDuree().getDureeEnMinutes())/100);
     }
 
+    /*!
+     * \brief p_iterator
+     * iterator permettant de parcourir la map.
+     */
     typedef typename PVector::iterator p_iterator;
+
+    /*!
+     * \brief p_const_iterator
+     * const_iterator permettant de parcourir la map.
+     */
     typedef typename PVector::const_iterator p_const_iterator;
 
     /*!

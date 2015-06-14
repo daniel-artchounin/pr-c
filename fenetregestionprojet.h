@@ -183,16 +183,16 @@ public slots:
     void fenetreSupprimerPrecedence();
 
     /*!
-     * \brief supprimerUnElemment
+     * \brief supprimerUnElement
      * Slot permettant de supprimer un élément.
      */
-    void supprimerUnElemment();
+    void supprimerUnElement();
 
     /*!
-     * \brief consulterUnElemment
+     * \brief consulterUnElement
      * Slot permettant d'afficher une interface de consultation d'informations sur un élément.
      */
-    void consulterUnElemment();
+    void consulterUnElement();
 };
 
 #endif // FENETREGESTIONPROJET_H

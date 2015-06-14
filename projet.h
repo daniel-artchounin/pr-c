@@ -26,7 +26,7 @@ protected :
      */
     Tache* trouverTache(const std::string& nomTache)const;
 
-    /**
+    /*!
      * \brief verifierContraintesRespectees
      * Permet de vérifier si la date de début, l'heure de début, la date de fin et l'heure de fin
      * de la tache qui peut etre ultérieurement créée sont cohérentes avec ses potentielles taches composites
@@ -39,6 +39,7 @@ protected :
      * \param heureD heure de disponiblité
      * \param dateF dateEcheance date d'échéance
      * \param heureF heure d'échéance
+     * \param dur durée de la tâche en puissance
      * \return retourne un booleen permettant de savoir si les contraintes sont respectées
      */
     bool verifierContraintesRespectees(const std::string * nomsTaches, unsigned int nbTaches, const Date& dateD,
@@ -73,7 +74,7 @@ protected :
      * \param titre
      * \return vector contenant le chemin du prédecesseur et du successeur
      */
-    std::vector<std::vector<std::string> > loadListePrecedents(QXmlStreamReader &xml, std::string * arr, int longueur, std::string titre);
+    std::vector<std::vector<std::string> > loadListePrecedents(QXmlStreamReader &xml, std::string *arr, int longueur, std::string titre);
 
     /*!
      * \brief ajouterListePrecedences
@@ -83,6 +84,7 @@ protected :
     void ajouterListePrecedences(std::vector<std::vector<std::string> > contraintesPrecedences);
 
 public:
+
     /**
      * \brief Projet Constructeur
      * \param dateD date de disponiblité
@@ -300,6 +302,14 @@ public:
      */
     void loadFrom(QXmlStreamReader& xml, std::vector<std::string>& vect);
 
+    /*!
+     * \brief genererChemin
+     * Méthode static permettant de générer le chemin sous la forme x/y/...
+     * \param nomsTachesComposites1 tableau de tâche composites
+     * \param nbTaches1 la taille de nomsTachesComposites1
+     * \param nomTache1 le titre de la tâche
+     * \return une chaine de caractères représentant le chemin pour accéder à la tâche
+     */
     static std::string genererChemin(const std::string * nomsTachesComposites1, unsigned int nbTaches1,const std::string& nomTache1);
 
     /*!

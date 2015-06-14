@@ -11,13 +11,15 @@
  */
 class InformationsTache : public InformationsElement
 {
-public:
+protected :
 
     QTableWidget* precendentTableWidget; /*!< contiendra l'ensemble des tâches précédant la tâche nous intéressant */
     QTableWidget* suivantTableWidget; /*!< contiendra l'ensemble des tâches succédant la tâche nous intéressant */
     QHBoxLayout* hBoxPrecedent; /*!< pour optimiser la position des contraintes de précédence */
     QHBoxLayout* hBoxSuivant; /*!< pour optimiser la position des contraintes de "suivance"*/
     QVBoxLayout* vBoxPrecedence; /*!< pour optimser la position des blocs matérialisant les contraintes de précédence */
+
+public :
 
     /*!
      * \brief InformationsTache

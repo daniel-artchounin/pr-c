@@ -12,9 +12,10 @@ class Tache : public Element {
 
 protected:
 
-    typedef std::map<std::string, Tache*> TPMap;
-    TPMap tachesPrecedentes; /*!< map de taches */
-    TPMap tachesSuivantes; /*!< map de taches */
+    typedef std::map<std::string, Tache*> TPMap; /*!< définition du type TPMap */
+    typedef std::map<std::string, Tache*> TSMap; /*!< définition du type TSMap */
+    TPMap tachesPrecedentes; /*!< map de taches précédentes */
+    TSMap tachesSuivantes; /*!< map de taches suivantes */
 
     /*!
      * \brief trouverTachePrecedente
@@ -37,12 +38,14 @@ protected:
 public:
 
     /*!
-     * \brief Constructeur
+     * \brief Tache
+     * Constructeur.
      * \param dateD date de disponiblité
      * \param heureD heure de disponiblité
      * \param dateEcheance date d'échéance
      * \param heureEcheance heure d'échéance
      * \param titre titre de la tache
+     * \param dur durée de la tâche
      */
     Tache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
           const Horaire& heureEcheance,const std::string & titre,const Duree& dur=0);
@@ -106,6 +109,7 @@ public:
     /*!
      * \brief ajouterTachePrecedente
      * Ajoute une tâche précédente à la tâche courante.
+     * \param tachePrecedente référence vers la tâche précédente
      * \param cheminementPrecedent chemin de la tache précédente
      * \param cheminementSuivant chemin de la tache suivante
      */
@@ -114,6 +118,7 @@ public:
     /*!
      * \brief ajouterTacheSuivante
      * Ajoute une tâche suivante à la tâche courante.
+     * \param tacheSuivante référence vers la tâche suivante
      * \param cheminementPrecedent chemin de la tache précédente
      * \param cheminementSuivant chemin de la tache suivante
      */
@@ -133,10 +138,29 @@ public:
      */
     void supprimerTacheSuivante(const std::string & tacheSuivante);
 
+    /*!
+     * \brief tp_iterator
+     * iterator permettant de parcourir la map.
+     */
     typedef typename TPMap::iterator tp_iterator;
+
+    /*!
+     * \brief tp_const_iterator
+     * const_iterator permettant de parcourir la map.
+     */
     typedef typename TPMap::const_iterator tp_const_iterator;
-    typedef typename TPMap::iterator ts_iterator;
-    typedef typename TPMap::const_iterator ts_const_iterator;
+
+    /*!
+     * \brief ts_iterator
+     * iterator permettant de parcourir la map.
+     */
+    typedef typename TSMap::iterator ts_iterator;
+
+    /*!
+     * \brief ts_const_iterator
+     * const_iterator permettant de parcourir la map.
+     */
+    typedef typename TSMap::const_iterator ts_const_iterator;
 
     /*!
      * \brief tPBegin

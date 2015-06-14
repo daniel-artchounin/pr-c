@@ -18,7 +18,7 @@ EditerProgrammation::EditerProgrammation(QWidget *parent) : QWidget(parent) {
     hBoxButon=new QHBoxLayout;
     hBoxButon->addWidget(select);
     hBoxButon->addWidget(suppr);
-    vBox->addLayout(hBoxButton);
+    vBox->addLayout(hBoxButon);
     hBox=new QHBoxLayout;
     hBox->addLayout(vBox);
     this->setLayout(hBox);

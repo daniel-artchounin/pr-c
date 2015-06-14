@@ -22,10 +22,11 @@ protected:
 public:
 
     /*!
-     * \brief estDansIntervalle     *
+     * \brief estDansIntervalle
      * Permet de vérifier si une programmation se situe bien dans l'intervalle autorisé (après la disponibilité et avant échéance).
      * \param dateProg date de programmation
      * \param horaireProg horaire de programmation
+     * \param pourcentage le pourcentage que l'on va programmer
      * \return vrai si la programmation se trouve dans l'intervalle ou faux sinon
      */
     bool estDansIntervalle(const Date& dateProg, const Horaire& horaireProg, unsigned int pourcentage = 100) const;
@@ -42,13 +43,13 @@ public:
     Element(const std::string& t, const Date& dateD, const Horaire& horaireD, const Date& dateF, const Horaire& horaireF,const Duree& dur=0):
         titre(t), dateDebut(dateD), horaireDebut(horaireD), dateFin(dateF), horaireFin(horaireF),duree(dur) {
         if( (dateF-dateD)*24*60+(horaireF-horaireD) < (int)(dur.getDureeEnMinutes()) ){
-            throw ElementException("ElementException, la durée est supérieure à l'intervalle entre la disponibilité et l'échéance");
+            throw ElementException("Erreur : la durée est supérieure à l'intervalle entre la disponibilité et l'échéance.");
         }
     }
 
     /*!
      * \brief Desctructeur
-     * Destructeur virtuel pure.
+     * Destructeur virtuel pur.
      */
     virtual ~Element()=0;
 
@@ -107,7 +108,7 @@ public:
     /*!
      * \brief setDuree
      * Mutateur : permet de mettre à jour la durée de l'élément.
-     * \param duree1 la nouvelle durée
+     * \param dur a nouvelle durée
      */
     void setDuree(const Duree& dur){
         duree = dur;

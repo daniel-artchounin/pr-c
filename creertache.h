@@ -5,7 +5,7 @@
 
 /*!
  * \class CreerTache
- * \brief Classe contenant les champs permettant la création d'une tâche
+ * \brief Classe abstraitecontenant les champs permettant la création d'une tâche
  */
 class CreerTache : public CreerProjetTache
 {

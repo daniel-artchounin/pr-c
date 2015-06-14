@@ -18,13 +18,14 @@ protected:
 public:
 
     /*!
-     * \brief TacheSimple Constructeur
+     * \brief TacheSimple
+     * Constructeur.
      * \param dateD date de disponiblité
      * \param heureD heure de disponiblité
      * \param dateEcheance date d'échéance
      * \param heureEcheance heure d'échéance
      * \param titre titre de la tache
-     * \param duree de la tache
+     * \param dur duree de la tache
      */
     TacheSimple(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                 const Horaire& heureEcheance,const std::string & titre,const Duree & dur);

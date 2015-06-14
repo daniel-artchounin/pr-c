@@ -17,8 +17,8 @@ protected :
 
     QPushButton* valider;  /*!< bouton valider */
     QPushButton* annuler;  /*!< bouton annuler */
-    QHBoxLayout* hBoxAnnulerValider;
-    QVBoxLayout* vBox; // pour harmoniser le tout
+    QHBoxLayout* hBoxAnnulerValider; /*!< contient les boutons annuler et valider */
+    QVBoxLayout* vBox; /*!< permet d'harmoniser le widget */
 
     /*!
      * \brief closeEvent

@@ -48,8 +48,8 @@ FenetreGestionProjet::FenetreGestionProjet(QWidget *parent) :
     connect(programmationTacheSimpleNonPreemptive, SIGNAL(triggered()),this, SLOT(fenetreProgrammerTacheSimpleNonPreemptive()));
     connect(ajouterPrecedence, SIGNAL(triggered()),this, SLOT(fenetreAjouterPrecedence()));
     connect(supprimerPrecedence, SIGNAL(triggered()),this, SLOT(fenetreSupprimerPrecedence()));
-    connect(supprimerElement, SIGNAL(triggered()),this, SLOT(supprimerUnElemment()));
-    connect(consulterElement, SIGNAL(triggered()),this, SLOT(consulterUnElemment()));
+    connect(supprimerElement, SIGNAL(triggered()),this, SLOT(supprimerUnElement()));
+    connect(consulterElement, SIGNAL(triggered()),this, SLOT(consulterUnElement()));
 }
 
 void FenetreGestionProjet::afficherTreeWidget(unsigned int profondeur, ProjetManager& projetManager, QTreeWidget* arbre, QTreeWidgetItem * actuel, Element* element){
@@ -309,7 +309,7 @@ void FenetreGestionProjet::fenetreSupprimerPrecedence(){
 
 }
 
-void FenetreGestionProjet::supprimerUnElemment(){
+void FenetreGestionProjet::supprimerUnElement(){
     QTreeWidgetItem * actuel = tree->currentItem();
     QList<QString> cheminement;
     if(actuel == 0){
@@ -347,7 +347,7 @@ void FenetreGestionProjet::supprimerUnElemment(){
     }
 }
 
-void FenetreGestionProjet::consulterUnElemment(){
+void FenetreGestionProjet::consulterUnElement(){
     QTreeWidgetItem * actuel = tree->currentItem();
     QList<QString> cheminement;
     FenetrePrincipale& fenetrePrincipale = FenetrePrincipale::getInstance();

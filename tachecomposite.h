@@ -13,7 +13,7 @@ class TacheComposite : public Manager <Tache>, public Tache
 
 protected :
 
-    /**
+    /*!
      * \brief ajouterSsTache
      * Permet de créer et d'ajouter une sous-tâche à la tache actuelle.
      * Génère une exception si le titre de cette tâche est déjà une sous tâche.
@@ -22,7 +22,9 @@ protected :
      * \param dateEcheance date d'échéance
      * \param heureEcheance heure d'échéance
      * \param titre titre de la tache
-     * \return retourne une référence sur la tâche créée
+     * \param preemptive booléen permettant de savoir si la tâche est préemptive
+     * \param composite booléen permettant de savoir si la tâche est composite
+     * \param dur durée de la tâche
      */
     void ajouterSsTache(const Date& dateD, const Horaire& heureD, const Date& dateEcheance,
                         const Horaire& heureEcheance,const std::string & titre,
